@@ -1,0 +1,42 @@
+{
+  "name": "scrollfuel-website",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@google/genai": "^1.39.0",
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.18",
+    "@uiw/react-md-editor": "^4.0.11",
+    "@uiw/react-textarea-code-editor": "^3.1.1",
+    "axios": "^1.13.4",
+    "dompurify": "^3.3.1",
+    "framer-motion": "^12.28.1",
+    "jodit-react": "^5.3.21",
+    "lottie-react": "^2.4.1",
+    "lucide-react": "^0.562.0",
+    "react": "^19.2.0",
+    "react-countup": "^6.5.3",
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.12.0",
+    "tailwindcss": "^4.1.18"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@locator/babel-jsx": "^0.5.1",
+    "@types/react": "^19.2.5",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint": "^9.39.1",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.4.24",
+    "globals": "^16.5.0",
+    "vite": "^7.2.4"
+  }
+}
