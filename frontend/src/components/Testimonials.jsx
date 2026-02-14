@@ -10,86 +10,92 @@ const Testimonials = () => {
             {
                 id: 1,
                 name: "Mehwish",
-                text: "Compliment interested discretion estimating on stimulated apartments oh.",
+                text: "They gave our brand a clear identity and strong presence. Simple, clean, and impactful work.",
                 img: "./assets/testicon.jpeg",
-                baseBg: "bg-secondary",
-                border: "border-secondary",
-                nameColor: "text-dark",
-                textColor: "text-black",
-                quoteColor: "text-black",
-                imgBorder: "border-black",
+                baseBg: "bg-black",
+                border: "border-primary",
+                nameColor: "text-white",
+                textColor: "text-muted",
+                quoteColor: "text-primary",
+                imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
                 rating: 5,
+                starHoverColor: "text-secondary"
             },
             {
                 id: 2,
                 name: "Elizabeth Jeff",
-                text: "Dear so sing when in find read of call. As distrusts behaviour abilities defective is.",
+                text: "Strategic execution. Measurable growth. Consistent performance",
                 img: "./assets/behance3.png",
-                baseBg: "bg-primary",
+                baseBg: "bg-black",
                 border: "border-primary",
                 nameColor: "text-white",
-                textColor: "text-white",
-                quoteColor: "text-white",
-                imgBorder: "border-white",
-                hoverBg: "bg-secondary",
-                rating: 5,
+                textColor: "text-muted",
+                quoteColor: "text-primary",
+                imgBorder: "border-secondary",
+                hoverBg: "bg-primary",
+                rating: 3,
+                starHoverColor: "text-secondary"
             },
             {
                 id: 3,
                 name: "Emily Thomas",
-                text: "Navor at victor me might. On formed marks hunted unable morally by mr whence or.",
+                text: "Focused strategy. Strong online presence. Consistent performance.",
                 img: "./assets/guide.png",
-                baseBg: "bg-white",
-                border: "border-secondary",
-                nameColor: "text-dark",
+                baseBg: "bg-black",
+                border: "border-primary",
+                nameColor: "text-white",
                 textColor: "text-muted",
-                quoteColor: "text-secondary",
+                quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
-                rating: 4,
+                rating: 1,
+                starHoverColor: "text-secondary"
             },
             {
                 id: 4,
                 name: "Ayesha Khan",
-                text: "Improve ashamed married expense bed her comfort pursuit mrs.",
+                text: "Optimized campaigns. Qualified leads. Measurable ROI.",
                 img: "./assets/testicon.jpeg",
-                baseBg: "bg-primary",
+                baseBg: "bg-black",
                 border: "border-primary",
                 nameColor: "text-white",
-                textColor: "text-white",
-                quoteColor: "text-white",
-                imgBorder: "border-white",
-                hoverBg: "bg-secondary",
-                rating: 5,
+                textColor: "text-muted",
+                quoteColor: "text-primary",
+                imgBorder: "border-secondary",
+                hoverBg: "bg-primary",
+                rating: 2,
+                starHoverColor: "text-secondary"
             },
             {
                 id: 5,
                 name: "Sarah Ali",
-                text: "Dear so sing when in find read of call. As distrusts behaviour abilities defective is.",
+                text: " Our social media profiles now reflect a confident and professional brand image.",
                 img: "./assets/guide.png",
-                baseBg: "bg-secondary",
-                border: "border-secondary",
-                nameColor: "text-dark",
-                textColor: "text-black",
-                quoteColor: "text-black",
-                imgBorder: "border-black",
+                baseBg: "bg-black",
+                border: "border-primary",
+                nameColor: "text-white",
+                textColor: "text-muted",
+                quoteColor: "text-primary",
+                imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
-                rating: 5,
+                rating: 3,
+                starHoverColor: "text-secondary"
             },
             {
                 id: 6,
                 name: "Sar Ali",
-                text: "Barton waited twenty always repair in within we do.",
+                text: "We received regular reports, clear insights, and transparent communication.",
                 img: "./assets/image1.jpg",
-                baseBg: "bg-white",
+                baseBg: "bg-black",
                 border: "border-primary",
-                nameColor: "text-dark",
+                 nameColor: "text-white",
                 textColor: "text-muted",
                 quoteColor: "text-primary",
-                imgBorder: "border-primary",
-                hoverBg: "bg-secondary",
+                imgBorder: "border-secondary",
+                hoverBg: "bg-primary",
                 rating: 4,
+                starHoverColor: "text-secondary"
             },
         ],
         []
@@ -136,14 +142,18 @@ const Testimonials = () => {
     const translateY = index * (CARD_HEIGHT + GAP);
 
     // Star rating component
-    const StarRating = ({ rating }) => {
+    const StarRating = ({ rating, isHovered, activeColor }) => {
         return (
             <div className="flex gap-1">
                 {[...Array(5)].map((_, i) => (
                     <svg
                         key={i}
-                        className={`w-4 h-4 ${i < rating ? "text-secondary fill-current" : "text-muted"
-                            }`}
+                        className={`w-4 h-4 transition-colors duration-300 ${i < rating
+                            ? isHovered
+                                ? activeColor
+                                : "text-secondary"
+                            : "text-muted"
+                            } fill-current`}
                         viewBox="0 0 20 20"
                     >
                         <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
@@ -152,6 +162,7 @@ const Testimonials = () => {
             </div>
         );
     };
+
 
     return (
         <section className="w-full bg-black py-20 relative overflow-hidden">
@@ -303,13 +314,18 @@ const Testimonials = () => {
 
                                                     {/* Star rating */}
                                                     <div className="mb-2 group-hover:scale-110 transition-transform duration-300 origin-left">
-                                                        <StarRating rating={item.rating} />
+                                                        <StarRating
+                                                            rating={item.rating}
+                                                            isHovered={hoveredCard === i}
+                                                            activeColor={item.starHoverColor}
+                                                        />
+
                                                     </div>
 
                                                     <p
                                                         className={`
                                                             leading-relaxed
-                                                            text-[11px] md:text-xs
+                                                            text-[25px] md:text-xs
                                                             line-clamp-2
                                                             ${item.textColor}
                                                             group-hover:text-white transition-colors duration-300

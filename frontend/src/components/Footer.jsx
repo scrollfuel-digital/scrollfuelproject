@@ -23,51 +23,23 @@ const Footer = () => {
                     </div>
 
                     {/* SOCIAL ICONS */}
-                    {/* <div className="flex flex-col items-end gap-4 mr-4 mb-5">
-
-                        <div className="flex flex-row items-center gap-3 md:flex-row md:gap-3">
-
-                            <a href="https://www.instagram.com/scrollfuel/" target="_blank" className="cursor-pointer">
-                                <img src="/assets/instagram1.png" alt="" className="w-8 h-10 object-contain" />
-                            </a>
-                            <a href="https://www.youtube.com/@ScrollfuelOfficial" target="_blank" className="cursor-pointer">
-                                <img src="/assets/youtube.png" alt="" className="w-10 h-10 object-contain" />
-                            </a>
-
-                            <a href="https://www.facebook.com/scrollfuel.nagpur" target="_blank" className="cursor-pointer">
-                                <img src="/assets/facebook5.png" alt="" className="w-8 h-10 object-contain" />
-                            </a>
-
-                            <a href="https://www.behance.net/scrollfuel60b4" target="_blank" className="cursor-pointer">
-                                <img src="/assets/behance3.png" alt="" className="w-10 h-10 object-contain" />
-                            </a>
-
-                            <a href="https://www.linkedin.com/company/scrollfuel/" target="_blank" className="cursor-pointer">
-                                <img src="/assets/linkdin2.png" alt="" className="w-8 h-10 object-contain" />
-                            </a>
-                            <a href="https://in.pinterest.com/scrollfuel/_created/" target="_blank" className="cursor-pointer">
-                                <img src="/assets/download (1).png" alt="" className="w-10 h-12 object-contain" />
-                            </a>
-
-                        </div>
-                    </div> */}
-                    <div className="flex flex-col items-end gap-4 mr-4 mb-5">
-                        <div className="flex items-center gap-4">
-
+                    
+                    <div className="flex flex-col items-end  mr-4 mb-5">
+                        <div className="flex items-center">
                             {[
-                                { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/instagram1.png" },
-                                { href: "https://www.youtube.com/@ScrollfuelOfficial", icon: "/assets/youtube.png" },
-                                { href: "https://www.facebook.com/scrollfuel.nagpur", icon: "/assets/facebook5.png" },
-                                { href: "https://www.behance.net/scrollfuel60b4", icon: "/assets/behance3.png" },
-                                { href: "https://www.linkedin.com/company/scrollfuel/", icon: "/assets/linkdin2.png" },
-                                { href: "https://in.pinterest.com/scrollfuel/_created/", icon: "/assets/download (1).png" }
+                                { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/logo/instagram3.png" },
+                                { href: "https://www.youtube.com/@ScrollfuelOfficial", icon: "/assets/logo/youtube5.png" },
+                                { href: "https://www.facebook.com/scrollfuel.nagpur", icon: "/assets/logo/facebook1.png" },
+                                { href: "https://www.behance.net/scrollfuel60b4", icon: "/assets/logo/behance1.png" },
+                                { href: "https://www.linkedin.com/company/scrollfuel/", icon: "/assets/logo/linkdin1.png" },
+                                { href: "https://in.pinterest.com/scrollfuel/_created/", icon: "/assets/logo/pinterest1.png" }
                             ].map((item, index) => (
                                 <a
                                     key={index}
                                     href={item.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="w-10 h-10 flex items-center justify-center"
+                                    className="w-14 h-14 flex items-center justify-center"
                                 >
                                     <img
                                         src={item.icon}
@@ -76,7 +48,6 @@ const Footer = () => {
                                     />
                                 </a>
                             ))}
-
                         </div>
                     </div>
 

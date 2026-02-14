@@ -23,16 +23,14 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutUs />} />
         <Route path="/aboutus" element={<AboutUsPage />} />
-        {/* <Route path="/services/:slug" element={<Service />} /> */}
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:id" element={<BlogDetails />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/career" element={<Career />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/services">
-          <Route index element={<ServicesFixed />} />
-          <Route path=":slug" element={<Service />} />
-        </Route>
+        <Route path="/services" element={<ServicesFixed />} />
+        <Route path="/services/:slug" element={<ServicesFixed />} />
+
         {/* admin */}
         <Route path="/admin/create-blog" element={<AdminCreateBlog />} />
         <Route path="/admin/auth" element={<AuthPage />} />
