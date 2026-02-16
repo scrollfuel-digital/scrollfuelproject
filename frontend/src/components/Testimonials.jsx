@@ -89,7 +89,7 @@ const Testimonials = () => {
                 img: "./assets/image1.jpg",
                 baseBg: "bg-black",
                 border: "border-primary",
-                 nameColor: "text-white",
+                nameColor: "text-white",
                 textColor: "text-muted",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
@@ -321,29 +321,18 @@ const Testimonials = () => {
                                                         />
 
                                                     </div>
-{/* 
+
                                                     <p
                                                         className={`
-                                                            leading-relaxed
-                                                            text-[25px] md:text-xs
-                                                            line-clamp-2
-                                                            ${item.textColor}
-                                                            group-hover:text-white transition-colors duration-300
-                                                        `}
-                                                    >
-                                                        {item.text}
-                                                    </p> */}
-                                                    <p
-  className={`
     leading-relaxed
     text-[10px] sm:text-xs md:text-sm
     line-clamp-2
     ${item.textColor}
     group-hover:text-white transition-colors duration-300
   `}
->
-  {item.text}
-</p>
+                                                    >
+                                                        {item.text}
+                                                    </p>
 
                                                 </div>
 

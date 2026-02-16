@@ -323,7 +323,7 @@ const HeroSection = ({ servicesRef }) => {
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: showContent ? 1 : 0, scale: showContent ? 1 : 0.8 }}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        className="px-6 py-2 border-2 border-primary rounded-full backdrop-blur-sm"
+                        className="px-6 py-2 mt-20 border-2 border-primary rounded-full backdrop-blur-sm"
                         style={{ background: 'rgba(139, 197, 63, 0.15)' }}
                     >
                         <span className="text-sm md:text-base font-medium text-primary">
