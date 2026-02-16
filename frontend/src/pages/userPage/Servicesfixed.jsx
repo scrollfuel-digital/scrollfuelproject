@@ -31,11 +31,7 @@ const HeroSection = ({ servicesRef }) => {
     };
     return (
         // <div className="relative w-full h-screen overflow-hidden bg-black">
-        // <div ref={heroRef} className="relative w-full h-screen overflow-hidden bg-black">
-        <div ref={heroRef}
-            //  className="relative w-full min-h-screen lg:h-screen overflow-hidden bg-black"
-            className="relative z-20 min-h-screen lg:h-full flex items-center lg:items-center justify-center px-6 py-24 lg:py-0"
-        >
+        <div ref={heroRef} className="relative w-full h-screen overflow-hidden bg-black">
             {/* Animated Background Layer */}
             <div className="absolute inset-0 z-0">
                 {/* Base gradient */}
@@ -320,18 +316,14 @@ const HeroSection = ({ servicesRef }) => {
                 transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                 className="relative z-20 h-full flex items-center justify-center px-6 "
             >
-                <div 
-                // className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7 sm:mt-20"
-                className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7"
-                >
+                <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7">
 
                     {/* Subtitle Badge */}
                     <motion.div
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={{ opacity: showContent ? 1 : 0, scale: showContent ? 1 : 0.8 }}
                         transition={{ delay: 0.1, duration: 0.8 }}
-                        // className="px-6 py-2 mt-20 border-2 border-primary rounded-full backdrop-blur-sm"
-                        className="px-4 sm:px-6 py-2 border-2 border-primary rounded-full backdrop-blur-sm"
+                        className="px-6 py-2 border-2 border-primary rounded-full backdrop-blur-sm"
                         style={{ background: 'rgba(139, 197, 63, 0.15)' }}
                     >
                         <span className="text-sm md:text-base font-medium text-primary">
@@ -343,9 +335,8 @@ const HeroSection = ({ servicesRef }) => {
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 30 }}
-                        transition={{ delay: 0.4, duration: 0.8 }}
-                        // className="text-5xl md:text-7xl lg:text-6xl font-bold leading-tight"
-                        className="text-3xl sm:text-5xl md:text-7xl font-bold leading-tight"
+                       transition={{ delay: 0.4, duration: 0.8 }}
+                        className="text-5xl md:text-7xl lg:text-6xl font-bold leading-tight"
                     >
                         Our{" "}
                         <span className="relative inline-block">
@@ -366,9 +357,7 @@ const HeroSection = ({ servicesRef }) => {
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        // className="text-white/90 text-lg md:text-xl lg:text-xl leading-relaxed max-w-4xl font-light"
-                        className="text-white/90 text-base sm:text-lg md:text-xl"
-
+                        className="text-white/90 text-lg md:text-xl lg:text-xl leading-relaxed max-w-4xl font-light"
                     >
                         At ScrollFuel, we create digital solutions that go beyond visuals.
                         Our work helps brands communicate clearly, connect with the right
@@ -376,7 +365,7 @@ const HeroSection = ({ servicesRef }) => {
                     </motion.p>
 
                     {/* Stats Row */}
-
+                  
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
@@ -422,7 +411,7 @@ const HeroSection = ({ servicesRef }) => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
-                        transition={{ delay: 1, duration: 0.8 }}
+                       transition={{ delay: 1, duration: 0.8 }}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-6 w-full max-w-md"
                     >
                         <motion.button
