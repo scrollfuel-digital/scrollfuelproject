@@ -593,6 +593,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import DOMPurify from "dompurify";
+import ReactMarkdown from "react-markdown";
 
 const API_BASE = "http://127.0.0.1:8000";
 
@@ -603,35 +605,6 @@ const safeParse = (data) => {
   } catch {
     return [];
   }
-};
-
-/* -------- FORMAT BLOG CONTENT INTO SECTIONS -------- */
-const formatContent = (content) => {
-  if (!content) return [];
-
-  return content.split("\n").map((line, i) => {
-    const trimmed = line.trim();
-
-    if (!trimmed) return null;
-
-    // Detect headings
-    if (
-      trimmed.length > 40 &&
-      trimmed === trimmed.toUpperCase()
-    ) {
-      return (
-        <h2 key={i} className="text-2xl font-bold mt-8 mb-3 text-dark">
-          {trimmed}
-        </h2>
-      );
-    }
-
-    return (
-      <p key={i} className="text-gray-700 leading-relaxed mb-4">
-        {trimmed}
-      </p>
-    );
-  });
 };
 
 const BlogDetails = () => {
@@ -680,21 +653,35 @@ const BlogDetails = () => {
 
   return (
     <section className="bg-gray-50 min-h-screen pb-24">
+
       {/* ================= HERO ================= */}
-      <div className="bg-linear-to-br from-primary via-[#9dd147] to-secondary text-dark">
-        <div className="max-w-5xl mx-auto px-6 pt-32 pb-20">
+      <div
+        className="relative min-h-200 flex items-center"
+        style={{
+          backgroundImage: blog.hero_image
+            ? `url(${API_BASE}${blog.hero_image})`
+            : `url("/assets/blog.jpeg")`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        {/* Dark Overlay */}
+        <div className="absolute inset-0 bg-black/60"></div>
+
+        {/* Content */}
+        <div className="relative max-w-5xl mx-auto px-6 pt-32 pb-20 text-white z-10">
           <button
             onClick={() => navigate(-1)}
-            className="mb-6 text-dark/70 hover:text-dark"
+            className="mb-96 text-white/80 hover:text-white"
           >
             ← Back to Blogs
           </button>
 
-          <h1 className="text-4xl md:text-5xl font-black mt-4 leading-tight">
+          <h1 className="text-4xl md:text-5xl font-black pb-20 leading-tight">
             {blog.title}
           </h1>
 
-          <p className="mt-5 text-lg text-dark/80 font-medium">
+          <p className="mt-5 text-lg text-white/90 font-medium max-w-3xl">
             {blog.description}
           </p>
         </div>
@@ -707,9 +694,23 @@ const BlogDetails = () => {
         <div className="space-y-10">
 
           {/* CONTENT CARD */}
+          {/* <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
+            <div
+              className="prose prose-lg max-w-none 
+                         prose-headings:text-dark 
+                         prose-p:text-gray-700 
+                         prose-li:text-gray-700 
+                         prose-strong:text-dark"
+              dangerouslySetInnerHTML={{
+                __html: DOMPurify.sanitize(blog.content),
+              }}
+            />
+          </div> */}
           <div className="bg-white p-8 rounded-xl shadow-sm border border-gray-200">
-            <div className="prose max-w-none">
-              {formatContent(blog.content)}
+            <div className="prose prose-lg max-w-none prose-headings:text-primary">
+              <ReactMarkdown>
+                {blog.content}
+              </ReactMarkdown>
             </div>
           </div>
 
@@ -759,7 +760,10 @@ const BlogDetails = () => {
               <h3 className="font-bold mb-4">Keywords</h3>
               <div className="flex flex-wrap gap-2">
                 {keywords.map((k, i) => (
-                  <span key={i} className="bg-primary/10 px-3 py-1 rounded text-sm">
+                  <span
+                    key={i}
+                    className="bg-primary/10 px-3 py-1 rounded text-sm"
+                  >
                     {k}
                   </span>
                 ))}
@@ -773,3 +777,4 @@ const BlogDetails = () => {
 };
 
 export default BlogDetails;
+

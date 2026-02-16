@@ -316,7 +316,7 @@ const HeroSection = ({ servicesRef }) => {
                 transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                 className="relative z-20 h-full flex items-center justify-center px-6 "
             >
-                <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7">
+                <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7 sm:mt-20">
 
                     {/* Subtitle Badge */}
                     <motion.div

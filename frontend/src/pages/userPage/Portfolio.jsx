@@ -9,81 +9,81 @@ const projects = [
     id: 1,
     title: "Marketing",
     category: "Marketing",
-    cover: "/assets/illustrations/seo.png",
+    cover: "/assets/hero/branding.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/content.jpeg",
+      "/assets/hero/content.jpeg",
+      "/assets/hero/content.jpeg",
     ],
   },
   {
     id: 7,
     title: "Marketing",
     category: "Marketing",
-    cover: "/assets/illustrations/seo.png",
+    cover: "/assets/hero/content.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/branding.jpeg",
+      "/assets/hero/branding.jpeg",
+      "/assets/hero/branding.jpeg",
     ],
   },
   {
     id: 8,
     title: "Marketing",
     category: "Marketing",
-    cover: "/assets/illustrations/seo.png",
+    cover: "/assets/hero/seo.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/content.jpeg",
+      "/assets/hero/content.jpeg",
+      "/assets/hero/content.jpeg",
     ],
   },
   {
     id: 2,
     title: "Brand Identity Design",
-    category: "Brand Identity Design",
-    cover: "/assets/illustrations/brand.png",
+    category: "Branding",
+    cover: "/assets/hero/social.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
     ],
   },
   {
     id: 3,
     title: "Logo Designing",
     category: "Logo Designing",
-    cover: "/assets/ai1.jpg",
-    gallery: ["/assets/ai1.jpg", "/assets/ai2.jpg"],
+    cover: "/assets/hero/seo.jpeg",
+    gallery: ["/assets/hero/seo.jpeg", "/assets/hero/seo.jpeg"],
   },
   {
     id: 4,
     title: "Social Media",
     category: "Social Media",
-    cover: "/assets/illustrations/seo.png",
+    cover: "/assets/hero/seo.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
     ],
   },
   {
     id: 5,
     title: "3D Work",
     category: "3D Work",
-    cover: "/assets/illustrations/brand.png",
+    cover: "/assets/hero/seo.jpeg",
     gallery: [
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
-      "/assets/illustrations/brand.png",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
+      "/assets/hero/seo.jpeg",
     ],
   },
   {
     id: 6,
     title: "AI Automation System",
-    category: "AI Automation System",
-    cover: "/assets/ai1.jpg",
-    gallery: ["/assets/ai1.jpg", "/assets/ai2.jpg"],
+    category: "Animation",
+    cover: "/assets/hero/seo.jpeg",
+    gallery: ["/assets/hero/seo.jpeg", "/assets/hero/seo.jpeg"],
   },
 ];
 
@@ -94,6 +94,7 @@ export default function Portfolio() {
   const [activeProject, setActiveProject] = useState(null);
   const [activeImage, setActiveImage] = useState(null);
   const [page, setPage] = useState(0);
+  const [direction, setDirection] = useState(0);
 
   const filters = [
     "All",
@@ -109,8 +110,6 @@ export default function Portfolio() {
       ? projects
       : projects.filter((p) => p.category === activeFilter);
 
-  /* ----------- SLIDER LOGIC ----------- */
-
   const cardsPerPage = 3;
   const totalPages = Math.ceil(filteredProjects.length / cardsPerPage);
 
@@ -122,10 +121,9 @@ export default function Portfolio() {
     if (page > 0) setPage(page - 1);
   };
 
-
-
   return (
-    <div className="bg-dark text-white min-h-screen px-6 md:px-16 py-20">
+    <div
+      className="bg-dark text-white min-h-screen px-6 md:px-16 py-20">
 
       {/* TITLE */}
       <h1 className="text-5xl font-bold text-center mb-12">
@@ -155,7 +153,6 @@ export default function Portfolio() {
 
       <div className="relative">
 
-        {/* SLIDER WRAPPER */}
         <div className="overflow-hidden">
 
           <motion.div
@@ -169,10 +166,7 @@ export default function Portfolio() {
                 className="min-w-full grid md:grid-cols-3 gap-10 px-2"
               >
                 {filteredProjects
-                  .slice(
-                    index * cardsPerPage,
-                    index * cardsPerPage + cardsPerPage
-                  )
+                  .slice(index * cardsPerPage, index * cardsPerPage + cardsPerPage)
                   .map((project) => (
                     <motion.div
                       key={project.id}
@@ -187,7 +181,7 @@ export default function Portfolio() {
                       />
 
                       <div className="p-5">
-                        <h3 className="text-xl font-semibold text-dark group-hover:text-primary transition">
+                        <h3 className="text-xl font-semibold text-primary group-hover:text-primary transition">
                           {project.title}
                         </h3>
                         <p className="text-muted text-sm">
@@ -199,10 +193,8 @@ export default function Portfolio() {
               </div>
             ))}
           </motion.div>
-
         </div>
 
-        {/* PREV BUTTON */}
         {page > 0 && (
           <button
             onClick={prevSlide}
@@ -212,7 +204,6 @@ export default function Portfolio() {
           </button>
         )}
 
-        {/* NEXT BUTTON */}
         {page < totalPages - 1 && (
           <button
             onClick={nextSlide}
@@ -223,11 +214,11 @@ export default function Portfolio() {
         )}
       </div>
 
-      {/* ---------------- GALLERY MODAL (UNCHANGED LOGIC) ---------------- */}
+      {/* ---------------- GALLERY MODAL ---------------- */}
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            className="fixed inset-0 bg-dark/95 z-50 p-10 overflow-auto"
+            className="fixed inset-0 bg-black/40 backdrop-blur-lg z-50 p-10 overflow-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -237,7 +228,7 @@ export default function Portfolio() {
                 setActiveProject(null);
                 setActiveImage(null);
               }}
-              className="absolute top-6 right-6 bg-primary text-dark p-3 rounded-full shadow-primary"
+              className="absolute top-6 right-6 text-white pt-23 rounded-full"
             >
               <X size={22} />
             </button>
@@ -245,8 +236,7 @@ export default function Portfolio() {
             <h2 className="text-4xl font-bold text-center mb-10 text-primary">
               {activeProject.title}
             </h2>
-
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
               {activeProject.gallery.map((img, i) => (
                 <div
                   key={i}
@@ -255,14 +245,83 @@ export default function Portfolio() {
                 >
                   <img
                     src={img}
-                    className="w-full h-full object-cover hover:scale-110 transition"
+                    className="w-full h-40 md:h-48 object-cover hover:scale-110 transition duration-300"
                   />
                 </div>
               ))}
             </div>
+
+            <AnimatePresence>
+              {activeImage !== null && (
+                <motion.div
+                  className="fixed inset-0 bg-black/95 flex items-center justify-center z-60 overflow-hidden"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {/* CLOSE BUTTON */}
+                  <button
+                    onClick={() => setActiveImage(null)}
+                    className="absolute top-6 right-6 text-white pt-23 rounded-full z-20"
+                  >
+                    <X size={22} />
+                  </button>
+
+                  {/* LEFT BUTTON */}
+                  {activeImage > 0 && (
+                    <button
+                      onClick={() => {
+                        setDirection(-1);
+                        setActiveImage(activeImage - 1);
+                      }}
+                      className="absolute left-10 bg-primary text-dark p-3 rounded-full z-20"
+                    >
+                      <ChevronLeft size={28} />
+                    </button>
+                  )}
+
+                  {/* RIGHT BUTTON */}
+                  {activeImage < activeProject.gallery.length - 1 && (
+                    <button
+                      onClick={() => {
+                        setDirection(1);
+                        setActiveImage(activeImage + 1);
+                      }}
+                      className="absolute right-10 bg-primary text-dark p-3 rounded-full z-20"
+                    >
+                      <ChevronRight size={28} />
+                    </button>
+                  )}
+
+                  {/* IMAGE CONTAINER */}
+                  <div className="relative flex items-center justify-center w-full h-full">
+                    <AnimatePresence mode="wait" custom={direction}>
+                      <motion.img
+                        key={activeImage}
+                        src={activeProject.gallery[activeImage]}
+                        custom={direction}
+                        className="max-h-[80vh] max-w-[90vw] object-contain rounded-2xl absolute"
+                        initial={(direction) => ({
+                          x: direction > 0 ? 400 : -400,
+                          opacity: 0,
+                        })}
+                        animate={{ x: 0, opacity: 1 }}
+                        exit={(direction) => ({
+                          x: direction > 0 ? -400 : 400,
+                          opacity: 0,
+                        })}
+                        transition={{ duration: 0.4, ease: "easeInOut" }}
+                      />
+                    </AnimatePresence>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
           </motion.div>
         )}
       </AnimatePresence>
+
     </div>
   );
 }

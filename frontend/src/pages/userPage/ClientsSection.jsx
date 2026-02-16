@@ -24,15 +24,15 @@ const logos = [
     "/assets/ClientLogo/houscrol1.png",
     "/assets/ClientLogo/aryanllogo.png",
     "/assets/ClientLogo/ayodhabhumi.png",
-     "/assets/ClientLogo/seven.png",
+    "/assets/ClientLogo/seven.png",
     "/assets/ClientLogo/aakar.png",
     "/assets/ClientLogo/goodwill.png",
     "/assets/ClientLogo/venya.png",
     "/assets/ClientLogo/switch.png",
     "/assets/ClientLogo/axon.png",
     "/assets/ClientLogo/archi.png",
-   
-    
+
+
 ];
 
 const ClientsSection = React.forwardRef((props, ref) => {
@@ -112,10 +112,21 @@ const ClientsSection = React.forwardRef((props, ref) => {
                         className="flex w-max gap-15"
                     >
                         {[...logos, ...logos].map((logo, index) => (
+                            // <div
+                            //     key={index}
+                            //     className="flex items-center justify-center w-35 h-35"
+                            // >
                             <div
                                 key={index}
-                                className="flex items-center justify-center w-35 h-35"
+                                className="
+                                        flex items-center justify-center
+                                        w-16 h-16        
+                                        sm:w-20 sm:h-20  
+                                        md:w-24 md:h-24  
+                                        lg:w-28 lg:h-28  
+                                    "
                             >
+
                                 <img
                                     src={logo}
                                     alt="Client logo"

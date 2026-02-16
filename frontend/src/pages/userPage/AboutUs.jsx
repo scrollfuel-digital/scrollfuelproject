@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { useNavigate } from "react-router-dom";
+
 import {
     Target,
     Eye,
@@ -120,6 +122,7 @@ const AboutUsPage = () => {
     const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
     const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
+    const navigate = useNavigate();
 
     // Background floating icons
     const backgroundIcons = [
@@ -334,7 +337,7 @@ const AboutUsPage = () => {
                                                     custom={wordIndex * 5 + letterIndex}
                                                     variants={letterAnimation}
                                                     className={word === highlightWord ? 'text-primary inline-block' : 'inline-block'}
-                                                   
+
                                                 >
                                                     {letter}
                                                 </motion.span>
@@ -384,7 +387,10 @@ const AboutUsPage = () => {
                                 whileTap={{ scale: 0.95 }}
                                 className="group relative px-8 py-4 bg-primary text-black font-semibold rounded-full overflow-hidden transition-all duration-300"
                             >
-                                <span className="relative z-10 flex items-center gap-2">
+                                <button
+                                    onClick={() => navigate("/contact")}
+                                    className="relative z-10 flex items-center gap-2"
+                                >
                                     Get Started
                                     <motion.span
                                         animate={{ y: [0, -6, 0, 6, 0] }}
@@ -392,7 +398,8 @@ const AboutUsPage = () => {
                                     >
                                         <ArrowDown size={20} />
                                     </motion.span>
-                                </span>
+                                </button>
+
                                 <motion.div
                                     className="absolute inset-0 bg-secondary"
                                     initial={{ x: '-100%' }}
@@ -570,7 +577,7 @@ const AboutUsPage = () => {
                                         Our Mission
                                     </h2>
                                     <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
-                                       To lead digital transformation by helping brands scale faster, dominate markets, and achieve sustainable growth through innovation, data, and strategy.
+                                        To lead digital transformation by helping brands scale faster, dominate markets, and achieve sustainable growth through innovation, data, and strategy.
                                     </p>
                                 </div>
                             </div>

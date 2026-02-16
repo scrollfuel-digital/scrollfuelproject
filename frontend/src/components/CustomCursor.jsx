@@ -2,10 +2,11 @@ import { motion, useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const CustomCursor = () => {
+    const [isMobile, setIsMobile] = useState(false);
+
     const cursorX = useMotionValue(0);
     const cursorY = useMotionValue(0);
 
-    // Smooth spring animation
     const springConfig = { damping: 25, stiffness: 300 };
     const cursorXSpring = useSpring(cursorX, springConfig);
     const cursorYSpring = useSpring(cursorY, springConfig);
@@ -13,6 +14,22 @@ const CustomCursor = () => {
     const [isHovering, setIsHovering] = useState(false);
 
     useEffect(() => {
+        // Detect touch device
+        const checkMobile = () => {
+            setIsMobile(
+                "ontouchstart" in window || navigator.maxTouchPoints > 0
+            );
+        };
+
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+
+        return () => window.removeEventListener("resize", checkMobile);
+    }, []);
+
+    useEffect(() => {
+        if (isMobile) return; // Stop everything on mobile
+
         const moveCursor = (e) => {
             cursorX.set(e.clientX - 12);
             cursorY.set(e.clientY - 12);
@@ -37,11 +54,12 @@ const CustomCursor = () => {
                 el.removeEventListener("mouseleave", handleMouseLeave);
             });
         };
-    }, [cursorX, cursorY]);
+    }, [cursorX, cursorY, isMobile]);
+
+    if (isMobile) return null; // Hide cursor completely on mobile
 
     return (
         <>
-            {/* Outer Ring */}
             <motion.div
                 className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 pointer-events-none z-9999"
                 style={{
@@ -50,12 +68,13 @@ const CustomCursor = () => {
                 }}
                 animate={{
                     scale: isHovering ? 1.8 : 1,
-                    borderColor: isHovering ? "var(--color-green)" : "var(--color-yellow)",
+                    borderColor: isHovering
+                        ? "var(--color-green)"
+                        : "var(--color-yellow)",
                 }}
                 transition={{ type: "spring", stiffness: 300 }}
             />
 
-            {/* Inner Dot */}
             <motion.div
                 className="fixed top-0 left-0 w-2 h-2 rounded-full pointer-events-none z-9999"
                 style={{
