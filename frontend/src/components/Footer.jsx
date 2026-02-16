@@ -24,7 +24,7 @@ const Footer = () => {
 
                     {/* SOCIAL ICONS */}
                     
-                    <div className="flex flex-col items-end  mr-4 mb-5">
+                    <div className="flex flex-col items-end  mr-4 mb-4 md:mt-10">
                         <div className="flex items-center">
                             {[
                                 { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/logo/instagram3.png" },
