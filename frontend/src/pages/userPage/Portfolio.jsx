@@ -233,7 +233,7 @@ export default function Portfolio() {
               <X size={22} />
             </button>
 
-            <h2 className="text-4xl font-bold text-center mb-10 text-primary">
+            <h2 className="text-4xl font-bold text-center mt-30 mb-10 text-primary">
               {activeProject.title}
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
