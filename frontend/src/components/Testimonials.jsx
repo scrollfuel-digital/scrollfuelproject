@@ -321,7 +321,7 @@ const Testimonials = () => {
                                                         />
 
                                                     </div>
-
+{/* 
                                                     <p
                                                         className={`
                                                             leading-relaxed
@@ -332,7 +332,19 @@ const Testimonials = () => {
                                                         `}
                                                     >
                                                         {item.text}
-                                                    </p>
+                                                    </p> */}
+                                                    <p
+  className={`
+    leading-relaxed
+    text-[10px] sm:text-xs md:text-sm
+    line-clamp-2
+    ${item.textColor}
+    group-hover:text-white transition-colors duration-300
+  `}
+>
+  {item.text}
+</p>
+
                                                 </div>
 
                                                 {/* Quote icon with animation */}
