@@ -7,29 +7,84 @@ const countWords = (text) => {
 };
 
 /* ================= CREATE BLOG ================= */
+// const createBlog = async (req, res) => {
+//     try {
+//         const { title, content, keyword } = req.body;
+
+//         // Validate content
+//         if (!content || countWords(content) < 5) {
+//             return res.status(400).json({
+//                 error: "Content must contain at least 5 words",
+//             });
+//         }
+
+//         // Validate title
+//         if (!title || countWords(title) < 3) {
+//             return res.status(400).json({
+//                 error: "Title must contain at least 3 words",
+//             });
+//         }
+
+//         const blog = new BlogModel({
+//             title,
+//             content,
+//             keyword,
+//             image: req.file ? `/uploads/${req.file.filename}` : "",
+//         });
+
+//         const savedBlog = await blog.save();
+
+//         res.status(201).json({
+//             success: true,
+//             message: "Blog created successfully",
+//             data: savedBlog,
+//         });
+
+//     } catch (error) {
+//         res.status(500).json({
+//             success: false,
+//             error: error.message,
+//         });
+//     }
+// };
+
 const createBlog = async (req, res) => {
     try {
-        const { title, content, keyword } = req.body;
+        const {
+            title,
+            content,
+            description,
+            keywords,
+            sub_points,
+            faqs,
+        } = req.body;
 
-        // Validate content
-        if (!content || countWords(content) < 5) {
-            return res.status(400).json({
-                error: "Content must contain at least 5 words",
-            });
-        }
+        /* ---------------- VALIDATION ---------------- */
 
-        // Validate title
-        if (!title || countWords(title) < 3) {
+        if (!title || title.trim().split(/\s+/).length < 3) {
             return res.status(400).json({
                 error: "Title must contain at least 3 words",
             });
         }
 
+        if (!content || content.trim().split(/\s+/).length < 5) {
+            return res.status(400).json({
+                error: "Content must contain at least 5 words",
+            });
+        }
+
+        /* ---------------- CREATE BLOG ---------------- */
+
         const blog = new BlogModel({
-            title,
-            content,
-            keyword,
-            image: req.file ? `/uploads/${req.file.filename}` : "",
+            title: title.trim(),
+            description: description || "",
+            content, // ✅ SAVE MARKDOWN DIRECTLY
+            keywords: keywords ? JSON.parse(keywords) : [],
+            sub_points: sub_points ? JSON.parse(sub_points) : [],
+            faqs: faqs ? JSON.parse(faqs) : [],
+            image: req.files?.image
+                ? `/uploads/${req.files.image[0].filename}`
+                : "",
         });
 
         const savedBlog = await blog.save();
@@ -47,7 +102,6 @@ const createBlog = async (req, res) => {
         });
     }
 };
-
 
 /* ================= GET ALL BLOGS ================= */
 const getBlogs = async (req, res) => {
