@@ -315,7 +315,7 @@ const HeroSection = ({ servicesRef }) => {
                 animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 50 }}
                 transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                 // className="relative z-20 h-full flex items-center justify-center px-6 "
-                className="relative z-20 h-full flex items-start md:items-center justify-center px-6 pt-150 md:pt-0"
+                className="relative z-20 h-full flex items-start md:items-center justify-center px-6 pt-80 md:pt-0"
 
             >
                 <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7">
