@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
-import axios from "axios";
 
+const API = import.meta.env.VITE_API_URL;
 export default function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -50,8 +50,8 @@ export default function AuthPage() {
 
     try {
       const url = isLogin
-        ? "http://127.0.0.1:8000/api/admin/login"
-        : "http://127.0.0.1:8000/api/admin/signup";
+        ? `${API}/api/admin/login`
+        : `${API}/api/admin/signup`;
 
       const payload = isLogin
         ? {
@@ -64,24 +64,36 @@ export default function AuthPage() {
           password: formData.password,
         };
 
-      const res = await axios.post(url, payload);
+      const res = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.msg || "Something went wrong");
+      }
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
 
       setFormData({
         username: "",
         email: "",
-        password: ""
+        password: "",
       });
 
-      console.log(res.data);
-
+      console.log(data);
 
     } catch (error) {
-      alert(error.response?.data?.msg || "Something went wrong");
+      alert(error.message);
     }
   };
+
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -96,8 +108,7 @@ export default function AuthPage() {
   };
   {/* Social login buttons */ }
   const googleLogin = () => {
-    window.open("http://localhost:8000/api/admin/google", "_self");
-
+   window.open(`${API}/api/admin/google`, "_self");
   };
 
   return (

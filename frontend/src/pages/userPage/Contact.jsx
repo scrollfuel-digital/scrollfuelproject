@@ -1,9 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle } from "lucide-react";
 import { useEffect, useState } from "react";
-
+const API = import.meta.env.VITE_API_URL;
 /* ------------------ BASIC ANIMATIONS ------------------ */
-
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: {
@@ -12,13 +11,7 @@ const fadeUp = {
     transition: { duration: 0.6, ease: "easeOut" },
   },
 };
-
-
-
-
-
 /* ------------------ HEADING TYPE ANIMATION ------------------ */
-
 const headingText = "Contact Scrollfuel Digital Marketing Agency";
 
 function AnimatedHeading() {
@@ -79,8 +72,6 @@ function AnimatedHeading() {
   );
 }
 
-
-
 /* ------------------ PAGE ------------------ */
 
 export default function ContactUsPage() {
@@ -100,7 +91,7 @@ export default function ContactUsPage() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/api/contact", {
+      const res = await fetch(`${API}/api/contact`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
@@ -111,7 +102,6 @@ export default function ContactUsPage() {
       if (res.ok) {
         alert(data.message);
 
-        // ✅ CLEAR FORM AFTER SUBMIT
         setForm({
           name: "",
           email: "",
@@ -127,6 +117,7 @@ export default function ContactUsPage() {
       alert("Server error");
     }
   };
+
   return (
     <div className="bg-black text-white">
 

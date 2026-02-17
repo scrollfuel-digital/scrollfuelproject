@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { motion } from "framer-motion";
 import MDEditor from "@uiw/react-md-editor";
-
+const API = import.meta.env.VITE_API_URL;
 const AdminCreateBlog = () => {
   const [form, setForm] = useState({
     title: "",
@@ -70,11 +69,20 @@ const AdminCreateBlog = () => {
     if (form.hero_image) data.append("hero_image", form.hero_image);
 
     try {
-      await axios.post("http://127.0.0.1:8000/api/blog", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await fetch(
+        `${API}/api/blog`,   // <-- using environment variable
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Upload failed");
+      }
 
       setSuccess(true);
+
       setForm({
         title: "",
         description: "",
@@ -87,12 +95,14 @@ const AdminCreateBlog = () => {
       setPreview(null);
       setHeroPreview(null);
 
-    } catch (err) {
+    } catch (error) {
+      console.error(error);
       alert("Upload failed");
     }
 
     setLoading(false);
   };
+
 
   return (
     <section className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-20">
@@ -136,49 +146,49 @@ const AdminCreateBlog = () => {
             <img src={heroPreview} className="rounded-xl w-full h-52 object-cover" />
           )}
 
-        {/* KEYWORDS */}
-           <div>
-             <div className="flex gap-2">
-               <input
-                 type="text"
-                 placeholder="Type keyword"
-                 value={keywordInput}
-                 onChange={(e) => setKeywordInput(e.target.value)}
-                 onKeyDown={(e) =>
-                   e.key === "Enter" &&
-                   (e.preventDefault(), addKeyword())
-                 }
-                 className="flex-1 p-3 rounded bg-black border border-gray-700"
-               />
-               <button
-                 type="button"
-                 onClick={addKeyword}
-                 className="px-4 bg-primary rounded"
-               >
-                 Add
-               </button>
-             </div>
-             <div className="flex flex-wrap gap-2 mt-3">
-               {form.keywords.map((word, i) => (
-                 <span
-                   key={i}
-                   className="bg-primary/20 px-3 py-1 rounded-full flex items-center gap-2"
-                 >
-                   {word}
-                   <button
-                     type="button"
-                     onClick={() => removeKeyword(word)}
-                     className="text-red-400"
-                   >
-                     ✕
-                   </button>
-                 </span>
-               ))}
-             </div>
-             <p className="text-sm text-gray-400 mt-2">
-               {form.keywords.length} / 5 minimum keywords
-             </p>
-           </div>
+          {/* KEYWORDS */}
+          <div>
+            <div className="flex gap-2">
+              <input
+                type="text"
+                placeholder="Type keyword"
+                value={keywordInput}
+                onChange={(e) => setKeywordInput(e.target.value)}
+                onKeyDown={(e) =>
+                  e.key === "Enter" &&
+                  (e.preventDefault(), addKeyword())
+                }
+                className="flex-1 p-3 rounded bg-black border border-gray-700"
+              />
+              <button
+                type="button"
+                onClick={addKeyword}
+                className="px-4 bg-primary rounded"
+              >
+                Add
+              </button>
+            </div>
+            <div className="flex flex-wrap gap-2 mt-3">
+              {form.keywords.map((word, i) => (
+                <span
+                  key={i}
+                  className="bg-primary/20 px-3 py-1 rounded-full flex items-center gap-2"
+                >
+                  {word}
+                  <button
+                    type="button"
+                    onClick={() => removeKeyword(word)}
+                    className="text-red-400"
+                  >
+                    ✕
+                  </button>
+                </span>
+              ))}
+            </div>
+            <p className="text-sm text-gray-400 mt-2">
+              {form.keywords.length} / 5 minimum keywords
+            </p>
+          </div>
 
           {/* MARKDOWN EDITOR */}
           <MDEditor
@@ -199,7 +209,7 @@ const AdminCreateBlog = () => {
 
           {success && (
             <p className="text-green-400 text-center">
-              Uploaded successfully ✔
+              Uploaded successfully 
             </p>
           )}
         </motion.form>

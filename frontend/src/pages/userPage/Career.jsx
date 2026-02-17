@@ -1,7 +1,7 @@
 // CareerPage.jsx
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-
+const API = import.meta.env.VITE_API_URL;
 const CareerPage = () => {
     const [formData, setFormData] = useState({
         name: "",
@@ -27,17 +27,16 @@ const CareerPage = () => {
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
-        formDataToSend.append("contact", formData.address); // contact input
+        formDataToSend.append("contact", formData.contact); // contact input
         formDataToSend.append("address", formData.address);
         formDataToSend.append("interest", formData.interest);
         formDataToSend.append("resume", formData.resume);
 
         try {
-            const res = await fetch("http://localhost:8000/api/career/apply", {
+            const res = await fetch(`${API}/api/career/apply`, {
                 method: "POST",
                 body: formDataToSend,
             });
-
             const data = await res.json();
 
             if (res.ok) {
@@ -244,7 +243,7 @@ const CareerPage = () => {
                                 type="text"
                                 name="contact"
                                 placeholder="Enter Contact Number"
-                                value={formData.address}
+                                value={formData.contact}
                                 onChange={handleChange}
                                 className="w-full border border-gray-700 p-2 rounded bg-black text-white"
                                 required
