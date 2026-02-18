@@ -32,6 +32,7 @@ const Blog = () => {
 
     fetchBlogs();
   }, []);
+console.log("API:", API);
 
   useEffect(() => {
     if (blogs.length === 0) return;

@@ -11,7 +11,7 @@ import {
 import { GoogleGenAI } from "@google/genai";
 
 
-const WHATSAPP_NUMBER = "7822830497";
+const WHATSAPP_NUMBER = "9699660972";
 
 const AIAssistant = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -104,14 +104,14 @@ const AIAssistant = () => {
             {/* WhatsApp Quick Access */}
             <button
                 onClick={openWhatsApp}
-                className="absolute bottom-20 right-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
+                className="absolute bottom-0 right-0 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform duration-300"
                 title="Chat on WhatsApp"
             >
                 <MessageCircle size={20} fill="currentColor" />
             </button>
 
             {/* Main AI FAB */}
-            <button
+            {/* <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`relative w-16 h-16 rounded-full flex items-center justify-center transition-all duration-500 overflow-hidden ${isOpen
                     ? "bg-dark text-white rotate-90"
@@ -119,7 +119,7 @@ const AIAssistant = () => {
                     } shadow-[0_0_30px_rgba(139,197,63,0.25)]`}
             >
                 {isOpen ? <X size={24} /> : <Zap size={24} className="animate-pulse" />}
-            </button>
+            </button> */}
 
             {/* Chat Window */}
             <div

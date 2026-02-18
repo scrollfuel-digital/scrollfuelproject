@@ -1,5 +1,5 @@
 import { Phone, Mail } from 'lucide-react';
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 
 const Footer = () => {
     return (
@@ -23,7 +23,7 @@ const Footer = () => {
                     </div>
 
                     {/* SOCIAL ICONS */}
-                    
+
                     <div className="flex flex-col items-end  mr-4 mb-4 md:mt-10">
                         <div className="flex items-center">
                             {[
@@ -53,7 +53,6 @@ const Footer = () => {
 
                 </div>
 
-
                 {/* BOTTOM SECTION */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-5 text-sm pb-5 pl-10 md:pl-0 ">
                     {/* Brand / Address */}
@@ -76,32 +75,83 @@ const Footer = () => {
                             <li><a href="/blog" className="hover-text-primary font-bold">Blog</a></li>
                             <li><a href="/portfolio" className="hover-text-primary font-bold">Portfolio</a></li>
                             <li><a href="/career" className="hover-text-primary font-bold">Career</a></li>
-                        </ul> </div>
+                        </ul>
+                    </div>
                     {/* Services */}
                     <div>
                         <h4 className="font-semibold text-lg mb-3">Services</h4>
                         <ul className="space-y-3 text-muted">
-                            <li><a href="/services/seo-ppc-marketing"
-                                className="hover-text-primary font-bold">SEO & PPC Marketing</a></li>
-                            <li><a href="/services/social-media-strategy"
-                                className="hover-text-primary font-bold">Social Media Strategy</a></li>
-                            <li><a href="/services/content-strategy"
-                                className="hover-text-primary font-bold">Content Strategy</a></li>
-                            <li><a href="/services/web-development"
-                                className="hover-text-primary font-bold">Web Development</a></li>
-                            {/* <li><a href="/services/branding-design" className="hover-text-primary">Branding & Design</a></li> */}
+                            <li>
+                                <Link
+                                    to="/services?service=seo-ppc-marketing"
+                                    className="hover-text-primary font-bold"
+                                >
+                                    SEO & PPC Marketing
+                                </Link>
+                            </li>
 
-                            <li><a href="/services/videography-photography"
-                                className="hover-text-primary font-bold">More....</a></li>
-                        </ul> </div>
+                            <li>
+                                <Link
+                                    to="/services?service=videography-photography"
+                                    className="hover-text-primary font-bold"
+                                >
+                                    Video & Photography
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/services?service=social-media-strategy"
+                                    className="hover-text-primary font-bold"
+                                >
+                                    Social Media Strategy
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link
+                                    to="/services?service=web-development"
+                                    className="hover-text-primary font-bold"
+                                >
+                                    Web Development
+                                </Link>
+                            </li>
+
+                            <li>
+                                <Link
+                                    to="/services?service=branding-design"
+                                    className="hover-text-primary font-bold"
+                                >
+                                    More....
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
                     {/* Contact */}
                     <div>
                         <h4 className="font-semibold text-lg mb-4">Contact</h4>
                         <ul className="space-y-3 font-bold">
                             <li className="flex items-center gap-2 text-muted">
-                                <Phone size={16} className=" text-primary" />
-                                <span className='hover-text-primary'>+91 8788430110</span>
-                            </li> <li className="relative pl-7 text-muted font-bold">
+                                <Phone size={16} className="text-primary" />
+
+                                <a
+                                    href="tel:+918788430110"
+                                    className="hover:text-primary"
+                                >
+                                    +91 8788430110
+                                </a>
+
+                                <span>,</span>
+
+                                <a
+                                    href="tel:+919699660972"
+                                    className="hover:text-primary"
+                                >
+                                    +91 9699660972
+                                </a>
+                            </li>
+
+                            <li className="relative pl-7 text-muted font-bold">
                                 <Mail size={16} className="absolute left-0 top-1 text-primary" />
                                 <a href="https://mail.google.com/mail/?view=cm&fs=1&to=scrollfuel@gmail.com" target="_blank" rel="noopener noreferrer"
                                     className="hover-text-primary " > scrollfuel@gmail.com </a> </li> <li className="relative pl-7 text-muted">

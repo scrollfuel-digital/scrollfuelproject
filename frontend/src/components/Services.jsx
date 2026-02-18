@@ -397,7 +397,8 @@ const Services = React.forwardRef((props, ref) => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              onClick={() => navigate(`/services/${ser.slug}`)}
+              // onClick={() => navigate(`/services/${ser.slug}`)}
+              onClick={() => navigate(`/services?service=${ser.slug}`)}
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >
@@ -522,16 +523,6 @@ const Services = React.forwardRef((props, ref) => {
                   </div>
                 </div>
 
-                {/* Shine effect on hover */}
-                {/* {hoveredIndex === idx && (
-                  <motion.div
-                    className="absolute inset-0 bg-linear-to-r from-transparent via-white/10 to-transparent"
-                    initial={{ x: '-100%' }}
-                    animate={{ x: '100%' }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    style={{ pointerEvents: 'none' }}
-                  />
-                )} */}
               </motion.div>
             </motion.div>
           ))}
