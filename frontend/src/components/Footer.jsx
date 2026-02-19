@@ -1,6 +1,6 @@
 import { Phone, Mail } from 'lucide-react';
 import { NavLink, Link } from "react-router-dom";
-
+import { services } from "../data/services.js";
 const Footer = () => {
     return (
         <footer className="bg-dark text-white">
@@ -77,51 +77,28 @@ const Footer = () => {
                             <li><a href="/career" className="hover-text-primary font-bold">Career</a></li>
                         </ul>
                     </div>
+                   
                     {/* Services */}
                     <div>
                         <h4 className="font-semibold text-lg mb-3">Services</h4>
                         <ul className="space-y-3 text-muted">
-                            <li>
-                                <Link
-                                    to="/services?service=seo-ppc-marketing"
-                                    className="hover-text-primary font-bold"
-                                >
-                                    SEO & PPC Marketing
-                                </Link>
-                            </li>
+                            {services.slice(0, 4).map((ser) => (
+                                <li key={ser.slug}>
+                                    <Link
+                                        to={`/services/${ser.slug}`}
+                                        className="hover-text-primary font-bold"
+                                    >
+                                        {ser.title}
+                                    </Link>
+                                </li>
+                            ))}
 
                             <li>
                                 <Link
-                                    to="/services?service=videography-photography"
+                                    to="/services"
                                     className="hover-text-primary font-bold"
                                 >
-                                    Video & Photography
-                                </Link>
-                            </li>
-                            <li>
-                                <Link
-                                    to="/services?service=social-media-strategy"
-                                    className="hover-text-primary font-bold"
-                                >
-                                    Social Media Strategy
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                    to="/services?service=web-development"
-                                    className="hover-text-primary font-bold"
-                                >
-                                    Web Development
-                                </Link>
-                            </li>
-
-                            <li>
-                                <Link
-                                    to="/services?service=branding-design"
-                                    className="hover-text-primary font-bold"
-                                >
-                                    More....
+                                    More...
                                 </Link>
                             </li>
                         </ul>
@@ -163,9 +140,6 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-
-
-
             {/* Bottom Bar */}
             <div className="border-t border-white/10">
 

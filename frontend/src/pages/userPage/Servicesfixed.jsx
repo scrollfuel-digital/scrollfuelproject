@@ -1,7 +1,7 @@
 
 import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { services } from "../../data/services.js";
 import CountUp from "react-countup";
 
@@ -335,7 +335,7 @@ const HeroSection = ({ servicesRef }) => {
                     <motion.h1
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 30 }}
-                       transition={{ delay: 0.4, duration: 0.8 }}
+                        transition={{ delay: 0.4, duration: 0.8 }}
                         className="text-5xl md:text-7xl lg:text-6xl font-bold leading-tight"
                     >
                         Our{" "}
@@ -365,7 +365,7 @@ const HeroSection = ({ servicesRef }) => {
                     </motion.p>
 
                     {/* Stats Row */}
-                  
+
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
@@ -411,7 +411,7 @@ const HeroSection = ({ servicesRef }) => {
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
-                       transition={{ delay: 1, duration: 0.8 }}
+                        transition={{ delay: 1, duration: 0.8 }}
                         className="grid grid-cols-1 sm:grid-cols-2 gap-5 pt-6 w-full max-w-md"
                     >
                         <motion.button
@@ -475,6 +475,7 @@ const HeroSection = ({ servicesRef }) => {
 
 const ServiceCard = ({ service, onClick }) => {
     const [expanded, setExpanded] = useState(false);
+
 
     return (
         <motion.div
@@ -602,10 +603,117 @@ const ServiceCard = ({ service, onClick }) => {
 
 /* ---------------- MAIN SERVICES PAGE ---------------- */
 
+// const Services = () => {
+//     const navigate = useNavigate();
+//     const containerRef = useRef(null);
+//     const { slug } = useParams();
+//     const totalCards = services.length;
+
+//     const { scrollYProgress } = useScroll({
+//         target: containerRef,
+//         offset: ["start start", "end end"],
+//     });
+//     useEffect(() => {
+//         if (!slug) return;
+
+//         const index = services.findIndex((s) => s.slug === slug);
+
+//         if (index !== -1) {
+//             const scrollPosition = window.innerHeight * index;
+
+//             window.scrollTo({
+//                 top: scrollPosition,
+//                 behavior: "smooth",
+//             });
+//         }
+//     }, [slug]);
+
+
+//     return (
+//         <>
+//             {/* HERO SECTION */}
+//             <HeroSection servicesRef={containerRef} />
+
+
+//             {/* SCROLL STACK SECTION */}
+//             <section
+//                 ref={containerRef}
+//                 className="relative bg-black"
+//                 style={{ height: `${totalCards * 100}vh` }}
+//             >
+//                 <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
+//                     <div className="relative w-full h-full">
+
+//                         {/* SERVICE CARDS */}
+//                         {services.map((service, index) => {
+//                             const start = index / totalCards;
+//                             const end = (index + 1) / totalCards;
+
+//                             // const y = useTransform(
+//                             //     scrollYProgress,
+//                             //     [start, end],
+//                             //     ["100%", "0%"]
+//                             // );
+//                             const y = useTransform(
+//                                 scrollYProgress,
+//                                 [start, end],
+//                                 index === 0 ? ["0%", "0%"] : ["100%", "0%"]
+//                             );
+
+//                             const opacity = useTransform(
+//                                 scrollYProgress,
+//                                 [start - 0.05, start, end],
+//                                 [0, 1, 1]
+//                             );
+
+//                             const scale = useTransform(
+//                                 scrollYProgress,
+//                                 [start, end],
+//                                 [0.85, 1]
+//                             );
+
+//                             const rotateX = useTransform(
+//                                 scrollYProgress,
+//                                 [start, start + 0.1],
+//                                 [5, 0]
+//                             );
+
+//                             const pointer = useTransform(opacity, (v) =>
+//                                 v > 0.6 ? "auto" : "none"
+//                             );
+
+//                             return (
+//                                 <motion.div
+//                                     key={service.slug}
+//                                     style={{
+//                                         y,
+//                                         opacity,
+//                                         scale,
+//                                         rotateX,
+//                                         pointerEvents: pointer,
+//                                     }}
+//                                     className="absolute inset-0 flex items-center justify-center px-6"
+//                                 >
+//                                     <ServiceCard
+//                                         service={service}
+//                                         onClick={() =>
+//                                             navigate(`/services/${service.slug}`)
+//                                         }
+//                                     />
+//                                 </motion.div>
+//                             );
+//                         })}
+
+//                     </div>
+//                 </div>
+//             </section>
+//         </>
+//     );
+// };
 const Services = () => {
     const navigate = useNavigate();
     const containerRef = useRef(null);
-
+    const { slug } = useParams();
     const totalCards = services.length;
 
     const { scrollYProgress } = useScroll({
@@ -613,14 +721,31 @@ const Services = () => {
         offset: ["start start", "end end"],
     });
 
+    /* ✅ SCROLL TO SELECTED CARD WHEN URL HAS SLUG */
+    useEffect(() => {
+        if (!slug || !containerRef.current) return;
+
+        const index = services.findIndex((s) => s.slug === slug);
+
+        if (index !== -1) {
+            const sectionTop = containerRef.current.offsetTop;
+
+            const scrollPosition =
+                sectionTop + window.innerHeight * index;
+
+            window.scrollTo({
+                top: scrollPosition,
+                behavior: "smooth", // change to "auto" if you don't want animation
+            });
+        }
+    }, [slug]);
 
     return (
         <>
             {/* HERO SECTION */}
             <HeroSection servicesRef={containerRef} />
 
-
-            {/* SCROLL STACK SECTION */}
+            {/* STACK SCROLL SECTION */}
             <section
                 ref={containerRef}
                 className="relative bg-black"
@@ -629,16 +754,10 @@ const Services = () => {
                 <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
                     <div className="relative w-full h-full">
 
-                        {/* SERVICE CARDS */}
                         {services.map((service, index) => {
                             const start = index / totalCards;
                             const end = (index + 1) / totalCards;
 
-                            // const y = useTransform(
-                            //     scrollYProgress,
-                            //     [start, end],
-                            //     ["100%", "0%"]
-                            // );
                             const y = useTransform(
                                 scrollYProgress,
                                 [start, end],
@@ -697,4 +816,5 @@ const Services = () => {
 };
 
 export default Services;
+
 

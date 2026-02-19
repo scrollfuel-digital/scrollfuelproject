@@ -397,8 +397,8 @@ const Services = React.forwardRef((props, ref) => {
               transition={{ duration: 0.6, delay: idx * 0.1 }}
               onMouseEnter={() => setHoveredIndex(idx)}
               onMouseLeave={() => setHoveredIndex(null)}
-              // onClick={() => navigate(`/services/${ser.slug}`)}
-              onClick={() => navigate(`/services?service=${ser.slug}`)}
+              onClick={() => navigate(`/services/${ser.slug}`)}
+              // onClick={() => navigate(`/services?service=${ser.slug}`)}
               className="relative group cursor-pointer"
               whileHover={{ scale: 1.05 }}
             >

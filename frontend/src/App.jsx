@@ -15,6 +15,7 @@ import AboutUs from "./components/About";
 import AboutUsPage from "./pages/userPage/AboutUs";
 import BlogDetails from "./pages/userPage/BlogDetails";
 import CustomCursor from "./components/CustomCursor";
+import ServiceDetails from "./pages/userPage/ServiceDetails";
 function App() {
   return (
     <BrowserRouter>
@@ -29,8 +30,8 @@ function App() {
         <Route path="/career" element={<Career />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<ServicesFixed />} />
-        <Route path="/services/:slug" element={<ServicesFixed />} />
-
+        {/* <Route path="/services/:slug" element={<ServicesFixed />} /> */}
+        <Route path="/services/:slug" element={<ServiceDetails />} />
         {/* admin */}
         <Route path="/admin/create-blog" element={<AdminCreateBlog />} />
         <Route path="/admin/auth" element={<AuthPage />} />

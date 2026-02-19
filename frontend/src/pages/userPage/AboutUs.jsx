@@ -821,7 +821,7 @@ const FounderCard = () => {
                 style={{ transformStyle: 'preserve-3d', perspective: 1000 }}
                 className="relative rounded-3xl border border-white/10 backdrop-blur-2xl overflow-hidden"
                 whileHover={{ borderColor: 'rgba(139,197,63,0.4)' }}
-                // transition={{ duration: 0.3 }}
+            // transition={{ duration: 0.3 }}
             >
                 {/* Card Background */}
                 <div className="absolute inset-0"
@@ -951,7 +951,7 @@ const FounderCard = () => {
                                 style={{ borderColor: 'rgba(255,201,59,0.4)', color: '#ffc93b', backgroundColor: 'rgba(255,201,59,0.08)' }}
                             >
                                 <Star size={12} fill="currentColor" />
-                                Co-Founder & Chief Strategist
+                                Co-Founder
                             </motion.div>
 
                             {/* Name */}
@@ -1010,7 +1010,7 @@ const FounderCard = () => {
                                 accessible to every ambitious business, combining strategic creativity with
                                 relentless performance optimization.
                             </motion.p>
-
+{/* 
                             <motion.p
                                 initial={{ opacity: 0, y: 30 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -1021,7 +1021,7 @@ const FounderCard = () => {
                                 His expertise spans across performance marketing, SEO, content strategy, and
                                 analytics — building frameworks that consistently deliver 3x–10x ROI for clients
                                 across industries. At Scrollfuel, Akshay leads a team of growth experts dedicated to driving exponential online growth for ambitious brands.
-                            </motion.p>
+                            </motion.p> */}
 
                             {/* Skills */}
                             <motion.div
@@ -1219,7 +1219,7 @@ const AboutUsPage = () => {
                             </motion.button>
                         </motion.div>
 
-                        <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                        {/* <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                             {featureCards.map((card, index) => {
                                 const isPrimary = card.color === 'primary';
                                 const slideVariant = card.direction === 'left' ? slideFromLeft : slideFromRight;
@@ -1265,7 +1265,7 @@ const AboutUsPage = () => {
                                     </motion.div>
                                 );
                             })}
-                        </div>
+                        </div> */}
                     </div>
                 </motion.div>
 
@@ -1279,47 +1279,9 @@ const AboutUsPage = () => {
                 </div>
             </section>
 
-            {/* ============= VISION & MISSION SECTION ============= */}
-            <section className="py-24 px-6 bg-black relative overflow-hidden">
-                <div className="container mx-auto max-w-7xl">
-                    <div className="grid md:grid-cols-2 gap-12 md:gap-20">
-                        <motion.div
-                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                            transition={{ duration: 0.8 }} whileHover={{ scale: 1.04 }} className="group relative"
-                        >
-                            <div className="relative p-10 rounded-3xl border border-primary/30 backdrop-blur-xl bg-white/5 shadow-[0_0_0px_rgba(0,0,0,0)] transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(139,197,63,0.35)] group-hover:border-primary">
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
-                                <div className="relative z-10">
-                                    <TrendingUp size={52} className="text-primary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:rotate-6" />
-                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-primary">Our Vision</h2>
-                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
-                                        To lead digital transformation by helping brands scale faster, dominate their markets, and achieve sustainable online growth through innovation, data, and strategic marketing.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }} whileHover={{ scale: 1.04 }} className="group relative"
-                        >
-                            <div className="relative p-10 rounded-3xl border border-secondary/30 backdrop-blur-xl bg-white/5 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(255,201,59,0.35)] group-hover:border-secondary">
-                                <div className="absolute inset-0 bg-linear-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
-                                <div className="relative z-10">
-                                    <Rocket size={52} className="text-secondary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:-rotate-6" />
-                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-secondary">Our Mission</h2>
-                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
-                                        To lead digital transformation by helping brands scale faster, dominate markets, and achieve sustainable growth through innovation, data, and strategy.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section>
 
             {/* ============= FOUNDER SECTION ============= */}
-            <section className="py-24 px-6 bg-black relative overflow-hidden">
+            <section className="py-10 px-6 bg-black relative overflow-hidden">
                 {/* Section background decoration */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div
@@ -1347,7 +1309,7 @@ const AboutUsPage = () => {
                 <div className="container mx-auto max-w-7xl relative z-10">
                     {/* Section Header */}
                     <div className="text-center mb-16">
-                        <motion.div
+                        {/* <motion.div
                             initial={{ opacity: 0, y: -20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
@@ -1357,7 +1319,7 @@ const AboutUsPage = () => {
                         >
                             <Users size={12} />
                             Meet The Team
-                        </motion.div>
+                        </motion.div> */}
 
                         <motion.h2
                             initial="hidden"
@@ -1435,9 +1397,48 @@ const AboutUsPage = () => {
                     </motion.div>
                 </div>
             </section>
+            {/* ============= VISION & MISSION SECTION ============= */}
+            {/* <section className="py-24 px-6 bg-black relative overflow-hidden">
+                <div className="container mx-auto max-w-7xl">
+                    <div className="grid md:grid-cols-2 gap-12 md:gap-20">
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                            transition={{ duration: 0.8 }} whileHover={{ scale: 1.04 }} className="group relative"
+                        >
+                            <div className="relative p-10 rounded-3xl border border-primary/30 backdrop-blur-xl bg-white/5 shadow-[0_0_0px_rgba(0,0,0,0)] transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(139,197,63,0.35)] group-hover:border-primary">
+                                <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
+                                <div className="relative z-10">
+                                    <TrendingUp size={52} className="text-primary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:rotate-6" />
+                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-primary">Our Vision</h2>
+                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
+                                        To lead digital transformation by helping brands scale faster, dominate their markets, and achieve sustainable online growth through innovation, data, and strategic marketing.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+                            transition={{ duration: 0.8, delay: 0.2 }} whileHover={{ scale: 1.04 }} className="group relative"
+                        >
+                            <div className="relative p-10 rounded-3xl border border-secondary/30 backdrop-blur-xl bg-white/5 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(255,201,59,0.35)] group-hover:border-secondary">
+                                <div className="absolute inset-0 bg-linear-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
+                                <div className="relative z-10">
+                                    <Rocket size={52} className="text-secondary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:-rotate-6" />
+                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-secondary">Our Mission</h2>
+                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
+                                        To lead digital transformation by helping brands scale faster, dominate markets, and achieve sustainable growth through innovation, data, and strategy.
+                                    </p>
+                                </div>
+                            </div>
+                        </motion.div>
+                    </div>
+                </div>
+            </section> */}
+
 
             {/* ============= VALUES SECTION ============= */}
-            <section className="py-20 px-6 bg-black">
+            <section className="py-10 px-6 bg-black">
                 <div className="container mx-auto max-w-7xl">
                     <motion.h2
                         variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}

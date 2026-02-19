@@ -780,7 +780,7 @@ export default function ContactUsPage() {
                     <p className="text-white font-bold mb-0.5">WhatsApp us directly</p>
                     <p className="text-white/50 text-sm">Fastest response guaranteed</p>
                   </div>
-                  <motion.a href="https://wa.me/918788430110" target="_blank" rel="noopener noreferrer"
+                  <motion.a href="https://wa.me/919699660972" target="_blank" rel="noopener noreferrer"
                     whileHover={{ scale: 1.08, rotate: 4 }} whileTap={{ scale: 0.95 }}
                     className="px-5 py-2.5 rounded-full font-bold text-black text-sm flex items-center gap-2"
                     style={{ background: "#8bc53f" }}>
