@@ -4,11 +4,25 @@ import { useNavigate } from "react-router-dom";
 const API = import.meta.env.VITE_API_URL;
 
 /* -------- REMOVE HTML TAGS -------- */
+// const stripHTML = (html) => {
+//   if (!html) return "";
+//   const tempDiv = document.createElement("div");
+//   tempDiv.innerHTML = html;
+//   return tempDiv.textContent || tempDiv.innerText || "";
+// };
+
 const stripHTML = (html) => {
   if (!html) return "";
+
   const tempDiv = document.createElement("div");
   tempDiv.innerHTML = html;
-  return tempDiv.textContent || tempDiv.innerText || "";
+
+  let text = tempDiv.textContent || tempDiv.innerText || "";
+
+  // Remove markdown bold/italic symbols
+  text = text.replace(/(\*\*|__|\*|_)/g, "");
+
+  return text;
 };
 
 const Blog = () => {

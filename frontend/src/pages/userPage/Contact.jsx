@@ -338,12 +338,12 @@ export default function ContactUsPage() {
     { icon: Mail, title: "Email", value: "scrollfuel@gmail.com", link: "https://mail.google.com/mail/?view=cm&fs=1&to=scrollfuel@gmail.com" },
     { icon: MapPin, title: "Office", value: "Nagpur, India", link: "https://maps.app.goo.gl/oQfiqBwaEo6xyFYYA" },
   ];
-  const stats = [
-    { value: 80, suffix: "+", label: "Projects", variant: fromLeft },
-    { value: 60, suffix: "+", label: "Clients", variant: fromBottom },
-    { value: 5, suffix: "+", label: "Years", variant: fromTop },
-    { value: 98, suffix: "%", label: "Satisfaction", variant: fromRight },
-  ];
+  // const stats = [
+  //   { value: 80, suffix: "+", label: "Projects", variant: fromLeft },
+  //   { value: 60, suffix: "+", label: "Clients", variant: fromBottom },
+  //   { value: 5, suffix: "+", label: "Years", variant: fromTop },
+  //   { value: 98, suffix: "%", label: "Satisfaction", variant: fromRight },
+  // ];
 
   return (
     <div className="bg-black text-white overflow-hidden" ref={containerRef}>
@@ -430,7 +430,7 @@ export default function ContactUsPage() {
               </motion.div>
 
               {/* Stats — each from different direction */}
-              <div className="flex gap-8 mt-10 pt-8 border-t border-white/8">
+              {/* <div className="flex gap-8 mt-10 pt-8 border-t border-white/8">
                 {stats.map(({ value, suffix, label, variant }, i) => (
                   <motion.div key={i}
                     variants={variant} initial="hidden" animate="visible"
@@ -442,7 +442,7 @@ export default function ContactUsPage() {
                     <div className="text-xs text-white/40 uppercase tracking-widest mt-1">{label}</div>
                   </motion.div>
                 ))}
-              </div>
+              </div> */}
             </div>
 
             {/* === RIGHT: Illustration === */}

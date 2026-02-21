@@ -23,7 +23,7 @@ const Navbar = () => {
                     <img
                         src="/assets/logo1.png"
                         alt="Logo"
-                        className="w-44 sm:w-44 lg:w-52"
+                        className="w-44 sm:w-44 lg:w-52 pb-4"
                     />
                 </NavLink>
 
