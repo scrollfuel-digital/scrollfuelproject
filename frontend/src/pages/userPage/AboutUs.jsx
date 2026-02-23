@@ -213,7 +213,7 @@ const FounderCard = () => {
                                 style={{ borderColor: 'rgba(255,201,59,0.4)', color: '#ffc93b', backgroundColor: 'rgba(255,201,59,0.08)' }}
                             >
                                 <Star size={12} fill="currentColor" />
-                                Co-Founder
+                                Founder
                             </motion.div>
 
                             {/* Name */}
@@ -595,7 +595,7 @@ const AboutUsPage = () => {
                             animate={{ opacity: [0.7, 1, 0.7] }}
                             transition={{ duration: 3, repeat: Infinity }}
                         >
-                            — Akshay Zade, Co-Founder
+                            — Akshay Zade, Founder
                         </motion.p>
                     </motion.div>
                 </div>

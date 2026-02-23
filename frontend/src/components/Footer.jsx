@@ -67,7 +67,7 @@ const Footer = () => {
                             Find on Map → </a>
                     </div>
                     {/* Company */}
-                    <div className='pl-20'>
+                    <div className="pl-0 md:pl-20">
                         <h4 className="font-semibold text-lg mb-3">Company</h4>
                         <ul className="space-y-3 text-muted">
                             <li><a href="/" className="hover-text-primary font-bold">Home</a></li>
@@ -77,7 +77,7 @@ const Footer = () => {
                             <li><a href="/career" className="hover-text-primary font-bold">Career</a></li>
                         </ul>
                     </div>
-                   
+
                     {/* Services */}
                     <div>
                         <h4 className="font-semibold text-lg mb-3">Services</h4>
