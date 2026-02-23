@@ -266,7 +266,7 @@ const FounderCard = () => {
                             >
                                 A visionary digital marketer and growth hacker with over{" "}
                                 <span className="text-primary font-semibold">5+ years</span> of experience
-                                transforming brands from zero to market leaders. Akshay co-founded Scrollfuel with
+                                transforming brands from zero to market leaders. Akshay founded Scrollfuel with
                                 a mission to make{" "}
                                 <span className="text-secondary font-semibold">data-driven marketing</span>{" "}
                                 accessible to every ambitious business, combining strategic creativity with
