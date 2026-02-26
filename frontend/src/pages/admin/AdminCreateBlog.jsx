@@ -59,7 +59,7 @@ const AdminCreateBlog = () => {
     setLoading(true);
     setSuccess(false);
 
-    const data = new FormData();
+    const data = new /api/blog();
     data.append("title", form.title);
     data.append("description", form.description);
     data.append("content", form.content);

@@ -3,14 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 const API = import.meta.env.VITE_API_URL;
 
-/* -------- REMOVE HTML TAGS -------- */
-// const stripHTML = (html) => {
-//   if (!html) return "";
-//   const tempDiv = document.createElement("div");
-//   tempDiv.innerHTML = html;
-//   return tempDiv.textContent || tempDiv.innerText || "";
-// };
-
 const stripHTML = (html) => {
   if (!html) return "";
 

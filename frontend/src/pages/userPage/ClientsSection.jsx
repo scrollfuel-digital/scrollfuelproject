@@ -31,8 +31,6 @@ const logos = [
     "/assets/ClientLogo/switch.png",
     "/assets/ClientLogo/axon.png",
     "/assets/ClientLogo/archi.png",
-
-
 ];
 
 const ClientsSection = React.forwardRef((props, ref) => {
