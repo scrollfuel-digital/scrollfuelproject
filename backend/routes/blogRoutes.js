@@ -10,10 +10,11 @@ import {
 
 const router = express.Router();
 
-router.post("/blog", upload.single("hero_image"), createBlog);
-router.put("/blog/:id", upload.single("hero_image"), updateBlog);
-router.get("/blog", getBlogs);
-router.get("/blog/:id", getBlogById);
-router.delete("/blog/:id", deleteBlog);
+// ✅ REMOVE extra /blog here
+router.post("/", upload.single("hero_image"), createBlog);
+router.put("/:id", upload.single("hero_image"), updateBlog);
+router.get("/", getBlogs);
+router.get("/:id", getBlogById);
+router.delete("/:id", deleteBlog);
 
 export default router;
