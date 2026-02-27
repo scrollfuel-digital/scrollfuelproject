@@ -77,8 +77,6 @@ const Signup = async (req, res) => {
         });
     }
 };
-
-
 /* LOGIN CONTROLLER */
 const Login = async (req, res) => {
     try {
@@ -153,7 +151,6 @@ const googleSuccess = (req, res) => {
         res.redirect("http://localhost:5173/login");
     }
 };
-
 // form controller 
 const applyCareer = async (req, res) => {
     try {
@@ -217,4 +214,22 @@ const ContactForm = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
-export { Signup, Login, googleSuccess, applyCareer,ContactForm };
+const getCareerApplications = async (req, res) => {
+    try {
+        const data = await CareerModel.find();
+        res.json({ success: true, data });
+    } catch (error) {
+        res.status(500).json({ success: false });
+    }
+};
+
+const getContactMessages = async (req, res) => {
+    try {
+        const data = await ContactModel.find();
+        res.json({ success: true, data });
+    } catch (error) {
+        res.status(500).json({ success: false });
+    }
+};
+
+export { Signup, Login, googleSuccess, applyCareer, ContactForm, getCareerApplications, getContactMessages };

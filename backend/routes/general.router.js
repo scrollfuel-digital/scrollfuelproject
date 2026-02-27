@@ -1,11 +1,15 @@
-// form
 import express from "express";
 import multer from "multer";
-import { applyCareer, ContactForm } from "../controllers/controller.js";
+import {
+    applyCareer,
+    ContactForm,
+    getCareerApplications,
+    getContactMessages
+} from "../controllers/controller.js";
 
 const router = express.Router();
 
-// 📂 Multer Storage Config
+// multer config
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, "uploads/");
@@ -17,10 +21,12 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
-// POST /api/career/apply
-router.post("/apply", upload.single("resume"), applyCareer);
+// POST
+router.post("/career/apply", upload.single("resume"), applyCareer);
+router.post("/general/contact", ContactForm);
 
-// POST /api/general/contact
-router.post("/contact", ContactForm);
+// GET (for admin dashboard)
+router.get("/career", getCareerApplications);
+router.get("/general/contact", getContactMessages);
 
 export default router;
