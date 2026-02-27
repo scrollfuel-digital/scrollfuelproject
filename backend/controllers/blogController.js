@@ -17,62 +17,6 @@ const safeParse = (value) => {
     }
 };
 
-/* ================= CREATE BLOG ================= */
-// const createBlog = async (req, res) => {
-//     try {
-//         const { title, content, description, keywords, sub_points, faqs } =
-//             req.body;
-
-//         /* ---------- VALIDATION ---------- */
-
-//         if (!title || countWords(title) < 3) {
-//             return res.status(400).json({
-//                 success: false,
-//                 error: "Title must contain at least 3 words",
-//             });
-//         }
-
-//         if (!content || countWords(content) < 5) {
-//             return res.status(400).json({
-//                 success: false,
-//                 error: "Content must contain at least 5 words",
-//             });
-//         }
-
-//         /* ---------- SAFE PARSE ---------- */
-
-//         const parsedKeywords = safeParse(keywords);
-//         const parsedSubPoints = safeParse(sub_points);
-//         const parsedFaqs = safeParse(faqs);
-
-//         /* ---------- CREATE BLOG ---------- */
-
-//         const blog = new BlogModel({
-//             title: title.trim(),
-//             description: description || "",
-//             content,
-//             keywords: parsedKeywords,
-//             sub_points: parsedSubPoints,
-//             faqs: parsedFaqs,
-//             hero_image: req.file ? `/uploads/${req.file.filename}` : "",
-//         });
-
-//         const savedBlog = await blog.save();
-
-//         res.status(201).json({
-//             success: true,
-//             message: "Blog created successfully",
-//             data: savedBlog,
-//         });
-//     } catch (error) {
-//         console.error("CREATE BLOG ERROR:", error);
-//         res.status(500).json({
-//             success: false,
-//             error: error.message,
-//         });
-//     }
-// };
-
 const createBlog = async (req, res) => {
     try {
         const {
@@ -80,15 +24,11 @@ const createBlog = async (req, res) => {
             content,
             description,
             keywords,
-            sub_points,
-            faqs,
             category,
             author,
             company,
             read_time,
         } = req.body;
-
-        /* ================= VALIDATION ================= */
 
         if (!title || countWords(title) < 3) {
             return res.status(400).json({
@@ -104,25 +44,7 @@ const createBlog = async (req, res) => {
             });
         }
 
-        /* ================= SAFE PARSE FUNCTION ================= */
-
-        const safeParse = (data) => {
-            try {
-                if (!data) return [];
-                if (Array.isArray(data)) return data;
-                if (typeof data === "string") return JSON.parse(data);
-                return [];
-            } catch (err) {
-                console.error("JSON Parse Error:", err.message);
-                return [];
-            }
-        };
-
         const parsedKeywords = safeParse(keywords);
-        const parsedSubPoints = safeParse(sub_points);
-        const parsedFaqs = safeParse(faqs);
-
-        /* ================= CREATE BLOG ================= */
 
         const blog = new BlogModel({
             title: title.trim(),
@@ -133,14 +55,12 @@ const createBlog = async (req, res) => {
             company: company || "",
             read_time: read_time || "",
             keywords: parsedKeywords,
-            sub_points: parsedSubPoints,
-            faqs: parsedFaqs,
-            hero_image: req.file ? `/uploads/${req.file.filename}` : "",
+            hero_image: req.file ? req.file.path : "", // ✅ CLOUDINARY URL
         });
 
         const savedBlog = await blog.save();
 
-        return res.status(201).json({
+        res.status(201).json({
             success: true,
             message: "Blog created successfully",
             data: savedBlog,
@@ -148,11 +68,9 @@ const createBlog = async (req, res) => {
 
     } catch (error) {
         console.error("CREATE BLOG ERROR:", error);
-
-        return res.status(500).json({
+        res.status(500).json({
             success: false,
-            error: "Internal Server Error",
-            details: error.message,
+            error: error.message,
         });
     }
 };
@@ -243,9 +161,8 @@ const updateBlog = async (req, res) => {
         if (faqs !== undefined) {
             updateData.faqs = safeParse(faqs);
         }
-
         if (req.file) {
-            updateData.hero_image = `/uploads/${req.file.filename}`;
+            updateData.hero_image = req.file.path; // ✅ Cloudinary URL
         }
 
         const blog = await BlogModel.findByIdAndUpdate(

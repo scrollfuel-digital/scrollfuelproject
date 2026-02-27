@@ -49,10 +49,10 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(
-    "/uploads",
-    express.static(path.join(__dirname, "uploads"))
-);
+// app.use(
+//     "/uploads",
+//     express.static(path.join(__dirname, "uploads"))
+// );
 
 app.use("/api/chat", chatRoutes);
 app.use("/api/admin", adminRouter);

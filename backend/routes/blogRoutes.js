@@ -6,15 +6,14 @@ import {
     getBlogById,
     updateBlog,
     deleteBlog,
-} from "../controllers/blogController.js";
+} from "../controllers/blog.controller.js";
 
 const router = express.Router();
 
-// ✅ REMOVE extra /blog here
 router.post("/", upload.single("hero_image"), createBlog);
-router.put("/:id", upload.single("hero_image"), updateBlog);
 router.get("/", getBlogs);
 router.get("/:id", getBlogById);
+router.put("/:id", upload.single("hero_image"), updateBlog);
 router.delete("/:id", deleteBlog);
 
 export default router;
