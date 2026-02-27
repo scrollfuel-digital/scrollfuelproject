@@ -1,14 +1,17 @@
-
 import { useState, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
 
 const API = import.meta.env.VITE_API_URL;
+
 export default function AuthPage() {
+
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
     username: '',
     email: '',
     password: ''
   });
+
   const [focusedField, setFocusedField] = useState(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isAnimating, setIsAnimating] = useState(false);
@@ -16,9 +19,19 @@ export default function AuthPage() {
   const [orbitAngle, setOrbitAngle] = useState(0);
   const [showPassword, setShowPassword] = useState(false);
 
+  const navigate = useNavigate();
+
+  // If already logged in redirect to dashboard
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      navigate("/admin/dashboard");
+    }
+  }, [navigate]);
 
   useEffect(() => {
-    // Generate random particles for background
+
     const newParticles = Array.from({ length: 15 }, (_, i) => ({
       id: i,
       x: Math.random() * 100,
@@ -27,28 +40,34 @@ export default function AuthPage() {
       delay: Math.random() * 3,
       duration: Math.random() * 8 + 12
     }));
+
     setParticles(newParticles);
 
-    // Orbit animation
     const interval = setInterval(() => {
       setOrbitAngle(prev => (prev + 1) % 360);
     }, 30);
 
     return () => clearInterval(interval);
+
   }, []);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
+
     setMousePosition({
       x: ((e.clientX - rect.left) / rect.width - 0.5) * 15,
       y: ((e.clientY - rect.top) / rect.height - 0.5) * 15
     });
   };
 
+
+  // LOGIN / SIGNUP
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
+
       const url = isLogin
         ? `${API}/api/admin/login`
         : `${API}/api/admin/signup`;
@@ -78,16 +97,19 @@ export default function AuthPage() {
         throw new Error(data.msg || "Something went wrong");
       }
 
+      // Save token
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      // reset form
       setFormData({
         username: "",
         email: "",
         password: "",
       });
 
-      console.log(data);
+      // Redirect to Admin Dashboard
+      navigate("/admin/dashboard");
 
     } catch (error) {
       alert(error.message);
@@ -99,16 +121,23 @@ export default function AuthPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+
   const toggleAuthMode = () => {
     setIsAnimating(true);
+
     setTimeout(() => {
       setIsLogin(!isLogin);
       setIsAnimating(false);
     }, 300);
   };
-  {/* Social login buttons */ }
+
+
+  // GOOGLE LOGIN
   const googleLogin = () => {
-   window.open(`${API}/api/admin/google`, "_self");
+
+    // backend will redirect after auth
+    window.location.href = `${API}/api/admin/google`;
+
   };
 
   return (

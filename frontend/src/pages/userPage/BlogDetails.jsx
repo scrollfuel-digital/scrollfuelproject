@@ -1,7 +1,7 @@
 
 
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 
@@ -76,21 +76,59 @@ const BlogDetails = () => {
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [readProgress, setReadProgress] = useState(0);
+  const [relatedPosts, setRelatedPosts] = useState([]);
+  const { slug } = useParams();
+  const location = useLocation();
+
+  const blogId = location.state?.blogId;
 
   useEffect(() => {
+    if (!slug) return;
+
+    const createSlug = (title) =>
+      title
+        ?.toLowerCase()
+        .replace(/[^a-z0-9 ]/g, "")
+        .replace(/\s+/g, "-");
+
     (async () => {
       try {
-        const res = await fetch(`${API}/api/blog/${id}`);
+        setLoading(true);
+
+        // Fetch all blogs
+        const res = await fetch(`${API}/api/blog`);
         const data = await res.json();
-        setBlog(data.data || data);
+        const allBlogs = data.data || [];
+
+        // Find blog by slug
+        const matchedBlog = allBlogs.find(
+          (b) => createSlug(b.title) === slug
+        );
+
+        if (!matchedBlog) {
+          setBlog(null);
+          return;
+        }
+
+        setBlog(matchedBlog);
+
+        // Fetch related
+        if (matchedBlog?.category) {
+          const relatedRes = await fetch(
+            `${API}/api/blog?category=${matchedBlog.category}&exclude=${matchedBlog._id}`
+          );
+          const relatedData = await relatedRes.json();
+          setRelatedPosts(relatedData.data || []);
+        }
+
       } catch (e) {
         console.error(e);
       } finally {
         setLoading(false);
       }
     })();
-  }, [id]);
 
+  }, [slug]);
   useEffect(() => {
     const onScroll = () => {
       const total = document.documentElement.scrollHeight - window.innerHeight;
@@ -123,11 +161,17 @@ const BlogDetails = () => {
   const subPoints = safeParse(blog.sub_points);
   const faqs = safeParse(blog.faqs);
 
-  const heroImage = blog.hero_image ? `${API}${blog.hero_image}` : "/assets/blog.jpeg";
-  const formattedDate = blog.created_at
-    ? new Date(blog.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+  const heroImage = blog.hero_image || "/assets/blog.jpeg";
+  // const formattedDate = blog.created_at
+  //   ? new Date(blog.created_at).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+  //   : null;
+  const formattedDate = blog?.createdAt
+    ? new Date(blog.createdAt).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    })
     : null;
-
   return (
     <div className="bg-white min-h-screen" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
@@ -167,12 +211,14 @@ const BlogDetails = () => {
         />
 
         {/* Back Button */}
-        <div className="absolute top-28 left-6 md:left-14 z-20">
+        <div className="absolute top-28 left-6 md:left-14 z-30">
           <button
-            onClick={() => navigate(-1)}
-            className="inline-flex items-center gap-2 text-white/75 hover:text-white text-sm font-semibold transition-colors group"
+            onClick={() => navigate("/blog")}
+            className="inline-flex items-center gap-2 text-white text-sm font-semibold 
+               bg-black/40 backdrop-blur-md px-4 py-2 rounded-full 
+               border border-white/20 hover:bg-black/60 transition-all"
           >
-            <span className="w-8 h-8 rounded-full border border-white/30 group-hover:border-white flex items-center justify-center transition-all">
+            <span className="w-6 h-6 rounded-full flex items-center justify-center">
               ←
             </span>
             Back to Blogs
@@ -207,7 +253,7 @@ const BlogDetails = () => {
 
       <section className="bg-white ">
         <div className="max-w-7xl mx-auto px-6 md:px-14 pb-12">
-      
+
           {/* meta — date · company · read time */}
           <motion.div
             variants={fadeUp} initial="hidden" animate="visible" custom={1}
@@ -217,7 +263,10 @@ const BlogDetails = () => {
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <span
                   className="w-7 h-7 rounded-lg flex items-center justify-center text-xs"
-                  style={{ background: "rgba(139,197,63,0.14)", color: "var(--color-green)" }}
+                  style={{
+                    background: "rgba(139,197,63,0.14)",
+                    color: "var(--color-green)",
+                  }}
                 >
                   📅
                 </span>
@@ -545,43 +594,42 @@ const BlogDetails = () => {
               Related Posts
             </h3>
             <div className="space-y-3">
-              {(blog.related_posts || []).length > 0
-                ? blog.related_posts.map((post, i) => (
-                  <a
+
+              {relatedPosts.length > 0 ? (
+                relatedPosts.slice(0, 3).map((post, i) => (
+                  <div
                     key={i}
-                    href={`/blog/${post.id}`}
-                    className="flex gap-3 group"
+                    onClick={() => navigate(`/blog/${post.id}`)}
+                    className="flex gap-3 group cursor-pointer"
                   >
-                    {post.thumbnail && (
+                    {post.hero_image && (
                       <img
-                        src={`${API}${post.thumbnail}`}
+                        src={post.hero_image}
                         alt={post.title}
-                        className="w-14 h-14 rounded-xl object-cover flex-shrink-0"
+                        className="w-14 h-14 rounded-xl object-cover shrink-0"
                       />
                     )}
+
                     <div className="flex-1 min-w-0">
                       <p className="text-sm font-semibold text-black group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">
                         {post.title}
                       </p>
-                      {post.created_at && (
-                        <p className="text-xs text-gray-400 mt-1">
-                          {new Date(post.created_at).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+
+                      {post.createdAt && (
+                        <p className="text-xs text-gray-900 mt-1">
+                          {new Date(post.createdAt).toLocaleDateString("en-IN", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
                         </p>
                       )}
                     </div>
-                  </a>
-                ))
-                : /* placeholder cards if no related posts from API */
-                [1, 2, 3].map((n) => (
-                  <div key={n} className="flex gap-3 items-start opacity-40">
-                    <div className="w-14 h-14 rounded-xl bg-gray-100 flex-shrink-0" />
-                    <div className="flex-1 space-y-1.5">
-                      <div className="h-3 bg-gray-100 rounded-full w-full" />
-                      <div className="h-3 bg-gray-100 rounded-full w-3/4" />
-                      <div className="h-2.5 bg-gray-100 rounded-full w-1/2" />
-                    </div>
                   </div>
-                ))}
+                ))
+              ) : (
+                <p className="text-sm text-gray-400">No related posts found.</p>
+              )}
             </div>
           </motion.div>
 

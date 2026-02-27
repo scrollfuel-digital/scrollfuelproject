@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+
 const API = import.meta.env.VITE_API_URL;
 
+// Clean HTML + Markdown
 const stripHTML = (html) => {
   if (!html) return "";
 
@@ -10,11 +12,28 @@ const stripHTML = (html) => {
   tempDiv.innerHTML = html;
 
   let text = tempDiv.textContent || tempDiv.innerText || "";
+  text = text.replace(/[#*_`>-]/g, "");
 
-  // Remove markdown bold/italic symbols
-  text = text.replace(/(\*\*|__|\*|_)/g, "");
+  return text.trim();
+};
 
-  return text;
+// Slug Generator
+const createSlug = (title) => {
+  return title
+    ?.toLowerCase()
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, "-");
+};
+
+// FIX IMAGE URL
+const getImageUrl = (img) => {
+  if (!img) return "/assets/blog.jpeg";
+
+  if (img.startsWith("http")) {
+    return img; // Cloudinary or external image
+  }
+
+  return `${API}${img}`; // Local uploaded image
 };
 
 const Blog = () => {
@@ -38,7 +57,6 @@ const Blog = () => {
 
     fetchBlogs();
   }, []);
-console.log("API:", API);
 
   useEffect(() => {
     if (blogs.length === 0) return;
@@ -78,18 +96,19 @@ console.log("API:", API);
     <section className="pt-28 pb-20 bg-black overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: -40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-white">
             <span className="text-primary">Blogs</span>
           </h1>
         </motion.div>
 
-        {/* Slider */}
+        {/* ================= SLIDER ================= */}
         <div className="relative mb-28">
           <div className="overflow-hidden">
             <AnimatePresence mode="wait">
@@ -102,14 +121,11 @@ console.log("API:", API);
                 className="grid md:grid-cols-2 gap-10 items-center bg-muted/5 rounded-3xl p-8 md:p-12"
               >
                 <img
-                  src={
-                    blogs[current]?.image
-                      ? `${API}${blogs[current].image}`
-                      : "/assets/blog.jpeg"
-                  }
+                  src={getImageUrl(blogs[current]?.hero_image)}
                   alt={blogs[current]?.title}
-                  className="rounded-2xl shadow-lg"
+                  className="rounded-2xl shadow-lg w-full object-cover"
                 />
+
                 <div>
                   <h2 className="text-3xl font-bold mt-3 mb-4 text-primary">
                     {blogs[current]?.title}
@@ -118,18 +134,34 @@ console.log("API:", API);
                   <p className="text-muted mb-6 leading-relaxed">
                     {stripHTML(blogs[current]?.content).slice(0, 330)}...
                   </p>
+
+                  {/* <button
+                    onClick={() =>
+                      navigate(
+                        `/blog/${createSlug(blogs[current].title)}`,
+                        { state: { blogId: blogs[current]._id } }
+                      )
+                    }
+                    className="text-primary font-semibold hover:underline"
+                  >
+                    Read More →
+                  </button> */}
                 </div>
               </motion.div>
             </AnimatePresence>
           </div>
 
           <div className="flex justify-center gap-4 mt-8">
-            <button onClick={prevSlide} className="btn-circle">←</button>
-            <button onClick={nextSlide} className="btn-circle">→</button>
+            <button onClick={prevSlide} className="btn-circle">
+              ←
+            </button>
+            <button onClick={nextSlide} className="btn-circle">
+              →
+            </button>
           </div>
         </div>
 
-        {/* Blog Grid */}
+        {/* ================= BLOG GRID ================= */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogs.map((blog) => (
             <motion.div
@@ -138,32 +170,32 @@ console.log("API:", API);
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
               viewport={{ once: true }}
-              className="group border border-gray-200 rounded-2xl overflow-hidden shadow-sm"
+              className="group border border-gray-800 rounded-2xl overflow-hidden shadow-sm bg-black"
             >
               <div className="overflow-hidden h-52">
                 <img
-                  src={
-                    blogs[current]?.image
-                      ? `${API}${blogs[current].image}`
-                      : "/assets/blog.jpeg"
-                  }
-                  alt={blogs[current]?.title}
+                  src={getImageUrl(blog?.hero_image)}
+                  alt={blog?.title}
                   className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
                 />
               </div>
 
-              <div className="p-6 bg-black">
+              <div className="p-6">
                 <h3 className="text-xl font-semibold mt-2 mb-3 text-primary">
                   {blog.title}
                 </h3>
 
                 <p className="text-muted text-sm leading-relaxed mb-4">
-                  {stripHTML(blog?.content).slice(0, 100)}...
+                  {stripHTML(blog?.content).slice(0, 120)}...
                 </p>
 
                 <button
                   className="text-primary font-medium hover:underline"
-                  onClick={() => navigate(`/blog/${blog._id}`)}
+                  onClick={() =>
+                    navigate(`/blog/${createSlug(blog.title)}`, {
+                      state: { blogId: blog._id },
+                    })
+                  }
                 >
                   Read More →
                 </button>

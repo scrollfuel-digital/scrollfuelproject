@@ -59,7 +59,8 @@ const AdminCreateBlog = () => {
     setLoading(true);
     setSuccess(false);
 
-    const data = new /api/blog();
+    const data = new FormData();   
+
     data.append("title", form.title);
     data.append("description", form.description);
     data.append("content", form.content);
@@ -69,13 +70,10 @@ const AdminCreateBlog = () => {
     if (form.hero_image) data.append("hero_image", form.hero_image);
 
     try {
-      const response = await fetch(
-        `${API}/api/blog`,   // <-- using environment variable
-        {
-          method: "POST",
-          body: data,
-        }
-      );
+      const response = await fetch(`${API}/api/blog`, {
+        method: "POST",
+        body: data,
+      });
 
       if (!response.ok) {
         throw new Error("Upload failed");
@@ -102,8 +100,6 @@ const AdminCreateBlog = () => {
 
     setLoading(false);
   };
-
-
   return (
     <section className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-20">
       <div className="max-w-4xl w-full">
@@ -209,7 +205,7 @@ const AdminCreateBlog = () => {
 
           {success && (
             <p className="text-green-400 text-center">
-              Uploaded successfully 
+              Uploaded successfully
             </p>
           )}
         </motion.form>
