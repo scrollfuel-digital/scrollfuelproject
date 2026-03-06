@@ -40,7 +40,7 @@ const CareerPage = () => {
         formDataToSend.append("resume", formData.resume);
 
         try {
-            const res = await fetch(`${API}/api/general/career/apply`, {
+            const res = await fetch(`${API}/api/general/apply`, {
                 method: "POST",
                 body: formDataToSend,
             });
