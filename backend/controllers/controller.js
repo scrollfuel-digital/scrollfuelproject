@@ -201,7 +201,7 @@ const applyCareer = async (req, res) => {
             });
         }
 
-        const application = await Career.create({
+        const application = await CareerModel.create({
             name,
             email,
             contact,
