@@ -3,14 +3,21 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 const API = import.meta.env.VITE_API_URL;
 const CareerPage = () => {
+    // const [formData, setFormData] = useState({
+    //     name: "",
+    //     email: "",
+    //     address: "",
+    //     resume: null,
+    //     interest: "",
+    // });
     const [formData, setFormData] = useState({
         name: "",
         email: "",
+        contact: "",
         address: "",
         resume: null,
         interest: "",
     });
-
     const handleChange = (e) => {
         const { name, value, files } = e.target;
 
@@ -33,7 +40,7 @@ const CareerPage = () => {
         formDataToSend.append("resume", formData.resume);
 
         try {
-            const res = await fetch(`${API}/api/career/apply`, {
+            const res = await fetch(`${API}/api/general/career/apply`, {
                 method: "POST",
                 body: formDataToSend,
             });

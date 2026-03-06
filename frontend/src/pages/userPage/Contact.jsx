@@ -441,7 +441,7 @@ export default function ContactUsPage() {
   const handleSubmit = async (e) => {
     e.preventDefault(); setLoading(true);
     try {
-      const res = await fetch(`${API}/api/contact`,
+      const res = await fetch(`${API}/api/general/contact`,
         {
           method: "POST", headers:
             { "Content-Type": "application/json" },
