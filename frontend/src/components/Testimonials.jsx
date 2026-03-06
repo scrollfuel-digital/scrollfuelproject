@@ -12,10 +12,10 @@ const Testimonials = () => {
                 name: "Anand Dongre",
                 text: "They gave our brand a clear identity and strong presence. Simple, clean, and impactful work.",
                 img: "./assets/anand.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -27,10 +27,10 @@ const Testimonials = () => {
                 name: "Smit Pillewar",
                 text: "Strategic execution. Measurable growth. Consistent performance",
                 img: "./assets/smit.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -42,10 +42,10 @@ const Testimonials = () => {
                 name: "Nilesh Bhoyar",
                 text: "Focused strategy. Strong online presence. Consistent performance.",
                 img: "./assets/Nilesh.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -57,10 +57,10 @@ const Testimonials = () => {
                 name: "Vishal Bisen",
                 text: "Optimized campaigns. Qualified leads. Measurable ROI.",
                 img: "./assets/vishal.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -70,12 +70,12 @@ const Testimonials = () => {
             {
                 id: 5,
                 name: "Bhavesh Thakre",
-                text: " Our social media profiles now reflect a confident and professional brand image.",
+                text: "Our social media profiles now reflect a confident and professional brand image.",
                 img: "./assets/bhavesh.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -87,10 +87,10 @@ const Testimonials = () => {
                 name: "Mayur Choudhary",
                 text: "We received regular reports, clear insights, and transparent communication.",
                 img: "./assets/Mayur.jpg",
-                baseBg: "bg-black",
+                baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
-                nameColor: "text-white",
-                textColor: "text-muted",
+                nameColor: "text-black dark:text-white",
+                textColor: "text-gray-600 dark:text-gray-400",
                 quoteColor: "text-primary",
                 imgBorder: "border-secondary",
                 hoverBg: "bg-primary",
@@ -105,15 +105,10 @@ const Testimonials = () => {
     const [animate, setAnimate] = useState(true);
     const [hoveredCard, setHoveredCard] = useState(null);
 
-    // Extended list for smooth looping
     const extendedTestimonials = useMemo(() => {
-        return [
-            ...testimonials,
-            ...testimonials.slice(0, VISIBLE_CARDS),
-        ];
+        return [...testimonials, ...testimonials.slice(0, VISIBLE_CARDS)];
     }, [testimonials]);
 
-    // Auto Slide
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => prev + 1);
@@ -122,7 +117,6 @@ const Testimonials = () => {
         return () => clearInterval(interval);
     }, []);
 
-    // Reset without animation after last card
     useEffect(() => {
         if (index === testimonials.length) {
             const timeout = setTimeout(() => {
@@ -141,7 +135,6 @@ const Testimonials = () => {
 
     const translateY = index * (CARD_HEIGHT + GAP);
 
-    // Star rating component
     const StarRating = ({ rating, isHovered, activeColor }) => {
         return (
             <div className="flex gap-1">
@@ -149,10 +142,10 @@ const Testimonials = () => {
                     <svg
                         key={i}
                         className={`w-4 h-4 transition-colors duration-300 ${i < rating
-                            ? isHovered
-                                ? activeColor
-                                : "text-secondary"
-                            : "text-muted"
+                                ? isHovered
+                                    ? activeColor
+                                    : "text-secondary"
+                                : "text-gray-400 dark:text-gray-600"
                             } fill-current`}
                         viewBox="0 0 20 20"
                     >
@@ -163,10 +156,10 @@ const Testimonials = () => {
         );
     };
 
-
     return (
-        <section className="w-full bg-black py-20 relative overflow-hidden">
-            {/* Decorative background elements */}
+        <section className="w-full bg-white text-black dark:bg-black dark:text-white py-20 relative overflow-hidden">
+
+            {/* Background glow */}
             <div className="absolute top-0 left-0 w-full h-full opacity-10">
                 <div className="absolute top-20 left-10 w-72 h-72 bg-primary rounded-full blur-3xl"></div>
                 <div className="absolute bottom-20 right-10 w-96 h-96 bg-secondary rounded-full blur-3xl"></div>
@@ -174,234 +167,122 @@ const Testimonials = () => {
             </div>
 
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
                 <div className="grid grid-cols-1 lg:grid-cols-2 items-center gap-16">
-                    {/* LEFT CONTENT */}
+
+                    {/* LEFT */}
                     <div className="space-y-8">
-                        {/* Illustration SVG */}
-                        <div className="relative">
-                            <svg
-                                className="w-24 h-24 mb-6 text-secondary"
-                                viewBox="0 0 100 100"
-                                fill="none"
-                            >
-                                <circle cx="50" cy="50" r="45" fill="currentColor" opacity="0.2" />
-                                <path
-                                    d="M30 45 L40 55 L60 35"
-                                    stroke="currentColor"
-                                    strokeWidth="6"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
-                        </div>
 
-                        <div>
-                            <h2 className="text-5xl md:text-6xl font-extrabold leading-tight text-white">
-                                What Our{" "}
-                                <span className="text-secondary">
-                                    Customers Say
-                                </span>
-                            </h2>
-                        </div>
+                        <svg className="w-24 h-24 mb-6 text-secondary" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="currentColor" opacity="0.2" />
+                            <path d="M30 45 L40 55 L60 35"
+                                stroke="currentColor"
+                                strokeWidth="6"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            />
+                        </svg>
 
-                        <p className="text-muted text-lg leading-relaxed max-w-xl">
-                            Relation so in confined smallest children unpacked delicate. Why sir
-                            end believe uncivil respect. Always get adieus nature day course for
-                            common.
+                        <h2 className="text-5xl md:text-6xl font-extrabold leading-tight">
+                            What Our{" "}
+                            <span className="text-secondary">
+                                Customers Say
+                            </span>
+                        </h2>
+
+                        <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed max-w-xl">
+                            Relation so in confined smallest children unpacked delicate.
+                            Why sir end believe uncivil respect.
                         </p>
 
-
-                        {/* Decorative illustration */}
-                        <div className="hidden lg:block absolute -left-20 bottom-0 opacity-30">
-                            <svg width="200" height="200" viewBox="0 0 200 200">
-                                <circle cx="100" cy="100" r="80" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                                <circle cx="100" cy="100" r="60" fill="none" stroke="currentColor" strokeWidth="2" className="text-secondary" />
-                                <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" strokeWidth="2" className="text-primary" />
-                            </svg>
-                        </div>
                     </div>
 
                     {/* RIGHT SLIDER */}
                     <div className="relative">
-                        {/* Visible window */}
+
                         <div
                             className="relative overflow-hidden"
                             style={{
                                 height: VISIBLE_CARDS * CARD_HEIGHT + (VISIBLE_CARDS - 1) * GAP,
                             }}
                         >
-                            {/* Gradient overlays for fade effect */}
-                            {/* <div className="absolute top-0 left-0 right-0 h-20 bg-linear-to-b from-black to-transparent z-20 pointer-events-none"></div> */}
-                            {/* <div className="absolute bottom-0 left-0 right-0 h-20 bg-linear-to-t from-black to-transparent z-20 pointer-events-none"></div> */}
 
                             <div
-                                className={`flex flex-col ${animate ? "transition-transform duration-700 ease-in-out" : ""}`}
+                                className={`flex flex-col ${animate ? "transition-transform duration-700 ease-in-out" : ""
+                                    }`}
                                 style={{
                                     transform: `translateY(-${translateY}px)`,
                                     gap: `${GAP}px`,
                                 }}
                             >
+
                                 {extendedTestimonials.map((item, i) => {
+
                                     const middleIndex = index + 1;
                                     const isActive = i === middleIndex;
                                     const originalIndex = i % testimonials.length;
                                     const isEvenCard = (originalIndex + 1) % 2 === 0;
 
                                     return (
+
                                         <div
                                             key={`${item.id}-${i}`}
                                             className={`
-                                                group relative overflow-hidden
-                                                ${isEvenCard ? "mr-8" : "mr-0"}
-                                                ${item.baseBg} shadow-2xl rounded-2xl px-6 py-5 border-2 ${item.border}
-                                                flex items-start gap-4
-                                                transition-all duration-700 ease-out
-                                                ${isActive ? "scale-105 opacity-100 shadow-xl" : "scale-95 opacity-60"}
-                                                hover:opacity-100 hover:scale-105
-                                                cursor-pointer
-                                                ${animate ? "animate-slide-in-right" : ""}
+                                            group relative overflow-hidden
+                                            ${isEvenCard ? "mr-8" : "mr-0"}
+                                            ${item.baseBg}
+                                            shadow-xl rounded-2xl px-6 py-5 border-2 ${item.border}
+                                            flex items-start gap-4
+                                            transition-all duration-700
+                                            ${isActive ? "scale-105 opacity-100" : "scale-95 opacity-60"}
+                                            hover:opacity-100 hover:scale-105
+                                            cursor-pointer
                                             `}
-                                            style={{
-                                                height: CARD_HEIGHT,
-                                                animation: animate ? `slideInRight 0.7s ease-out ${i * 0.1}s both` : 'none',
-                                            }}
+                                            style={{ height: CARD_HEIGHT }}
                                             onMouseEnter={() => setHoveredCard(i)}
                                             onMouseLeave={() => setHoveredCard(null)}
                                         >
-                                            {/* Hover overlay with gradient */}
-                                            <div
-                                                className={`
-                                                    absolute inset-0 translate-x-full group-hover:translate-x-0
-                                                    transition-transform duration-500 ease-out
-                                                    ${item.hoverBg}
-                                                `}
+
+                                            <img
+                                                src={item.img}
+                                                alt={item.name}
+                                                className="w-16 h-16 rounded-full object-cover border-2 border-secondary"
                                             />
 
-                                            {/* Shimmer effect on hover */}
-                                            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                                                <div className="absolute inset-0 bg-linear-to-r from-transparent via-white/20 to-transparent animate-shimmer"></div>
+                                            <div className="flex-1">
+
+                                                <h4 className={`font-bold ${item.nameColor}`}>
+                                                    {item.name}
+                                                </h4>
+
+                                                <StarRating
+                                                    rating={item.rating}
+                                                    isHovered={hoveredCard === i}
+                                                    activeColor={item.starHoverColor}
+                                                />
+
+                                                <p className={`${item.textColor} text-sm mt-1`}>
+                                                    {item.text}
+                                                </p>
+
                                             </div>
 
-                                            {/* Content */}
-                                            <div className="relative z-10 flex items-start gap-4 w-full">
-                                                {/* Avatar with ring animation */}
-                                                <div className="relative">
-                                                    <div className={`absolute inset-0 rounded-full ${item.imgBorder} border-2 animate-pulse group-hover:animate-ping`}></div>
-                                                    <img
-                                                        src={item.img}
-                                                        alt={item.name}
-                                                        className={`
-                                                            relative w-16 h-16 rounded-full object-cover border-3 ${item.imgBorder}
-                                                            transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6
-                                                        `}
-                                                    />
-                                                    {/* Online indicator */}
-                                                    <div className="absolute bottom-0 right-0 w-4 h-4 bg-primary border-2 border-white rounded-full group-hover:animate-bounce"></div>
-                                                </div>
-
-                                                <div className="flex-1">
-                                                    <div className="flex items-center justify-between mb-2">
-                                                        <h4
-                                                            className={`
-                                                                font-bold ${item.nameColor}
-                                                                ${isEvenCard ? "text-xl" : "text-lg"}
-                                                                group-hover:text-white transition-colors duration-300
-                                                            `}
-                                                        >
-                                                            {item.name}
-                                                        </h4>
-                                                    </div>
-
-                                                    {/* Star rating */}
-                                                    <div className="mb-2 group-hover:scale-110 transition-transform duration-300 origin-left">
-                                                        <StarRating
-                                                            rating={item.rating}
-                                                            isHovered={hoveredCard === i}
-                                                            activeColor={item.starHoverColor}
-                                                        />
-
-                                                    </div>
-
-                                                    <p
-                                                        className={`
-    leading-relaxed
-    text-[10px] sm:text-xs md:text-sm
-    line-clamp-2
-    ${item.textColor}
-    group-hover:text-white transition-colors duration-300
-  `}
-                                                    >
-                                                        {item.text}
-                                                    </p>
-
-                                                </div>
-
-                                                {/* Quote icon with animation */}
-                                                <div
-                                                    className={`
-                                                        ${item.quoteColor} text-3xl font-bold
-                                                        group-hover:text-white transition-all duration-300
-                                                        group-hover:scale-125 group-hover:rotate-12
-                                                    `}
-                                                >
-                                                    ❝
-                                                </div>
+                                            <div className={`${item.quoteColor} text-3xl`}>
+                                                ❝
                                             </div>
 
-                                            {/* Bottom decorative line */}
-                                            <div className="absolute bottom-0 left-0 w-0 h-1 bg-linear-to-r from-primary via-secondary to-primary group-hover:w-full transition-all duration-500"></div>
                                         </div>
+
                                     );
                                 })}
+
                             </div>
                         </div>
 
-                        {/* Scroll indicator */}
-                        <div className="absolute -right-8 top-1/2 transform -translate-y-1/2 flex flex-col gap-2">
-                            {testimonials.map((_, i) => (
-                                <div
-                                    key={i}
-                                    className={`
-                                        w-2 h-2 rounded-full transition-all duration-300 cursor-pointer
-                                        ${i === index % testimonials.length
-                                            ? "bg-secondary h-8"
-                                            : "bg-muted hover:bg-primary"
-                                        }
-                                    `}
-                                    onClick={() => setIndex(i)}
-                                />
-                            ))}
-                        </div>
                     </div>
+
                 </div>
             </div>
-
-            {/* Custom CSS for animations */}
-            <style jsx>{`
-                @keyframes slideInRight {
-                    from {
-                        transform: translateX(100%);
-                        opacity: 0;
-                    }
-                    to {
-                        transform: translateX(0);
-                        opacity: 1;
-                    }
-                }
-
-                @keyframes shimmer {
-                    0% {
-                        transform: translateX(-100%);
-                    }
-                    100% {
-                        transform: translateX(100%);
-                    }
-                }
-
-                .animate-shimmer {
-                    animation: shimmer 2s infinite;
-                }
-            `}</style>
         </section>
     );
 };

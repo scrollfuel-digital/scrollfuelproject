@@ -123,7 +123,7 @@ export default function Portfolio() {
 
   return (
     <div
-      className="bg-dark text-white min-h-screen px-6 md:px-16 py-20">
+      className="dark:bg-dark dark:text-white min-h-screen px-6 md:px-16 py-20">
 
       {/* TITLE */}
       <h1 className="text-5xl font-bold text-center mb-12">
@@ -172,7 +172,7 @@ export default function Portfolio() {
                       key={project.id}
                       whileHover={{ scale: 1.05 }}
                       onClick={() => setActiveProject(project)}
-                      className="group cursor-pointer border border-white rounded-2xl overflow-hidden transition"
+                      className="group cursor-pointer border dark:border-white rounded-2xl overflow-hidden transition"
                     >
                       <img
                         src={project.cover}
@@ -228,7 +228,7 @@ export default function Portfolio() {
                 setActiveProject(null);
                 setActiveImage(null);
               }}
-              className="absolute top-6 right-6 text-white pt-23 rounded-full"
+              className="absolute top-6 right-6 dark:text-white pt-23 rounded-full"
             >
               <X size={22} />
             </button>
@@ -254,7 +254,7 @@ export default function Portfolio() {
             <AnimatePresence>
               {activeImage !== null && (
                 <motion.div
-                  className="fixed inset-0 bg-black/95 flex items-center justify-center z-60 overflow-hidden"
+                  className="fixed inset-0 bg-white/95 dark:bg-black/95 flex items-center justify-center z-60 overflow-hidden"
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
@@ -262,7 +262,7 @@ export default function Portfolio() {
                   {/* CLOSE BUTTON */}
                   <button
                     onClick={() => setActiveImage(null)}
-                    className="absolute top-6 right-6 text-white pt-23 rounded-full z-20"
+                    className="absolute top-6 right-6 dark:text-white pt-23 rounded-full z-20"
                   >
                     <X size={22} />
                   </button>

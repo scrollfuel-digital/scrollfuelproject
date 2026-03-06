@@ -15,15 +15,11 @@ export default function AdminDashboard() {
     });
 
     useEffect(() => {
-
         const fetchStats = async () => {
-
             try {
-
                 const blogRes = await axios.get(`${API}/api/blog`);
                 const contactRes = await axios.get(`${API}/api/general/contact`);
                 const applyRes = await axios.get(`${API}/api/career`);
-
                 setStats({
                     blogs: blogRes.data.data.length,
                     contacts: contactRes.data.data.length,

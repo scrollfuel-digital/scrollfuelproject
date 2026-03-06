@@ -348,7 +348,7 @@ const AboutUsPage = () => {
     const highlightWord = "us";
 
     return (
-        <div className="bg-black text-white overflow-hidden">
+        <div className="bg-white dark:bg-black dark:text-white overflow-hidden">
             {/* ============= HERO SECTION ============= */}
             <section className="relative min-h-screen overflow-hidden">
                 <motion.div
@@ -370,7 +370,7 @@ const AboutUsPage = () => {
                     {backgroundIcons.map((item, index) => (
                         <motion.div
                             key={index}
-                            className={`absolute ${item.color} opacity-20`}
+                            className={`absolute ${item.color} opacity-50`}
                             style={{ top: item.top, left: item.left, right: item.right, bottom: item.bottom }}
                             custom={{ x: item.x, y: item.y, rotate: item.rotate, duration: item.duration, delay: item.delay }}
                             variants={floatVariants}
@@ -436,7 +436,7 @@ const AboutUsPage = () => {
                             <motion.p
                                 custom={0}
                                 variants={textReveal}
-                                className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4"
+                                className="text-xl md:text-2xl dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4"
                             >
                                 Scrollfuel is a growth-focused digital marketing Agency committed to helping businesses succeed online.
                                 Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results.
@@ -484,7 +484,7 @@ const AboutUsPage = () => {
 
 
             {/* ============= FOUNDER SECTION ============= */}
-            <section className="py-10 px-6 bg-black relative overflow-hidden">
+            <section className="py-10 px-6 bg-white text-black dark:bg-black relative overflow-hidden">
                 {/* Section background decoration */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none">
                     <motion.div
@@ -535,7 +535,7 @@ const AboutUsPage = () => {
                                     key={i}
                                     custom={i}
                                     variants={letterAnimation}
-                                    className="inline-block text-white"
+                                    className="inline-block dark:text-gray-300"
                                 >
                                     {char === ' ' ? '\u00A0' : char}
                                 </motion.span>
@@ -547,7 +547,7 @@ const AboutUsPage = () => {
                                 </motion.span>
                             ))}
                             {"fuel".split('').map((char, i) => (
-                                <motion.span key={i} custom={26 + i} variants={letterAnimation} className="inline-block text-white">
+                                <motion.span key={i} custom={26 + i} variants={letterAnimation} className="inline-block dark:text-white">
                                     {char}
                                 </motion.span>
                             ))}
@@ -558,7 +558,7 @@ const AboutUsPage = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.4, duration: 0.6 }}
-                            className="text-white/50 text-lg max-w-2xl mx-auto"
+                            className="dark:text-white text-lg max-w-2xl mx-auto"
                         >
                             Driven by passion, powered by data — meet the co-founder shaping the future of digital growth.
                         </motion.p>
@@ -641,7 +641,7 @@ const AboutUsPage = () => {
 
 
             {/* ============= VALUES SECTION ============= */}
-            <section className="py-10 px-6 bg-black">
+            <section className="py-10 px-6 dark:bg-black">
                 <div className="container mx-auto max-w-7xl">
                     <motion.h2
                         variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}

@@ -84,11 +84,11 @@ const CareerPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-black text-white pt-12">
+        <div className="min-h-screen dark:bg-black dark:text-white pt-12">
 
             {/* Hero Section */}
             <div className="text-center mb-16 mt-19 px-4">
-                <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+                <h1 className="text-4xl md:text-5xl font-bold dark:text-white mb-4">
                     Join <span className="text-primary">ScrollFuel</span>
                 </h1>
 
@@ -105,7 +105,7 @@ const CareerPage = () => {
 
                 {/* Left Side Content */}
                 <motion.div
-                    className="md:w-1/2 text-white/80 pl-0 md:pl-30 text-start"
+                    className="md:w-1/2 dark:text-white/80 pl-0 md:pl-30 text-start"
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
@@ -175,7 +175,7 @@ const CareerPage = () => {
                     </motion.ul>
 
                     <motion.p
-                        className="text-white/80 text-start"
+                        className="dark:text-white/80 text-start"
                         variants={itemVariants}
                     >
                         Ready to build your career with us? Send your resume & portfolio
@@ -201,7 +201,7 @@ const CareerPage = () => {
 
                         {/* Name */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Name
                             </label>
 
@@ -211,14 +211,14 @@ const CareerPage = () => {
                                 placeholder="Enter Full Name"
                                 value={formData.name}
                                 onChange={handleChange}
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             />
                         </div>
 
                         {/* Email */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Email
                             </label>
 
@@ -228,14 +228,14 @@ const CareerPage = () => {
                                 placeholder="Enter Email Here..."
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             />
                         </div>
 
                         {/* Contact */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Contact
                             </label>
 
@@ -245,14 +245,14 @@ const CareerPage = () => {
                                 placeholder="Enter Contact Number"
                                 value={formData.contact}
                                 onChange={handleChange}
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             />
                         </div>
 
                         {/* Address */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Address
                             </label>
 
@@ -262,14 +262,14 @@ const CareerPage = () => {
                                 placeholder="Enter Address"
                                 value={formData.address}
                                 onChange={handleChange}
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             />
                         </div>
 
                         {/* Resume */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Resume
                             </label>
 
@@ -278,14 +278,14 @@ const CareerPage = () => {
                                 name="resume"
                                 onChange={handleChange}
                                 accept=".pdf,.doc,.docx"
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             />
                         </div>
 
                         {/* Interest */}
                         <div>
-                            <label className="block mb-1 font-medium text-white">
+                            <label className="block mb-1 font-medium dark:text-white">
                                 Area of Interest
                             </label>
 
@@ -293,7 +293,7 @@ const CareerPage = () => {
                                 name="interest"
                                 value={formData.interest}
                                 onChange={handleChange}
-                                className="w-full border border-gray-700 p-2 rounded bg-black text-white"
+                                className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white"
                                 required
                             >
                                 <option value="">Select</option>

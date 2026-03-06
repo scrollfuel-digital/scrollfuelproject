@@ -748,7 +748,7 @@ const Services = () => {
             {/* STACK SCROLL SECTION */}
             <section
                 ref={containerRef}
-                className="relative bg-black"
+                className="relative dark:bg-black"
                 style={{ height: `${totalCards * 100}vh` }}
             >
                 <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">

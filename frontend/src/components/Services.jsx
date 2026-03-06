@@ -17,7 +17,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 2, ease: "easeInOut" }}
         />
-        
+
         {/* Main icon */}
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.rect
@@ -36,7 +36,7 @@ const ServiceIcon = ({ type, isHovered }) => {
             animate={{ strokeOpacity: isHovered ? 0.6 : 0.3 }}
           />
         </svg>
-        
+
         {/* Floating particles */}
         {isHovered && (
           <>
@@ -56,7 +56,7 @@ const ServiceIcon = ({ type, isHovered }) => {
         )}
       </div>
     ),
-    
+
     Palette: (
       <div className="relative w-20 h-20">
         <motion.div
@@ -66,7 +66,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 1.5, ease: "easeInOut" }}
         />
-        
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.circle
             cx="12" cy="12" r="10"
@@ -86,7 +86,7 @@ const ServiceIcon = ({ type, isHovered }) => {
             transition={{ duration: 1.5, repeat: Infinity }}
           />
         </svg>
-        
+
         {/* Color dots */}
         {isHovered && (
           <>
@@ -104,7 +104,7 @@ const ServiceIcon = ({ type, isHovered }) => {
         )}
       </div>
     ),
-    
+
     Instagram: (
       <div className="relative w-20 h-20">
         <motion.div
@@ -115,7 +115,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 0.4 }}
         />
-        
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.rect
             x="3" y="3" width="18" height="18" rx="5"
@@ -128,7 +128,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           />
           <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" />
         </svg>
-        
+
         {/* Hearts animation */}
         {isHovered && (
           <>
@@ -152,7 +152,7 @@ const ServiceIcon = ({ type, isHovered }) => {
         )}
       </div>
     ),
-    
+
     Code: (
       <div className="relative w-20 h-20">
         <motion.div
@@ -162,7 +162,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 2, ease: "easeInOut" }}
         />
-        
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.path
             d="M16 18L22 12L16 6"
@@ -183,7 +183,7 @@ const ServiceIcon = ({ type, isHovered }) => {
             transition={{ duration: 1.5, repeat: Infinity }}
           />
         </svg>
-        
+
         {/* Binary numbers */}
         {isHovered && (
           <div className="absolute inset-0 flex items-center justify-center text-xs font-mono opacity-20">
@@ -197,7 +197,7 @@ const ServiceIcon = ({ type, isHovered }) => {
         )}
       </div>
     ),
-    
+
     TrendingUp: (
       <div className="relative w-20 h-20">
         <motion.div
@@ -207,7 +207,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 0.5 }}
         />
-        
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.path
             d="M22 7L13.5 15.5L8.5 10.5L2 17"
@@ -228,7 +228,7 @@ const ServiceIcon = ({ type, isHovered }) => {
             animate={{ strokeOpacity: isHovered ? 0.6 : 0.3 }}
           />
         </svg>
-        
+
         {/* Arrow up */}
         {isHovered && (
           <motion.div
@@ -242,7 +242,7 @@ const ServiceIcon = ({ type, isHovered }) => {
         )}
       </div>
     ),
-    
+
     FileText: (
       <div className="relative w-20 h-20">
         <motion.div
@@ -252,7 +252,7 @@ const ServiceIcon = ({ type, isHovered }) => {
           }}
           transition={{ duration: 0.3 }}
         />
-        
+
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="w-full h-full relative z-10 p-4">
           <motion.path
             d="M14 2H6C4.89543 2 4 2.89543 4 4V20C4 21.1046 4.89543 22 6 22H18C19.1046 22 20 21.1046 20 20V8L14 2Z"
@@ -273,7 +273,7 @@ const ServiceIcon = ({ type, isHovered }) => {
             transition={{ duration: 1.5, repeat: Infinity }}
           />
         </svg>
-        
+
         {/* Document lines animation */}
         {isHovered && (
           <motion.div
@@ -311,7 +311,7 @@ const AnimatedBackground = ({ isHovered }) => (
       }}
       transition={{ duration: 0.3 }}
     /> */}
-    
+
     {/* Floating circles */}
     <motion.div
       className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-2xl"
@@ -341,7 +341,8 @@ const Services = React.forwardRef((props, ref) => {
     <section
       ref={ref}
       id="services"
-      className="py-20 bg-dark text-white relative overflow-hidden"
+      // className="py-20 bg-dark text-white relative overflow-hidden"
+      className="py-20 bg-white text-black dark:bg-black dark:text-white relative overflow-hidden"
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -413,7 +414,7 @@ const Services = React.forwardRef((props, ref) => {
               >
                 {/* Animated background on hover */}
                 <AnimatedBackground isHovered={hoveredIndex === idx} />
-                
+
                 {/* Color overlay on hover */}
                 <motion.div
                   className="absolute inset-0 bg-linear-to-br from-primary/0 to-secondary/0"

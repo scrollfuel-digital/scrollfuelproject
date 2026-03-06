@@ -323,7 +323,8 @@ const AboutUs = React.forwardRef((props, ref) => {
     const [hoveredValue, setHoveredValue] = useState(null);
 
     return (
-        <section ref={ref} className="bg-black text-white overflow-hidden relative">
+        // <section ref={ref} className="bg-black text-white overflow-hidden relative">
+        <section ref={ref} className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative">
             {/* HERO SECTION WITH UNIQUE ANIMATION */}
             <div className="relative min-h-[70vh] flex items-center">
                 {/* Dynamic gradient background */}
@@ -345,8 +346,8 @@ const AboutUs = React.forwardRef((props, ref) => {
 
                 <FloatingParticles />
 
-                <div className="text-white max-w-5xl w-full mx-auto px-8 flex flex-col items-center text-center space-y-8 relative z-10">
-
+                {/* <div className="text-white max-w-5xl w-full mx-auto px-8 flex flex-col items-center text-center space-y-8 relative z-10"> */}
+                <div className="max-w-5xl w-full mx-auto px-8 flex flex-col items-center text-center space-y-8 relative z-10">
                     {/* TITLE CONTAINER */}
                     <motion.div
                         initial={{ opacity: 0, y: 80, rotateX: 80 }}
@@ -402,7 +403,8 @@ const AboutUs = React.forwardRef((props, ref) => {
                     </motion.div>
 
                     {/* DESCRIPTION */}
-                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="text-white/70 text-lg leading-relaxed max-w-3xl" > Scrollfuel is a growth-focused digital marketing Agency committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
+                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl" >
+                        Scrollfuel is a growth-focused digital marketing Agency committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
 
                 </div>
 

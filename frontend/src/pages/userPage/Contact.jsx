@@ -164,7 +164,7 @@ function AnimatedHeading() {
   return (
     <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tight mb-4">
       <div className="overflow-hidden">
-        <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="text-white">
+        <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="dark:text-white">
           {displayed[0]}
           {lineIdx === 0 && !done && <motion.span className="inline-block w-1 h-14 ml-1 rounded-sm bg-primary align-middle" animate={{ opacity: [1, 0] }} transition={{ duration: 0.6, repeat: Infinity }} />}
         </motion.div>
@@ -194,7 +194,7 @@ function ContactCard({ icon: Icon, title, value, link, index }) {
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10, scale: 1.03 }}
-      className="group relative overflow-hidden rounded-2xl border border-white/8 cursor-pointer"
+      className="group relative overflow-hidden rounded-2xl border dark:border-white/8 cursor-pointer"
       style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(20px)" }}
     >
       {/* Diagonal colour wipe */}
@@ -224,16 +224,16 @@ function ContactCard({ icon: Icon, title, value, link, index }) {
             />
           </motion.div>
 
-          <p className="text-white/40 text-xs uppercase tracking-widest mb-1 font-semibold group-hover:text-black/60 transition-colors duration-300">
+          <p className="dark:text-white/40 text-xs uppercase tracking-widest mb-1 font-semibold group-hover:text-black/60 transition-colors duration-300">
             {title}
           </p>
 
-          <p className="text-white font-bold text-base group-hover:text-black transition-colors duration-300">
+          <p className="dark:text-white font-bold text-base group-hover:text-black transition-colors duration-300">
             {value}
           </p>
 
           <motion.div
-            className="absolute top-5 right-5 text-white/20 group-hover:text-black/40 transition-colors duration-300"
+            className="absolute top-5 right-5 dark:text-white/20 group-hover:text-black/40 transition-colors duration-300"
             whileHover={{ x: 4, y: -4 }}
           >
             <ArrowUpRight size={18} />
@@ -256,56 +256,178 @@ function FloatingInput({ name, label, type = "text", value, onChange, required =
   const active = focused || value;
   return (
     <div className="relative">
-      <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
-        animate={{ top: active ? "6px" : "50%", y: active ? 0 : "-50%", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
-        transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
-      <motion.input name={name} type={type} value={value} onChange={onChange}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} required={required}
-        className="w-full pt-6 pb-3 px-4 rounded-xl text-white text-sm outline-none"
-        animate={{ borderColor: focused ? "#8bc53f" : "rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }}
-        style={{ background: "rgba(255,255,255,0.04)", border: "1.5px solid rgba(255,255,255,0.08)" }}
-        transition={{ duration: 0.25 }} />
+      <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10"
+        animate={{
+          top: active ? "6px" : "50%",
+          y: active ? 0 : "-50%",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : "rgba(0,0,0,0.5)"
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
+      </motion.label>
+
+      <motion.input
+        name={name}
+        type={type}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        required={required}
+        className="w-full pt-6 pb-3 px-4 rounded-xl text-black dark:text-white text-sm outline-none shadow-sm"
+        animate={{
+          borderColor: focused ? "#8bc53f" : "rgba(0,0,0,0.15)",
+          boxShadow: focused
+            ? "0 0 20px rgba(139,197,63,0.25)"
+            : "0 4px 12px rgba(0,0,0,0.08)"
+        }}
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: "1.5px solid rgba(0,0,0,0.15)"
+        }}
+        transition={{ duration: 0.25 }}
+      />
     </div>
   );
 }
 
+// function FloatingTextarea({ name, label, value, onChange }) {
+//   const [focused, setFocused] = useState(false);
+//   const active = focused || value;
+//   return (
+//     <div className="relative">
+//       <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
+//         animate={{ top: active ? "8px" : "18px", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
+//         transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
+//       <textarea name={name} value={value} onChange={onChange}
+//         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
+//         rows={5} className="w-full pt-8 pb-3 px-4 rounded-xl dark:text-white text-sm outline-none resize-none"
+//         style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }} />
+//     </div>
+//   );
+// }
 function FloatingTextarea({ name, label, value, onChange }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value;
+
   return (
     <div className="relative">
-      <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
-        animate={{ top: active ? "8px" : "18px", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
-        transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
-      <textarea name={name} value={value} onChange={onChange}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
-        rows={5} className="w-full pt-8 pb-3 px-4 rounded-xl text-white text-sm outline-none resize-none"
-        style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }} />
+      <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10"
+        animate={{
+          top: active ? "8px" : "18px",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : "rgba(0,0,0,0.55)"
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
+      </motion.label>
+
+      <textarea
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        rows={5}
+        className="w-full pt-8 pb-3 px-4 rounded-xl text-gray-700 dark:text-white text-sm outline-none resize-none"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: focused
+            ? "1.5px solid #8bc53f"
+            : "1.5px solid rgba(0,0,0,0.15)",
+          boxShadow: focused
+            ? "0 0 20px rgba(139,197,63,0.15)"
+            : "0 4px 12px rgba(0,0,0,0.08)"
+        }}
+      />
     </div>
   );
 }
-
+// function FloatingSelect({ name, label, value, onChange, options }) {
+//   const [focused, setFocused] = useState(false);
+//   const active = focused || value;
+//   return (
+//     <div className="relative">
+//       <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
+//         animate={{ top: active ? "6px" : "50%", y: active ? 0 : "-50%", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
+//         transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
+//       <select name={name} value={value} onChange={onChange}
+//         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} required
+//         className="w-full pt-6 pb-3 px-4 rounded-xl dark:text-white text-sm outline-none appearance-none cursor-pointer"
+//         style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }}>
+//         <option value="" className="dark:bg-white" />
+//         {options.map(opt => <option key={opt} value={opt} className="dark:bg-gray-900 dark:text-white">{opt}</option>)}
+//       </select>
+//       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0"
+//         style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "6px solid rgba(255,255,255,0.3)" }} />
+//     </div>
+//   );
+// }
 function FloatingSelect({ name, label, value, onChange, options }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value;
+
   return (
     <div className="relative">
-      <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
-        animate={{ top: active ? "6px" : "50%", y: active ? 0 : "-50%", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
-        transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
-      <select name={name} value={value} onChange={onChange}
-        onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} required
-        className="w-full pt-6 pb-3 px-4 rounded-xl text-white text-sm outline-none appearance-none cursor-pointer"
-        style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }}>
-        <option value="" className="bg-gray-900" />
-        {options.map(opt => <option key={opt} value={opt} className="bg-gray-900 text-white">{opt}</option>)}
+      <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10"
+        animate={{
+          top: active ? "6px" : "50%",
+          y: active ? 0 : "-50%",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : "rgba(0,0,0,0.55)"
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
+      </motion.label>
+
+      <select
+        name={name}
+        value={value}
+        onChange={onChange}
+        onFocus={() => setFocused(true)}
+        onBlur={() => setFocused(false)}
+        required
+        className="w-full pt-6 pb-3 px-4 rounded-xl text-gray-700 dark:text-white text-sm outline-none appearance-none cursor-pointer"
+        style={{
+          background: "rgba(255,255,255,0.04)",
+          border: focused
+            ? "1.5px solid #8bc53f"
+            : "1.5px solid rgba(0,0,0,0.15)",
+          boxShadow: focused
+            ? "0 0 20px rgba(139,197,63,0.15)"
+            : "0 4px 12px rgba(0,0,0,0.08)"
+        }}
+      >
+        <option value="" />
+        {options.map((opt) => (
+          <option
+            key={opt}
+            value={opt}
+            className="text-gray-800 dark:bg-gray-900 dark:text-white"
+          >
+            {opt}
+          </option>
+        ))}
       </select>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0"
-        style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "6px solid rgba(255,255,255,0.3)" }} />
+
+      <div
+        className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0"
+        style={{
+          borderLeft: "5px solid transparent",
+          borderRight: "5px solid transparent",
+          borderTop: "6px solid rgba(0,0,0,0.45)"
+        }}
+      />
     </div>
   );
 }
-
 /* MAIN PAGE*/
 export default function ContactUsPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
@@ -346,7 +468,7 @@ export default function ContactUsPage() {
   // ];
 
   return (
-    <div className="bg-black text-white overflow-hidden" ref={containerRef}>
+    <div className="dark:bg-black dark:text-white overflow-hidden" ref={containerRef}>
 
       {/* SCROLL LINE */}
       <div className="fixed left-0 top-0 w-0.5 h-full z-50 bg-white/5">
@@ -390,20 +512,20 @@ export default function ContactUsPage() {
 
               {/* Subtext — FROM BOTTOM */}
               <Reveal variant={fromBottom} delay={1.0} className="mt-5">
-                <p className="text-white/50 text-lg leading-relaxed max-w-lg">
+                <p className="dark:text-white/50 text-lg leading-relaxed max-w-lg">
                   Ready to scale your brand? Drop us a message and we'll craft a custom
                   digital growth strategy tailored to your goals.
                 </p>
               </Reveal>
 
               {/* Pill tags — stagger FROM RIGHT */}
-              <div className="flex flex-wrap gap-3 mt-5">
+              <div className="flex flex-wrap gap-3 mt-5 ">
                 {["⚡ Performance Marketing", "📈 ROI Focused", "🎯 Data Driven"].map((pill, i) => (
                   <motion.span key={i}
                     initial={{ opacity: 0, x: 70, scale: 0.85 }}
                     animate={{ opacity: 1, x: 0, scale: 1 }}
                     transition={{ duration: 0.55, delay: 1.15 + i * 0.13, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-xs font-semibold px-4 py-2 rounded-full border border-white/10 text-white/60"
+                    className="text-xs font-semibold px-4 py-2 rounded-full border dark:border-white/10 dark:text-white/60"
                     style={{ background: "rgba(255,255,255,0.04)" }}>
                     {pill}
                   </motion.span>
@@ -508,13 +630,13 @@ export default function ContactUsPage() {
 
       {/*  MARQUEE STRIP — FROM BOTTOM */}
       <Reveal variant={fromBottom} delay={0}>
-        <div className="relative py-4 border-y border-white/6 overflow-hidden"
+        <div className="relative py-4 border-y dark:border-white/6 overflow-hidden"
           style={{ background: "rgba(139,197,63,0.05)" }}>
           <motion.div className="flex gap-12 whitespace-nowrap"
             animate={{ x: ["0%", "-50%"] }}
             transition={{ duration: 18, repeat: Infinity, ease: "linear" }}>
             {[...Array(2)].map((_, r) => (
-              <span key={r} className="flex gap-12 text-sm font-semibold text-white/25 uppercase tracking-widest">
+              <span key={r} className="flex gap-12 text-sm font-semibold dark:text-white/25 uppercase tracking-widest">
                 {["Performance Marketing", "•", "SEO & Growth", "•", "Social Ads", "•", "Brand Strategy", "•", "Analytics", "•", "Web Design", "•", "Lead Generation", "•"].map((t, i) => (
                   <span key={i} className={t === "•" ? "text-primary" : ""}>{t}</span>
                 ))}
@@ -532,7 +654,7 @@ export default function ContactUsPage() {
           <Reveal variant={fromTop} delay={0.1}>
             <div className="flex items-center gap-4 mb-4">
               <div className="h-px flex-1 bg-white/8" />
-              <span className="text-xs font-bold uppercase tracking-[0.3em] text-white/30">Reach Us</span>
+              <span className="text-xs font-bold uppercase tracking-[0.3em] dark:text-white/30">Reach Us</span>
               <div className="h-px flex-1 bg-white/8" />
             </div>
           </Reveal>
@@ -540,7 +662,7 @@ export default function ContactUsPage() {
           {/* Heading — LEFT + RIGHT alternating words */}
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black mb-2">
-              <WordReveal text="Get In" className="text-white" fromDir="left" baseDelay={0.1} />
+              <WordReveal text="Get In" className="dark:text-white" fromDir="left" baseDelay={0.1} />
               {" "}
               <WordReveal text="Touch" className="text-primary" fromDir="right" baseDelay={0.3} />
             </h2>
@@ -560,7 +682,7 @@ export default function ContactUsPage() {
           {/* Heading — FROM TOP */}
           <Reveal variant={fromTop} delay={0} className="text-center mb-10">
             <h3 className="text-2xl font-black mb-2">
-              <WordReveal text="How It Works" className="text-white" fromDir="top" baseDelay={0.05} />
+              <WordReveal text="How It Works" className="dark:text-white" fromDir="top" baseDelay={0.05} />
             </h3>
             <SlideUnderline delay={0.4} width="60px" className="mx-auto" />
           </Reveal>
@@ -573,7 +695,7 @@ export default function ContactUsPage() {
             ].map(({ step, title, desc, icon: Icon, variant }, i) => (
               <Reveal key={i} variant={variant} delay={0.1 + i * 0.15} className="h-full">
                 <motion.div whileHover={{ y: -10, scale: 1.02 }}
-                  className="group relative h-full p-8 rounded-2xl border border-white/8 overflow-hidden"
+                  className="group relative h-full p-8 rounded-2xl border dark:border-white/8 overflow-hidden"
                   style={{ background: "rgba(255,255,255,0.03)" }}>
                   {/* Fill from bottom on hover */}
                   <motion.div className="absolute inset-0 origin-bottom"
@@ -582,13 +704,13 @@ export default function ContactUsPage() {
                     transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }} />
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-6">
-                      <span className="text-5xl font-black text-white/6 leading-none">{step}</span>
+                      <span className="text-5xl font-black dark:text-white/6 leading-none">{step}</span>
                       <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: "rgba(139,197,63,0.15)" }}>
                         <Icon size={20} className="text-primary" />
                       </div>
                     </div>
-                    <h4 className="text-lg font-black text-white mb-2 group-hover:text-primary transition-colors duration-300">{title}</h4>
-                    <p className="text-white/45 text-sm leading-relaxed">{desc}</p>
+                    <h4 className="text-lg font-black dark:text-white mb-2 group-hover:text-primary transition-colors duration-300">{title}</h4>
+                    <p className="dark:text-white/45 text-sm leading-relaxed">{desc}</p>
                   </div>
                 </motion.div>
               </Reveal>
@@ -609,7 +731,7 @@ export default function ContactUsPage() {
 
             {/* Char-by-char FROM BOTTOM */}
             <h2 className="text-4xl md:text-5xl font-black mb-3 leading-tight">
-              <CharReveal text="Start Your Growth" className="text-white justify-center" baseDelay={0} />
+              <CharReveal text="Start Your Growth" className="dark:text-white justify-center" baseDelay={0} />
               <br />
               <CharReveal text="Journey Today" className="text-primary justify-center" baseDelay={0.45} />
             </h2>
@@ -635,7 +757,7 @@ export default function ContactUsPage() {
               <div className="absolute -top-3 -left-3 w-12 h-12 border-l-2 border-t-2 border-primary/40 rounded-tl-xl pointer-events-none" />
               <div className="absolute -bottom-3 -right-3 w-12 h-12 border-r-2 border-b-2 border-secondary/40 rounded-br-xl pointer-events-none" />
 
-              <div className="relative p-8 md:p-10 rounded-3xl border border-white/8 overflow-hidden"
+              <div className="relative p-8 md:p-10 rounded-3xl border dark:border-white/8 overflow-hidden"
                 style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(24px)" }}>
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-2/3 h-px bg-linear-to-r from-transparent via-primary/40 to-transparent" />
 
@@ -681,10 +803,10 @@ export default function ContactUsPage() {
                       className="relative w-full py-4 rounded-xl font-bold text-base overflow-hidden flex items-center justify-center gap-3"
                       style={{ background: loading ? "rgba(139,197,63,0.3)" : "#8bc53f", color: "#000" }}>
                       {loading ? (
-                        <><motion.div className="w-5 h-5 border-2 border-black/30 border-t-black rounded-full" animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }} />Sending...</>
+                        <><motion.div className="w-5 h-5 border-2 dark:border-black/30 dark:border-t-black rounded-full" animate={{ rotate: 360 }} transition={{ duration: 0.8, repeat: Infinity, ease: "linear" }} />Sending...</>
                       ) : (
                         <><span>Submit Message</span><Send size={18} />
-                          <motion.div className="absolute inset-0 bg-white/25"
+                          <motion.div className="absolute inset-0 dark:bg-white/25"
                             initial={{ x: "-120%", skewX: "-20deg" }} animate={{ x: "220%" }}
                             transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 1, ease: "easeInOut" }} /></>
                       )}
@@ -695,7 +817,7 @@ export default function ContactUsPage() {
                         <motion.div
                           initial={{ opacity: 0, y: 12, scale: 0.93 }} animate={{ opacity: 1, y: 0, scale: 1 }}
                           exit={{ opacity: 0, y: -10, scale: 0.93 }} transition={{ duration: 0.4 }}
-                          className="mt-4 flex items-center gap-3 px-4 py-3 rounded-xl border border-primary/30 text-sm font-semibold"
+                          className="mt-4 flex items-center gap-3 px-4 py-3 rounded-xl border dark:border-primary/30 text-sm font-semibold"
                           style={{ background: "rgba(139,197,63,0.12)", color: "#8bc53f" }}>
                           <CheckCircle size={18} />
                           Message sent! We'll get back to you within 24 hours.
@@ -721,7 +843,7 @@ export default function ContactUsPage() {
                   <div className="absolute top-0 left-0 right-0 z-10 px-5 py-3 flex items-center gap-3"
                     style={{ background: "linear-gradient(to bottom, rgba(0,0,0,0.7), transparent)", backdropFilter: "blur(8px)" }}>
                     <MapPin size={16} className="text-primary" />
-                    <span className="text-sm font-semibold text-white/80">Nagpur, India</span>
+                    <span className="text-sm font-semibold dark:text-white/80">Nagpur, India</span>
                   </div>
                   <iframe title="Scrollfuel Location"
                     src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3722.4299900309484!2d79.0640556!3d21.0954167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjHCsDA1JzQzLjUiTiA3OcKwMDMnNTAuNiJF!5e0!3m2!1sen!2sin!4v1769861063448!5m2!1sen!2sin"
@@ -744,8 +866,8 @@ export default function ContactUsPage() {
                         style={{ background: `radial-gradient(circle at 30% 50%, ${color}22, transparent)` }}
                         whileHover={{ opacity: 1 }} transition={{ duration: 0.3 }} />
                       <Icon size={20} className="mb-3 relative z-10" style={{ color }} />
-                      <p className="text-white/40 text-xs uppercase tracking-widest mb-1 relative z-10">{label}</p>
-                      <p className="text-white font-bold text-sm relative z-10">{value}</p>
+                      <p className="dark:text-white/40 text-xs uppercase tracking-widest mb-1 relative z-10">{label}</p>
+                      <p className="dark:text-white font-bold text-sm relative z-10">{value}</p>
                     </motion.div>
                   </Reveal>
                 ))}
@@ -756,7 +878,7 @@ export default function ContactUsPage() {
                 {[
                   { icon: Globe, text: "Pan-India" },
                   { icon: Star, text: "5★ Rated" },
-                 
+
                 ].map(({ icon: Icon, text }, i) => (
                   <motion.div key={i}
                     initial={{ opacity: 0, y: 50 }}
@@ -764,10 +886,10 @@ export default function ContactUsPage() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.4 + i * 0.13, ease: [0.22, 1, 0.36, 1] }}
                     whileHover={{ y: -6, scale: 1.06 }}
-                    className="flex flex-col items-center gap-2 p-4 rounded-xl border border-white/8 text-center"
+                    className="flex flex-col items-center gap-2 p-4 rounded-xl border dark:border-white/8 text-center"
                     style={{ background: "rgba(255,255,255,0.02)" }}>
                     <Icon size={18} className="text-primary" />
-                    <span className="text-xs text-white/50 font-semibold">{text}</span>
+                    <span className="text-xs dark:text-white/50 font-semibold">{text}</span>
                   </motion.div>
                 ))}
               </div>
@@ -777,12 +899,12 @@ export default function ContactUsPage() {
                 <div className="relative px-6 py-5 rounded-2xl overflow-hidden flex items-center justify-between"
                   style={{ background: "linear-gradient(135deg, rgba(139,197,63,0.15), rgba(255,201,59,0.1))", border: "1px solid rgba(139,197,63,0.2)" }}>
                   <div>
-                    <p className="text-white font-bold mb-0.5">WhatsApp us directly</p>
-                    <p className="text-white/50 text-sm">Fastest response guaranteed</p>
+                    <p className="dark:text-white font-bold mb-0.5">WhatsApp us directly</p>
+                    <p className="dark:text-white/50 text-sm">Fastest response guaranteed</p>
                   </div>
                   <motion.a href="https://wa.me/919699660972" target="_blank" rel="noopener noreferrer"
                     whileHover={{ scale: 1.08, rotate: 4 }} whileTap={{ scale: 0.95 }}
-                    className="px-5 py-2.5 rounded-full font-bold text-black text-sm flex items-center gap-2"
+                    className="px-5 py-2.5 rounded-full font-bold dark:text-black text-sm flex items-center gap-2"
                     style={{ background: "#8bc53f" }}>
                     <MessageCircle size={16} />Chat
                   </motion.a>
