@@ -6,6 +6,7 @@ import {
     getCareerApplications,
     getContactMessages
 } from "../controllers/controller.js";
+import uploadResume from "../middleware/uploadResume.js";
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // POST
-router.post("/career/apply", upload.single("resume"), applyCareer);
+router.post("/apply", uploadResume.single("resume"), applyCareer);
 router.post("/general/contact", ContactForm);
 
 // GET (for admin dashboard)

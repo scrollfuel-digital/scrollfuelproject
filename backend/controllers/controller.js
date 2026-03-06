@@ -152,43 +152,79 @@ const googleSuccess = (req, res) => {
     }
 };
 // form controller 
+// const applyCareer = async (req, res) => {
+//     try {
+//         const { name, email, contact, address, interest } = req.body;
+
+//         if (!req.file) {
+//             return res.status(400).json({ error: "Resume is required" });
+//         }
+
+//         const newApplication = new CareerModel({
+//             name,
+//             email,
+//             contact,
+//             address,
+//             interest,
+//             resume: req.file.path,
+//         });
+
+//         await newApplication.save();
+
+//         res.status(201).json({
+//             message: "Application submitted successfully",
+//             data: newApplication,
+//         });
+
+//     } catch (error) {
+
+//         // DUPLICATE EMAIL HANDLING
+//         if (error.code === 11000) {
+//             return res.status(400).json({
+//                 error: "You have already applied with this email"
+//             });
+//         }
+
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 const applyCareer = async (req, res) => {
     try {
         const { name, email, contact, address, interest } = req.body;
 
-        if (!req.file) {
-            return res.status(400).json({ error: "Resume is required" });
+        const resumeUrl = req.file?.path;
+
+        if (!resumeUrl) {
+            return res.status(400).json({
+                success: false,
+                message: "Resume upload failed",
+            });
         }
 
-        const newApplication = new CareerModel({
+        const application = await Career.create({
             name,
             email,
             contact,
             address,
             interest,
-            resume: req.file.path,
+            resume: resumeUrl,
         });
 
-        await newApplication.save();
-
-        res.status(201).json({
+        res.status(200).json({
+            success: true,
             message: "Application submitted successfully",
-            data: newApplication,
+            data: application,
         });
 
     } catch (error) {
+        console.error("Server Error:", error);
 
-        // DUPLICATE EMAIL HANDLING
-        if (error.code === 11000) {
-            return res.status(400).json({
-                error: "You have already applied with this email"
-            });
-        }
-
-        res.status(500).json({ error: error.message });
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
     }
 };
-
 const ContactForm = async (req, res) => {
     try {
         const { name, email, phone, service, message } = req.body;
@@ -208,7 +244,7 @@ const ContactForm = async (req, res) => {
         await newContact.save();
 
         res.status(201).json({
-            message: "Consultation request submitted successfully 🚀",
+            message: "Consultation request submitted successfully ",
         });
     } catch (error) {
         res.status(500).json({ error: error.message });
