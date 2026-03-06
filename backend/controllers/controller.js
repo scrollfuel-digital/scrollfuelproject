@@ -152,42 +152,7 @@ const googleSuccess = (req, res) => {
     }
 };
 // form controller 
-// const applyCareer = async (req, res) => {
-//     try {
-//         const { name, email, contact, address, interest } = req.body;
 
-//         if (!req.file) {
-//             return res.status(400).json({ error: "Resume is required" });
-//         }
-
-//         const newApplication = new CareerModel({
-//             name,
-//             email,
-//             contact,
-//             address,
-//             interest,
-//             resume: req.file.path,
-//         });
-
-//         await newApplication.save();
-
-//         res.status(201).json({
-//             message: "Application submitted successfully",
-//             data: newApplication,
-//         });
-
-//     } catch (error) {
-
-//         // DUPLICATE EMAIL HANDLING
-//         if (error.code === 11000) {
-//             return res.status(400).json({
-//                 error: "You have already applied with this email"
-//             });
-//         }
-
-//         res.status(500).json({ error: error.message });
-//     }
-// };
 const applyCareer = async (req, res) => {
     try {
         const { name, email, contact, address, interest } = req.body;
@@ -225,15 +190,45 @@ const applyCareer = async (req, res) => {
         });
     }
 };
+// const ContactForm = async (req, res) => {
+//     try {
+//         const { name, email, phone, service, message } = req.body;
+
+//         if (!name || !email || !phone || !service || !message) {
+//             return res.status(400).json({ error: "All fields are required" });
+//         }
+
+//         const newContact = new ContactModel({
+//             name,
+//             email,
+//             phone,
+//             service,
+//             message,
+//         });
+
+//         await newContact.save();
+
+//         res.status(201).json({
+//             message: "Consultation request submitted successfully ",
+//         });
+//     } catch (error) {
+//         res.status(500).json({ error: error.message });
+//     }
+// };
 const ContactForm = async (req, res) => {
     try {
         const { name, email, phone, service, message } = req.body;
 
+        // 1️⃣ Validate required fields
         if (!name || !email || !phone || !service || !message) {
-            return res.status(400).json({ error: "All fields are required" });
+            return res.status(400).json({
+                success: false,
+                message: "All fields are required",
+            });
         }
 
-        const newContact = new ContactModel({
+        // 2️⃣ Create contact entry
+        const newContact = await ContactModel.create({
             name,
             email,
             phone,
@@ -241,13 +236,30 @@ const ContactForm = async (req, res) => {
             message,
         });
 
-        await newContact.save();
-
+        // 3️⃣ Success response
         res.status(201).json({
-            message: "Consultation request submitted successfully ",
+            success: true,
+            message: "Consultation request submitted successfully",
+            data: newContact,
         });
+
     } catch (error) {
-        res.status(500).json({ error: error.message });
+
+        console.error("Contact Form Error:", error);
+
+        // 4️⃣ Handle enum validation error
+        if (error.name === "ValidationError") {
+            return res.status(400).json({
+                success: false,
+                message: error.message,
+            });
+        }
+
+        // 5️⃣ Handle other server errors
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error",
+        });
     }
 };
 const getCareerApplications = async (req, res) => {
