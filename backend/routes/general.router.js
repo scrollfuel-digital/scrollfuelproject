@@ -24,7 +24,7 @@ const upload = multer({ storage });
 
 // POST
 router.post("/apply", uploadResume.single("resume"), applyCareer);
-router.post("/general/contact", ContactForm);
+router.post("/contact", ContactForm);
 
 // GET (for admin dashboard)
 router.get("/career", getCareerApplications);
