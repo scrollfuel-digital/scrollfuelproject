@@ -10,7 +10,7 @@ const Testimonials = () => {
             {
                 id: 1,
                 name: "Anand Dongre",
-                text: "They gave our brand a clear identity and strong presence. Simple, clean, and impactful work.",
+                text: "Clear brand identity. Strong presence. Simple, impactful work.",
                 img: "./assets/anand.jpg",
                 baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
@@ -25,7 +25,7 @@ const Testimonials = () => {
             {
                 id: 2,
                 name: "Smit Pillewar",
-                text: "Strategic execution. Measurable growth. Consistent performance",
+                text: "Strategic execution with measurable, consistent growth.",
                 img: "./assets/smit.jpg",
                 baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
@@ -85,7 +85,7 @@ const Testimonials = () => {
             {
                 id: 6,
                 name: "Mayur Choudhary",
-                text: "We received regular reports, clear insights, and transparent communication.",
+                text: "Regular reports, clear insights, and transparent communication.",
                 img: "./assets/Mayur.jpg",
                 baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
