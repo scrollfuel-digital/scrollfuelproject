@@ -256,7 +256,7 @@ function FloatingInput({ name, label, type = "text", value, onChange, required =
   const active = focused || value;
   return (
     <div className="relative">
-      <motion.label
+      {/* <motion.label
         className="absolute left-4 pointer-events-none font-medium z-10"
         animate={{
           top: active ? "6px" : "50%",
@@ -267,8 +267,31 @@ function FloatingInput({ name, label, type = "text", value, onChange, required =
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         {label}
+      </motion.label> */}
+      {/* <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10 text-gray-600 dark:text-white"
+        animate={{
+          top: active ? "6px" : "50%",
+          y: active ? 0 : "-50%",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : undefined
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
+      </motion.label> */}
+      <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10 text-black dark:text-white"
+        animate={{
+          top: active ? "6px" : "50%",
+          y: active ? 0 : "-50%",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : undefined
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
       </motion.label>
-
       <motion.input
         name={name}
         type={type}
@@ -294,21 +317,6 @@ function FloatingInput({ name, label, type = "text", value, onChange, required =
   );
 }
 
-// function FloatingTextarea({ name, label, value, onChange }) {
-//   const [focused, setFocused] = useState(false);
-//   const active = focused || value;
-//   return (
-//     <div className="relative">
-//       <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
-//         animate={{ top: active ? "8px" : "18px", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
-//         transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
-//       <textarea name={name} value={value} onChange={onChange}
-//         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)}
-//         rows={5} className="w-full pt-8 pb-3 px-4 rounded-xl dark:text-white text-sm outline-none resize-none"
-//         style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }} />
-//     </div>
-//   );
-// }
 function FloatingTextarea({ name, label, value, onChange }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value;
@@ -320,7 +328,7 @@ function FloatingTextarea({ name, label, value, onChange }) {
         animate={{
           top: active ? "8px" : "18px",
           fontSize: active ? "10px" : "14px",
-          color: focused ? "#8bc53f" : "rgba(0,0,0,0.55)"
+          color: focused ? "#8bc53f" : undefined
         }}
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
@@ -348,33 +356,14 @@ function FloatingTextarea({ name, label, value, onChange }) {
     </div>
   );
 }
-// function FloatingSelect({ name, label, value, onChange, options }) {
-//   const [focused, setFocused] = useState(false);
-//   const active = focused || value;
-//   return (
-//     <div className="relative">
-//       <motion.label className="absolute left-4 pointer-events-none font-medium z-10"
-//         animate={{ top: active ? "6px" : "50%", y: active ? 0 : "-50%", fontSize: active ? "10px" : "14px", color: focused ? "#8bc53f" : "rgba(255,255,255,0.35)" }}
-//         transition={{ duration: 0.25, ease: "easeOut" }}>{label}</motion.label>
-//       <select name={name} value={value} onChange={onChange}
-//         onFocus={() => setFocused(true)} onBlur={() => setFocused(false)} required
-//         className="w-full pt-6 pb-3 px-4 rounded-xl dark:text-white text-sm outline-none appearance-none cursor-pointer"
-//         style={{ background: "rgba(255,255,255,0.04)", border: focused ? "1.5px solid #8bc53f" : "1.5px solid rgba(255,255,255,0.08)", boxShadow: focused ? "0 0 20px rgba(139,197,63,0.15)" : "none" }}>
-//         <option value="" className="dark:bg-white" />
-//         {options.map(opt => <option key={opt} value={opt} className="dark:bg-gray-900 dark:text-white">{opt}</option>)}
-//       </select>
-//       <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none w-0 h-0"
-//         style={{ borderLeft: "5px solid transparent", borderRight: "5px solid transparent", borderTop: "6px solid rgba(255,255,255,0.3)" }} />
-//     </div>
-//   );
-// }
+
 function FloatingSelect({ name, label, value, onChange, options }) {
   const [focused, setFocused] = useState(false);
   const active = focused || value;
 
   return (
     <div className="relative">
-      <motion.label
+      {/* <motion.label
         className="absolute left-4 pointer-events-none font-medium z-10"
         animate={{
           top: active ? "6px" : "50%",
@@ -385,8 +374,19 @@ function FloatingSelect({ name, label, value, onChange, options }) {
         transition={{ duration: 0.25, ease: "easeOut" }}
       >
         {label}
+      </motion.label> */}
+      <motion.label
+        className="absolute left-4 pointer-events-none font-medium z-10 text-black dark:text-white"
+        animate={{
+          top: active ? "6px" : "50%",
+          y: active ? 0 : "-50%",
+          fontSize: active ? "10px" : "14px",
+          color: focused ? "#8bc53f" : undefined
+        }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+      >
+        {label}
       </motion.label>
-
       <select
         name={name}
         value={value}
@@ -448,7 +448,11 @@ export default function ContactUsPage() {
           body: JSON.stringify(form)
         });
       const data = await res.json();
-      if (res.ok) { setSubmitted(true); setForm({ name: "", email: "", phone: "", service: "", message: "" }); setTimeout(() => setSubmitted(false), 4000); }
+      if (res.ok) {
+        setSubmitted(true);
+        setForm({ name: "", email: "", phone: "", service: "", message: "" });
+        setTimeout(() => setSubmitted(false), 4000);
+      }
       else alert(data.error);
     } catch { alert("Server error"); } finally { setLoading(false); }
   };

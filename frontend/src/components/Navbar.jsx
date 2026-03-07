@@ -66,13 +66,13 @@ const Navbar = () => {
                             className={({ isActive }) =>
                                 `text-xs font-bold uppercase tracking-widest relative group transition-all
                                 ${isActive
-                                    ? "text-yellow-400"
-                                    : "text-black dark:text-white hover:text-green-500"
+                                    ? "text-secondary"
+                                    : "text-black dark:text-white hover-text-primary"
                                 }`
                             }
                         >
                             {link.name}
-                            <span className="absolute -bottom-2 left-0 h-0.5 bg-green-500 w-0 group-hover:w-full transition-all duration-500" />
+                            <span className="absolute -bottom-2 left-0 h-0.5 bg-primary w-0 group-hover:w-full transition-all duration-500" />
                         </NavLink>
                     ))}
 
@@ -128,8 +128,8 @@ const Navbar = () => {
                         className={({ isActive }) =>
                             `px-8 py-3 rounded-lg text-xl sm:text-2xl font-semibold transition-all
                             ${isActive
-                                ? "bg-green-500 text-white"
-                                : "text-black dark:text-white hover:bg-green-500/20"
+                                ? "bg-primary text-white"
+                                : "text-black dark:text-white hover-bg-primary"
                             }`
                         }
                     >
@@ -142,7 +142,7 @@ const Navbar = () => {
                     onClick={toggleTheme}
                     className="flex items-center gap-3 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-600 text-black dark:text-white transition-colors duration-300"
                 >
-                    {dark ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-gray-700" />}
+                    {dark ? <Sun size={20} className="text-secondary" /> : <Moon size={20} className="text-gray-700" />}
                     Toggle Theme
                 </button>
 
@@ -150,7 +150,7 @@ const Navbar = () => {
                 <NavLink
                     to="/contact"
                     onClick={() => setIsOpen(false)}
-                    className="mt-4 px-6 py-3 bg-green-500 text-black font-bold uppercase tracking-widest rounded-full text-sm hover:bg-yellow-400 transition"
+                    className="mt-4 px-6 py-3 bg-primary text-black font-bold uppercase tracking-widest rounded-full text-sm hover-bg-secondary transition"
                 >
                     Start Project
                 </NavLink>

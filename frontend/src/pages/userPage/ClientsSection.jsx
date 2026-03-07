@@ -78,7 +78,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
                 style={{ y: bgY }}
                 className="absolute inset-0 z-0"
             >
-                <div className="absolute inset-0 bg-black/10" />
+                <div className="absolute inset-0 dark:bg-white/80" />
             </motion.div>
 
             {/* Content */}
@@ -89,7 +89,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center text-lg sm:text-xl md:text-2xl text-black font-bold"
+                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-white font-bold"
                 >
                     Over{" "}
                     <span className="text-primary font-bold">

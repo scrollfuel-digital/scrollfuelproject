@@ -142,10 +142,10 @@ const Testimonials = () => {
                     <svg
                         key={i}
                         className={`w-4 h-4 transition-colors duration-300 ${i < rating
-                                ? isHovered
-                                    ? activeColor
-                                    : "text-secondary"
-                                : "text-gray-400 dark:text-gray-600"
+                            ? isHovered
+                                ? activeColor
+                                : "text-secondary"
+                            : "text-gray-400 dark:text-gray-600"
                             } fill-current`}
                         viewBox="0 0 20 20"
                     >
@@ -191,8 +191,7 @@ const Testimonials = () => {
                         </h2>
 
                         <p className="text-gray-600 dark:text-gray-400 text-lg leading-relaxed max-w-xl">
-                            Relation so in confined smallest children unpacked delicate.
-                            Why sir end believe uncivil respect.
+                            Real experiences from businesses that trusted our digital marketing expertise.
                         </p>
 
                     </div>
