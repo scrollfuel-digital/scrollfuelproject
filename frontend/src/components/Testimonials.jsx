@@ -85,7 +85,7 @@ const Testimonials = () => {
             {
                 id: 6,
                 name: "Mayur Choudhary",
-                text: "Regular reports, clear insights, and transparent communication.",
+                text: "Clear insights with regular, transparent reporting.",
                 img: "./assets/Mayur.jpg",
                 baseBg: "bg-white dark:bg-black",
                 border: "border-primary",
