@@ -15,6 +15,6 @@ router.post("/contact", ContactForm);
 
 // GET routes
 router.get("/career", getCareerApplications);
-router.get("/contact", getContactMessages);
+router.get("/contacts", getContactMessages);
 
 export default router;
