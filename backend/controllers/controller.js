@@ -139,18 +139,26 @@ const Login = async (req, res) => {
 
 // const googleSuccess = (req, res) => {
 //     try {
+
 //         if (!req.user) {
-//             return res.redirect("http://localhost:5173/login");
+//             return res.redirect("http://localhost:5173/admin/auth");
 //         }
-//         // Later you can generate JWT here
-//         res.redirect("http://localhost:5173/admin/dashboard");
+
+//         // generate JWT token
+//         const token = jwt.sign(
+//             { id: req.user._id },
+//             process.env.JWT_SECRET,
+//             { expiresIn: "1h" }
+//         );
+
+//         // redirect with token
+//         res.redirect(`http://localhost:5173/admin/auth?token=${token}`);
+
 //     } catch (error) {
 //         console.log(error);
-//         res.redirect("http://localhost:5173/login");
+//         res.redirect("http://localhost:5173/admin/auth");
 //     }
 // };
-// form controller 
-
 
 const googleSuccess = (req, res) => {
     try {
@@ -159,21 +167,32 @@ const googleSuccess = (req, res) => {
             return res.redirect("http://localhost:5173/admin/auth");
         }
 
-        // generate JWT token
+        const user = req.user;
+
         const token = jwt.sign(
-            { id: req.user._id },
+            { id: user._id },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
 
-        // redirect with token
-        res.redirect(`http://localhost:5173/admin/auth?token=${token}`);
+        const userData = {
+            username: user.displayName,
+            email: user.email,
+            photo: user.photo
+        };
+
+        const encodedUser = encodeURIComponent(JSON.stringify(userData));
+
+        res.redirect(
+            `http://localhost:5173/admin/auth?token=${token}&user=${encodedUser}`
+        );
 
     } catch (error) {
         console.log(error);
         res.redirect("http://localhost:5173/admin/auth");
     }
 };
+
 const applyCareer = async (req, res) => {
     try {
         const { name, email, contact, address, interest } = req.body;
@@ -211,31 +230,6 @@ const applyCareer = async (req, res) => {
         });
     }
 };
-// const ContactForm = async (req, res) => {
-//     try {
-//         const { name, email, phone, service, message } = req.body;
-
-//         if (!name || !email || !phone || !service || !message) {
-//             return res.status(400).json({ error: "All fields are required" });
-//         }
-
-//         const newContact = new ContactModel({
-//             name,
-//             email,
-//             phone,
-//             service,
-//             message,
-//         });
-
-//         await newContact.save();
-
-//         res.status(201).json({
-//             message: "Consultation request submitted successfully ",
-//         });
-//     } catch (error) {
-//         res.status(500).json({ error: error.message });
-//     }
-// };
 const ContactForm = async (req, res) => {
     try {
         const { name, email, phone, service, message } = req.body;
