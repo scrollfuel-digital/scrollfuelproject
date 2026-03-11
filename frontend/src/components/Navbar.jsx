@@ -49,10 +49,11 @@ const Navbar = () => {
 
                 {/* LOGO */}
                 <NavLink to="/" end onClick={() => setIsOpen(false)}>
+                    
                     <img
-                        src="/assets/logo1.png"
+                        src={dark ? "/assets/logo1.png" : "/logo2.png"}
                         alt="Logo"
-                        className="w-44 sm:w-44 lg:w-52 pb-4"
+                        className="w-44 sm:w-44 lg:w-52 pb-4 transition-all duration-300"
                     />
                 </NavLink>
 

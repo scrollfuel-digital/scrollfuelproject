@@ -1,9 +1,28 @@
-
-import { Phone, Mail } from 'lucide-react';
+import { Phone, Mail } from "lucide-react";
 import { NavLink, Link } from "react-router-dom";
 import { services } from "../data/services.js";
+import { useState, useEffect } from "react";
 
 const Footer = () => {
+
+    const [dark, setDark] = useState(
+        document.documentElement.classList.contains("dark")
+    );
+
+    /* Watch for theme change */
+    useEffect(() => {
+        const observer = new MutationObserver(() => {
+            setDark(document.documentElement.classList.contains("dark"));
+        });
+
+        observer.observe(document.documentElement, {
+            attributes: true,
+            attributeFilter: ["class"],
+        });
+
+        return () => observer.disconnect();
+    }, []);
+
     return (
         <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
 
@@ -16,9 +35,9 @@ const Footer = () => {
                     <div className="flex flex-col">
                         <NavLink to="/" end className="flex items-center">
                             <img
-                                src="/assets/logo1.png"
+                                src={dark ? "/assets/logo1.png" : "/logo2.png"}
                                 alt="Logo"
-                                className="w-44 sm:w-30 lg:w-54"
+                                className="w-44 sm:w-44 lg:w-52 pb-4 transition-all duration-300"
                             />
                         </NavLink>
                     </div>
@@ -108,7 +127,7 @@ const Footer = () => {
                     </div>
 
                     {/* Contact */}
-                    <div className=''>
+                    <div>
                         <h4 className="font-semibold text-lg mb-4 text-black dark:text-white">Contact</h4>
                         <ul className="space-y-3 font-bold">
                             <li className="flex items-center gap-2 text-muted">
@@ -121,6 +140,7 @@ const Footer = () => {
                                     +91 9699660972
                                 </a>
                             </li>
+
                             <li className="relative pl-7 text-muted font-bold">
                                 <Mail size={16} className="absolute left-0 top-1 text-primary" />
                                 <a
@@ -132,9 +152,13 @@ const Footer = () => {
                                     scrollfuel@gmail.com
                                 </a>
                             </li>
+
                             <li className="relative pl-7 text-muted">
                                 <Mail size={16} className="absolute left-0 top-1 text-primary" />
-                                <a href="mailto:scrollfueldigital@gmail.com" className="hover-text-primary">
+                                <a
+                                    href="mailto:scrollfueldigital@gmail.com"
+                                    className="hover-text-primary"
+                                >
                                     scrollfueldigital@gmail.com
                                 </a>
                             </li>

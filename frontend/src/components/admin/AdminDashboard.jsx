@@ -1,139 +1,6 @@
-// import { useEffect, useState } from "react";
-// import axios from "axios";
-// import Sidebar from "../../components/admin/Sidebar";
-// import AdminNavbar from "../../components/admin/AdminNavbar";
-
-// const API = import.meta.env.VITE_API_URL;
-
-// export default function AdminDashboard() {
-
-//     const [stats, setStats] = useState({
-//         blogs: 0,
-//         contacts: 0,
-//         applications: 0,
-//         views: 0,
-//     });
-
-//     useEffect(() => {
-//         const fetchStats = async () => {
-//             try {
-//                 const blogRes = await axios.get(`${API}/api/blog`);
-//                 const contactRes = await axios.get(`${API}/api/general/contact`);
-//                 const applyRes = await axios.get(`${API}/api/career`);
-//                 setStats({
-//                     blogs: blogRes.data.data.length,
-//                     contacts: contactRes.data.data.length,
-//                     applications: applyRes.data.data.length,
-//                     views: 1
-//                 });
-
-//             } catch (error) {
-//                 console.log("Dashboard error:", error);
-//             }
-
-//         };
-
-//         fetchStats();
-
-//     }, []);
-
-//     return (
-//         <div className="flex">
-
-//             <Sidebar />
-
-//             <div className="ml-64 w-full bg-gray-100 min-h-screen">
-
-//                 <AdminNavbar />
-
-//                 <div className="p-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-
-//                     <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-//                         <h3 className="text-gray-500 text-sm">Total Blogs</h3>
-//                         <p className="text-3xl font-bold mt-2">{stats.blogs}</p>
-//                     </div>
-
-//                     <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-//                         <h3 className="text-gray-500 text-sm">Contact Messages</h3>
-//                         <p className="text-3xl font-bold mt-2">{stats.contacts}</p>
-//                     </div>
-
-//                     <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-//                         <h3 className="text-gray-500 text-sm">Job Applications</h3>
-//                         <p className="text-3xl font-bold mt-2">{stats.applications}</p>
-//                     </div>
-
-//                     <div className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
-//                         <h3 className="text-gray-500 text-sm">Website Views</h3>
-//                         <p className="text-3xl font-bold mt-2">{stats.views}</p>
-//                     </div>
-
-//                 </div>
-
-//             </div>
-
-//         </div>
-//     );
-// }
-
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./AdminNavbar";
-
-/* ─── CSS ──────────────────────────────────────────────────────────────────── */
-const css = `
-  @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --green:  #8bc53f;
-    --yellow: #ffc93b;
-    --black:  #000000;
-    --white:  #ffffff;
-    --muted:  #8d8c8c;
-    --bg:     #f5f6f2;
-    --card:   #ffffff;
-    --border: #e8e8e4;
-    --text:   #111111;
-    --sub:    #666666;
-  }
-
-  .dark-mode {
-    --bg:     #0a0a0a;
-    --card:   #111111;
-    --border: #222222;
-    --text:   #f0f0f0;
-    --sub:    #888888;
-  }
-
-  body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); }
-
-  @keyframes slideUp {
-    from { opacity:0; transform:translateY(20px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-  @keyframes pulse-dot {
-    0%,100% { opacity:1; }
-    50%      { opacity:0.4; }
-  }
-
-  .anim-slide { animation: slideUp 0.5s ease both; }
-
-  .stat-card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(139,197,63,0.14); }
-  .stat-card { transition: transform 0.25s, box-shadow 0.25s; }
-
-  .nav-link { transition: background 0.2s, color 0.2s; border-left: 3px solid transparent; }
-  .nav-link.active { background: rgba(139,197,63,0.12); border-left-color: #8bc53f; color: #8bc53f; }
-  .nav-link:hover:not(.active) { background: rgba(255,255,255,0.05); color: #fff; }
-
-  .quick-btn { transition: opacity 0.2s, transform 0.18s; }
-  .quick-btn:hover { opacity: 0.85; transform: scale(0.97); }
-
-  ::-webkit-scrollbar { width: 4px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: #8bc53f; border-radius: 4px; }
-`;
 
 /* ─── Icons ────────────────────────────────────────────────────────────────── */
 const Ic = {
@@ -340,45 +207,94 @@ function QuickActions({ dark }) {
     );
 }
 
-/* ─── Root ─────────────────────────────────────────────────────────────────── */
+
+
 export default function AdminDashboard() {
-    const [dark, setDark] = useState(false);
+
+    const [dark, setDark] = useState(() => {
+        if (localStorage.getItem("theme")) {
+            return localStorage.getItem("theme") === "dark";
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    });
+
     const [sideOpen, setSideOpen] = useState(true);
     const [active, setActive] = useState("dashboard");
 
     const stats = [
         { label: "Total Blogs", value: 24, icon: <Ic.Blog />, accentHex: "#8bc53f", trend: "12%" },
-        { label: "Contact Messages", value: 138, icon: <Ic.Mail />, accentHex: "#ffc93b", trend: "8%" },
+        { label: "Contact Messages", value: 18, icon: <Ic.Mail />, accentHex: "#ffc93b", trend: "8%" },
         { label: "Job Applications", value: 57, icon: <Ic.Brief />, accentHex: "#2196F3", trend: "23%" },
-        { label: "Website Views", value: 9421, icon: <Ic.Eye />, accentHex: "#8bc53f", trend: "31%" },
+        { label: "Website Views", value: 91, icon: <Ic.Eye />, accentHex: "#8bc53f", trend: "31%" },
     ];
+    useEffect(() => {
+        const root = document.documentElement;
+
+        if (dark) {
+            root.classList.add("dark");
+            localStorage.setItem("theme", "dark");
+        } else {
+            root.classList.remove("dark");
+            localStorage.setItem("theme", "light");
+        }
+    }, [dark]);
+
+    const toggleTheme = () => {
+        setDark(prev => !prev);
+    };
 
     return (
-        <div className={dark ? "dark-mode" : ""} style={{ display: "flex", minHeight: "100vh", background: "var(--bg)" }}>
-            <style>{css}</style>
-
-            <Sidebar open={sideOpen} setOpen={setSideOpen} active={active} setActive={setActive} />
-
-            <div style={{
-                marginLeft: sideOpen ? 256 : 68,
-                flex: 1, display: "flex", flexDirection: "column",
-                transition: "margin-left 0.3s cubic-bezier(0.4,0,0.2,1)",
+        <div
+            style={{
+                display: "flex",
                 minHeight: "100vh",
-            }}>
-                <Navbar dark={dark} toggleDark={() => setDark(!dark)} />
+                background: "var(--bg)",
+                color: "var(--text)"
+            }}
+        >
+
+            <Sidebar
+                open={sideOpen}
+                setOpen={setSideOpen}
+                active={active}
+                setActive={setActive}
+            />
+
+            <div
+                style={{
+                    marginLeft: sideOpen ? 256 : 68,
+                    flex: 1,
+                    display: "flex",
+                    flexDirection: "column",
+                    transition: "margin-left 0.3s cubic-bezier(0.4,0,0.2,1)",
+                    minHeight: "100vh",
+                }}
+            >
+                <Navbar dark={dark} toggleDark={toggleTheme} />
 
                 <main style={{ padding: "28px 28px 40px", flex: 1 }}>
                     <WelcomeBanner />
 
-                    <div style={{
-                        display: "grid",
-                        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                        gap: 18, marginBottom: 22,
-                    }}>
-                        {stats.map((s, i) => <StatCard key={i} {...s} delay={i * 70} />)}
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+                            gap: 18,
+                            marginBottom: 22,
+                        }}
+                    >
+                        {stats.map((s, i) => (
+                            <StatCard key={i} {...s} delay={i * 70} />
+                        ))}
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 320px", gap: 18 }}>
+                    <div
+                        style={{
+                            display: "grid",
+                            gridTemplateColumns: "1fr 320px",
+                            gap: 18
+                        }}
+                    >
                         <ActivityFeed />
                         <QuickActions dark={dark} />
                     </div>
