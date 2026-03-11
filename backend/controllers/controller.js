@@ -142,10 +142,8 @@ const googleSuccess = (req, res) => {
         if (!req.user) {
             return res.redirect("http://localhost:5173/login");
         }
-
         // Later you can generate JWT here
-
-        res.redirect("http://localhost:5173/dashboard");
+        res.redirect("http://localhost:5173/admin/dashboard");
     } catch (error) {
         console.log(error);
         res.redirect("http://localhost:5173/login");
