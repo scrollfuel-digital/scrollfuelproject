@@ -169,8 +169,14 @@ const googleSuccess = (req, res) => {
 
         const user = req.user;
 
+        // const token = jwt.sign(
+        //     { id: user._id },
+        //     process.env.JWT_SECRET,
+        //     { expiresIn: "1h" }
+        // );
+        
         const token = jwt.sign(
-            { id: user._id },
+            { email: user.email },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
