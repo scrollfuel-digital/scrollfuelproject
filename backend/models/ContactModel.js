@@ -24,4 +24,4 @@ const ContactSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default mongoose.model("Contact", ContactSchema);
+export default mongoose.model("Contact", ContactSchema, "contactforms");

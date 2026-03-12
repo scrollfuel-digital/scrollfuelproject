@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const careerSchema = new mongoose.Schema(
     {
         name: { type: String, required: true },
-        email: { type: String, required: true, unique: true }, // ⭐ UNIQUE
+        email: { type: String, required: true, unique: true }, 
         contact: { type: String, required: true },
         address: { type: String, required: true },
         interest: { type: String, required: true },
@@ -12,4 +12,4 @@ const careerSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
-export default mongoose.model("Career", careerSchema);
+export default mongoose.model("Career", careerSchema, "careers");

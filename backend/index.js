@@ -10,7 +10,7 @@ import adminRouter from "./routes/admin.router.js";
 import generalRouter from "./routes/general.router.js";
 import blogRouter from "./routes/blogRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
-
+import dashboardRoutes from "./routes/dashboardRoutes.js"
 
 import "./config/passport.js";
 
@@ -58,7 +58,7 @@ app.use("/api/chat", chatRoutes);
 app.use("/api/admin", adminRouter);
 app.use("/api/general", generalRouter);
 app.use("/api/blog", blogRouter);
-
+app.use("/api/dashboard", dashboardRoutes);
 
 app.get("/", (req, res) => {
     res.send("API is running...");

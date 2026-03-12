@@ -137,29 +137,6 @@ const Login = async (req, res) => {
     }
 };
 
-// const googleSuccess = (req, res) => {
-//     try {
-
-//         if (!req.user) {
-//             return res.redirect("http://localhost:5173/admin/auth");
-//         }
-
-//         // generate JWT token
-//         const token = jwt.sign(
-//             { id: req.user._id },
-//             process.env.JWT_SECRET,
-//             { expiresIn: "1h" }
-//         );
-
-//         // redirect with token
-//         res.redirect(`http://localhost:5173/admin/auth?token=${token}`);
-
-//     } catch (error) {
-//         console.log(error);
-//         res.redirect("http://localhost:5173/admin/auth");
-//     }
-// };
-
 const googleSuccess = (req, res) => {
     try {
 
@@ -169,12 +146,6 @@ const googleSuccess = (req, res) => {
 
         const user = req.user;
 
-        // const token = jwt.sign(
-        //     { id: user._id },
-        //     process.env.JWT_SECRET,
-        //     { expiresIn: "1h" }
-        // );
-        
         const token = jwt.sign(
             { email: user.email },
             process.env.JWT_SECRET,
