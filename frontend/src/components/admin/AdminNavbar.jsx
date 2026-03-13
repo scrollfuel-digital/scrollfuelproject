@@ -46,13 +46,17 @@ export default function Navbar({ dark, toggleDark }) {
         <>
             <header
                 style={{
+                    position: "sticky",
+                    top: 0,
+                    zIndex: 50,
                     height: 70,
                     padding: "0 28px",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     borderBottom: "1px solid var(--border)",
-                    background: "var(--card)"
+                    backgroundColor:
+                    dark ? "#0f0f0f" : "#fff"
                 }}
             >
 
@@ -62,7 +66,7 @@ export default function Navbar({ dark, toggleDark }) {
 
                 <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
 
-                    {/* DARK MODE TOGGLE */}
+                    {/* DARK MODE */}
                     <button
                         onClick={toggleDark}
                         style={{
@@ -80,7 +84,7 @@ export default function Navbar({ dark, toggleDark }) {
                         {dark ? <Ic.Sun /> : <Ic.Moon />}
                     </button>
 
-                    {/* ADMIN PROFILE */}
+                    {/* PROFILE */}
                     <div
                         onClick={() => setShowProfile(true)}
                         style={{
@@ -167,13 +171,7 @@ export default function Navbar({ dark, toggleDark }) {
                         }}
                     >
 
-                        <h3
-                            style={{
-                                fontSize: 18,
-                                fontWeight: 700,
-                                marginBottom: 18
-                            }}
-                        >
+                        <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 18 }}>
                             Personal Information
                         </h3>
 

@@ -21,26 +21,27 @@ export default function AuthPage() {
 
   const navigate = useNavigate();
 
-  // // If already logged in redirect to dashboard
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-
-  //   if (token) {
-  //     navigate("/admin/dashboard");
-  //   }
-  // }, [navigate]);
   useEffect(() => {
 
     const params = new URLSearchParams(window.location.search);
+
     const token = params.get("token");
+    const user = params.get("user");
 
     if (token) {
       localStorage.setItem("token", token);
+    }
 
+    if (user) {
+      const decodedUser = JSON.parse(decodeURIComponent(user));
+      localStorage.setItem("user", JSON.stringify(decodedUser));
+    }
+
+    if (token) {
       navigate("/admin/dashboard");
     }
 
-  }, []);
+  }, [navigate]);
 
   useEffect(() => {
 

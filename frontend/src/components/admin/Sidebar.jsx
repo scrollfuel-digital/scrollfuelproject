@@ -1,12 +1,10 @@
 import React from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 
-function Sidebar({ open, setOpen }) {
+function Sidebar({ open, setOpen, dark }) {
 
     const navigate = useNavigate();
     const location = useLocation();
-
-    /* ───── Icons ───── */
 
     const Ic = {
         Grid: () => (
@@ -32,24 +30,12 @@ function Sidebar({ open, setOpen }) {
         )
     };
 
-    /* ───── Sidebar Links ───── */
-
     const links = [
-        {
-            label: "Dashboard",
-            path: "/admin/dashboard",
-            icon: <Ic.Grid />
-        },
-        {
-            label: "Blogs",
-            path: "/admin/blogs",
-            icon: <Ic.Blog />
-        }
+        { label: "Dashboard", path: "/admin/dashboard", icon: <Ic.Grid /> },
+        { label: "Blogs", path: "/admin/blogs", icon: <Ic.Blog /> },
+        { label: "Inquiry", path: "/admin/messages", icon: <Ic.Blog /> },
+        { label: "Application", path: "/admin/careers", icon: <Ic.Blog /> }
     ];
-
-    const handleNavigation = (path) => {
-        navigate(path);
-    };
 
     return (
         <aside
@@ -59,8 +45,9 @@ function Sidebar({ open, setOpen }) {
                 left: 0,
                 height: "100vh",
                 width: open ? 256 : 68,
-                background: "#000",
-                borderRight: "1px solid #1a1a1a",
+                backgroundColor: dark ? "#0f0f0f" : "#ffffff",
+                borderRight: dark ? "1px solid #1a1a1a" : "1px solid #e5e5e5",
+                color: dark ? "#fff" : "#111",
                 display: "flex",
                 flexDirection: "column",
                 transition: "all 0.3s ease"
@@ -89,7 +76,7 @@ function Sidebar({ open, setOpen }) {
                     return (
                         <button
                             key={index}
-                            onClick={() => handleNavigation(link.path)}
+                            onClick={() => navigate(link.path)}
                             style={{
                                 width: "100%",
                                 display: "flex",
@@ -101,9 +88,15 @@ function Sidebar({ open, setOpen }) {
                                 border: "none",
                                 cursor: "pointer",
                                 background: isActive ? "rgba(139,197,63,0.12)" : "transparent",
-                                color: isActive ? "#8bc53f" : "#666",
+                                color: isActive
+                                    ? "#8bc53f"
+                                    : dark
+                                        ? "#aaa"
+                                        : "#555",
                                 transition: "0.2s",
-                                borderLeft: isActive ? "3px solid #8bc53f" : "3px solid transparent"
+                                borderLeft: isActive
+                                    ? "3px solid #8bc53f"
+                                    : "3px solid transparent"
                             }}
                         >
                             {link.icon}
@@ -114,16 +107,16 @@ function Sidebar({ open, setOpen }) {
 
             </nav>
 
-            {/* Toggle Sidebar */}
+            {/* Sidebar Toggle */}
             <button
                 onClick={() => setOpen(!open)}
                 style={{
                     margin: "0 8px 16px",
                     padding: 12,
                     borderRadius: 10,
-                    background: "#111",
-                    border: "1px solid #2a2a2a",
-                    color: "#777",
+                    background: dark ? "#111" : "#f5f5f5",
+                    border: dark ? "1px solid #2a2a2a" : "1px solid #ddd",
+                    color: dark ? "#aaa" : "#555",
                     cursor: "pointer"
                 }}
             >

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import Navbar from "./AdminNavbar";
-
+import { useNavigate } from "react-router-dom";
 /* ─── Icons ────────────────────────────────────────────────────────────────── */
 const Ic = {
     Grid: () => <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} width={18} height={18}><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="3" width="7" height="7" rx="1.5" /><rect x="3" y="14" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /></svg>,
@@ -80,6 +80,7 @@ function StatCard({ label, value, icon, accentHex, trend, delay }) {
 
 /* ─── Welcome Banner ───────────────────────────────────────────────────────── */
 function WelcomeBanner() {
+    const navigate = useNavigate();
     return (
         <div className="anim-slide" style={{
             background: "#000", borderRadius: 22, padding: "28px 32px",
@@ -100,28 +101,34 @@ function WelcomeBanner() {
                 <p style={{ color: "#555", fontSize: 13, fontWeight: 500 }}>Here's your ScrollFuel overview for today.</p>
             </div>
 
-            <button style={{
-                background: "linear-gradient(135deg,#8bc53f,#6aa82e)",
-                color: "#000", border: "none", borderRadius: 12,
-                padding: "12px 22px", fontWeight: 800, fontSize: 13,
-                cursor: "pointer", display: "flex", alignItems: "center", gap: 8,
-                fontFamily: "'Plus Jakarta Sans', sans-serif", position: "relative",
-            }}>
+            {/* <button
+                onClick={() => navigate("/admin/reports")}
+                style={{
+                    background: "linear-gradient(135deg,#8bc53f,#6aa82e)",
+                    color: "#000", border: "none", borderRadius: 12,
+                    padding: "12px 22px", fontWeight: 800, fontSize: 13,
+                    cursor: "pointer", display: "flex", alignItems: "center", gap: 8,
+                    fontFamily: "'Plus Jakarta Sans', sans-serif", position: "relative",
+                }}>
                 View Reports <Ic.Arrow />
-            </button>
+            </button> */}
         </div>
     );
 }
 
 /* ─── Activity Feed ────────────────────────────────────────────────────────── */
-function ActivityFeed() {
-    const items = [
-        { text: "New blog published: '10 SEO strategies for 2026'", time: "2m ago", dot: "#8bc53f" },
-        { text: "Contact form submission from Rahul Sharma", time: "18m ago", dot: "#ffc93b" },
-        { text: "Job application for 'Content Writer' received", time: "1h ago", dot: "#2196F3" },
-        { text: "Traffic spike — +340 new visitors in the last hour", time: "3h ago", dot: "#8bc53f" },
-        { text: "Draft saved: 'Email marketing best practices'", time: "5h ago", dot: "#888" },
-    ];
+function ActivityFeed({ activities }) {
+    const navigate = useNavigate();
+    const items = activities.map((a) => ({
+        text: a.text,
+        time: new Date(a.time).toLocaleString(),
+        dot:
+            a.type === "blog"
+                ? "#8bc53f"
+                : a.type === "contact"
+                    ? "#ffc93b"
+                    : "#2196F3"
+    }));
     return (
         <div className="anim-slide" style={{
             animationDelay: "320ms",
@@ -130,12 +137,14 @@ function ActivityFeed() {
         }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
                 <h3 style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.01em" }}>Recent Activity</h3>
-                <button style={{
-                    fontSize: 11, fontWeight: 700, color: "#8bc53f",
-                    background: "rgba(139,197,63,0.1)", border: "1px solid rgba(139,197,63,0.2)",
-                    borderRadius: 20, padding: "4px 12px", cursor: "pointer",
-                    fontFamily: "'Plus Jakarta Sans', sans-serif",
-                }}>View all</button>
+                <button
+                    onClick={() => navigate("/admin/activity")}
+                    style={{
+                        fontSize: 11, fontWeight: 700, color: "#8bc53f",
+                        background: "rgba(139,197,63,0.1)", border: "1px solid rgba(139,197,63,0.2)",
+                        borderRadius: 20, padding: "4px 12px", cursor: "pointer",
+                        fontFamily: "'Plus Jakarta Sans', sans-serif",
+                    }}>View all</button>
             </div>
 
             {items.map((item, i) => (
@@ -158,10 +167,30 @@ function ActivityFeed() {
 
 /* ─── Quick Actions ────────────────────────────────────────────────────────── */
 function QuickActions({ dark }) {
+    const navigate = useNavigate();
     const btns = [
-        { label: "New Blog Post", icon: <Ic.Pen />, bg: "#8bc53f", color: "#000" },
-        { label: "View Messages", icon: <Ic.Mail />, bg: "#000", color: "#fff", bdr: "1px solid #2a2a2a" },
-        { label: "Job Applications", icon: <Ic.Brief />, bg: "#ffc93b", color: "#000" },
+        {
+            label: "New Blog Post",
+            path: "/admin/create-blog",
+            icon: <Ic.Pen />,
+            bg: "#8bc53f",
+            color: "#000"
+        },
+        {
+            label: "View Messages",
+            path: "/admin/messages",
+            icon: <Ic.Mail />,
+            bg: "#000",
+            color: "#fff",
+            bdr: "1px solid #2a2a2a"
+        },
+        {
+            label: "Job Applications",
+            path: "/admin/careers",
+            icon: <Ic.Brief />,
+            bg: "#ffc93b",
+            color: "#000"
+        }
     ];
     const bars = [30, 55, 40, 70, 45, 90, 65];
     return (
@@ -173,14 +202,18 @@ function QuickActions({ dark }) {
             <h3 style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.01em", marginBottom: 16 }}>Quick Actions</h3>
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 20 }}>
                 {btns.map((b, i) => (
-                    <button key={i} className="quick-btn" style={{
-                        display: "flex", alignItems: "center", gap: 10,
-                        background: b.bg, color: b.color,
-                        border: b.bdr || "none",
-                        borderRadius: 12, padding: "13px 16px",
-                        cursor: "pointer", fontSize: 13, fontWeight: 700,
-                        fontFamily: "'Plus Jakarta Sans', sans-serif",
-                    }}>
+                    <button
+                        key={i}
+                        onClick={() => b.path && navigate(b.path)}
+                        className="quick-btn"
+                        style={{
+                            display: "flex", alignItems: "center", gap: 10,
+                            background: b.bg, color: b.color,
+                            border: b.bdr || "none",
+                            borderRadius: 12, padding: "13px 16px",
+                            cursor: "pointer", fontSize: 13, fontWeight: 700,
+                            fontFamily: "'Plus Jakarta Sans', sans-serif",
+                        }}>
                         {b.icon} {b.label}
                     </button>
                 ))}
@@ -207,7 +240,106 @@ function QuickActions({ dark }) {
     );
 }
 
+function LatestData({ latest }) {
+    return (
+        <div className="anim-slide bg-white dark:bg-dark border border-gray-200 dark:border-gray-800 rounded-[20px] p-6 mt-5">
 
+            <h3 className="text-[15px] font-extrabold mb-5">
+                Latest Updates
+            </h3>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                {/* Latest Blog */}
+                <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover-shadow-primary transition-all">
+
+                    <div className="flex items-center gap-2 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-primary text-dark flex items-center justify-center text-sm font-bold">
+                            B
+                        </div>
+
+                        <p className="font-bold text-sm">Latest Blog</p>
+                    </div>
+
+                    {latest.blogs?.length > 0 ? (
+                        <>
+                            <p className="text-sm font-semibold leading-snug mb-2">
+                                {latest.blogs[0].title}
+                            </p>
+
+                            <p className="text-xs text-muted line-clamp-2">
+                                {latest.blogs[0].description}
+                            </p>
+                        </>
+                    ) : (
+                        <p className="text-xs text-muted">No blogs yet</p>
+                    )}
+                </div>
+
+                {/* Latest Contact */}
+                <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover-shadow-primary transition-all">
+
+                    <div className="flex items-center gap-2 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-secondary text-dark flex items-center justify-center text-sm font-bold">
+                            C
+                        </div>
+
+                        <p className="font-bold text-sm">Latest Contact</p>
+                    </div>
+
+                    {latest.contacts?.length > 0 ? (
+                        <>
+                            <p className="text-sm font-semibold">
+                                {latest.contacts[0].name}
+                            </p>
+
+                            <p className="text-xs text-muted">
+                                {latest.contacts[0].service}
+                            </p>
+
+                            <p className="text-xs text-muted">
+                                {latest.contacts[0].email}
+                            </p>
+                        </>
+                    ) : (
+                        <p className="text-xs text-muted">No contacts yet</p>
+                    )}
+                </div>
+
+                {/* Latest Job */}
+                <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-800 hover-shadow-primary transition-all">
+
+                    <div className="flex items-center gap-2 mb-3">
+                        <div className="w-9 h-9 rounded-lg bg-primary text-white flex items-center justify-center text-sm font-bold">
+                            J
+                        </div>
+
+                        <p className="font-bold text-sm">Latest Job Application</p>
+                    </div>
+
+                    {latest.jobs?.length > 0 ? (
+                        <>
+                            <p className="text-sm font-semibold">
+                                {latest.jobs[0].name}
+                            </p>
+
+                            <p className="text-xs text-muted">
+                                {latest.jobs[0].interest}
+                            </p>
+
+                            <p className="text-xs text-muted">
+                                {latest.jobs[0].email}
+                            </p>
+                        </>
+                    ) : (
+                        <p className="text-xs text-muted">No job applications yet</p>
+                    )}
+                </div>
+
+            </div>
+        </div>
+    );
+}
 
 export default function AdminDashboard() {
 
@@ -220,13 +352,24 @@ export default function AdminDashboard() {
 
     const [sideOpen, setSideOpen] = useState(true);
     const [active, setActive] = useState("dashboard");
+    const [statsData, setStatsData] = useState({
+        blogs: 0,
+        contacts: 0,
+        jobs: 0
+    });
 
+    const [activities, setActivities] = useState([]);
     const stats = [
-        { label: "Total Blogs", value: 24, icon: <Ic.Blog />, accentHex: "#8bc53f", trend: "12%" },
-        { label: "Contact Messages", value: 18, icon: <Ic.Mail />, accentHex: "#ffc93b", trend: "8%" },
-        { label: "Job Applications", value: 57, icon: <Ic.Brief />, accentHex: "#2196F3", trend: "23%" },
-        { label: "Website Views", value: 91, icon: <Ic.Eye />, accentHex: "#8bc53f", trend: "31%" },
+        { label: "Total Blogs", value: statsData.blogs, icon: <Ic.Blog />, accentHex: "#8bc53f" },
+        { label: "Contact Messages", value: statsData.contacts, icon: <Ic.Mail />, accentHex: "#ffc93b" },
+        { label: "Job Applications", value: statsData.jobs, icon: <Ic.Brief />, accentHex: "#8bc53f" },
+        // { label: "Website Views", value: 91, icon: <Ic.Eye />, accentHex: "#8bc53f", trend: "31%" },
     ];
+    const [latest, setLatest] = useState({
+        blogs: [],
+        contacts: [],
+        jobs: []
+    });
     useEffect(() => {
         const root = document.documentElement;
 
@@ -239,67 +382,57 @@ export default function AdminDashboard() {
         }
     }, [dark]);
 
+    useEffect(() => {
+        const fetchDashboard = async () => {
+            try {
+                const res = await fetch(
+                    "https://scrollfuelproject.onrender.com/api/dashboard/stats"
+                );
+
+                const data = await res.json();
+
+                if (data.success) {
+                    setStatsData(data.stats);
+                    setActivities(data.activities);
+                    setLatest(data.latest);
+                }
+            } catch (err) {
+                console.error("Dashboard API Error:", err);
+            }
+        };
+
+        fetchDashboard();
+    }, []);
     const toggleTheme = () => {
         setDark(prev => !prev);
     };
 
     return (
-        <div
-            style={{
-                display: "flex",
-                minHeight: "100vh",
-                background: "var(--bg)",
-                color: "var(--text)"
-            }}
-        >
+        <div className="min-h-screen ">
 
-            <Sidebar
-                open={sideOpen}
-                setOpen={setSideOpen}
-                active={active}
-                setActive={setActive}
-            />
+            <main className="">
 
-            <div
-                style={{
-                    marginLeft: sideOpen ? 256 : 68,
-                    flex: 1,
-                    display: "flex",
-                    flexDirection: "column",
-                    transition: "margin-left 0.3s cubic-bezier(0.4,0,0.2,1)",
-                    minHeight: "100vh",
-                }}
-            >
-                <Navbar dark={dark} toggleDark={toggleTheme} />
+                <WelcomeBanner />
 
-                <main style={{ padding: "28px 28px 40px", flex: 1 }}>
-                    <WelcomeBanner />
+                {/* Stats */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-6">
+                    {stats.map((s, i) => (
+                        <StatCard key={i} {...s} delay={i * 70} />
+                    ))}
+                </div>
 
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-                            gap: 18,
-                            marginBottom: 22,
-                        }}
-                    >
-                        {stats.map((s, i) => (
-                            <StatCard key={i} {...s} delay={i * 70} />
-                        ))}
-                    </div>
+                {/* Activity + Quick Actions */}
+                <div className="grid md:grid-cols-[1fr_320px] gap-5">
+                    <ActivityFeed activities={activities} />
+                    <QuickActions dark={dark} />
+                </div>
 
-                    <div
-                        style={{
-                            display: "grid",
-                            gridTemplateColumns: "1fr 320px",
-                            gap: 18
-                        }}
-                    >
-                        <ActivityFeed />
-                        <QuickActions dark={dark} />
-                    </div>
-                </main>
-            </div>
+                {/* Latest Data */}
+                <LatestData latest={latest} />
+
+            </main>
+
         </div>
     );
 }
+

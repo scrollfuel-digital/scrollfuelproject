@@ -20,6 +20,11 @@ import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminEditBlog from "./pages/admin/AdminEditBlog";
 import AuthPage from "./pages/admin/auth-page";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
+import AdminActivityPage from "./components/admin/AdminActivityPage";
+import ContactMessage from "./components/admin/ContactMessage";
+import ReportsPage from "./components/admin/ReportsPage";
+import AdminCarrerPage from "./components/admin/AdminCarrerPage";
+import AdminLayout from "./components/admin/AdminLayout";
 
 function Layout() {
   const location = useLocation();
@@ -63,16 +68,61 @@ function Layout() {
           path="/admin/dashboard"
           element={
             <ProtectedRoute>
-              <AdminDashboard />
+              <AdminLayout active="dashboard">
+                <AdminDashboard />
+              </AdminLayout>
             </ProtectedRoute>
           }
         />
 
         <Route
+          path="/admin/activity"
+          element={
+            <ProtectedRoute>
+              <AdminLayout active="activity">
+                <AdminActivityPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/reports"
+          element={
+            <ProtectedRoute>
+              <AdminLayout active="reports">
+                <ReportsPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin/messages"
+          element={
+            <ProtectedRoute>
+              <AdminLayout active="messages">
+                <ContactMessage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/admin/careers"
+          element={
+            <ProtectedRoute>
+              <AdminLayout active="careers">
+                <AdminCarrerPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/admin/blogs"
           element={
             <ProtectedRoute>
+
               <AdminBlogs />
+
             </ProtectedRoute>
           }
         />

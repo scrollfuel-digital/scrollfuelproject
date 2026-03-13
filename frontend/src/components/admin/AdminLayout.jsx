@@ -11,7 +11,6 @@ export default function AdminLayout({ children, active }) {
     const [sideOpen, setSideOpen] = useState(true);
 
     useEffect(() => {
-
         if (dark) {
             document.documentElement.classList.add("dark");
             localStorage.setItem("theme", "dark");
@@ -19,7 +18,6 @@ export default function AdminLayout({ children, active }) {
             document.documentElement.classList.remove("dark");
             localStorage.setItem("theme", "light");
         }
-
     }, [dark]);
 
     return (
@@ -30,6 +28,7 @@ export default function AdminLayout({ children, active }) {
                 open={sideOpen}
                 setOpen={setSideOpen}
                 active={active}
+                dark={dark}
             />
 
             {/* Main Content */}
@@ -41,11 +40,13 @@ export default function AdminLayout({ children, active }) {
                 }}
             >
 
-                {/* Navbar */}
-                <Navbar
-                    dark={dark}
-                    toggleDark={() => setDark(!dark)}
-                />
+                {/* Sticky Navbar */}
+                <div className="sticky top-0 z-40">
+                    <Navbar
+                        dark={dark}
+                        toggleDark={() => setDark(!dark)}
+                    />
+                </div>
 
                 {/* Page Content */}
                 <main className="p-7">

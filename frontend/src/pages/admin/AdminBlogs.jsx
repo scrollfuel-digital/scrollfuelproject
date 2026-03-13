@@ -1,8 +1,11 @@
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AdminLayout from "../../components/admin/AdminLayout";
 import { useNavigate } from "react-router-dom";
+import PageHeader from "../../components/ui/PageHeader";
+import Breadcrumb from "../../components/ui/Breadcrumb";
+import Pagination from "../../components/ui/Pagination";
+import Table from "../../components/ui/Table";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -10,20 +13,23 @@ export default function AdminBlogs() {
 
     const [blogs, setBlogs] = useState([]);
     const [search, setSearch] = useState("");
-
+    const [loading, setLoading] = useState(true);
     const [currentPage, setCurrentPage] = useState(1);
-    const blogsPerPage = 5;
 
+    const blogsPerPage = 5;
     const navigate = useNavigate();
 
     /* Fetch Blogs */
 
     const fetchBlogs = async () => {
         try {
+            setLoading(true);
             const res = await axios.get(`${API}/api/blog`);
             setBlogs(res.data.data || []);
         } catch (err) {
             console.error("Error fetching blogs:", err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -36,7 +42,6 @@ export default function AdminBlogs() {
     const deleteBlog = async (id) => {
 
         const confirmDelete = window.confirm("Delete this blog?");
-
         if (!confirmDelete) return;
 
         try {
@@ -45,15 +50,16 @@ export default function AdminBlogs() {
         } catch (err) {
             console.error("Delete failed:", err);
         }
+
     };
 
-    /* SEARCH */
+    /* Search */
 
     const filteredBlogs = blogs.filter((blog) =>
         blog.title.toLowerCase().includes(search.toLowerCase())
     );
 
-    /* PAGINATION */
+    /* Pagination */
 
     const indexOfLast = currentPage * blogsPerPage;
     const indexOfFirst = indexOfLast - blogsPerPage;
@@ -62,150 +68,114 @@ export default function AdminBlogs() {
 
     const totalPages = Math.ceil(filteredBlogs.length / blogsPerPage);
 
+    /* Table Columns */
+
+    const columns = [
+        { label: "Title", align: "text-left" },
+        { label: "Status", align: "text-center" },
+        { label: "Actions", align: "text-center" }
+    ];
+
     return (
 
         <AdminLayout active="blogs">
 
-            {/* Header */}
+            {/* Breadcrumb */}
 
-            <div className="flex justify-between items-center mb-6">
+            <Breadcrumb
+                items={[
+                    { label: "Dashboard", link: "/admin/dashboard" },
+                    { label: "Blogs" }
+                ]}
+            />
 
-                <h2 className="text-2xl font-bold">
-                    Blog Management ({blogs.length})
-                </h2>
+            {/* Page Header */}
 
-                <button
-                    onClick={() => navigate("/admin/create-blog")}
-                    className="bg-primary text-white px-5 py-2 rounded-lg"
-                >
-                    + Create Blog
-                </button>
+            <PageHeader
+                title="Blog Management"
+                count={blogs.length}
+                showSearch={true}
+                searchValue={search}
+                setSearchValue={setSearch}
+                buttonText="+ Create Blog"
+                onButtonClick={() => navigate("/admin/create-blog")}
+            />
 
-            </div>
+            {/* Reusable Table */}
 
-            {/* Search */}
+            <Table
+                columns={columns}
+                data={currentBlogs}
+                loading={loading}
+                emptyMessage="No blogs found"
+                renderRow={(blog) => (
 
-            <div className="mb-6">
+                    <tr
+                        key={blog._id}
+                        className="hover:bg-gray-50 dark:hover:bg-gray-800 transition"
+                    >
 
-                <input
-                    type="text"
-                    placeholder="Search blogs..."
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    className="border px-4 py-2 rounded-lg w-72"
-                />
+                        {/* Title */}
 
-            </div>
+                        <td className="p-4 font-medium">
+                            {blog.title}
+                        </td>
 
-            {/* Table */}
+                        {/* Status */}
 
-            <div className=" border rounded-xl shadow-lg overflow-hidden">
+                        <td className="p-4 text-center">
 
-                <table className="w-full">
-
-                    <thead className=" border-b">
-
-                        <tr>
-                            <th className="p-4 text-left font-semibold">Title</th>
-                            <th className="p-4 text-center font-semibold">Status</th>
-                            <th className="p-4 text-center font-semibold">Actions</th>
-                        </tr>
-
-                    </thead>
-
-                    <tbody>
-
-                        {currentBlogs.length === 0 && (
-                            <tr>
-                                <td colSpan="3" className="text-center py-10 text-gray-500">
-                                    No blogs found.
-                                </td>
-                            </tr>
-                        )}
-
-                        {currentBlogs.map((blog) => (
-
-                            <tr
-                                key={blog._id}
-                                className="border-b "
+                            <span
+                                className={`px-3 py-1 rounded-full text-sm font-semibold
+                ${blog.status === "published"
+                                        ? "bg-green-100 text-green-700"
+                                        : "bg-yellow-100 text-yellow-700"
+                                    }`}
                             >
+                                {blog.status || "draft"}
+                            </span>
 
-                                {/* Title */}
+                        </td>
 
-                                <td className="p-4 font-medium">
-                                    {blog.title}
-                                </td>
+                        {/* Actions */}
 
-                                {/* Status */}
+                        <td className="p-4 flex gap-3 justify-center">
 
-                                <td className="p-4 text-center">
+                            <button
+                                onClick={() => navigate(`/admin/edit-blog/${blog._id}`)}
+                                className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
+                            >
+                                Edit
+                            </button>
 
-                                    <span
-                                        className={`px-3 py-1 rounded-full text-sm font-semibold
-                    ${blog.status === "published"
-                                                ? "bg-green-100 text-green-700"
-                                                : "bg-yellow-100 text-yellow-700"
-                                            }`}
-                                    >
-                                        {blog.status || "draft"}
-                                    </span>
+                            <button
+                                onClick={() => deleteBlog(blog._id)}
+                                className="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded font-semibold"
+                            >
+                                Delete
+                            </button>
 
-                                </td>
+                        </td>
 
-                                {/* Actions */}
+                    </tr>
 
-                                <td className="p-4 flex gap-3 justify-center">
-
-                                    <button
-                                        onClick={() =>
-                                            navigate(`/admin/edit-blog/${blog._id}`)
-                                        }
-                                        className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
-                                    >
-                                        Edit
-                                    </button>
-
-                                    <button
-                                        onClick={() => deleteBlog(blog._id)}
-                                        className="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded font-semibold"
-                                    >
-                                        Delete
-                                    </button>
-
-                                </td>
-
-                            </tr>
-
-                        ))}
-
-                    </tbody>
-
-                </table>
-
-            </div>
+                )}
+            />
 
             {/* Pagination */}
 
-            <div className="flex justify-center gap-2 mt-6">
+            {!loading && filteredBlogs.length > 0 && (
 
-                {Array.from({ length: totalPages }, (_, i) => (
+                <Pagination
+                    currentPage={currentPage}
+                    totalPages={totalPages}
+                    setCurrentPage={setCurrentPage}
+                />
 
-                    <button
-                        key={i}
-                        onClick={() => setCurrentPage(i + 1)}
-                        className={`px-3 py-1 rounded
-            ${currentPage === i + 1
-                                ? "bg-primary text-white"
-                                : "bg-gray-200"
-                            }`}
-                    >
-                        {i + 1}
-                    </button>
-
-                ))}
-
-            </div>
+            )}
 
         </AdminLayout>
+
     );
+
 }
