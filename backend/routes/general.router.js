@@ -3,7 +3,8 @@ import {
     applyCareer,
     ContactForm,
     getCareerApplications,
-    getContactMessages
+    getContactMessages,
+    markContactRead
 } from "../controllers/controller.js";
 import uploadResume from "../middleware/uploadResume.js";
 
@@ -16,5 +17,5 @@ router.post("/contact", ContactForm);
 // GET routes
 router.get("/career", getCareerApplications);
 router.get("/contacts", getContactMessages);
-
+router.put("/contacts/read/:id", markContactRead);
 export default router;

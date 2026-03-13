@@ -207,6 +207,31 @@ const applyCareer = async (req, res) => {
         });
     }
 };
+
+const getCareerApplications = async (req, res) => {
+    try {
+
+        const applications = await CareerModel
+            .find()
+            .sort({ createdAt: -1 });   // latest first
+
+        res.status(200).json({
+            success: true,
+            total: applications.length,
+            data: applications
+        });
+
+    } catch (error) {
+
+        console.error("Fetch Error:", error);
+
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch applications"
+        });
+    }
+};
+
 const ContactForm = async (req, res) => {
     try {
         const { name, email, phone, service, message } = req.body;
@@ -254,22 +279,49 @@ const ContactForm = async (req, res) => {
         });
     }
 };
-const getCareerApplications = async (req, res) => {
-    try {
-        const data = await CareerModel.find();
-        res.json({ success: true, data });
-    } catch (error) {
-        res.status(500).json({ success: false });
-    }
-};
 
 const getContactMessages = async (req, res) => {
     try {
-        const data = await ContactModel.find();
-        res.json({ success: true, data });
+
+        const data = await ContactModel.find().sort({ createdAt: -1 });
+
+        res.status(200).json({
+            success: true,
+            data: data
+        });
+
     } catch (error) {
-        res.status(500).json({ success: false });
+
+        res.status(500).json({
+            success: false,
+            message: "Server Error"
+        });
+
     }
 };
 
-export { Signup, Login, googleSuccess, applyCareer, ContactForm, getCareerApplications, getContactMessages };
+const markContactRead = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const updated = await ContactModel.findByIdAndUpdate(
+            id,
+            { read: true },
+            { new: true }
+        );
+
+        res.json({
+            success: true,
+            data: updated
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            success: false,
+            message: "Server error"
+        });
+
+    }
+};
+export { Signup, Login, googleSuccess, applyCareer, ContactForm, getCareerApplications, getContactMessages, markContactRead };
