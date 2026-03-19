@@ -98,13 +98,13 @@ const AdminCarrerPage = () => {
             className="border-b-gray-200 hover:bg-gray-50 dark:hover:bg-gray-800"
           >
 
-            <td className="px-4 py-3 break-words">{app.name}</td>
+            <td className="px-4 py-3 wrap-break-words">{app.name}</td>
 
-            <td className="px-4 py-3 break-words">{app.email}</td>
+            <td className="px-4 py-3 wrap-break-words">{app.email}</td>
 
             <td className="px-4 py-3">{app.contact}</td>
 
-            <td className="px-4 py-3 break-words max-w-[200px]">
+            <td className="px-4 py-3 wrap-break-words max-w-50">
               {app.address}
             </td>
 

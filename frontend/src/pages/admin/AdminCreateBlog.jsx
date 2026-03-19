@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import MDEditor from "@uiw/react-md-editor";
+import "@uiw/react-md-editor/markdown-editor.css";
+import "@uiw/react-markdown-preview/markdown.css";
+
 const API = import.meta.env.VITE_API_URL;
 const AdminCreateBlog = () => {
   const [form, setForm] = useState({
@@ -59,7 +62,7 @@ const AdminCreateBlog = () => {
     setLoading(true);
     setSuccess(false);
 
-    const data = new FormData();   
+    const data = new FormData();
 
     data.append("title", form.title);
     data.append("description", form.description);

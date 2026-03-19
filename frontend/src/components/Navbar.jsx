@@ -42,14 +42,14 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300">
-
+        // <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300">
+        <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300 font-sans">
             {/* MAIN NAVBAR */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between">
 
                 {/* LOGO */}
                 <NavLink to="/" end onClick={() => setIsOpen(false)}>
-                    
+
                     <img
                         src={dark ? "/assets/logo1.png" : "/logo2.png"}
                         alt="Logo"
@@ -58,7 +58,7 @@ const Navbar = () => {
                 </NavLink>
 
                 {/* DESKTOP MENU */}
-                <div className="hidden lg:flex items-center space-x-10">
+                <div className="hidden lg:flex items-center font-sans space-x-10">
 
                     {navLinks.map((link) => (
                         <NavLink
@@ -72,9 +72,10 @@ const Navbar = () => {
                                 }`
                             }
                         >
-                            {link.name}
+                            <h4 className="font-semibold text-sm text-black dark:text-white"> {link.name}</h4>
                             <span className="absolute -bottom-2 left-0 h-0.5 bg-primary w-0 group-hover:w-full transition-all duration-500" />
                         </NavLink>
+
                     ))}
 
                     {/* THEME TOGGLE */}
@@ -94,7 +95,7 @@ const Navbar = () => {
                         to="/contact"
                         className="px-6 py-2 bg-primary text-black text-xs font-black uppercase tracking-widest rounded-full hover-bg-secondary transition-all"
                     >
-                        Start Project
+                        <h4>Start Project</h4>
                     </NavLink>
                 </div>
 

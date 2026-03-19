@@ -77,7 +77,7 @@ const Footer = () => {
 
                     {/* Address */}
                     <div>
-                        <span className="font-semibold text-lg text-black dark:text-white">Address</span>
+                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">Address</h4>
                         <p className="text-muted mt-3 font-bold">
                             Bidoba Sahkari Sanstha, Plot no 133, Wardha Road,
                             Near Hotel Center Point, Bante Layout, Sonegaon, Ujwal Nagar,
@@ -130,14 +130,17 @@ const Footer = () => {
                     <div>
                         <h4 className="font-semibold text-lg mb-4 text-black dark:text-white">Contact</h4>
                         <ul className="space-y-3 font-bold">
-                            <li className="flex items-center gap-2 text-muted">
-                                <Phone size={16} className="text-primary" />
-                                <a href="tel:+918788430110" className="hover:text-primary">
-                                    +91 8788430110
-                                </a>
-                                <span>,</span>
+                            <li className="flex items-center text-muted">
+                                <Phone size={16} className="text-primary mr-2" />
+
                                 <a href="tel:+919699660972" className="hover:text-primary">
                                     +91 9699660972
+                                </a>
+
+                                <span className="mx-1">,</span>
+
+                                <a href="tel:+918788430110" className="hover:text-primary">
+                                    +91 8788430110
                                 </a>
                             </li>
 

@@ -1,19 +1,15 @@
-@import "tailwindcss";
 
+
+/* Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
 /* Enable Tailwind dark mode */
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* Theme Font */
 @theme {
   --font-sans: "Plus Jakarta Sans", sans-serif;
-}
-
-/* Color Variables */
-:root {
-  --color-white: #ffffff;
-  --color-green: #8bc53f;
-  --color-yellow: #ffc93b;
-  --color-black: #000000;
+  --font-serif: "Playfair Display", serif;
 }
 
 /* Body Base */
@@ -22,9 +18,42 @@ body {
   font-family: var(--font-sans);
   background-color: var(--color-white);
   color: var(--color-black);
+  line-height: 1.8;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
+}
+
+/* Headings */
+h1,
+h2,
+h3,
+h4,
+.font-serif {
+  font-family: var(--font-serif);
+  letter-spacing: -0.02em;
+}
+
+/* Editor typing area */
+.w-md-editor-text-input {
+  font-family: var(--font-sans);
+  letter-spacing: 0.03em;
+  font-size: 16px;
+}
+
+/* Markdown Preview */
+.wmde-markdown {
+  font-family: var(--font-sans);
+  letter-spacing: 0.03em;
+  line-height: 1.8;
+}
+
+/* Color Variables */
+:root {
+  --color-white: #ffffff;
+  --color-green: #8bc53f;
+  --color-yellow: #ffc93b;
+  --color-black: #000000;
 }
 
 /* Dark Mode */
@@ -53,7 +82,6 @@ html.dark body {
     background-color: var(--color-white);
   }
 
-  /* Dark override for bg-white */
   .dark .bg-white {
     background-color: var(--color-black);
   }
