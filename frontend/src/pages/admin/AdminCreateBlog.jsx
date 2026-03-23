@@ -5,6 +5,7 @@ import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
 
 const API = import.meta.env.VITE_API_URL;
+
 const AdminCreateBlog = () => {
   const [form, setForm] = useState({
     title: "",
@@ -19,8 +20,8 @@ const AdminCreateBlog = () => {
   const [preview, setPreview] = useState(null);
   const [heroPreview, setHeroPreview] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
+  // ================= HANDLE INPUT =================
   const handleChange = (e) => {
     const { name, value, files } = e.target;
 
@@ -37,6 +38,7 @@ const AdminCreateBlog = () => {
     }
   };
 
+  // ================= KEYWORDS =================
   const addKeyword = () => {
     const word = keywordInput.trim();
     if (!word || form.keywords.includes(word)) return;
@@ -56,34 +58,34 @@ const AdminCreateBlog = () => {
     });
   };
 
+  // ================= SUBMIT =================
   const submitBlog = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    setSuccess(false);
-
-    const data = new FormData();
-
-    data.append("title", form.title);
-    data.append("description", form.description);
-    data.append("content", form.content);
-    data.append("keywords", JSON.stringify(form.keywords));
-
-    if (form.image) data.append("image", form.image);
-    if (form.hero_image) data.append("hero_image", form.hero_image);
 
     try {
-      const response = await fetch(`${API}/api/blog`, {
+      const data = new FormData();
+
+      data.append("title", form.title);
+      data.append("description", form.description);
+      data.append("content", form.content);
+      data.append("keywords", JSON.stringify(form.keywords));
+
+      if (form.image) data.append("image", form.image);
+      if (form.hero_image) data.append("hero_image", form.hero_image);
+
+      const res = await fetch(`${API}/api/blog`, {
         method: "POST",
         body: data,
       });
 
-      if (!response.ok) {
-        throw new Error("Upload failed");
-      }
+      const result = await res.json();
 
-      setSuccess(true);
+      if (!res.ok) throw new Error(result.error || "Upload failed");
 
+      alert("✅ Blog Created Successfully");
+
+      // RESET FORM
       setForm({
         title: "",
         description: "",
@@ -96,15 +98,16 @@ const AdminCreateBlog = () => {
       setPreview(null);
       setHeroPreview(null);
 
-    } catch (error) {
-      console.error(error);
-      alert("Upload failed");
+    } catch (err) {
+      console.error(err);
+      alert("❌ Upload Failed");
     }
 
     setLoading(false);
   };
+
   return (
-    <section className="min-h-screen bg-black text-white flex items-center justify-center px-6 py-20">
+    <section className="min-h-screen bg-black text-white flex justify-center px-6 py-20">
       <div className="max-w-4xl w-full">
 
         <motion.form
@@ -117,6 +120,7 @@ const AdminCreateBlog = () => {
             Create Blog
           </h1>
 
+          {/* TITLE */}
           <input
             name="title"
             placeholder="Blog Title"
@@ -125,6 +129,7 @@ const AdminCreateBlog = () => {
             className="w-full p-3 rounded bg-black border border-gray-700"
           />
 
+          {/* DESCRIPTION */}
           <textarea
             name="description"
             placeholder="Meta Description"
@@ -133,6 +138,7 @@ const AdminCreateBlog = () => {
             className="w-full p-3 rounded bg-black border border-gray-700"
           />
 
+          {/* HERO IMAGE */}
           <input
             type="file"
             name="hero_image"
@@ -142,7 +148,26 @@ const AdminCreateBlog = () => {
           />
 
           {heroPreview && (
-            <img src={heroPreview} className="rounded-xl w-full h-52 object-cover" />
+            <img
+              src={heroPreview}
+              className="rounded-xl w-full h-52 object-cover"
+            />
+          )}
+
+          {/* SECOND IMAGE */}
+          <input
+            type="file"
+            name="image"
+            accept="image/*"
+            onChange={handleChange}
+            className="w-full p-3 rounded bg-black border border-gray-700"
+          />
+
+          {preview && (
+            <img
+              src={preview}
+              className="rounded-xl w-full h-52 object-cover"
+            />
           )}
 
           {/* KEYWORDS */}
@@ -167,26 +192,18 @@ const AdminCreateBlog = () => {
                 Add
               </button>
             </div>
+
             <div className="flex flex-wrap gap-2 mt-3">
               {form.keywords.map((word, i) => (
                 <span
                   key={i}
-                  className="bg-primary/20 px-3 py-1 rounded-full flex items-center gap-2"
+                  className="bg-primary/20 px-3 py-1 rounded-full flex gap-2"
                 >
                   {word}
-                  <button
-                    type="button"
-                    onClick={() => removeKeyword(word)}
-                    className="text-red-400"
-                  >
-                    ✕
-                  </button>
+                  <button onClick={() => removeKeyword(word)}>✕</button>
                 </span>
               ))}
             </div>
-            <p className="text-sm text-gray-400 mt-2">
-              {form.keywords.length} / 5 minimum keywords
-            </p>
           </div>
 
           {/* MARKDOWN EDITOR */}
@@ -198,6 +215,7 @@ const AdminCreateBlog = () => {
             height={500}
           />
 
+          {/* SUBMIT */}
           <motion.button
             type="submit"
             whileTap={{ scale: 0.95 }}
@@ -206,11 +224,6 @@ const AdminCreateBlog = () => {
             {loading ? "Publishing..." : "Publish Blog"}
           </motion.button>
 
-          {success && (
-            <p className="text-green-400 text-center">
-              Uploaded successfully
-            </p>
-          )}
         </motion.form>
       </div>
     </section>
