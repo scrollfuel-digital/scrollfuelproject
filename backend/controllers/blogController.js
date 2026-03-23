@@ -1,21 +1,23 @@
 import "../database/conn.js";
 import BlogModel from "../models/BlogModel.js";
 
-/* Helper: Count Words */
-const countWords = (text = "") => {
-    return text.trim().split(/\s+/).filter(Boolean).length;
-};
+/* ================= HELPERS ================= */
 
-/* Helper: Safe JSON Parse */
+const countWords = (text = "") =>
+    text.trim().split(/\s+/).filter(Boolean).length;
+
 const safeParse = (value) => {
     if (!value) return [];
     if (typeof value === "object") return value;
     try {
         return JSON.parse(value);
-    } catch {
+    } catch (err) {
+        console.log("Parse Error:", err.message);
         return [];
     }
 };
+
+/* ================= CREATE BLOG ================= */
 
 const createBlog = async (req, res) => {
     try {
@@ -46,6 +48,10 @@ const createBlog = async (req, res) => {
 
         const parsedKeywords = safeParse(keywords);
 
+        // ✅ CLOUDINARY FILES
+        const image = req.files?.image?.[0]?.path;
+        const hero_image = req.files?.hero_image?.[0]?.path;
+
         const blog = new BlogModel({
             title: title.trim(),
             description: description?.trim() || "",
@@ -55,7 +61,8 @@ const createBlog = async (req, res) => {
             company: company || "",
             read_time: read_time || "",
             keywords: parsedKeywords,
-            hero_image: req.file ? req.file.path : "", // ✅ CLOUDINARY URL
+            image: image || "",
+            hero_image: hero_image || "",
         });
 
         const savedBlog = await blog.save();
@@ -65,7 +72,6 @@ const createBlog = async (req, res) => {
             message: "Blog created successfully",
             data: savedBlog,
         });
-
     } catch (error) {
         console.error("CREATE BLOG ERROR:", error);
         res.status(500).json({
@@ -74,7 +80,9 @@ const createBlog = async (req, res) => {
         });
     }
 };
-/* ================= GET ALL BLOGS ================= */
+
+/* ================= GET ALL ================= */
+
 const getBlogs = async (req, res) => {
     try {
         const blogs = await BlogModel.find().sort({ createdAt: -1 });
@@ -93,7 +101,8 @@ const getBlogs = async (req, res) => {
     }
 };
 
-/* ================= GET SINGLE BLOG ================= */
+/* ================= GET ONE ================= */
+
 const getBlogById = async (req, res) => {
     try {
         const blog = await BlogModel.findById(req.params.id);
@@ -110,7 +119,7 @@ const getBlogById = async (req, res) => {
             data: blog,
         });
     } catch (error) {
-        console.error("GET BLOG BY ID ERROR:", error);
+        console.error("GET BLOG ERROR:", error);
         res.status(500).json({
             success: false,
             error: error.message,
@@ -118,11 +127,11 @@ const getBlogById = async (req, res) => {
     }
 };
 
+/* ================= UPDATE ================= */
 
 const updateBlog = async (req, res) => {
     try {
-        const { title, content, description, keywords, sub_points, faqs } =
-            req.body;
+        const { title, content, description, keywords } = req.body;
 
         const updateData = {};
 
@@ -154,15 +163,7 @@ const updateBlog = async (req, res) => {
             updateData.keywords = safeParse(keywords);
         }
 
-        if (sub_points !== undefined) {
-            updateData.sub_points = safeParse(sub_points);
-        }
-
-        if (faqs !== undefined) {
-            updateData.faqs = safeParse(faqs);
-        }
-
-        // ✅ FIXED IMAGE HANDLING
+        // ✅ CLOUDINARY FILES
         const image = req.files?.image?.[0]?.path;
         const hero_image = req.files?.hero_image?.[0]?.path;
 
@@ -181,10 +182,7 @@ const updateBlog = async (req, res) => {
                 message: "Blog not found",
             });
         }
-        console.log("RAW KEYWORDS:", keywords);
-        console.log("BODY:", req.body);
-        console.log("FILE:", req.file);
-        console.log("FILES:", req.files);
+
         res.status(200).json({
             success: true,
             message: "Blog updated successfully",
@@ -198,7 +196,9 @@ const updateBlog = async (req, res) => {
         });
     }
 };
-/* ================= DELETE BLOG ================= */
+
+/* ================= DELETE ================= */
+
 const deleteBlog = async (req, res) => {
     try {
         const blog = await BlogModel.findByIdAndDelete(req.params.id);

@@ -10,17 +10,33 @@ import {
 
 const router = express.Router();
 
-router.post("/", upload.single("hero_image"), createBlog);
+// ✅ CREATE BLOG (FIXED)
+router.post(
+    "/",
+    upload.fields([
+        { name: "image", maxCount: 1 },
+        { name: "hero_image", maxCount: 1 },
+    ]),
+    createBlog
+);
+
+// GET ALL
 router.get("/", getBlogs);
+
+// GET SINGLE
 router.get("/:id", getBlogById);
+
+// ✅ UPDATE BLOG (FIXED)
 router.put(
     "/:id",
     upload.fields([
         { name: "image", maxCount: 1 },
-        { name: "hero_image", maxCount: 1 }
+        { name: "hero_image", maxCount: 1 },
     ]),
     updateBlog
 );
+
+// DELETE
 router.delete("/:id", deleteBlog);
 
 export default router;
