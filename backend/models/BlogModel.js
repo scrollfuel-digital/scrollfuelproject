@@ -25,6 +25,9 @@ const blogSchema = new mongoose.Schema(
     //   type: Array,
     //   default: [],
     // },
+    image: {
+      type: String,
+    },
     hero_image: {
       type: String,
     },

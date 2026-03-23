@@ -181,7 +181,10 @@ const updateBlog = async (req, res) => {
                 message: "Blog not found",
             });
         }
-
+        console.log("RAW KEYWORDS:", keywords);
+        console.log("BODY:", req.body);
+        console.log("FILE:", req.file);
+        console.log("FILES:", req.files);
         res.status(200).json({
             success: true,
             message: "Blog updated successfully",
