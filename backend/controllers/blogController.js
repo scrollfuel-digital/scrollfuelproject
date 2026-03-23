@@ -118,7 +118,7 @@ const getBlogById = async (req, res) => {
     }
 };
 
-/* ================= UPDATE BLOG ================= */
+
 const updateBlog = async (req, res) => {
     try {
         const { title, content, description, keywords, sub_points, faqs } =
@@ -161,9 +161,13 @@ const updateBlog = async (req, res) => {
         if (faqs !== undefined) {
             updateData.faqs = safeParse(faqs);
         }
-        if (req.file) {
-            updateData.hero_image = req.file.path; // ✅ Cloudinary URL
-        }
+
+        // ✅ FIXED IMAGE HANDLING
+        const image = req.files?.image?.[0]?.path;
+        const hero_image = req.files?.hero_image?.[0]?.path;
+
+        if (image) updateData.image = image;
+        if (hero_image) updateData.hero_image = hero_image;
 
         const blog = await BlogModel.findByIdAndUpdate(
             req.params.id,
@@ -191,7 +195,6 @@ const updateBlog = async (req, res) => {
         });
     }
 };
-
 /* ================= DELETE BLOG ================= */
 const deleteBlog = async (req, res) => {
     try {
