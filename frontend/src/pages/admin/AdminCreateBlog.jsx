@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import MDEditor from "@uiw/react-md-editor";
 import "@uiw/react-md-editor/markdown-editor.css";
 import "@uiw/react-markdown-preview/markdown.css";
+import Breadcrumb from "../../components/ui/Breadcrumb";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -116,6 +117,15 @@ const AdminCreateBlog = () => {
           animate={{ opacity: 1, y: 0 }}
           className="bg-muted/5 rounded-3xl p-8 space-y-6 shadow-xl"
         >
+          {/* ✅ Breadcrumb */}
+          <Breadcrumb
+            items={[
+              { label: "Dashboard", link: "/admin" },
+              { label: "Blogs", link: "/admin/blogs" },
+              { label: "Create Blog" } // current page (no link)
+            ]}
+          />
+
           <h1 className="text-3xl font-bold text-primary">
             Create Blog
           </h1>

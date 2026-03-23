@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import MDEditor from "@uiw/react-md-editor";
+import Breadcrumb from "../../components/ui/Breadcrumb";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -110,6 +111,14 @@ const AdminEditBlog = () => {
     return (
         <div className="min-h-screen bg-gray-100 p-8">
             <div className="max-w-3xl mx-auto bg-white p-6 rounded-xl shadow">
+                {/* ✅ Breadcrumb */}
+                <Breadcrumb
+                    items={[
+                        { label: "Dashboard", link: "/admin" },
+                        { label: "Blogs", link: "/admin/blogs" },
+                        { label: "Edit Blog" } // current page (no link)
+                    ]}
+                />
 
                 <h2 className="text-xl font-bold mb-6">
                     Edit Blog

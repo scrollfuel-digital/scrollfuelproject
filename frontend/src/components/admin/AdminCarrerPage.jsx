@@ -21,6 +21,7 @@ const AdminCarrerPage = () => {
 
   useEffect(() => {
     fetchApplications();
+  
   }, []);
 
   /* Fetch Applications */
@@ -61,9 +62,38 @@ const AdminCarrerPage = () => {
     { label: "Contact", align: "text-left" },
     { label: "Address", align: "text-left" },
     { label: "Area of Interest", align: "text-left" },
-    { label: "Resume", align: "text-left" },
+    // { label: "Resume", align: "text-left" },
     { label: "Download", align: "text-left" }
   ];
+
+  const handleDownload = async (url, name) => {
+    try {
+      const response = await fetch(url);
+      const blob = await response.blob();
+
+      // Detect file type
+      const contentType = response.headers.get("content-type");
+
+      let extension = "file";
+
+      if (contentType.includes("pdf")) extension = "pdf";
+      else if (contentType.includes("image/jpeg")) extension = "jpg";
+      else if (contentType.includes("image/png")) extension = "png";
+
+      const fileName = `${name}.${extension}`;
+
+      const link = document.createElement("a");
+      link.href = window.URL.createObjectURL(blob);
+      link.download = fileName;
+
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };
 
   return (
 
@@ -111,7 +141,7 @@ const AdminCarrerPage = () => {
             <td className="px-4 py-3 text-primary font-medium">
               {app.interest}
             </td>
-
+{/* 
             <td className="px-4 py-3">
               <a
                 href={app.resume}
@@ -121,9 +151,9 @@ const AdminCarrerPage = () => {
               >
                 View
               </a>
-            </td>
+            </td> */}
 
-            <td className="px-4 py-3">
+            {/* <td className="px-4 py-3">
               <a
                 href={app.resume}
                 download
@@ -131,8 +161,15 @@ const AdminCarrerPage = () => {
               >
                 Download
               </a>
+            </td> */}
+            <td className="px-4 py-3">
+              <button
+                onClick={() => handleDownload(app.resume, app.name)}
+                className="px-3 py-1 bg-primary text-white rounded-md text-sm"
+              >
+                Download
+              </button>
             </td>
-
           </tr>
 
         )}

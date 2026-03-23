@@ -26,7 +26,7 @@ const Footer = () => {
     return (
         <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
 
-            <div className="max-w-6xl mx-auto">
+            <div className="max-w-7xl mx-auto">
 
                 {/* TOP SECTION */}
                 <div className="flex flex-col md:flex-row md:justify-between md:items-center pl-4 md:pl-10">

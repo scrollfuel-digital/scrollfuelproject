@@ -6,7 +6,7 @@ import PageHeader from "../../components/ui/PageHeader";
 import Breadcrumb from "../../components/ui/Breadcrumb";
 import Pagination from "../../components/ui/Pagination";
 import Table from "../../components/ui/Table";
-
+import { Eye, SquarePen, Trash } from 'lucide-react';
 const API = import.meta.env.VITE_API_URL;
 
 export default function AdminBlogs() {
@@ -75,6 +75,8 @@ export default function AdminBlogs() {
         { label: "Status", align: "text-center" },
         { label: "Actions", align: "text-center" }
     ];
+    const createSlug = (title) =>
+        title?.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-");
 
     return (
 
@@ -140,19 +142,25 @@ export default function AdminBlogs() {
                         {/* Actions */}
 
                         <td className="p-4 flex gap-3 justify-center">
+                            <button
+                                onClick={() => navigate(`/blog/${createSlug(blog.title)}`)}
+                                className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
+                            >
+                                <Eye />
+                            </button>
 
                             <button
                                 onClick={() => navigate(`/admin/edit-blog/${blog._id}`)}
                                 className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
                             >
-                                Edit
+                                <SquarePen />
                             </button>
 
                             <button
                                 onClick={() => deleteBlog(blog._id)}
                                 className="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded font-semibold"
                             >
-                                Delete
+                                <Trash />
                             </button>
 
                         </td>
