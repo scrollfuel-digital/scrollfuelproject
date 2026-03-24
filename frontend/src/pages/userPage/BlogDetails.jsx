@@ -267,7 +267,7 @@ const BlogDetails = () => {
         const all = data.data || [];
         const matched = all.find((b) => createSlug(b.title) === slug);
         if (!matched) { setBlog(null); return; }
-        setBlog(matched); 
+        setBlog(matched);
         const related = all.filter(
           (b) =>
             b._id !== matched._id && // exclude current blog
@@ -355,8 +355,8 @@ const BlogDetails = () => {
       </div>
 
       {/* ── HERO SECTION ── */}
-      <section className="relative w-full overflow-hidden" style={{ minHeight: "62vh" }}>
-
+      {/* <section className="relative w-full overflow-hidden" style={{ minHeight: "62vh" }}> */}
+      <section className="relative w-full overflow-hidden min-h-[45vh] sm:min-h-[55vh] md:min-h-[62vh]">
         {/* Layer 1 — background image */}
         <img
           src={heroImage}
@@ -601,7 +601,7 @@ const BlogDetails = () => {
                   return (
                     <div key={i} onClick={() => navigate(`/blog/${ps}`)} className="flex gap-4 cursor-pointer group">
                       {post.hero_image && (
-                        <img src={post.hero_image} alt={post.title} className="w-20 h-16 rounded-xl object-cover flex-shrink-0" />
+                        <img src={post.hero_image} alt={post.title} className="w-20 h-5 rounded-xl object-cover flex-shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-bold text-gray-700 dark:text-gray-300 group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">{post.title}</p>
@@ -656,7 +656,10 @@ const BlogDetails = () => {
                   return (
                     <div key={i} onClick={() => navigate(`/blog/${ps}`, { state: { blogId: post._id } })} className="flex gap-3 group cursor-pointer">
                       {post.hero_image ? (
-                        <img src={post.hero_image} alt={post.title} className="w-16 h-14 rounded-xl object-cover flex-shrink-0" />
+                        <img src={post.hero_image} alt={post.title}
+                          // className="w-16 h-14 rounded-xl object-cover flex-shrink-0" 
+                          className="w-16 h-9 sm:h-14 rounded-xl object-cover flex-shrink-0"
+                        />
                       ) : (
                         <div className="w-16 h-14 rounded-xl flex-shrink-0 flex items-center justify-center text-black dark:text-white text-xs font-black" style={{ background: "linear-gradient(135deg,#8bc53f,#5a8c1e)" }}>Blog</div>
                       )}
@@ -691,7 +694,7 @@ const BlogDetails = () => {
             <button
               className="relative w-full py-3 rounded-xl font-black text-sm text-black transition-all hover:scale-[1.03] active:scale-95"
               style={{ background: "var(--color-green)" }}
-              onClick={()=>navigate(`/contact`)}
+              onClick={() => navigate(`/contact`)}
             >Get in Touch →</button>
           </motion.div>
         </aside>

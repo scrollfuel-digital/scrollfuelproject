@@ -350,8 +350,6 @@ export default function AdminDashboard() {
         return window.matchMedia("(prefers-color-scheme: dark)").matches;
     });
 
-    const [sideOpen, setSideOpen] = useState(true);
-    const [active, setActive] = useState("dashboard");
     const [statsData, setStatsData] = useState({
         blogs: 0,
         contacts: 0,

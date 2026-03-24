@@ -144,21 +144,21 @@ export default function AdminBlogs() {
                         <td className="p-4 flex gap-3 justify-center">
                             <button
                                 onClick={() => navigate(`/blog/${createSlug(blog.title)}`)}
-                                className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
+                                className="text-secondary px-4 py-1.5 rounded  font-semibold"
                             >
                                 <Eye />
                             </button>
 
                             <button
                                 onClick={() => navigate(`/admin/edit-blog/${blog._id}`)}
-                                className="bg-primary px-4 py-1.5 rounded text-white font-semibold"
+                                className="text-primary px-4 py-1.5 rounded font-semibold"
                             >
                                 <SquarePen />
                             </button>
 
                             <button
                                 onClick={() => deleteBlog(blog._id)}
-                                className="bg-red-500 hover:bg-red-600 text-white px-4 py-1.5 rounded font-semibold"
+                                className=" text-red-500 px-4 py-1.5 rounded font-semibold"
                             >
                                 <Trash />
                             </button>

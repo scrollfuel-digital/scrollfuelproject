@@ -5,7 +5,7 @@ const Pagination = ({ currentPage, totalPages, setCurrentPage }) => {
     const pages = [...Array(totalPages).keys()].map((n) => n + 1);
 
     return (
-        <div className="flex justify-center p-4 bg-primary gap-2 flex-wrap rounded-b-lg">
+        <div className="flex justify-center p-4 bg-white dark:bg-black border-t-2 gap-2 flex-wrap rounded-b-lg">
 
             {/* Previous */}
             <button

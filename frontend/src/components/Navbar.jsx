@@ -61,21 +61,37 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center font-sans space-x-10">
 
                     {navLinks.map((link) => (
+                        // <NavLink
+                        //     key={link.path}
+                        //     to={link.path}
+                        //     className={({ isActive }) =>
+                        //         `text-xs font-bold uppercase tracking-widest relative group transition-all
+                        //         ${isActive
+                        //             ? "text-secondary"
+                        //             : "text-black dark:text-white hover-text-primary"
+                        //         }`
+                        //     }
+                        // >
+                        //     <h4 className="font-semibold text-sm text-black dark:text-white"> {link.name}</h4>
+                        //     <span className="absolute -bottom-2 left-0 h-0.5 bg-primary w-0 group-hover:w-full transition-all duration-500" />
+                        // </NavLink>
                         <NavLink
                             key={link.path}
                             to={link.path}
                             className={({ isActive }) =>
                                 `text-xs font-bold uppercase tracking-widest relative group transition-all
-                                ${isActive
-                                    ? "text-secondary"
+        ${isActive
+                                    ? "text-primary"   // 👈 change to primary
                                     : "text-black dark:text-white hover-text-primary"
                                 }`
                             }
                         >
-                            <h4 className="font-semibold text-sm text-black dark:text-white"> {link.name}</h4>
+                            <h4 className="font-semibold text-sm">
+                                {link.name}
+                            </h4>
+
                             <span className="absolute -bottom-2 left-0 h-0.5 bg-primary w-0 group-hover:w-full transition-all duration-500" />
                         </NavLink>
-
                     ))}
 
                     {/* THEME TOGGLE */}

@@ -92,8 +92,8 @@ const FounderCard = () => {
     const skills = ["Performance Marketing", "SEO & Growth", "Brand Strategy", "Analytics & Data", "Social Media", "Paid Ads"];
 
     const socials = [
-        { Icon: Linkedin, href: "#", color: "#0077B5" },
-        { Icon: Instagram, href: "#", color: "#E1306C" },
+        { Icon: Linkedin, href: "#", color: "#8bc53f" },
+        { Icon: Instagram, href: "#", color: "#8bc53f" },
         { Icon: Mail, href: "#", color: "#8bc53f" },
     ];
 

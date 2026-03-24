@@ -141,8 +141,8 @@ const AdminCarrerPage = () => {
             <td className="px-4 py-3 text-primary font-medium">
               {app.interest}
             </td>
-{/* 
-            <td className="px-4 py-3">
+{/*
+         <td className="px-4 py-3">
               <a
                 href={app.resume}
                 target="_blank"
