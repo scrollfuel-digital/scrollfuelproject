@@ -160,26 +160,11 @@ function CollageModal({ project, onClose }) {
             <p className={`text-[10px] font-bold tracking-[0.25em] uppercase ${isPrimary ? "text-primary" : "text-secondary"}`}>
               {project.category}
             </p>
-            <h2 className="font-serif text-base md:text-xl font-bold text-dark dark:text-white leading-tight">
+            <h2 className="font-serif text-base md:text-xl font-bold text-black dark:text-white leading-tight">
               {project.title}
             </h2>
           </div>
         </div>
-
-        {/* meta pills */}
-        <div className="hidden md:flex items-center gap-6">
-          {[
-            { label: "Client", value: project.client },
-            { label: "Year", value: project.year },
-            { label: "Photos", value: `${total} Images` },
-          ].map(({ label, value }) => (
-            <div key={label} className="text-center">
-              <p className="text-[9px] tracking-widest uppercase text-muted font-semibold">{label}</p>
-              <p className="text-sm font-sans font-semibold text-dark dark:text-white">{value}</p>
-            </div>
-          ))}
-        </div>
-
         <button
           onClick={onClose}
           className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-muted hover-text-primary hover-border-primary transition-all duration-200 text-base"
@@ -188,19 +173,7 @@ function CollageModal({ project, onClose }) {
         </button>
       </div>
 
-      {/* mobile meta row */}
-      <div className="md:hidden shrink-0 flex gap-5 px-4 py-3 border-b border-black/10 dark:border-white/10 bg-white dark:bg-dark">
-        {[
-          { label: "Client", value: project.client },
-          { label: "Year", value: project.year },
-          { label: "Photos", value: `${total}` },
-        ].map(({ label, value }) => (
-          <div key={label}>
-            <p className="text-[9px] tracking-widest uppercase text-muted font-semibold">{label}</p>
-            <p className="text-xs font-sans font-semibold text-dark dark:text-white">{value}</p>
-          </div>
-        ))}
-      </div>
+     
 
       {/* ── SCROLLABLE GALLERY AREA ── */}
       <div className="flex-1 overflow-y-auto p-4 md:p-8">
@@ -340,7 +313,7 @@ function ProjectCard({ project, onClick }) {
       `}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      // onClick={onClick}
+      onClick={onClick}
     >
       {/* NUMBER TAG */}
       <span
@@ -435,8 +408,6 @@ function ProjectCard({ project, onClick }) {
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
   const [activeProject, setActiveProject] = useState(null);
-  const [menuOpen, setMenuOpen] = useState(false);
-
   const filtered =
     activeFilter === "All"
       ? projects
