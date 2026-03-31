@@ -22,25 +22,35 @@ export default function AuthPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
 
-    const params = new URLSearchParams(window.location.search);
+      const token = params.get("token");
+      const user = params.get("user");
+      const error = params.get("error");
 
-    const token = params.get("token");
-    const user = params.get("user");
+      if (error) {
+        alert("Google Login Failed");
+        return;
+      }
 
-    if (token) {
-      localStorage.setItem("token", token);
+      if (token) {
+        localStorage.setItem("token", token);
+      }
+
+      if (user) {
+        const decodedUser = JSON.parse(decodeURIComponent(user));
+        localStorage.setItem("user", JSON.stringify(decodedUser));
+      }
+
+      if (token) {
+        window.history.replaceState({}, document.title, "/admin/auth");
+        navigate("/admin/dashboard"); // ✅ FINAL REDIRECT
+      }
+
+    } catch (err) {
+      console.error("Auth Parse Error:", err);
     }
-
-    if (user) {
-      const decodedUser = JSON.parse(decodeURIComponent(user));
-      localStorage.setItem("user", JSON.stringify(decodedUser));
-    }
-
-    if (token) {
-      navigate("/admin/dashboard");
-    }
-
   }, [navigate]);
 
   useEffect(() => {
@@ -144,15 +154,14 @@ export default function AuthPage() {
     }, 300);
   };
 
-
   // GOOGLE LOGIN
+  // const googleLogin = () => {
+  //   window.location.href = "/api/admin/google";
+  // };
   const googleLogin = () => {
-
-    // backend will redirect after auth
-    window.location.href = `${API}/api/admin/google`;
-
+    // window.location.href = `${API}/api/admin/google`;
+    window.location.href = `${import.meta.env.VITE_API_URL}/api/admin/google`;
   };
-
   return (
     <div
       className="min-h-screen bg-dark flex overflow-hidden relative"
