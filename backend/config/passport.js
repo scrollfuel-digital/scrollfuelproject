@@ -1,52 +1,57 @@
-import passport from "passport";
-import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import dotenv from "dotenv";
-
-dotenv.config();
+// import passport from "passport";
+// import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 // passport.use(
 //     new GoogleStrategy(
 //         {
 //             clientID: process.env.GOOGLE_CLIENT_ID,
 //             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//             callbackURL: "http://127.0.0.1:8000/api/admin/google/callback",
-
+//             callbackURL: "https://scrollfuel.in/api/admin/google/callback",
 //         },
 //         async (accessToken, refreshToken, profile, done) => {
-//             try {
-//                 // TODO: Save user in DB later
-//                 return done(null, profile);
-//             } catch (err) {
-//                 return done(err, null);
-//             }
+//             const user = {
+//                 displayName: profile.displayName,
+//                 email: profile.emails[0].value,
+//                 photo: profile.photos[0].value,
+//             };
+
+//             return done(null, user);
 //         }
 //     )
 // );
+
+// passport.serializeUser((user, done) => done(null, user));
+// passport.deserializeUser((user, done) => done(null, user));
+
+// export default passport;
+
+
+import passport from "passport";
+import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
 passport.use(
     new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "https://scrollfuel.in/api/admin/google/callback"
+
+            // ✅ USE ENV (VERY IMPORTANT)
+            callbackURL: `${process.env.BASE_URL}/api/admin/google/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
+            try {
+                const user = {
+                    displayName: profile.displayName,
+                    email: profile.emails?.[0]?.value,
+                    photo: profile.photos?.[0]?.value,
+                };
 
-            const user = {
-                displayName: profile.displayName,
-                email: profile.emails[0].value,
-                photo: profile.photos[0].value
-            };
-
-            return done(null, user);
+                return done(null, user);
+            } catch (error) {
+                return done(error, null);
+            }
         }
     )
 );
 
-passport.serializeUser((user, done) => {
-    done(null, user);
-});
-
-passport.deserializeUser((user, done) => {
-    done(null, user);
-});
+export default passport;
