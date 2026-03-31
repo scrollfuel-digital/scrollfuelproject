@@ -1,15 +1,12 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
-// ✅ Detect environment
 const isProduction = process.env.NODE_ENV === "production";
 
-// ✅ Dynamic BASE URL
 const BASE_URL = isProduction
     ? "https://scrollfuelproject.onrender.com"
     : "http://localhost:8000";
 
-// ✅ Google Strategy
 passport.use(
     new GoogleStrategy(
         {
@@ -32,6 +29,8 @@ passport.use(
         }
     )
 );
+
+console.log("Using BASE_URL:", BASE_URL);
 
 // ✅ Debug logs
 console.log("NODE_ENV:", process.env.NODE_ENV);

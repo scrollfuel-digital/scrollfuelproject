@@ -21,9 +21,20 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // ✅ FIXED CORS (NO "*")
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://scrollfuelproject-git-main-divyani-bhusaris-projects-d2314264.vercel.app"
+];
+
 app.use(
     cors({
-        origin: process.env.CLIENT_URL, // MUST match frontend
+        origin: function (origin, callback) {
+            if (!origin || allowedOrigins.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("Not allowed by CORS"));
+            }
+        },
         credentials: true,
     })
 );
@@ -37,7 +48,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/general", generalRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/dashboard", dashboardRoutes);
-
+console.log("CLIENT_URL:", process.env.CLIENT_URL);
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
