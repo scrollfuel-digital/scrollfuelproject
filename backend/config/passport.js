@@ -1,14 +1,21 @@
 import passport from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
+// ✅ Detect environment
+const isProduction = process.env.NODE_ENV === "production";
+
+// ✅ Dynamic BASE URL
+const BASE_URL = isProduction
+    ? "https://scrollfuelproject.onrender.com"
+    : "http://localhost:8000";
+
+// ✅ Google Strategy
 passport.use(
     new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-
-            // ✅ USE ENV (VERY IMPORTANT)
-            callbackURL: `${process.env.BASE_URL}/api/admin/google/callback`,
+            callbackURL: `${BASE_URL}/api/admin/google/callback`,
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
@@ -25,5 +32,10 @@ passport.use(
         }
     )
 );
+
+// ✅ Debug logs
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("BASE_URL:", BASE_URL);
+console.log("CALLBACK:", `${BASE_URL}/api/admin/google/callback`);
 
 export default passport;
