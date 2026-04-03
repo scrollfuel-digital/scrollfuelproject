@@ -16,6 +16,7 @@ passport.use(
         },
         async (accessToken, refreshToken, profile, done) => {
             try {
+                console.log("GOOGLE PROFILE:", profile); // ✅ DEBUG
                 const user = {
                     displayName: profile.displayName,
                     email: profile.emails?.[0]?.value,

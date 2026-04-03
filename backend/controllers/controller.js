@@ -6,50 +6,133 @@ import CareerModel from "../models/CareerModel.js";
 import ContactModel from "../models/ContactModel.js";
 
 /* SIGNUP CONTROLLER */
+// const Signup = async (req, res) => {
+//     try {
+
+//         const { username, email, password } = req.body;
+
+//         // 1. Validate fields
+//         if (!username || !email || !password) {
+//             return res.status(400).json({
+//                 msg: "All fields are required (username, email, password)"
+//             });
+//         }
+
+//         // 2. Check if user already exists
+//         const existingUser = await AdminModel.findOne({
+//             $or: [{ email }, { username }]
+//         });
+
+//         if (existingUser) {
+//             return res.status(400).json({
+//                 msg: "Username or Email already exists"
+//             });
+//         }
+
+//         // 3. Hash password
+//         const salt = await bcrypt.genSalt(10);
+//         const hashedPassword = await bcrypt.hash(password, salt);
+
+//         // 4. Create user
+//         const user = new AdminModel({
+//             username,
+//             email,
+//             password: hashedPassword
+//         });
+
+//         await user.save();
+
+//         // 5. Generate token
+//         const token = jwt.sign(
+//             { id: user._id },
+//             process.env.JWT_SECRET,
+//             { expiresIn: "1h" }
+//         );
+
+//         // 6. Send response
+//         res.status(201).json({
+//             msg: "User registered successfully",
+//             token,
+//             user: {
+//                 id: user._id,
+//                 username: user.username,
+//                 email: user.email
+//             }
+//         });
+
+//     } catch (error) {
+
+//         // Handle duplicate key error
+//         if (error.code === 11000) {
+//             return res.status(400).json({
+//                 msg: "Username or Email already exists"
+//             });
+//         }
+
+//         console.error("Signup Error:", error);
+
+//         res.status(500).json({
+//             msg: "Server error",
+//             error: error.message
+//         });
+//     }
+// };
+
 const Signup = async (req, res) => {
     try {
+        let { username, email, password } = req.body;
 
-        const { username, email, password } = req.body;
-
-        // 1. Validate fields
+        // 1️⃣ Validate fields
         if (!username || !email || !password) {
             return res.status(400).json({
                 msg: "All fields are required (username, email, password)"
             });
         }
 
-        // 2. Check if user already exists
-        const existingUser = await AdminModel.findOne({
-            $or: [{ email }, { username }]
-        });
+        // 2️⃣ Normalize input (VERY IMPORTANT)
+        username = username.trim();
+        email = email.trim().toLowerCase();
 
-        if (existingUser) {
+        // 3️⃣ Check email separately
+        const existingEmail = await AdminModel.findOne({ email });
+        if (existingEmail) {
             return res.status(400).json({
-                msg: "Username or Email already exists"
+                msg: "Email already exists"
             });
         }
 
-        // 3. Hash password
+        // 4️⃣ Check username separately
+        const existingUsername = await AdminModel.findOne({ username });
+        if (existingUsername) {
+            return res.status(400).json({
+                msg: "Username already exists"
+            });
+        }
+
+        // 5️⃣ Hash password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // 4. Create user
+        // 6️⃣ Create user
         const user = new AdminModel({
             username,
             email,
             password: hashedPassword
         });
 
+        // 🔍 DEBUG (optional)
+        console.log("Saving user:", user);
+
         await user.save();
 
-        // 5. Generate token
+        // 7️⃣ Generate token
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
 
-        // 6. Send response
+        // 8️⃣ Send response
         res.status(201).json({
             msg: "User registered successfully",
             token,
@@ -62,10 +145,10 @@ const Signup = async (req, res) => {
 
     } catch (error) {
 
-        // Handle duplicate key error
+        // ⚠️ Handle duplicate index error (MongoDB)
         if (error.code === 11000) {
             return res.status(400).json({
-                msg: "Username or Email already exists"
+                msg: "Duplicate field value entered"
             });
         }
 
@@ -77,6 +160,7 @@ const Signup = async (req, res) => {
         });
     }
 };
+
 /* LOGIN CONTROLLER */
 const Login = async (req, res) => {
     try {
@@ -137,10 +221,59 @@ const Login = async (req, res) => {
     }
 };
 
+// const googleSuccess = async (req, res) => {
+//     try {
+//         if (!req.user) {
+//             return res.redirect(`${process.env.CLIENT_URL}/login`);
+//         }
+
+//         const { email, displayName, photo } = req.user;
+
+//         let user = await AdminModel.findOne({ email });
+
+//         if (!user) {
+//             user = await AdminModel.create({
+//                 username: displayName,
+//                 email,
+//                 password: "",
+//             });
+//         }
+
+//         const token = jwt.sign(
+//             { id: user._id },
+//             process.env.JWT_SECRET,
+//             { expiresIn: "7d" }
+//         );
+
+//         const userData = {
+//             id: user._id,
+//             username: user.username,
+//             email: user.email,
+//             photo: photo || "",
+//         };
+
+//         const encodedUser = encodeURIComponent(JSON.stringify(userData));
+
+//         // ✅ FINAL REDIRECT
+//         return res.redirect(
+//             `${process.env.CLIENT_URL}/admin/auth?token=${token}&user=${encodedUser}`
+//         );
+
+//     } catch (error) {
+//         console.error("Google Auth Error:", error);
+//         // return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+//         return res.redirect(`${process.env.CLIENT_URL}/admin/auth?error=auth_failed`);
+//     }
+// };
+
 const googleSuccess = async (req, res) => {
     try {
+        console.log("REQ.USER:", req.user); // ✅ DEBUG
+
         if (!req.user) {
-            return res.redirect(`${process.env.CLIENT_URL}/login`);
+            return res.redirect(
+                `${process.env.CLIENT_URL}/admin/auth?error=auth_failed`
+            );
         }
 
         const { email, displayName, photo } = req.user;
@@ -170,14 +303,16 @@ const googleSuccess = async (req, res) => {
 
         const encodedUser = encodeURIComponent(JSON.stringify(userData));
 
-        // ✅ FINAL REDIRECT
         return res.redirect(
             `${process.env.CLIENT_URL}/admin/auth?token=${token}&user=${encodedUser}`
         );
 
     } catch (error) {
         console.error("Google Auth Error:", error);
-        return res.redirect(`${process.env.CLIENT_URL}/login?error=auth_failed`);
+
+        return res.redirect(
+            `${process.env.CLIENT_URL}/admin/auth?error=auth_failed`
+        );
     }
 };
 
