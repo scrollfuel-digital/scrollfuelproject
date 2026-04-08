@@ -23,9 +23,13 @@
       function gtag() {
         dataLayer.push(arguments);
       }
+
       gtag("js", new Date());
 
-      gtag("config", "G-RVBG6R9BJ0");
+      gtag("config", "G-RVBG6R9BJ0", {
+        send_page_view: false,
+        debug_mode: true,
+      });
     </script>
   </head>
   <body>

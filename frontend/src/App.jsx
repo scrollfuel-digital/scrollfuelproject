@@ -45,8 +45,10 @@ function Layout() {
   // ✅ GOOGLE ANALYTICS TRACKING
   useEffect(() => {
     if (window.gtag) {
-      window.gtag("config", "G-RVBG6R9BJ0", {
+      window.gtag("event", "page_view", {
         page_path: location.pathname,
+        page_location: window.location.href,
+        page_title: document.title,
       });
     }
   }, [location]);
