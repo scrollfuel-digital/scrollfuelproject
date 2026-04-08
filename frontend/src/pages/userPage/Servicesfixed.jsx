@@ -388,16 +388,12 @@ const HeroSection = ({ servicesRef }) => {
                                     className="text-3xl md:text-5xl font-bold text-secondary"
                                     whileHover={{ scale: 1.1 }}
                                 >
-                                    {isInView && (
-                                        <CountUp
-                                            start={0}
-                                            end={stat.end}
-                                            duration={2.5}
-                                            suffix={stat.suffix}
-                                            enableScrollSpy
-                                            scrollSpyOnce
-                                        />
-                                    )}
+                                    <CountUp
+                                        start={isInView ? 0 : null}
+                                        end={isInView ? stat.end : 0}
+                                        duration={2.5}
+                                        suffix={stat.suffix}
+                                    />
                                 </motion.div>
 
                                 <div className="text-sm md:text-base text-white/70 mt-1 font-medium">

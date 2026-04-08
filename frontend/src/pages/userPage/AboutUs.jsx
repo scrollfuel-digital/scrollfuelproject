@@ -177,7 +177,7 @@ const FounderCard = () => {
                                     </div>
                                 </div>
 
-                              
+
                             </motion.div>
 
                             {/* Social Links */}
@@ -450,19 +450,24 @@ const AboutUsPage = () => {
                             className="flex flex-wrap justify-center gap-6 mb-20"
                         >
                             <motion.button
-                                whileHover={{ scale: 1.05, boxShadow: '0 0 30px rgba(139, 197, 63, 0.5)' }}
+                                onClick={() => navigate("/contact")} // ✅ moved here
+                                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139, 197, 63, 0.5)" }}
                                 whileTap={{ scale: 0.95 }}
-                                className="group relative px-8 py-4 bg-primary text-black font-semibold rounded-full overflow-hidden transition-all duration-300"
+                                className="group relative px-8 py-4 bg-primary text-black font-semibold rounded-full overflow-hidden transition-all duration-300 flex items-center gap-2"
                             >
-                                <button onClick={() => navigate("/contact")} className="relative z-10 flex items-center gap-2">
+                                <span className="relative z-10 flex items-center gap-2">
                                     Get Started
-                                    <motion.span animate={{ y: [0, -6, 0, 6, 0] }} transition={{ duration: 1.5, repeat: Infinity }}>
+                                    <motion.span
+                                        animate={{ y: [0, -6, 0, 6, 0] }}
+                                        transition={{ duration: 1.5, repeat: Infinity }}
+                                    >
                                         <ArrowDown size={20} />
                                     </motion.span>
-                                </button>
+                                </span>
+
                                 <motion.div
                                     className="absolute inset-0 bg-secondary"
-                                    initial={{ x: '-100%' }}
+                                    initial={{ x: "-100%" }}
                                     whileHover={{ x: 0 }}
                                     transition={{ duration: 0.3 }}
                                 />

@@ -84,7 +84,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
 
             {/* Content */}
             <div className="relative z-10 py">
-                <motion.p
+                <motion.h4
                     ref={counterRef}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -92,14 +92,12 @@ const ClientsSection = React.forwardRef((props, ref) => {
                     viewport={{ once: true }}
                     className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold"
                 >
-                    <h4>
-                        Over{" "}
-                        <span className="text-primary font-bold">
-                            {count.toLocaleString()}+ Clients
-                        </span>{" "}
-                        All Over The World
-                    </h4>
-                </motion.p>
+                    Over{" "}
+                    <span className="text-primary font-bold">
+                        {count.toLocaleString()}+ Clients
+                    </span>{" "}
+                    All Over The World
+                </motion.h4>
 
                 {/* <div className="w-full overflow-hidden backdrop-blur-sm"> */}
                 <div className="w-full overflow-hidden">

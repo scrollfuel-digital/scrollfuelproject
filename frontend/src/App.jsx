@@ -42,6 +42,14 @@ function Layout() {
     }
   }, []);
 
+  // ✅ GOOGLE ANALYTICS TRACKING
+  useEffect(() => {
+    if (window.gtag) {
+      window.gtag("config", "G-RVBG6R9BJ0", {
+        page_path: location.pathname,
+      });
+    }
+  }, [location]);
   return (
     <>
       {/* Hide Navbar for admin */}
