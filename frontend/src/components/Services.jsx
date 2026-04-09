@@ -400,7 +400,7 @@ const Services = React.forwardRef((props, ref) => {
               onMouseLeave={() => setHoveredIndex(null)}
               onClick={() => navigate(`/services/${ser.slug}`)}
               // onClick={() => navigate(`/services?service=${ser.slug}`)}
-              className="relative group cursor-pointer"
+              className="relative group cursor-pointer select-none"
               whileHover={{ scale: 1.05 }}
             >
               {/* Card container */}
