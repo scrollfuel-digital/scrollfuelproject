@@ -12,7 +12,7 @@ const ServiceDetails = () => {
     if (!service) return null;
 
     return (
-        <div className="min-h-screen bg-dark text-white pt-28 px-4 flex items-start">
+        <div className="min-h-screen bg-dark text-white pt-28 px-4 flex items-start select-none">
             <div className="w-full max-w-6xl mx-auto">
 
                 {/* MAIN CARD */}

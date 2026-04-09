@@ -348,7 +348,7 @@ const AboutUsPage = () => {
     const highlightWord = "us";
 
     return (
-        <div className="bg-white dark:bg-black dark:text-white overflow-hidden">
+        <div className="bg-white dark:bg-black dark:text-white overflow-hidden select-none">
             {/* ============= HERO SECTION ============= */}
             <section className="relative min-h-screen overflow-hidden">
                 <motion.div

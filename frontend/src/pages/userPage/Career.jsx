@@ -3,13 +3,6 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 const API = import.meta.env.VITE_API_URL;
 const CareerPage = () => {
-    // const [formData, setFormData] = useState({
-    //     name: "",
-    //     email: "",
-    //     address: "",
-    //     resume: null,
-    //     interest: "",
-    // });
     const [formData, setFormData] = useState({
         name: "",
         email: "",
@@ -30,7 +23,6 @@ const CareerPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         const formDataToSend = new FormData();
         formDataToSend.append("name", formData.name);
         formDataToSend.append("email", formData.email);
@@ -68,10 +60,7 @@ const CareerPage = () => {
             alert("Server error");
         }
     };
-
-
     /* ------------------ Variants ------------------ */
-
     const containerVariants = {
         hidden: {},
         visible: {
@@ -91,7 +80,7 @@ const CareerPage = () => {
     };
 
     return (
-        <div className="min-h-screen dark:bg-black dark:text-white pt-12">
+        <div className="min-h-screen dark:bg-black dark:text-white pt-12 select-none">
 
             {/* Hero Section */}
             <div className="text-center mb-16 mt-19 px-4">

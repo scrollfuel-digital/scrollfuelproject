@@ -83,54 +83,8 @@ const projects = [
       "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80",
     ],
   },
-  {
-    id: 6,
-    title: "Ember SEO Growth",
-    category: "Marketing",
-    year: "2024",
-    client: "Ember Corp",
-    cover: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    tag: "06",
-    accent: "secondary",
-    gallery: [
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-      "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&q=80",
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
-    ],
-  },
-  {
-    id: 7,
-    title: "Crystal UI System",
-    category: "Branding",
-    year: "2024",
-    client: "Crystal Labs",
-    cover: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-    tag: "07",
-    accent: "secondary",
-    gallery: [
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
-      "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80",
-      "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&q=80",
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80",
-    ],
-  },
-  {
-    id: 8,
-    title: "Prism Social Kit",
-    category: "Social Media",
-    year: "2023",
-    client: "Prism Agency",
-    cover: "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&q=80",
-    tag: "08",
-    accent: "primary",
-    gallery: [
-      "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&q=80",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-      "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    ],
-  },
+
+ 
 ];
 
 const filters = [
@@ -414,7 +368,7 @@ export default function Portfolio() {
       : projects.filter((p) => p.category === activeFilter);
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24">
+    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24 select-none">
 
       {/* keyframe injection */}
       <div dangerouslySetInnerHTML={{

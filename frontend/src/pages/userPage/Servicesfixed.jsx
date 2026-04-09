@@ -30,8 +30,16 @@ const HeroSection = ({ servicesRef }) => {
         navigate("/contact");
     };
     return (
-        // <div className="relative w-full h-screen overflow-hidden bg-black">
-        <div ref={heroRef} className="relative w-full h-screen overflow-hidden bg-black">
+        <div
+            ref={heroRef}
+            className="relative w-full h-screen overflow-hidden bg-black select-none"
+            style={{
+                WebkitUserSelect: "none",
+                userSelect: "none",
+                WebkitTouchCallout: "none",
+            }}
+            onContextMenu={(e) => e.preventDefault()}
+        >
             {/* Animated Background Layer */}
             <div className="absolute inset-0 z-0">
                 {/* Base gradient */}
@@ -436,31 +444,6 @@ const HeroSection = ({ servicesRef }) => {
                         </motion.button>
                     </motion.div>
 
-                    {/* Scroll Indicator */}
-                    {/* <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: showContent ? 1 : 0 }}
-                        transition={{ delay: 3.2, duration: 1 }}
-                        className="absolute bottom-8 left-1/2 -translate-x-1/2"
-                    >
-                        <motion.div
-                            animate={{ y: [0, 12, 0] }}
-                            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                            className="flex flex-col items-center gap-3 text-white/70 cursor-pointer hover:text-primary transition-colors"
-                        >
-                            <span className="text-sm font-medium tracking-wider uppercase">Scroll to explore</span>
-                            <motion.div
-                                className="w-6 h-10 border-2 border-white/40 rounded-full flex justify-center pt-2"
-                                whileHover={{ borderColor: "var(--color-green)" }}
-                            >
-                                <motion.div
-                                    className="w-1.5 h-3 rounded-full bg-primary"
-                                    animate={{ y: [0, 12, 0] }}
-                                    transition={{ duration: 1.5, repeat: Infinity }}
-                                />
-                            </motion.div>
-                        </motion.div>
-                    </motion.div> */}
                 </div>
             </motion.div>
         </div>
@@ -484,7 +467,13 @@ const ServiceCard = ({ service, onClick }) => {
                 h-auto
                 shadow-2xl
                 transition-all duration-500
+                select-none
             "
+            style={{
+                WebkitUserSelect: "none",
+                userSelect: "none",
+                WebkitTouchCallout: "none",
+            }}
             whileHover={{
                 scale: 1.02,
                 y: -5,

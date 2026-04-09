@@ -51,7 +51,7 @@ export default function Home() {
     };
 
     return (
-        <main className="bg-white text-black dark:bg-black dark:text-white overflow-hidden transition-colors duration-500">
+        <main className="bg-white text-black dark:bg-black dark:text-white overflow-hidden transition-colors duration-500 select-none">
 
             {/* ================= HERO ================= */}
             <section
@@ -59,7 +59,7 @@ export default function Home() {
                     heroRef.current = el;
                     sectionRefs.current[0] = el;
                 }}
-                className="relative w-screen overflow-hidden aspect-video md:aspect-auto md:h-screen pt-75"
+                className="relative w-screen overflow-hidden aspect-video md:aspect-auto md:h-screen pt-75 select-none"
             >
                 {/* SLIDES */}
                 <AnimatePresence initial={false} custom={direction}>
@@ -78,7 +78,7 @@ export default function Home() {
                         exit="exit"
                         transition={{ duration: 1, ease: "easeInOut" }}
                         style={{ y: heroY }}
-                        className="absolute inset-0 w-full h-full object-contain md:object-cover bg-black"
+                        className="absolute inset-0 w-full h-full object-contain md:object-cover bg-black select-none"
                     />
                 </AnimatePresence>
 
@@ -98,22 +98,20 @@ export default function Home() {
                     ))}
                 </div>
             </section>
-
             {/* ================= SECTIONS ================= */}
-
-            <section className="bg-white dark:bg-black transition-colors duration-500">
+            <section className="bg-white dark:bg-black transition-colors duration-500 select-none">
                 <ClientsSection />
             </section>
 
-            <section className="bg-white dark:bg-black transition-colors duration-500">
+            <section className="bg-white dark:bg-black transition-colors duration-500 select-none">
                 <Services />
             </section>
 
-            <section className="bg-white dark:bg-black transition-colors duration-500">
+            <section className="bg-white dark:bg-black transition-colors duration-500 select-none">
                 <About />
             </section>
 
-            <section className="bg-white dark:bg-black transition-colors duration-500">
+            <section className="bg-white dark:bg-black transition-colors duration-500 select-none">
                 <Testimonials />
             </section>
 

@@ -333,7 +333,7 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white select-none" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
       {/* Global keyframe for shimmer */}
       <style>{`
@@ -364,12 +364,6 @@ const BlogDetails = () => {
           className="absolute inset-0 w-full h-full object-cover object-center"
           style={{ zIndex: 0, filter: "brightness(0.48)" }}
         />
-        {/* <img
-          src={heroImage}
-          alt={blog.title}
-          className="absolute inset-0 w-full h-full object-contain"
-          style={{ zIndex: 0, filter: "brightness(0.48)" }}
-        /> */}
         {/* Layer 2 — gradient darkening overlay */}
         <div
           className="absolute inset-0"

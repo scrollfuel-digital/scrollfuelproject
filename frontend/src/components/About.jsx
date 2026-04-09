@@ -323,8 +323,15 @@ const AboutUs = React.forwardRef((props, ref) => {
     const [hoveredValue, setHoveredValue] = useState(null);
 
     return (
-        // <section ref={ref} className="bg-black text-white overflow-hidden relative">
-        <section ref={ref} className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative">
+        <section
+            ref={ref}
+            className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative select-none"
+            style={{
+                WebkitUserSelect: "none",
+                userSelect: "none",
+                WebkitTouchCallout: "none",
+            }}
+        >
             {/* HERO SECTION WITH UNIQUE ANIMATION */}
             <div className="relative min-h-[70vh] flex items-center">
                 {/* Dynamic gradient background */}

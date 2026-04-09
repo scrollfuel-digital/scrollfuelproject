@@ -24,7 +24,7 @@ const Footer = () => {
     }, []);
 
     return (
-        <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
+        <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 select-none">
 
             <div className="max-w-7xl mx-auto">
 

@@ -472,7 +472,7 @@ export default function ContactUsPage() {
   // ];
 
   return (
-    <div className="dark:bg-black dark:text-white overflow-hidden" ref={containerRef}>
+    <div className="dark:bg-black dark:text-white overflow-hidden select-none" ref={containerRef}>
 
       {/* SCROLL LINE */}
       <div className="fixed left-0 top-0 w-0.5 h-full z-50 bg-white/5">

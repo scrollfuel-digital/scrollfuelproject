@@ -72,7 +72,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
     return (
         <section
             ref={sectionRef}
-            className="relative min-h-[10vh] pt-15 overflow-hidden"
+            className="relative min-h-[10vh] pt-15 overflow-hidden "
         >
             {/* Parallax Background */}
             <motion.div
@@ -90,7 +90,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold"
+                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold select-none"
                 >
                     Over{" "}
                     <span className="text-primary font-bold">
