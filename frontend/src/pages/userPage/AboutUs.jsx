@@ -551,7 +551,7 @@ const AboutUsPage = () => {
                                     {char}
                                 </motion.span>
                             ))}
-                            {"fuel".split('').map((char, i) => (
+                            {"Fuel".split('').map((char, i) => (
                                 <motion.span key={i} custom={26 + i} variants={letterAnimation} className="inline-block dark:text-white">
                                     {char}
                                 </motion.span>

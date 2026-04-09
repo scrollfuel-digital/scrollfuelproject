@@ -40,15 +40,7 @@ const testimonials = [
         text: "Our social media profiles now reflect a confident and professional brand image.",
         img: "./assets/bhavesh.jpg",
         rating: 5,
-    },
-    {
-        id: 6,
-        initials: "MC",
-        name: "Mayur Choudhary",
-        text: "Clear insights with regular, transparent reporting.",
-        img: "./assets/Mayur.jpg",
-        rating: 5,
-    },
+    }
 ];
 
 const StarIcon = ({ filled }) => (

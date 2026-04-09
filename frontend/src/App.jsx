@@ -31,7 +31,7 @@ function Layout() {
 
   const isAdminRoute = location.pathname.startsWith("/admin");
 
-  /* 🌙 Theme initialization */
+  /* Theme initialization */
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
 
@@ -42,7 +42,7 @@ function Layout() {
     }
   }, []);
 
-  // ✅ GOOGLE ANALYTICS TRACKING
+  // GOOGLE ANALYTICS TRACKING
   useEffect(() => {
     if (window.gtag) {
       window.gtag("event", "page_view", {
