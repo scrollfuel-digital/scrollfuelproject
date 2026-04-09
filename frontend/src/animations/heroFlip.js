@@ -1,19 +1,3 @@
-// animations/heroFlip.js
-// export const pageFlip = {
-//     hidden: {
-//         rotateX: -90,
-//         opacity: 0,
-//         transformOrigin: "center top",
-//     },
-//     visible: {
-//         rotateX: 0,
-//         opacity: 1,
-//         transition: {
-//             duration: 1.4,
-//             ease: [0.25, 0.8, 0.25, 1],
-//         },
-//     },
-// };
 
 export const illustrationContainer = {
     hidden: {},

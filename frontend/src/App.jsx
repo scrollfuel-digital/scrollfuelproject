@@ -20,9 +20,7 @@ import AdminBlogs from "./pages/admin/AdminBlogs";
 import AdminEditBlog from "./pages/admin/AdminEditBlog";
 import AuthPage from "./pages/admin/auth-page";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
-import AdminActivityPage from "./components/admin/AdminActivityPage";
 import ContactMessage from "./components/admin/ContactMessage";
-import ReportsPage from "./components/admin/ReportsPage";
 import AdminCarrerPage from "./components/admin/AdminCarrerPage";
 import AdminLayout from "./components/admin/AdminLayout";
 
@@ -84,29 +82,6 @@ function Layout() {
             </ProtectedRoute>
           }
         />
-
-        <Route
-          path="/admin/activity"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="activity">
-                <AdminActivityPage />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin/reports"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="reports">
-                <ReportsPage />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-
         <Route
           path="/admin/messages"
           element={

@@ -42,7 +42,7 @@ const Navbar = () => {
     };
 
     return (
-        // <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300">
+       
         <nav className="fixed top-0 left-0 w-full z-50 bg-white dark:bg-black backdrop-blur-md border-b border-black/5 dark:border-white/10 transition-colors duration-300 font-sans">
             {/* MAIN NAVBAR */}
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 h-20 flex items-center justify-between">
@@ -61,20 +61,6 @@ const Navbar = () => {
                 <div className="hidden lg:flex items-center font-sans space-x-10">
 
                     {navLinks.map((link) => (
-                        // <NavLink
-                        //     key={link.path}
-                        //     to={link.path}
-                        //     className={({ isActive }) =>
-                        //         `text-xs font-bold uppercase tracking-widest relative group transition-all
-                        //         ${isActive
-                        //             ? "text-secondary"
-                        //             : "text-black dark:text-white hover-text-primary"
-                        //         }`
-                        //     }
-                        // >
-                        //     <h4 className="font-semibold text-sm text-black dark:text-white"> {link.name}</h4>
-                        //     <span className="absolute -bottom-2 left-0 h-0.5 bg-primary w-0 group-hover:w-full transition-all duration-500" />
-                        // </NavLink>
                         <NavLink
                             key={link.path}
                             to={link.path}

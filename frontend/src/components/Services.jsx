@@ -296,22 +296,7 @@ const ServiceIcon = ({ type, isHovered }) => {
 /* BACKGROUND PATTERN */
 const AnimatedBackground = ({ isHovered }) => (
   <div className="absolute inset-0 overflow-hidden pointer-events-none">
-    {/* Grid pattern */}
-    {/* <motion.div
-      className="absolute inset-0 opacity-5"
-      style={{
-        backgroundImage: `
-          linear-gradient(to right, rgba(139, 197, 63, 0.1) 1px, transparent 1px),
-          linear-gradient(to bottom, rgba(139, 197, 63, 0.1) 1px, transparent 1px)
-        `,
-        backgroundSize: '20px 20px',
-      }}
-      animate={{
-        opacity: isHovered ? 0.15 : 0.05,
-      }}
-      transition={{ duration: 0.3 }}
-    /> */}
-
+   
     {/* Floating circles */}
     <motion.div
       className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-2xl"

@@ -187,7 +187,13 @@ function ContactCard({ icon: Icon, title, value, link, index }) {
   return (
     <motion.a
       href={link}
-      target="_blank"
+      target={
+        link.startsWith("http")
+          ? "_blank"
+          : link.startsWith("mailto:") || link.startsWith("tel:")
+            ? "_self"
+            : "_blank"
+      }
       rel="noopener noreferrer"
       initial={{ opacity: 0, x: dirX, y: 30, rotate: index % 2 === 0 ? -5 : 5 }}
       whileInView={{ opacity: 1, x: 0, y: 0, rotate: 0 }}
@@ -195,7 +201,10 @@ function ContactCard({ icon: Icon, title, value, link, index }) {
       transition={{ duration: 0.7, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       whileHover={{ y: -10, scale: 1.03 }}
       className="group relative overflow-hidden rounded-2xl border dark:border-white/8 cursor-pointer"
-      style={{ background: "rgba(255,255,255,0.03)", backdropFilter: "blur(20px)" }}
+      style={{
+        background: "rgba(255,255,255,0.03)",
+        backdropFilter: "blur(20px)"
+      }}
     >
       {/* Diagonal colour wipe */}
       <motion.div
@@ -428,6 +437,7 @@ function FloatingSelect({ name, label, value, onChange, options }) {
     </div>
   );
 }
+
 /* MAIN PAGE*/
 export default function ContactUsPage() {
   const [form, setForm] = useState({ name: "", email: "", phone: "", service: "", message: "" });
@@ -458,18 +468,24 @@ export default function ContactUsPage() {
   };
 
   const services = ["Social Media Marketing & Management", "Web Design & Development", "Lead Generation", "Content Creation", "Advertising & Marketing", "Branding & Graphic Designing", "Google Ads & PPC Campaign", "Others"];
+  
+  const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+  const emailLink = isMobile
+    ? "mailto:scrollfuel@gmail.com?subject=Business%20Inquiry&body=Hi%20Scrollfuel,"
+    : "https://mail.google.com/mail/?view=cm&fs=1&to=scrollfuel@gmail.com&su=Business%20Inquiry&body=Hi%20Scrollfuel,";
+
   const contactItems = [
     { icon: Phone, title: "Call Us", value: "+91 9699660972", link: "tel:+919699660972" },
     { icon: MessageCircle, title: "WhatsApp", value: "Chat Now", link: "https://wa.me/919699660972" },
-    { icon: Mail, title: "Email", value: "scrollfuel@gmail.com", link: "https://mail.google.com/mail/?view=cm&fs=1&to=scrollfuel@gmail.com" },
+    {
+      icon: Mail,
+      title: "Email",
+      value: "scrollfuel@gmail.com",
+      link: emailLink
+    },
     { icon: MapPin, title: "Office", value: "Nagpur, India", link: "https://maps.app.goo.gl/oQfiqBwaEo6xyFYYA" },
   ];
-  // const stats = [
-  //   { value: 80, suffix: "+", label: "Projects", variant: fromLeft },
-  //   { value: 60, suffix: "+", label: "Clients", variant: fromBottom },
-  //   { value: 5, suffix: "+", label: "Years", variant: fromTop },
-  //   { value: 98, suffix: "%", label: "Satisfaction", variant: fromRight },
-  // ];
 
   return (
     <div className="dark:bg-black dark:text-white overflow-hidden select-none" ref={containerRef}>
@@ -554,21 +570,6 @@ export default function ContactUsPage() {
                   </MagneticButton>
                 </a>
               </motion.div>
-
-              {/* Stats — each from different direction */}
-              {/* <div className="flex gap-8 mt-10 pt-8 border-t border-white/8">
-                {stats.map(({ value, suffix, label, variant }, i) => (
-                  <motion.div key={i}
-                    variants={variant} initial="hidden" animate="visible"
-                    transition={{ duration: 0.6, delay: 1.6 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-                    className="text-center">
-                    <div className="text-2xl font-black text-primary tabular-nums">
-                      <Counter to={value} suffix={suffix} />
-                    </div>
-                    <div className="text-xs text-white/40 uppercase tracking-widest mt-1">{label}</div>
-                  </motion.div>
-                ))}
-              </div> */}
             </div>
 
             {/* === RIGHT: Illustration === */}
