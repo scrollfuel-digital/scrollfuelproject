@@ -245,7 +245,7 @@ import {
 } from "lucide-react";
 import { GoogleGenAI } from "@google/genai";
 
-const WHATSAPP_NUMBER = "9699660972";
+const WHATSAPP_NUMBER = "919699660972";
 
 const AIAssistant = () => {
     const [isOpen, setIsOpen] = useState(true); // ✅ open by default for mobile
