@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const projects = [
   {
@@ -11,16 +11,15 @@ const projects = [
     tag: "01",
     accent: "primary",
     gallery: [
-      "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&q=80",
-      "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
-      "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80",
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+      "./image/1.png",
+      "./image/2.png",
+      "./image/3.png",
+      "./image/4.png",
     ],
   },
   {
     id: 2,
-    title: "Neon Drift Campaign",
+    // title: "Neon Drift Campaign",
     category: "Social Media",
     year: "2024",
     client: "Drifthaus",
@@ -28,10 +27,13 @@ const projects = [
     tag: "02",
     accent: "secondary",
     gallery: [
-      "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=800&q=80",
-      "https://images.unsplash.com/photo-1614854262318-831574f15f1f?w=800&q=80",
-      "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80",
-      "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&q=80",
+      "./assets/portfolio/drift1.jpeg",
+      "./assets/portfolio/propscroll.jpeg",
+      "./assets/portfolio/getfit.jpeg",
+      "./assets/portfolio/M1.jpeg",
+      "./assets/portfolio/portfolio3.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
     ],
   },
   {
@@ -44,12 +46,10 @@ const projects = [
     tag: "03",
     accent: "primary",
     gallery: [
-      "https://images.unsplash.com/photo-1626785774573-4b799315345d?w=800&q=80",
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
-      "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&q=80",
-      "https://images.unsplash.com/photo-1600132806370-bf17e65e942f?w=800&q=80",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "./image/1.png",
+      "./image/2.png",
+      "./image/3.png",
+      "./image/4.png",
     ],
   },
   {
@@ -62,9 +62,10 @@ const projects = [
     tag: "04",
     accent: "secondary",
     gallery: [
-      "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&q=80",
-      "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
-      "https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=800&q=80",
+      "./image/1.png",
+      "./image/2.png",
+      "./image/3.png",
+      "./image/4.png",
     ],
   },
   {
@@ -77,14 +78,14 @@ const projects = [
     tag: "05",
     accent: "primary",
     gallery: [
-      "https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=800&q=80",
-      "https://images.unsplash.com/photo-1634986666676-ec8fd927c23d?w=800&q=80",
-      "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80",
+      "./image/5.png",
+      "./image/6.png",
+      "./image/3.png",
+      "./image/4.png",
     ],
   },
 
- 
+
 ];
 
 const filters = [
@@ -92,166 +93,307 @@ const filters = [
   "Logo Designing", "Animation", "3D Work", "Marketing",
 ];
 
-function CollageModal({ project, onClose }) {
-  const [lightboxIdx, setLightboxIdx] = useState(null);
-  const isPrimary = project.accent === "primary";
-  const total = project.gallery.length;
+const DM_ICONS = [
+  // Megaphone
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg> },
+  // Bar chart
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg> },
+  // Globe
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> },
+  // Mail
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
+  // Trending up
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> },
+  // Cursor
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M4 4l6 18 3-7 7-3z"/></svg> },
+  // Share
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> },
+  // Video
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="m16 11 6-4v10l-6-4z"/></svg> },
+  // Tag
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> },
+  // Heart
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> },
+  // Search
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> },
+  // Zap
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> },
+  // Target
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
+  // Wifi / signal
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 16 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> },
+  // Star
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
+  // Layers
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> },
+];
 
-  const goPrev = () => setLightboxIdx((i) => (i > 0 ? i - 1 : total - 1));
-  const goNext = () => setLightboxIdx((i) => (i < total - 1 ? i + 1 : 0));
+// Generate stable random positions/animations once
+const BG_ICONS = Array.from({ length: 24 }, (_, i) => ({
+  icon: DM_ICONS[i % DM_ICONS.length],
+  left: `${5 + ((i * 37 + 13) % 90)}%`,
+  top: `${5 + ((i * 53 + 7) % 88)}%`,
+  duration: `${10 + (i % 7) * 2.5}s`,
+  delay: `-${(i * 1.8) % 14}s`,
+  opacity: 0.06 + (i % 4) * 0.025,
+  scale: 0.8 + (i % 3) * 0.2,
+}));
+
+function FloatingBgIcons() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
+      <style>{`
+        @keyframes floatDrift {
+          0%   { transform: translateY(0px)   rotate(0deg)   scale(var(--sc)); opacity: var(--op); }
+          33%  { transform: translateY(-18px) rotate(6deg)   scale(var(--sc)); opacity: calc(var(--op) * 1.6); }
+          66%  { transform: translateY(-8px)  rotate(-4deg)  scale(var(--sc)); opacity: var(--op); }
+          100% { transform: translateY(0px)   rotate(0deg)   scale(var(--sc)); opacity: var(--op); }
+        }
+      `}</style>
+      {BG_ICONS.map((item, i) => (
+        <div
+          key={i}
+          className="absolute text-black dark:text-white"
+          style={{
+            left: item.left,
+            top: item.top,
+            opacity: item.opacity,
+            "--op": item.opacity,
+            "--sc": item.scale,
+            animation: `floatDrift ${item.duration} ${item.delay} ease-in-out infinite`,
+          }}
+        >
+          {item.icon.svg}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function CollageModal({ project, onClose }) {
+  const [paused, setPaused] = useState(false);
+  const [index, setIndex] = useState(0);
+  const total = project.gallery.length;
+  const intervalRef = useRef(null);
+
+  // helper — safe modulo for negatives
+  const mod = (n, m) => ((n % m) + m) % m;
+
+  // 🔥 Auto-advance every 2s → moves RIGHT into CENTER
+  useEffect(() => {
+    if (paused) return;
+    intervalRef.current = setInterval(() => {
+      setIndex((prev) => mod(prev + 1, total));
+    }, 2000);
+    return () => clearInterval(intervalRef.current);
+  }, [paused, total]);
+
+  // 3 visible slots: left, center, right
+  const slots = [
+    { offset: -1, pos: "left"   },
+    { offset:  0, pos: "center" },
+    { offset:  1, pos: "right"  },
+  ];
+
+  const styleMap = {
+    left:   { x: "-220px", scale: 0.78, opacity: 0.45, blur: "1px",  zIndex: 5  },
+    center: { x: "0px",    scale: 1,    opacity: 1,    blur: "0px",  zIndex: 20 },
+    right:  { x: "220px",  scale: 0.78, opacity: 0.45, blur: "1px",  zIndex: 5  },
+  };
 
   return (
-    <div
-      className="fixed inset-0 z-50 flex flex-col bg-white dark:bg-dark"
-      style={{ animation: "modalIn 0.35s cubic-bezier(0.23,1,0.32,1) both" }}
-    >
+    <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "rgba(255,255,255,0.97)" }}>
 
-      {/* ── STICKY TOP BAR ── */}
-      <div className="shrink-0 sticky top-0 z-20 flex items-center justify-between px-4 md:px-10 py-4 bg-white/95 dark:bg-black/95 backdrop-blur-xl border-b border-black/10 dark:border-white/10">
-        <div className="flex items-center gap-3">
-          <span className={`w-2.5 h-2.5 rounded-full ${isPrimary ? "bg-primary" : "bg-secondary"}`} />
-          <div>
-            <p className={`text-[10px] font-bold tracking-[0.25em] uppercase ${isPrimary ? "text-primary" : "text-secondary"}`}>
-              {project.category}
-            </p>
-            <h2 className="font-serif text-base md:text-xl font-bold text-black dark:text-white leading-tight">
-              {project.title}
-            </h2>
-          </div>
+      {/* 🌐 Floating background icons */}
+      <FloatingBgIcons />
+
+      {/* HEADER */}
+      <div className="relative z-10 flex justify-between items-center px-6 py-4 border-b border-black/10">
+        <div>
+          <h2 className="font-bold text-lg">{project.title}</h2>
+          <p className="text-xs text-gray-400 mt-0.5">{project.category} · {project.year}</p>
         </div>
         <button
           onClick={onClose}
-          className="w-10 h-10 rounded-full border border-black/10 dark:border-white/10 flex items-center justify-center text-muted hover-text-primary hover-border-primary transition-all duration-200 text-base"
+          className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors"
         >
           ✕
         </button>
       </div>
 
-     
+      {/* 🔥 CAROUSEL */}
+      <div
+        className="relative z-10 flex-1 flex items-center justify-center"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div className="relative" style={{ width: "600px", height: "420px" }}>
+          {slots.map(({ offset, pos }) => {
+            const imgIndex = mod(index + offset, total);
+            const s = styleMap[pos];
 
-      {/* ── SCROLLABLE GALLERY AREA ── */}
-      <div className="flex-1 overflow-y-auto p-4 md:p-8">
-
-        {/* ── HERO IMAGE — full width, fixed height ── */}
-        <div
-          className="w-full rounded-2xl overflow-hidden cursor-zoom-in mb-5 relative group"
-          style={{ height: "clamp(200px, 40vw, 420px)" }}
-          onClick={() => setLightboxIdx(0)}
-        >
-          <img
-            src={project.gallery[0]}
-            alt="hero"
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-          />
-          {/* hover overlay */}
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-all duration-300 flex items-center justify-center">
-            <span className={`
-              w-14 h-14 rounded-full border-2 flex items-center justify-center text-2xl
-              opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100
-              transition-all duration-300 backdrop-blur-sm bg-black/20
-              ${isPrimary ? "border-primary text-primary" : "border-secondary text-secondary"}
-            `}>⊕</span>
-          </div>
-          {/* index badge */}
-          <span className="absolute bottom-3 right-3 text-[10px] font-bold tracking-widest text-white/60 bg-black/30 backdrop-blur-sm rounded-full px-2.5 py-1">
-            1 / {total}
-          </span>
-        </div>
-
-        {/* ── UNIFORM GRID — 3 cols desktop, 2 cols tablet, 1 col mobile ── */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {project.gallery.slice(1).map((img, idx) => {
-            const realIdx = idx + 1; // actual index in gallery array
             return (
               <div
-                key={idx}
-                className="relative group rounded-2xl overflow-hidden cursor-zoom-in bg-black/5 dark:bg-white/5"
-                style={{ aspectRatio: "4/3" }}
-                onClick={() => setLightboxIdx(realIdx)}
+                key={pos}
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  left: "50%",
+                  zIndex: s.zIndex,
+                  transform: `translate(-50%, -50%) translateX(${s.x}) scale(${s.scale})`,
+                  opacity: s.opacity,
+                  filter: `blur(${s.blur})`,
+                  transition: "transform 0.55s cubic-bezier(0.23,1,0.32,1), opacity 0.55s ease, filter 0.55s ease",
+                }}
               >
-                <img
-                  src={img}
-                  alt={`gallery ${realIdx + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-600"
-                />
-                {/* hover overlay */}
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                  <span className={`
-                    w-11 h-11 rounded-full border-2 flex items-center justify-center text-xl
-                    opacity-0 group-hover:opacity-100 scale-75 group-hover:scale-100
-                    transition-all duration-300 backdrop-blur-sm bg-black/20
-                    ${isPrimary ? "border-primary text-primary" : "border-secondary text-secondary"}
-                  `}>⊕</span>
+                <div
+                  style={{
+                    width: pos === "center" ? "220px" : "180px",
+                    height: pos === "center" ? "340px" : "280px",
+                    borderRadius: "24px",
+                    overflow: "hidden",
+                    boxShadow: pos === "center"
+                      ? "0 24px 60px rgba(0,0,0,0.22)"
+                      : "0 8px 24px rgba(0,0,0,0.10)",
+                    transition: "width 0.55s cubic-bezier(0.23,1,0.32,1), height 0.55s cubic-bezier(0.23,1,0.32,1)",
+                  }}
+                >
+                  <img
+                    src={project.gallery[imgIndex]}
+                    alt=""
+                    style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+                  />
                 </div>
-                {/* index badge */}
-                <span className="absolute bottom-2.5 right-2.5 text-[10px] font-bold tracking-widest text-white/60 bg-black/30 backdrop-blur-sm rounded-full px-2 py-0.5">
-                  {realIdx + 1} / {total}
-                </span>
+
+                {/* Center card label */}
+                {pos === "center" && (
+                  <div style={{ textAlign: "center", marginTop: "14px" }}>
+                    <p style={{ fontSize: "12px", fontWeight: 600, color: "#8bc53f", letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                      {imgIndex + 1} / {total}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}
         </div>
-
       </div>
 
-      {/* ── LIGHTBOX OVERLAY ── */}
-      {lightboxIdx !== null && (
-        <div
-          className="fixed inset-0 z-60 flex items-center justify-center bg-black/95 backdrop-blur-md p-4"
-          onClick={() => setLightboxIdx(null)}
-        >
-          {/* image */}
-          <img
-            src={project.gallery[lightboxIdx]}
-            alt=""
-            className="max-w-full max-h-[85vh] rounded-2xl object-contain shadow-2xl"
-            onClick={(e) => e.stopPropagation()}
-          />
-
-          {/* close */}
+      {/* DOTS */}
+      <div className="relative z-10 flex justify-center gap-2 pb-6">
+        {project.gallery.map((_, i) => (
           <button
-            className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 border border-white/20 text-white flex items-center justify-center hover:bg-white/20 transition-all"
-            onClick={() => setLightboxIdx(null)}
-          >✕</button>
-
-          {/* prev */}
-          {total > 1 && (
-            <button
-              className={`absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center border text-xl font-bold transition-all
-                ${isPrimary ? "border-primary text-primary bg-black/40 hover:bg-primary hover:text-white" : "border-secondary text-secondary bg-black/40 hover:bg-secondary hover:text-dark"}`}
-              onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            >‹</button>
-          )}
-
-          {/* next */}
-          {total > 1 && (
-            <button
-              className={`absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full flex items-center justify-center border text-xl font-bold transition-all
-                ${isPrimary ? "border-primary text-primary bg-black/40 hover:bg-primary hover:text-white" : "border-secondary text-secondary bg-black/40 hover:bg-secondary hover:text-dark"}`}
-              onClick={(e) => { e.stopPropagation(); goNext(); }}
-            >›</button>
-          )}
-
-          {/* counter */}
-          <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex items-center gap-2">
-            {project.gallery.map((_, i) => (
-              <button
-                key={i}
-                onClick={(e) => { e.stopPropagation(); setLightboxIdx(i); }}
-                className={`rounded-full transition-all duration-200 ${i === lightboxIdx
-                  ? `w-6 h-2 ${isPrimary ? "bg-primary" : "bg-secondary"}`
-                  : "w-2 h-2 bg-white/30 hover:bg-white/60"
-                  }`}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
+            key={i}
+            onClick={() => setIndex(i)}
+            style={{
+              height: "7px",
+              width: i === index ? "22px" : "7px",
+              borderRadius: "999px",
+              background: i === index ? "#8bc53f" : "rgba(0,0,0,0.18)",
+              border: "none",
+              cursor: "pointer",
+              transition: "all 0.3s ease",
+              padding: 0,
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }
 
+// function CollageModal({ project, onClose }) {
+//   const [offset, setOffset] = useState(0);
+//   const [paused, setPaused] = useState(false);
+
+//   const total = project.gallery.length;
+
+//   // 🔥 CONTINUOUS AUTO SCROLL
+//   useEffect(() => {
+//     let frame;
+
+//     const speed = 0.3; // 🔥 control speed (lower = slower)
+
+//     const animate = () => {
+//       if (!paused) {
+//         setOffset((prev) => prev + speed);
+//       }
+//       frame = requestAnimationFrame(animate);
+//     };
+
+//     animate();
+//     return () => cancelAnimationFrame(frame);
+//   }, [paused]);
+
+//   return (
+//     <div className="fixed inset-0 z-50 bg-white dark:bg-black flex flex-col">
+
+//       {/* HEADER */}
+//       <div className="flex justify-between items-center px-6 py-4 border-b">
+//         <h2 className="font-bold">{project.title}</h2>
+//         <button onClick={onClose}>✕</button>
+//       </div>
+
+//       {/* 🔥 CONTINUOUS CAROUSEL */}
+//       <div
+//         className="flex-1 flex items-center justify-center overflow-hidden"
+//         onMouseEnter={() => setPaused(true)}
+//         onMouseLeave={() => setPaused(false)}
+//       >
+//         <div className="relative w-[900px] h-[420px]">
+
+//           {project.gallery.map((img, i) => {
+//             // 🔥 infinite loop position
+//             const position = (i * 300 - offset) % (total * 300);
+
+//             // normalize position
+//             let x = position;
+//             if (x < -300) x += total * 300;
+
+//             // center scaling logic
+//             const distanceFromCenter = Math.abs(x);
+//             const scale = 1 - Math.min(distanceFromCenter / 800, 0.4);
+//             const opacity = 1 - Math.min(distanceFromCenter / 600, 0.7);
+
+//             return (
+//               <div
+//                 key={i}
+//                 className="absolute top-1/2 left-1/2 transition-transform duration-100"
+//                 style={{
+//                   transform: `
+//                     translate(-50%, -50%)
+//                     translateX(${x}px)
+//                     scale(${scale})
+//                   `,
+//                   opacity,
+//                   zIndex: 1000 - Math.abs(x),
+//                 }}
+//               >
+//                 <div className="w-64 h-96 rounded-3xl overflow-hidden shadow-2xl">
+//                   <img
+//                     src={img}
+//                     className="w-full h-full object-cover"
+//                   />
+//                 </div>
+//               </div>
+//             );
+//           })}
+
+//         </div>
+//       </div>
+
+//       {/* DOTS (optional indicator) */}
+//       <div className="flex justify-center gap-2 pb-6">
+//         {project.gallery.map((_, i) => (
+//           <div
+//             key={i}
+//             className="h-2 w-2 rounded-full bg-gray-400"
+//           />
+//         ))}
+//       </div>
+//     </div>
+//   );
+// }
 function ProjectCard({ project, onClick }) {
   const [hovered, setHovered] = useState(false);
   const isPrimary = project.accent === "primary";
@@ -260,7 +402,7 @@ function ProjectCard({ project, onClick }) {
     <div
       className={`
         group relative rounded-2xl overflow-hidden cursor-pointer
-        aspect-[4/5] bg-white dark:bg-dark
+        aspect-[3/5] bg-white dark:bg-dark
         border border-black/10 dark:border-white/10
         transition-all duration-500 ease-out
         ${hovered ? "-translate-y-2 shadow-primary-lg" : "translate-y-0 shadow-md"}
@@ -460,7 +602,7 @@ export default function Portfolio() {
 
       {/* ──────────── GRID ──────────── */}
       <div
-        className="grid gap-4 md:gap-7 px-4 md:px-16 py-8 md:py-14"
+        className="grid gap-4 md:gap-7 px-4 md:px-16 py-8 md:py-4"
         style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}
       >
         {filtered.length === 0 ? (

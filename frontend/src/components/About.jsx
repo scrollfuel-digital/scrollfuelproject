@@ -410,8 +410,8 @@ const AboutUs = React.forwardRef((props, ref) => {
                     </motion.div>
 
                     {/* DESCRIPTION */}
-                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl" >
-                        Scrollfuel is a growth-focused digital marketing Agency committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
+                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl text-start" >
+                        ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
 
                 </div>
 
