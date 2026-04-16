@@ -17,14 +17,7 @@ const blogSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
-    // sub_points: {
-    //   type: Array,
-    //   default: [],
-    // },
-    // faqs: {
-    //   type: Array,
-    //   default: [],
-    // },
+   
     image: {
       type: String,
     },

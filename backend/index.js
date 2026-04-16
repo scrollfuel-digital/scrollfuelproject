@@ -20,11 +20,6 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// FIXED CORS (NO "*")
-// const allowedOrigins = [
-//     "http://localhost:5173",
-//     "https://scrollfuelproject-git-main-divyani-bhusaris-projects-d2314264.vercel.app"
-// ];
 
 const allowedOrigins = [
     "http://localhost:5173",
