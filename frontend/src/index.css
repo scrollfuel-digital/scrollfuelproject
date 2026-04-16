@@ -250,3 +250,17 @@ html.dark body {
   list-style: disc;
   margin-bottom: 6px;
 }
+
+@keyframes slideUpDown {
+  0%,
+  100% {
+    transform: translateY(100%);
+  }
+  50% {
+    transform: translateY(0%);
+  }
+}
+
+.animate-slideUpDown {
+  animation: slideUpDown 4s ease-in-out infinite;
+}

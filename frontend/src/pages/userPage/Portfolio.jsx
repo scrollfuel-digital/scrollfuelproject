@@ -1,3 +1,4 @@
+
 import { useEffect, useRef, useState } from "react";
 
 const projects = [
@@ -19,7 +20,6 @@ const projects = [
   },
   {
     id: 2,
-    // title: "Neon Drift Campaign",
     category: "Social Media",
     year: "2024",
     client: "Drifthaus",
@@ -27,7 +27,6 @@ const projects = [
     tag: "02",
     accent: "secondary",
     gallery: [
-      "./assets/portfolio/drift1.jpeg",
       "./assets/portfolio/propscroll.jpeg",
       "./assets/portfolio/getfit.jpeg",
       "./assets/portfolio/M1.jpeg",
@@ -84,8 +83,6 @@ const projects = [
       "./image/4.png",
     ],
   },
-
-
 ];
 
 const filters = [
@@ -94,41 +91,24 @@ const filters = [
 ];
 
 const DM_ICONS = [
-  // Megaphone
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg> },
-  // Bar chart
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="12" width="4" height="9"/><rect x="10" y="7" width="4" height="14"/><rect x="17" y="3" width="4" height="18"/></svg> },
-  // Globe
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg> },
-  // Mail
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg> },
-  // Trending up
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg> },
-  // Cursor
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M4 4l6 18 3-7 7-3z"/></svg> },
-  // Share
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg> },
-  // Video
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="7" width="14" height="10" rx="2"/><path d="m16 11 6-4v10l-6-4z"/></svg> },
-  // Tag
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg> },
-  // Heart
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> },
-  // Search
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg> },
-  // Zap
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg> },
-  // Target
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> },
-  // Wifi / signal
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M5 12.55a11 11 0 0 1 14.08 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 16 0 0 1 6.95 0"/><circle cx="12" cy="20" r="1"/></svg> },
-  // Star
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> },
-  // Layers
-  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M3 11l19-9-9 19-2-8-8-2z" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="3" y="12" width="4" height="9" /><rect x="10" y="7" width="4" height="14" /><rect x="17" y="3" width="4" height="18" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="m2 7 10 7 10-7" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17" /><polyline points="16 7 22 7 22 13" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M4 4l6 18 3-7 7-3z" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" /><line x1="8.59" y1="13.51" x2="15.42" y2="17.49" /><line x1="15.41" y1="6.51" x2="8.59" y2="10.49" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><rect x="2" y="7" width="14" height="10" rx="2" /><path d="m16 11 6-4v10l-6-4z" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" /><line x1="7" y1="7" x2="7.01" y2="7" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><path d="M5 12.55a11 11 0 0 1 14.08 0" /><path d="M1.42 9a16 16 0 0 1 21.16 0" /><path d="M8.53 16.11a6 16 0 0 1 6.95 0" /><circle cx="12" cy="20" r="1" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg> },
+  { svg: <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" width="28" height="28"><polygon points="12 2 2 7 12 12 22 7 12 2" /><polyline points="2 17 12 22 22 17" /><polyline points="2 12 12 17 22 12" /></svg> },
 ];
 
-// Generate stable random positions/animations once
 const BG_ICONS = Array.from({ length: 24 }, (_, i) => ({
   icon: DM_ICONS[i % DM_ICONS.length],
   left: `${5 + ((i * 37 + 13) % 90)}%`,
@@ -139,47 +119,14 @@ const BG_ICONS = Array.from({ length: 24 }, (_, i) => ({
   scale: 0.8 + (i % 3) * 0.2,
 }));
 
-function FloatingBgIcons() {
-  return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
-      <style>{`
-        @keyframes floatDrift {
-          0%   { transform: translateY(0px)   rotate(0deg)   scale(var(--sc)); opacity: var(--op); }
-          33%  { transform: translateY(-18px) rotate(6deg)   scale(var(--sc)); opacity: calc(var(--op) * 1.6); }
-          66%  { transform: translateY(-8px)  rotate(-4deg)  scale(var(--sc)); opacity: var(--op); }
-          100% { transform: translateY(0px)   rotate(0deg)   scale(var(--sc)); opacity: var(--op); }
-        }
-      `}</style>
-      {BG_ICONS.map((item, i) => (
-        <div
-          key={i}
-          className="absolute text-black dark:text-white"
-          style={{
-            left: item.left,
-            top: item.top,
-            opacity: item.opacity,
-            "--op": item.opacity,
-            "--sc": item.scale,
-            animation: `floatDrift ${item.duration} ${item.delay} ease-in-out infinite`,
-          }}
-        >
-          {item.icon.svg}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function CollageModal({ project, onClose }) {
+function CollageModal({ project, onClose, darkMode }) {
   const [paused, setPaused] = useState(false);
   const [index, setIndex] = useState(0);
   const total = project.gallery.length;
   const intervalRef = useRef(null);
 
-  // helper — safe modulo for negatives
   const mod = (n, m) => ((n % m) + m) % m;
 
-  // 🔥 Auto-advance every 2s → moves RIGHT into CENTER
   useEffect(() => {
     if (paused) return;
     intervalRef.current = setInterval(() => {
@@ -188,40 +135,64 @@ function CollageModal({ project, onClose }) {
     return () => clearInterval(intervalRef.current);
   }, [paused, total]);
 
-  // 3 visible slots: left, center, right
   const slots = [
-    { offset: -1, pos: "left"   },
-    { offset:  0, pos: "center" },
-    { offset:  1, pos: "right"  },
+    { offset: -1, pos: "left" },
+    { offset: 0, pos: "center" },
+    { offset: 1, pos: "right" },
   ];
 
   const styleMap = {
-    left:   { x: "-220px", scale: 0.78, opacity: 0.45, blur: "1px",  zIndex: 5  },
-    center: { x: "0px",    scale: 1,    opacity: 1,    blur: "0px",  zIndex: 20 },
-    right:  { x: "220px",  scale: 0.78, opacity: 0.45, blur: "1px",  zIndex: 5  },
+    left: { x: "-220px", scale: 0.78, opacity: 0.45, blur: "1px", zIndex: 5 },
+    center: { x: "0px", scale: 1, opacity: 1, blur: "0px", zIndex: 20 },
+    right: { x: "220px", scale: 0.78, opacity: 0.45, blur: "1px", zIndex: 5 },
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col" style={{ background: "rgba(255,255,255,0.97)" }}>
-
-      {/* 🌐 Floating background icons */}
-      <FloatingBgIcons />
-
+    <div
+      className="fixed inset-0 z-50 flex flex-col"
+      style={{
+        background: darkMode ? "rgba(15,15,15,0.98)" : "rgba(255,255,255,0.98)",
+        color: darkMode ? "#ffffff" : "#0f172a",
+      }}
+    >
+    
       {/* HEADER */}
-      <div className="relative z-10 flex justify-between items-center px-6 py-4 border-b border-black/10">
+      <div
+        className="relative z-10 flex justify-between items-center px-6 py-4"
+        style={{ borderBottom: darkMode ? "1px solid rgba(255,255,255,0.1)" : "1px solid rgba(0,0,0,0.1)" }}
+      >
         <div>
           <h2 className="font-bold text-lg">{project.title}</h2>
-          <p className="text-xs text-gray-400 mt-0.5">{project.category} · {project.year}</p>
+          <p className="text-xs mt-0.5" style={{ color: darkMode ? "#9ca3af" : "#9ca3af" }}>
+            {project.category} · {project.year}
+          </p>
         </div>
+
+        {/* ── CLOSE / BACK BUTTON ── */}
         <button
           onClick={onClose}
-          className="w-9 h-9 rounded-full border border-black/10 flex items-center justify-center hover:bg-black hover:text-white transition-colors"
+          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200"
+          style={{
+            border: darkMode ? "1px solid rgba(255,255,255,0.15)" : "1px solid rgba(0,0,0,0.12)",
+            background: "transparent",
+            color: darkMode ? "#ffffff" : "#0f172a",
+            cursor: "pointer",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.background = darkMode ? "rgba(255,255,255,0.1)" : "rgba(0,0,0,0.06)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.background = "transparent";
+          }}
         >
-          ✕
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" width="16" height="16">
+            <path d="M19 12H5M12 5l-7 7 7 7" />
+          </svg>
+          Back
         </button>
       </div>
 
-      {/* 🔥 CAROUSEL */}
+      {/* CAROUSEL */}
       <div
         className="relative z-10 flex-1 flex items-center justify-center"
         onMouseEnter={() => setPaused(true)}
@@ -265,7 +236,6 @@ function CollageModal({ project, onClose }) {
                   />
                 </div>
 
-                {/* Center card label */}
                 {pos === "center" && (
                   <div style={{ textAlign: "center", marginTop: "14px" }}>
                     <p style={{ fontSize: "12px", fontWeight: 600, color: "#8bc53f", letterSpacing: "0.15em", textTransform: "uppercase" }}>
@@ -289,7 +259,7 @@ function CollageModal({ project, onClose }) {
               height: "7px",
               width: i === index ? "22px" : "7px",
               borderRadius: "999px",
-              background: i === index ? "#8bc53f" : "rgba(0,0,0,0.18)",
+              background: i === index ? "#8bc53f" : darkMode ? "rgba(255,255,255,0.25)" : "rgba(0,0,0,0.18)",
               border: "none",
               cursor: "pointer",
               transition: "all 0.3s ease",
@@ -302,98 +272,6 @@ function CollageModal({ project, onClose }) {
   );
 }
 
-// function CollageModal({ project, onClose }) {
-//   const [offset, setOffset] = useState(0);
-//   const [paused, setPaused] = useState(false);
-
-//   const total = project.gallery.length;
-
-//   // 🔥 CONTINUOUS AUTO SCROLL
-//   useEffect(() => {
-//     let frame;
-
-//     const speed = 0.3; // 🔥 control speed (lower = slower)
-
-//     const animate = () => {
-//       if (!paused) {
-//         setOffset((prev) => prev + speed);
-//       }
-//       frame = requestAnimationFrame(animate);
-//     };
-
-//     animate();
-//     return () => cancelAnimationFrame(frame);
-//   }, [paused]);
-
-//   return (
-//     <div className="fixed inset-0 z-50 bg-white dark:bg-black flex flex-col">
-
-//       {/* HEADER */}
-//       <div className="flex justify-between items-center px-6 py-4 border-b">
-//         <h2 className="font-bold">{project.title}</h2>
-//         <button onClick={onClose}>✕</button>
-//       </div>
-
-//       {/* 🔥 CONTINUOUS CAROUSEL */}
-//       <div
-//         className="flex-1 flex items-center justify-center overflow-hidden"
-//         onMouseEnter={() => setPaused(true)}
-//         onMouseLeave={() => setPaused(false)}
-//       >
-//         <div className="relative w-[900px] h-[420px]">
-
-//           {project.gallery.map((img, i) => {
-//             // 🔥 infinite loop position
-//             const position = (i * 300 - offset) % (total * 300);
-
-//             // normalize position
-//             let x = position;
-//             if (x < -300) x += total * 300;
-
-//             // center scaling logic
-//             const distanceFromCenter = Math.abs(x);
-//             const scale = 1 - Math.min(distanceFromCenter / 800, 0.4);
-//             const opacity = 1 - Math.min(distanceFromCenter / 600, 0.7);
-
-//             return (
-//               <div
-//                 key={i}
-//                 className="absolute top-1/2 left-1/2 transition-transform duration-100"
-//                 style={{
-//                   transform: `
-//                     translate(-50%, -50%)
-//                     translateX(${x}px)
-//                     scale(${scale})
-//                   `,
-//                   opacity,
-//                   zIndex: 1000 - Math.abs(x),
-//                 }}
-//               >
-//                 <div className="w-64 h-96 rounded-3xl overflow-hidden shadow-2xl">
-//                   <img
-//                     src={img}
-//                     className="w-full h-full object-cover"
-//                   />
-//                 </div>
-//               </div>
-//             );
-//           })}
-
-//         </div>
-//       </div>
-
-//       {/* DOTS (optional indicator) */}
-//       <div className="flex justify-center gap-2 pb-6">
-//         {project.gallery.map((_, i) => (
-//           <div
-//             key={i}
-//             className="h-2 w-2 rounded-full bg-gray-400"
-//           />
-//         ))}
-//       </div>
-//     </div>
-//   );
-// }
 function ProjectCard({ project, onClick }) {
   const [hovered, setHovered] = useState(false);
   const isPrimary = project.accent === "primary";
@@ -402,7 +280,7 @@ function ProjectCard({ project, onClick }) {
     <div
       className={`
         group relative rounded-2xl overflow-hidden cursor-pointer
-        aspect-[3/5] bg-white dark:bg-dark
+        h-[800px] md:h-[420px] lg:h-[480px] bg-[#0f172a]
         border border-black/10 dark:border-white/10
         transition-all duration-500 ease-out
         ${hovered ? "-translate-y-2 shadow-primary-lg" : "translate-y-0 shadow-md"}
@@ -444,7 +322,7 @@ function ProjectCard({ project, onClick }) {
         <span className={`text-2xl ${isPrimary ? "text-primary" : "text-secondary"}`}>⊕</span>
       </div>
 
-      {/* STATIC LABEL (before hover) */}
+      {/* STATIC LABEL */}
       <div className={`
         absolute bottom-0 left-0 right-0 z-10 px-5 py-5 pointer-events-none
         transition-opacity duration-300
@@ -478,20 +356,16 @@ function ProjectCard({ project, onClick }) {
             <span>{project.year}</span>
           </div>
           <div
-            // onClick={() => window.open("https://your-project-url.com", "_blank")}
             className={`
-    mt-3 self-start inline-flex items-center gap-2
-    px-5 py-2.5 rounded-full
-    text-[11px] font-sans font-bold tracking-widest uppercase
-    cursor-pointer
-    ${isPrimary ? "bg-primary text-white shadow-primary" : "bg-secondary text-dark"}
-  `}
+              mt-3 self-start inline-flex items-center gap-2
+              px-5 py-2.5 rounded-full
+              text-[11px] font-sans font-bold tracking-widest uppercase
+              cursor-pointer
+              ${isPrimary ? "bg-primary text-white shadow-primary" : "bg-secondary text-dark"}
+            `}
           >
             View Project
-            <span
-              className={`inline-block transition-transform duration-300 ${hovered ? "translate-x-1" : ""
-                }`}
-            >
+            <span className={`inline-block transition-transform duration-300 ${hovered ? "translate-x-1" : ""}`}>
               →
             </span>
           </div>
@@ -503,7 +377,62 @@ function ProjectCard({ project, onClick }) {
 
 export default function Portfolio() {
   const [activeFilter, setActiveFilter] = useState("All");
-  const [activeProject, setActiveProject] = useState(null);
+
+  // ── Detect dark mode from <html> class (Tailwind) ──
+  const [darkMode, setDarkMode] = useState(
+    () => document.documentElement.classList.contains("dark")
+  );
+
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      setDarkMode(document.documentElement.classList.contains("dark"));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+    return () => observer.disconnect();
+  }, []);
+
+  // ── Restore active project from sessionStorage on refresh ──
+  const [activeProject, setActiveProject] = useState(() => {
+    try {
+      const savedId = sessionStorage.getItem("activeProjectId");
+      return savedId ? projects.find((p) => p.id === Number(savedId)) ?? null : null;
+    } catch {
+      return null;
+    }
+  });
+
+  // ── Open modal: save to session + push history ──
+  const openProject = (project) => {
+    setActiveProject(project);
+    try {
+      sessionStorage.setItem("activeProjectId", project.id);
+    } catch { }
+    window.history.pushState({ projectId: project.id }, "", `#project-${project.id}`);
+  };
+
+  // ── Close modal: clear session + go back in history ──
+  const closeProject = () => {
+    setActiveProject(null);
+    try {
+      sessionStorage.removeItem("activeProjectId");
+    } catch { }
+    if (window.history.state?.projectId) {
+      window.history.back();
+    }
+  };
+
+  // ── Browser back button closes modal ──
+  useEffect(() => {
+    const handlePop = () => {
+      setActiveProject(null);
+      try {
+        sessionStorage.removeItem("activeProjectId");
+      } catch { }
+    };
+    window.addEventListener("popstate", handlePop);
+    return () => window.removeEventListener("popstate", handlePop);
+  }, []);
+
   const filtered =
     activeFilter === "All"
       ? projects
@@ -512,7 +441,6 @@ export default function Portfolio() {
   return (
     <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24 select-none">
 
-      {/* keyframe injection */}
       <div dangerouslySetInnerHTML={{
         __html: `<style>
           @keyframes pfFadeUp {
@@ -526,38 +454,28 @@ export default function Portfolio() {
         </style>`
       }} />
 
-      {/* ──────────── HEADER ──────────── */}
+      {/* HEADER */}
       <header className="relative px-16 pt-24 pb-16 flex items-end justify-between border-b border-black/10 dark:border-white/10 overflow-hidden">
-
-        {/* dot-grid decorative bg */}
         <div
           className="absolute inset-0 pointer-events-none z-0 opacity-60"
           style={{
-            backgroundImage:
-              "radial-gradient(circle, rgba(139,197,63,0.2) 1.5px, transparent 1.5px)",
+            backgroundImage: "radial-gradient(circle, rgba(139,197,63,0.2) 1.5px, transparent 1.5px)",
             backgroundSize: "30px 30px",
           }}
         />
-
-        {/* LEFT (empty or keep spacing) */}
         <div className="z-10 w-1/3"></div>
-
-        {/* CENTER — TITLE */}
-        <div className="absolute left-1/2 top-28 -translate-x-1/2 -translate-y-1/2 z-10 text-center ">
+        <div className="absolute left-1/2 top-28 -translate-x-1/2 -translate-y-1/2 z-10 text-center">
           <h1
             className="font-black leading-[0.92] tracking-tighter dark:text-white"
-            style={{ fontSize: "clamp(56px, 9vw, 16px)" }} // ⚠️ fixed typo (11px → 110px)
+            style={{ fontSize: "clamp(56px, 9vw, 110px)" }}
           >
-            Our
-            <span className="text-primary italic">Portfolio</span>
+            Our <span className="text-primary italic">Portfolio</span>
           </h1>
         </div>
-
       </header>
 
-      {/* ──────────── FILTER BAR — desktop horizontal / mobile scrollable ──────────── */}
+      {/* FILTER BAR */}
       <nav className="sticky top-0 z-30 border-b border-black/10 dark:border-white/10 bg-white/90 dark:bg-black/90 backdrop-blur-xl">
-        {/* Desktop */}
         <div className="hidden md:flex flex-wrap items-center gap-2 px-16 py-4">
           <span className="text-[10px] font-semibold tracking-[0.25em] uppercase text-muted mr-3">Filter</span>
           {filters.map((f) => (
@@ -578,7 +496,6 @@ export default function Portfolio() {
           ))}
         </div>
 
-        {/* Mobile — horizontal scroll */}
         <div className="md:hidden flex items-center gap-2 px-4 py-3 overflow-x-auto scrollbar-hide">
           <span className="text-[9px] font-semibold tracking-widest uppercase text-muted shrink-0 mr-1">Filter</span>
           {filters.map((f) => (
@@ -600,7 +517,7 @@ export default function Portfolio() {
         </div>
       </nav>
 
-      {/* ──────────── GRID ──────────── */}
+      {/* GRID */}
       <div
         className="grid gap-4 md:gap-7 px-4 md:px-16 py-8 md:py-4"
         style={{ gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 280px), 1fr))" }}
@@ -620,18 +537,19 @@ export default function Portfolio() {
             >
               <ProjectCard
                 project={project}
-                onClick={() => setActiveProject(project)}
+                onClick={() => openProject(project)}
               />
             </div>
           ))
         )}
       </div>
 
-      {/* ──────────── COLLAGE MODAL ──────────── */}
+      {/* MODAL */}
       {activeProject && (
         <CollageModal
           project={activeProject}
-          onClose={() => setActiveProject(null)}
+          onClose={closeProject}
+          darkMode={darkMode}
         />
       )}
     </div>

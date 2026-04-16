@@ -436,10 +436,9 @@ const AboutUsPage = () => {
                             <motion.p
                                 custom={0}
                                 variants={textReveal}
-                                className="text-xl md:text-2xl dark:text-gray-300 max-w-4xl mx-auto leading-relaxed mb-4"
+                                className="text-xl md:text-2xl dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 text-start"
                             >
-                                Scrollfuel is a growth-focused digital marketing Agency committed to helping businesses succeed online.
-                                Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results.
+                                ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution.
                             </motion.p>
                         </motion.div>
 
