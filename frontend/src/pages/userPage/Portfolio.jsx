@@ -4,25 +4,27 @@ import { useEffect, useRef, useState } from "react";
 const projects = [
   {
     id: 1,
-    title: "Pulse Brand Identity",
+    // title: "Pulse Brand Identity",
     category: "Branding",
-    year: "2024",
-    client: "Pulse Studio",
+    // year: "2024",
+    // client: "Pulse Studio",
     cover: "https://images.unsplash.com/photo-1545235617-9465d2a55698?w=800&q=80",
     tag: "01",
     accent: "primary",
     gallery: [
-      "./image/1.png",
-      "./image/2.png",
-      "./image/3.png",
-      "./image/4.png",
+      "./assets/portfolio/propscroll.jpeg",
+      "./assets/portfolio/getfit.jpeg",
+      "./assets/portfolio/M1.jpeg",
+      "./assets/portfolio/portfolio3.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
     ],
   },
   {
     id: 2,
     category: "Social Media",
-    year: "2024",
-    client: "Drifthaus",
+    // year: "2024",
+    // client: "Drifthaus",
     cover: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
     tag: "02",
     accent: "secondary",
@@ -37,50 +39,56 @@ const projects = [
   },
   {
     id: 3,
-    title: "Arcane Logo Suite",
+    // title: "Arcane Logo Suite",
     category: "Logo Designing",
-    year: "2023",
-    client: "Arcane Labs",
+    // year: "2023",
+    // client: "Arcane Labs",
     cover: "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
     tag: "03",
     accent: "primary",
     gallery: [
-      "./image/1.png",
-      "./image/2.png",
-      "./image/3.png",
-      "./image/4.png",
+      "./assets/portfolio/propscroll.jpeg",
+      "./assets/portfolio/getfit.jpeg",
+      "./assets/portfolio/M1.jpeg",
+      "./assets/portfolio/portfolio3.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
     ],
   },
   {
     id: 4,
-    title: "Vortex Motion Reel",
+    // title: "Vortex Motion Reel",
     category: "Animation",
-    year: "2024",
-    client: "Vortex Creative",
+    // year: "2024",
+    // client: "Vortex Creative",
     cover: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=800&q=80",
     tag: "04",
     accent: "secondary",
     gallery: [
-      "./image/1.png",
-      "./image/2.png",
-      "./image/3.png",
-      "./image/4.png",
+      "./assets/portfolio/propscroll.jpeg",
+      "./assets/portfolio/getfit.jpeg",
+      "./assets/portfolio/M1.jpeg",
+      "./assets/portfolio/portfolio3.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
     ],
   },
   {
     id: 5,
-    title: "Helix 3D Renders",
+    // title: "Helix 3D Renders",
     category: "3D Work",
-    year: "2023",
-    client: "Helix Digital",
+    // year: "2023",
+    // client: "Helix Digital",
     cover: "https://images.unsplash.com/photo-1617791160536-598cf32026fb?w=800&q=80",
     tag: "05",
     accent: "primary",
     gallery: [
-      "./image/5.png",
-      "./image/6.png",
-      "./image/3.png",
-      "./image/4.png",
+      "./assets/portfolio/propscroll.jpeg",
+      "./assets/portfolio/getfit.jpeg",
+      "./assets/portfolio/M1.jpeg",
+      "./assets/portfolio/portfolio3.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
+      "./assets/portfolio/scrollfuel.jpeg",
     ],
   },
 ];
@@ -155,7 +163,7 @@ function CollageModal({ project, onClose, darkMode }) {
         color: darkMode ? "#ffffff" : "#0f172a",
       }}
     >
-    
+
       {/* HEADER */}
       <div
         className="relative z-10 flex justify-between items-center px-6 py-4"
@@ -277,14 +285,109 @@ function ProjectCard({ project, onClick }) {
   const isPrimary = project.accent === "primary";
 
   return (
+    // <div
+    //   className={`
+    //     group relative rounded-2xl overflow-hidden cursor-pointer width-[100%]
+    //     h-[800px] md:h-[420px] lg:h-[480px] bg-[#0f172a]
+    //     border border-black/10 dark:border-white/10
+    //     transition-all duration-500 ease-out
+    //     ${hovered ? "-translate-y-2 shadow-primary-lg" : "translate-y-0 shadow-md"}
+    //   `}
+    //   onMouseEnter={() => setHovered(true)}
+    //   onMouseLeave={() => setHovered(false)}
+    //   onClick={onClick}
+    // >
+    //   {/* NUMBER TAG */}
+    //   <span
+    //     className={`
+    //       absolute top-4 right-4 z-10 font-serif text-3xl font-bold leading-none
+    //       transition-all duration-300
+    //       ${hovered ? "text-white/60 scale-110" : "text-white/20"}
+    //     `}
+    //   >
+    //     {project.tag}
+    //   </span>
+
+    //   {/* IMAGE LAYER */}
+    //   <div className="absolute inset-0 z-0">
+    //     <img
+    //       src={project.cover}
+    //       alt={project.title}
+    //       className={`w-full h-full object-cover transition-transform duration-700 ease-out ${hovered ? "scale-110" : "scale-100"}`}
+    //     />
+    //     <div className="absolute inset-0 bg-linear-to-t from-black/85 via-black/25 to-transparent" />
+    //   </div>
+
+    //   {/* CLICK HINT ICON */}
+    //   <div className={`
+    //     absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
+    //     w-14 h-14 rounded-full border-2 flex items-center justify-center
+    //     transition-all duration-400
+    //     ${isPrimary ? "border-primary" : "border-secondary"}
+    //     ${hovered ? "opacity-100 scale-100" : "opacity-0 scale-75"}
+    //     bg-black/30 backdrop-blur-sm
+    //   `}>
+    //     <span className={`text-2xl ${isPrimary ? "text-primary" : "text-secondary"}`}>⊕</span>
+    //   </div>
+
+    //   {/* STATIC LABEL */}
+    //   <div className={`
+    //     absolute bottom-0 left-0 right-0 z-10 px-5 py-5 pointer-events-none
+    //     transition-opacity duration-300
+    //     ${hovered ? "opacity-0" : "opacity-100"}
+    //   `}>
+    //     <p className="text-[10px] font-sans font-semibold tracking-[0.28em] uppercase text-white/50 mb-1">
+    //       {project.category}
+    //     </p>
+    //     <h3 className="font-serif text-lg md:text-xl font-bold text-white leading-tight">
+    //       {project.title}
+    //     </h3>
+    //   </div>
+
+    //   {/* SLIDE-UP INFO PANEL */}
+    //   <div className={`
+    //     absolute bottom-0 left-0 right-0 z-20 rounded-b-2xl
+    //     bg-white/95 dark:bg-black/95 backdrop-blur-xl
+    //     border-t-[3px] ${isPrimary ? "border-primary" : "border-secondary"}
+    //     transition-transform duration-500 ease-out
+    //     ${hovered ? "translate-y-0" : "translate-y-full"}
+    //   `}>
+    //     <div className="flex flex-col gap-2 px-5 py-5">
+    //       <p className={`text-[10px] font-sans font-bold tracking-[0.3em] uppercase ${isPrimary ? "text-primary" : "text-secondary"}`}>
+    //         {project.category}
+    //       </p>
+    //       <h3 className="font-serif text-xl font-bold dark:text-white leading-tight tracking-tight">
+    //         {project.title}
+    //       </h3>
+    //       <div className="flex justify-between items-center text-xs text-muted font-sans font-medium mt-0.5">
+    //         <span>{project.client}</span>
+    //         <span>{project.year}</span>
+    //       </div>
+    //       <div
+    //         className={`
+    //           mt-3 self-start inline-flex items-center gap-2
+    //           px-5 py-2.5 rounded-full
+    //           text-[11px] font-sans font-bold tracking-widest uppercase
+    //           cursor-pointer
+    //           ${isPrimary ? "bg-primary text-white shadow-primary" : "bg-secondary text-dark"}
+    //         `}
+    //       >
+    //         View Project
+    //         <span className={`inline-block transition-transform duration-300 ${hovered ? "translate-x-1" : ""}`}>
+    //           →
+    //         </span>
+    //       </div>
+    //     </div>
+    //   </div>
+    // </div>
     <div
       className={`
-        group relative rounded-2xl overflow-hidden cursor-pointer
-        h-[800px] md:h-[420px] lg:h-[480px] bg-[#0f172a]
-        border border-black/10 dark:border-white/10
-        transition-all duration-500 ease-out
-        ${hovered ? "-translate-y-2 shadow-primary-lg" : "translate-y-0 shadow-md"}
-      `}
+    group relative rounded-2xl overflow-hidden cursor-pointer w-full
+    h-[700px] md:h-[580px] lg:h-[640px] bg-[#0f172a]
+    border border-black/10 dark:border-white/10
+    transition-all duration-500 ease-out
+    ${hovered ? "-translate-y-2 shadow-primary-lg" : "translate-y-0 shadow-md"}
+  `}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       onClick={onClick}
@@ -292,10 +395,10 @@ function ProjectCard({ project, onClick }) {
       {/* NUMBER TAG */}
       <span
         className={`
-          absolute top-4 right-4 z-10 font-serif text-3xl font-bold leading-none
-          transition-all duration-300
-          ${hovered ? "text-white/60 scale-110" : "text-white/20"}
-        `}
+      absolute top-6 right-6 z-10 font-serif text-4xl font-bold leading-none
+      transition-all duration-300
+      ${hovered ? "text-white/60 scale-110" : "text-white/20"}
+    `}
       >
         {project.tag}
       </span>
@@ -312,43 +415,43 @@ function ProjectCard({ project, onClick }) {
 
       {/* CLICK HINT ICON */}
       <div className={`
-        absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
-        w-14 h-14 rounded-full border-2 flex items-center justify-center
-        transition-all duration-400
-        ${isPrimary ? "border-primary" : "border-secondary"}
-        ${hovered ? "opacity-100 scale-100" : "opacity-0 scale-75"}
-        bg-black/30 backdrop-blur-sm
-      `}>
-        <span className={`text-2xl ${isPrimary ? "text-primary" : "text-secondary"}`}>⊕</span>
+    absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10
+    w-16 h-16 rounded-full border-2 flex items-center justify-center
+    transition-all duration-400
+    ${isPrimary ? "border-primary" : "border-secondary"}
+    ${hovered ? "opacity-100 scale-100" : "opacity-0 scale-75"}
+    bg-black/30 backdrop-blur-sm
+  `}>
+        <span className={`text-3xl ${isPrimary ? "text-primary" : "text-secondary"}`}>⊕</span>
       </div>
 
       {/* STATIC LABEL */}
       <div className={`
-        absolute bottom-0 left-0 right-0 z-10 px-5 py-5 pointer-events-none
-        transition-opacity duration-300
-        ${hovered ? "opacity-0" : "opacity-100"}
-      `}>
-        <p className="text-[10px] font-sans font-semibold tracking-[0.28em] uppercase text-white/50 mb-1">
+    absolute bottom-0 left-0 right-0 z-10 px-7 py-7 pointer-events-none
+    transition-opacity duration-300
+    ${hovered ? "opacity-0" : "opacity-100"}
+  `}>
+        <p className="text-[10px] font-sans font-semibold tracking-[0.28em] uppercase text-white/50 mb-1.5">
           {project.category}
         </p>
-        <h3 className="font-serif text-lg md:text-xl font-bold text-white leading-tight">
+        <h3 className="font-serif text-xl md:text-2xl font-bold text-white leading-tight">
           {project.title}
         </h3>
       </div>
 
       {/* SLIDE-UP INFO PANEL */}
       <div className={`
-        absolute bottom-0 left-0 right-0 z-20 rounded-b-2xl
-        bg-white/95 dark:bg-black/95 backdrop-blur-xl
-        border-t-[3px] ${isPrimary ? "border-primary" : "border-secondary"}
-        transition-transform duration-500 ease-out
-        ${hovered ? "translate-y-0" : "translate-y-full"}
-      `}>
-        <div className="flex flex-col gap-2 px-5 py-5">
+    absolute bottom-0 left-0 right-0 z-20 rounded-b-2xl
+    bg-white/95 dark:bg-black/95 backdrop-blur-xl
+    border-t-[3px] ${isPrimary ? "border-primary" : "border-secondary"}
+    transition-transform duration-500 ease-out
+    ${hovered ? "translate-y-0" : "translate-y-full"}
+  `}>
+        <div className="flex flex-col gap-3 px-7 py-7">
           <p className={`text-[10px] font-sans font-bold tracking-[0.3em] uppercase ${isPrimary ? "text-primary" : "text-secondary"}`}>
             {project.category}
           </p>
-          <h3 className="font-serif text-xl font-bold dark:text-white leading-tight tracking-tight">
+          <h3 className="font-serif text-2xl font-bold dark:text-white leading-tight tracking-tight">
             {project.title}
           </h3>
           <div className="flex justify-between items-center text-xs text-muted font-sans font-medium mt-0.5">
@@ -357,12 +460,12 @@ function ProjectCard({ project, onClick }) {
           </div>
           <div
             className={`
-              mt-3 self-start inline-flex items-center gap-2
-              px-5 py-2.5 rounded-full
-              text-[11px] font-sans font-bold tracking-widest uppercase
-              cursor-pointer
-              ${isPrimary ? "bg-primary text-white shadow-primary" : "bg-secondary text-dark"}
-            `}
+          mt-4 self-start inline-flex items-center gap-2
+          px-6 py-3 rounded-full
+          text-[11px] font-sans font-bold tracking-widest uppercase
+          cursor-pointer
+          ${isPrimary ? "bg-primary text-white shadow-primary" : "bg-secondary text-dark"}
+        `}
           >
             View Project
             <span className={`inline-block transition-transform duration-300 ${hovered ? "translate-x-1" : ""}`}>
@@ -372,6 +475,7 @@ function ProjectCard({ project, onClick }) {
         </div>
       </div>
     </div>
+
   );
 }
 
@@ -467,7 +571,7 @@ export default function Portfolio() {
         <div className="absolute left-1/2 top-28 -translate-x-1/2 -translate-y-1/2 z-10 text-center">
           <h1
             className="font-black leading-[0.92] tracking-tighter dark:text-white"
-            style={{ fontSize: "clamp(56px, 9vw, 110px)" }}
+            style={{ fontSize: "clamp(5px, 9vw, 50px)" }}
           >
             Our <span className="text-primary italic">Portfolio</span>
           </h1>

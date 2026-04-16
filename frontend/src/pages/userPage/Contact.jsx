@@ -162,7 +162,7 @@ function AnimatedHeading() {
   }, [charIdx, lineIdx, done]);
 
   return (
-    <h1 className="text-6xl md:text-8xl font-black leading-none tracking-tight mb-4">
+    <h1 className="text-6xl md:text-7xl font-black leading-none tracking-tight mb-4">
       <div className="overflow-hidden">
         <motion.div initial={{ y: "100%" }} animate={{ y: 0 }} transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }} className="dark:text-white">
           {displayed[0]}

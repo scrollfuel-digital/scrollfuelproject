@@ -5,6 +5,8 @@ const testimonials = [
         id: 1,
         initials: "AD",
         name: "Anand Dongre",
+        designation: "Founder & CEO",
+        company: "Purana Plot & Kalinga Group of companies",
         text: "Clear brand identity. Strong presence. Simple, impactful work.",
         img: "./assets/anand.jpg",
         rating: 5,
@@ -13,6 +15,8 @@ const testimonials = [
         id: 2,
         initials: "SP",
         name: "Smit Pillewar",
+        designation: "Founder & CEO",
+        company: "Propscroll India",
         text: "Strategic execution with measurable, consistent growth.",
         img: "./assets/smit.jpg",
         rating: 5,
@@ -21,6 +25,8 @@ const testimonials = [
         id: 3,
         initials: "NB",
         name: "Nilesh Bhoyar",
+        designation: "Managing Director",
+        company: "Lotus Vencon Pvt Ltd",
         text: "Focused strategy. Strong online presence. Consistent performance.",
         img: "./assets/Nilesh.jpg",
         rating: 5,
@@ -29,6 +35,8 @@ const testimonials = [
         id: 4,
         initials: "VB",
         name: "Vishal Bisen",
+        designation: "Chairman & Managing Director",
+        company: "Lotus Vencon Pvt Ltd",
         text: "Optimized campaigns. Qualified leads. Measurable ROI.",
         img: "./assets/vishal.jpg",
         rating: 5,
@@ -37,6 +45,8 @@ const testimonials = [
         id: 5,
         initials: "BT",
         name: "Bhavesh Thakre",
+        designation: "Marketing Director",
+        company: "Lotus Vencon Pvt Ltd",
         text: "Our social media profiles now reflect a confident and professional brand image.",
         img: "./assets/bhavesh.jpg",
         rating: 5,
@@ -59,25 +69,24 @@ const TestimonialCard = ({ item }) => {
     const [imgError, setImgError] = useState(false);
 
     return (
-        <div
-            className="
-      min-w-[280px] max-w-[280px] shrink-0
-      rounded-2xl p-5
-      bg-white dark:bg-black
-      border border-gray-200 dark:border-gray-800
-      transition-all duration-300
-      hover:-translate-y-1
-      hover:border-primary
-      hover:shadow-primary
-      group
-    "
-        >
+        <div className="
+            relative min-w-[280px] max-w-[280px] shrink-0
+            rounded-2xl p-5
+            bg-white dark:bg-black
+            border border-gray-200 dark:border-gray-800
+            transition-all duration-300
+            hover:-translate-y-1 hover:border-primary hover:shadow-primary
+            group
+        ">
+            
+
+            {/* Avatar + Info */}
             <div className="flex items-center gap-3 mb-3">
                 <div className="
-          w-11 h-11 rounded-full overflow-hidden
-          border border-gray-200 dark:border-gray-700
-          group-hover:border-primary transition-colors
-        ">
+                    w-19 h-19 rounded-full overflow-hidden shrink-0
+                    border border-gray-200 dark:border-gray-700
+                    group-hover:border-primary transition-colors
+                ">
                     {!imgError ? (
                         <img
                             src={item.img}
@@ -93,29 +102,39 @@ const TestimonialCard = ({ item }) => {
                 </div>
 
                 <div>
-                    <p className="text-sm font-semibold text-black dark:text-white group-hover:text-primary transition-colors">
+                    <p className="text-lg font-semibold text-black dark:text-white group-hover:text-primary transition-colors leading-tight">
                         {item.name}
                     </p>
-
-                    <div className="flex gap-[3px] mt-1 text-secondary">
-                        {[...Array(5)].map((_, i) => (
-                            <StarIcon key={i} filled={i < item.rating} />
-                        ))}
-                    </div>
+                    <p className="text-sm text-primary font-medium leading-tight mt-[2px]">
+                        {item.designation}
+                    </p>
+                    <p className="text-sm text-primary font-bold flex items-center gap-1 mt-[2px]">
+                        {/* <span className="inline-block w-[6px] h-[6px] rounded-full bg-secondary" /> */}
+                        {item.company}
+                    </p>
                 </div>
             </div>
 
-            <div className="text-3xl leading-none text-gray-200 group-hover:text-primary transition-colors">
-                "
+            {/* Divider */}
+            <hr className="border-gray-100 dark:border-gray-800 mb-3" />
+
+            {/* Stars */}
+            <div className="flex gap-[3px] mb-2 text-secondary">
+                {[...Array(5)].map((_, i) => (
+                    <StarIcon key={i} filled={i < item.rating} />
+                ))}
             </div>
 
+            {/* Quote */}
+            <div className="text-3xl leading-none text-gray-200 group-hover:text-primary transition-colors font-serif">
+                "
+            </div>
             <p className="text-sm leading-relaxed text-muted group-hover:text-dark dark:group-hover:text-white transition-colors">
                 {item.text}
             </p>
         </div>
     );
 };
-
 const CARD_WIDTH = 280;
 const CARD_GAP = 14;
 const CARD_STEP = CARD_WIDTH + CARD_GAP;
@@ -245,7 +264,7 @@ const Testimonials = () => {
                         </button>
                     </div>
                 </div>
-          
+
                 <div
                     ref={scrollRef}
                     onMouseEnter={cancelResume}

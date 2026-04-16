@@ -406,7 +406,7 @@ const AboutUsPage = () => {
                     <div className="max-w-6xl mx-auto w-full">
                         <div className="text-center mb-8">
                             <motion.div initial="hidden" animate="visible" className="inline-block">
-                                <h1 className="text-6xl md:text-7xl font-bold mb-6">
+                                <h1 className="text-3xl md:text-5xl font-bold mb-6">
                                     {titleText.split(' ').map((word, wordIndex) => (
                                         <span key={wordIndex} className="inline-block mr-6">
                                             {word.split('').map((letter, letterIndex) => (
