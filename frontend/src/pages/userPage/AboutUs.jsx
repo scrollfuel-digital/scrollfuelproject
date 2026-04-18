@@ -135,23 +135,28 @@ const FounderCard = () => {
 
                         {/* LEFT: Avatar & Social */}
                         <div className="flex flex-col items-center gap-6 shrink-0">
+
                             {/* Avatar container */}
                             <motion.div
                                 className="relative"
                                 whileHover={{ scale: 1.05 }}
                                 transition={{ duration: 0.4 }}
                             >
+
                                 {/* Rotating ring */}
                                 <motion.div
                                     className="absolute -inset-3 rounded-full"
-                                    style={{ background: 'conic-gradient(from 0deg, #8bc53f, #ffc93b, #8bc53f)', padding: '2px' }}
+                                    style={{
+                                        background: 'conic-gradient(from 0deg, #8bc53f, #ffc93b, #8bc53f)',
+                                        padding: '2px'
+                                    }}
                                     animate={{ rotate: 360 }}
                                     transition={{ duration: 8, repeat: Infinity, ease: 'linear' }}
                                 >
                                     <div className="w-full h-full rounded-full bg-black" />
                                 </motion.div>
 
-                                {/* Second pulse ring */}
+                                {/* Pulse ring */}
                                 <motion.div
                                     className="absolute -inset-6 rounded-full border border-primary/30"
                                     animate={{ scale: [1, 1.1, 1], opacity: [0.3, 0.6, 0.3] }}
@@ -159,25 +164,41 @@ const FounderCard = () => {
                                 />
 
                                 {/* Avatar */}
-                                <div className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-black"
-                                    style={{ background: 'linear-gradient(135deg, #8bc53f22, #ffc93b22)' }}>
-                                    {/* Initials fallback with premium design */}
-                                    <div className="w-full h-full flex items-center justify-center"
-                                        style={{ background: 'linear-gradient(135deg, #0a1a0a 0%, #1a2a0a 50%, #0a1a0a 100%)' }}>
-                                        <div className="text-center">
-                                            <motion.div
-                                                className="text-5xl font-black"
-                                                style={{ color: '#8bc53f', fontFamily: 'serif', lineHeight: 1 }}
-                                                animate={{ scale: [1, 1.05, 1] }}
-                                                transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                                            >
-                                                AZ
-                                            </motion.div>
-                                        </div>
+                                <div
+                                    className="relative w-48 h-48 rounded-full overflow-hidden border-4 border-black"
+                                    style={{
+                                        background: 'linear-gradient(135deg, #8bc53f22, #ffc93b22)'
+                                    }}
+                                >
+                                    {/* Founder Image */}
+                                    <img
+                                        src="/assets/founderimage.jpeg" // 👉 Put image inside public folder
+                                        alt="Akshay Zade"
+                                        className="w-full h-full object-cover"
+                                        onError={(e) => {
+                                            e.target.style.display = "none";
+                                            const fallback = e.target.nextSibling;
+                                            if (fallback) fallback.style.display = "flex";
+                                        }}
+                                    />
+
+                                    {/* Fallback Initials */}
+                                    <div
+                                        className="w-full h-full items-center justify-center hidden"
+                                        style={{
+                                            background: 'linear-gradient(135deg, #0a1a0a 0%, #1a2a0a 50%, #0a1a0a 100%)'
+                                        }}
+                                    >
+                                        <motion.div
+                                            className="text-5xl font-black"
+                                            style={{ color: '#8bc53f', fontFamily: 'serif' }}
+                                            animate={{ scale: [1, 1.05, 1] }}
+                                            transition={{ duration: 4, repeat: Infinity }}
+                                        >
+                                            AZ
+                                        </motion.div>
                                     </div>
                                 </div>
-
-
                             </motion.div>
 
                             {/* Social Links */}
@@ -190,7 +211,11 @@ const FounderCard = () => {
                                         whileInView={{ opacity: 1, y: 0 }}
                                         viewport={{ once: true }}
                                         transition={{ delay: 0.5 + i * 0.1, duration: 0.5 }}
-                                        whileHover={{ scale: 1.2, y: -4, backgroundColor: color }}
+                                        whileHover={{
+                                            scale: 1.2,
+                                            y: -4,
+                                            backgroundColor: color
+                                        }}
                                         className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-white/60 transition-all duration-300"
                                         style={{ backgroundColor: 'rgba(255,255,255,0.05)' }}
                                     >
@@ -198,11 +223,11 @@ const FounderCard = () => {
                                     </motion.a>
                                 ))}
                             </div>
-
                         </div>
 
                         {/* RIGHT: Info */}
                         <div className="flex-1 text-center lg:text-left">
+
                             {/* Tag */}
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.8 }}
@@ -210,7 +235,11 @@ const FounderCard = () => {
                                 viewport={{ once: true }}
                                 transition={{ delay: 0.2, duration: 0.5 }}
                                 className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold mb-4 border"
-                                style={{ borderColor: 'rgba(255,201,59,0.4)', color: '#ffc93b', backgroundColor: 'rgba(255,201,59,0.08)' }}
+                                style={{
+                                    borderColor: 'rgba(255,201,59,0.4)',
+                                    color: '#ffc93b',
+                                    backgroundColor: 'rgba(255,201,59,0.08)'
+                                }}
                             >
                                 <Star size={12} fill="currentColor" />
                                 Founder
@@ -232,8 +261,7 @@ const FounderCard = () => {
                                     >
                                         {letter}
                                     </motion.span>
-                                ))}
-                                {" "}
+                                ))}{" "}
                                 {"Zade".split('').map((letter, i) => (
                                     <motion.span
                                         key={i}
@@ -246,14 +274,17 @@ const FounderCard = () => {
                                 ))}
                             </motion.h3>
 
-                            {/* Animated underline */}
+                            {/* Underline */}
                             <motion.div
                                 initial={{ scaleX: 0, originX: 0 }}
                                 whileInView={{ scaleX: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.8, duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+                                transition={{ delay: 0.8, duration: 0.8 }}
                                 className="h-0.5 mb-6 rounded-full"
-                                style={{ background: 'linear-gradient(90deg, #8bc53f, #ffc93b, transparent)', width: '200px' }}
+                                style={{
+                                    background: 'linear-gradient(90deg, #8bc53f, #ffc93b, transparent)',
+                                    width: '200px'
+                                }}
                             />
 
                             {/* Bio */}
@@ -266,11 +297,7 @@ const FounderCard = () => {
                             >
                                 A visionary digital marketer and growth hacker with over{" "}
                                 <span className="text-primary font-semibold">5+ years</span> of experience
-                                transforming brands from zero to market leaders. Akshay founded Scrollfuel with
-                                a mission to make{" "}
-                                <span className="text-secondary font-semibold">data-driven marketing</span>{" "}
-                                accessible to every ambitious business, combining strategic creativity with
-                                relentless performance optimization.
+                                transforming brands from zero to market leaders.
                             </motion.p>
 
                             {/* Skills */}
@@ -278,23 +305,17 @@ const FounderCard = () => {
                                 initial={{ opacity: 0 }}
                                 whileInView={{ opacity: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ delay: 0.7, duration: 0.5 }}
+                                transition={{ delay: 0.7 }}
                                 className="flex flex-wrap gap-2 justify-center lg:justify-start"
                             >
                                 {skills.map((skill, i) => (
                                     <motion.span
                                         key={i}
-                                        initial={{ opacity: 0, scale: 0.8, y: 10 }}
-                                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                                        initial={{ opacity: 0, scale: 0.8 }}
+                                        whileInView={{ opacity: 1, scale: 1 }}
                                         viewport={{ once: true }}
-                                        transition={{ delay: 0.8 + i * 0.08, duration: 0.4 }}
-                                        whileHover={{
-                                            scale: 1.08,
-                                            backgroundColor: 'rgba(139,197,63,0.2)',
-                                            borderColor: 'rgba(139,197,63,0.7)',
-                                            color: '#8bc53f'
-                                        }}
-                                        className="px-3 py-1.5 rounded-full text-sm border transition-all duration-300 cursor-default"
+                                        transition={{ delay: 0.8 + i * 0.08 }}
+                                        className="px-3 py-1.5 rounded-full text-sm border"
                                         style={{
                                             borderColor: 'rgba(255,255,255,0.1)',
                                             backgroundColor: 'rgba(255,255,255,0.04)',
@@ -305,10 +326,10 @@ const FounderCard = () => {
                                     </motion.span>
                                 ))}
                             </motion.div>
+
                         </div>
                     </div>
                 </div>
-
                 {/* Bottom decorative bar */}
                 <motion.div
                     className="h-1 w-full"
