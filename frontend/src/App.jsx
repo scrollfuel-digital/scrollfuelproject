@@ -22,6 +22,7 @@ import AuthPage from "./pages/admin/auth-page";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import ContactMessage from "./components/admin/ContactMessage";
 import AdminCarrerPage from "./components/admin/AdminCarrerPage";
+import AdminJobs from "./pages/admin/AdminJobs";
 import AdminLayout from "./components/admin/AdminLayout";
 
 function Layout() {
@@ -97,6 +98,16 @@ function Layout() {
             <ProtectedRoute>
               <AdminLayout active="careers">
                 <AdminCarrerPage />
+              </AdminLayout>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/admin/jobs"
+          element={
+            <ProtectedRoute>
+              <AdminLayout active="jobs">
+                <AdminJobs />
               </AdminLayout>
             </ProtectedRoute>
           }
