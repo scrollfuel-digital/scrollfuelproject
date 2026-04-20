@@ -1,5 +1,3 @@
-
-
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 
@@ -11,10 +9,10 @@ async function conn() {
             dbName: "ScrollfuelWebsite"
         });
 
-        console.log("✅ Connected DB:", mongoose.connection.name);
+        console.log(" Connected DB:", mongoose.connection.name);
 
     } catch (err) {
-        console.log("❌ Unable to connect with database!", err);
+        console.log(" Unable to connect with database!", err);
     }
 }
 

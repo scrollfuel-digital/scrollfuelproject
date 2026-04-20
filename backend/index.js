@@ -8,6 +8,7 @@ import generalRouter from "./routes/general.router.js";
 import blogRouter from "./routes/blogRoutes.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import dashboardRoutes from "./routes/dashboardRoutes.js";
+import jobRoutes from "./routes/jobRoutes.js";
 
 import "./config/passport.js";
 
@@ -40,7 +41,7 @@ app.use(
     })
 );
 
-// ❌ REMOVE session completely
+// REMOVE session completely
 app.use(passport.initialize());
 
 // Routes
@@ -49,6 +50,7 @@ app.use("/api/admin", adminRouter);
 app.use("/api/general", generalRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/jobs", jobRoutes);
 console.log("CLIENT_URL:", process.env.CLIENT_URL);
 app.get("/", (req, res) => {
     res.send("API is running...");

@@ -58,7 +58,7 @@ const Signup = async (req, res) => {
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "7d" }
         );
 
         // 8️⃣ Send response
@@ -125,7 +125,7 @@ const Login = async (req, res) => {
         const token = jwt.sign(
             { id: user._id },
             process.env.JWT_SECRET,
-            { expiresIn: "1h" }
+            { expiresIn: "7d" }
         );
 
         // 5. Send response
@@ -203,7 +203,7 @@ const googleSuccess = async (req, res) => {
 
 const applyCareer = async (req, res) => {
     try {
-        const { name, email, contact, address, interest } = req.body;
+        const { name, email, contact, address, interest, appliedFor } = req.body;
 
         const resumeUrl = req.file?.path;
 
@@ -220,6 +220,7 @@ const applyCareer = async (req, res) => {
             contact,
             address,
             interest,
+            appliedFor: appliedFor || "",
             resume: resumeUrl,
         });
 
