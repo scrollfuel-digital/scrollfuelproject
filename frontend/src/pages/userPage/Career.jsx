@@ -14,6 +14,7 @@ const CareerPage = () => {
         interest: "",
         appliedFor: "",
     });
+    const [otherInterest, setOtherInterest] = useState("");
 
     useEffect(() => {
         fetch(`${API}/api/jobs/all`)
@@ -38,7 +39,7 @@ const CareerPage = () => {
         formDataToSend.append("email", formData.email);
         formDataToSend.append("contact", formData.contact);
         formDataToSend.append("address", formData.address);
-        formDataToSend.append("interest", formData.interest);
+        formDataToSend.append("interest", formData.interest === "Others" ? otherInterest : formData.interest);
         formDataToSend.append("appliedFor", formData.appliedFor);
         formDataToSend.append("resume", formData.resume);
 
@@ -60,6 +61,7 @@ const CareerPage = () => {
                     interest: "",
                     appliedFor: "",
                 });
+                setOtherInterest("");
                 document.querySelector('input[type="file"]').value = "";
             } else {
                 alert(data.error || "Submission failed");
@@ -260,12 +262,22 @@ const CareerPage = () => {
                                 <option value="">Select</option>
                                 <option value="Social Media Manager">Social Media Manager</option>
                                 <option value="Graphic Designer">Graphic Designer</option>
-                                <option value=">Marketing Executive">Marketing Executive</option>
+                                <option value="Marketing Executive">Marketing Executive</option>
                                 <option value="Video Editor">Video Editor</option>
                                 <option value="SEO Executive">SEO Executive</option>
                                 <option value="Software Developer">Software Developer</option>
                                 <option value="Others">Others</option>
                             </select>
+                            {formData.interest === "Others" && (
+                                <input
+                                    type="text"
+                                    placeholder="Please specify your area of interest"
+                                    value={otherInterest}
+                                    onChange={(e) => setOtherInterest(e.target.value)}
+                                    className="w-full border border-gray-700 p-2 rounded dark:bg-black dark:text-white mt-2"
+                                    required
+                                />
+                            )}
                         </div>
 
                         <div>
