@@ -120,7 +120,7 @@ const InlineImage = ({ src, alt }) => {
           )}
           {status === "error" && (
             <span className="flex items-center justify-center w-full py-12 text-gray-500 dark:text-gray-400 text-sm gap-2">
-              🖼️ Image could not be loaded
+              Image could not be loaded
             </span>
           )}
           {status !== "error" && (
@@ -138,7 +138,7 @@ const InlineImage = ({ src, alt }) => {
               className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full text-xs font-semibold text-black dark:text-white pointer-events-none"
               style={{ background: "rgba(0,0,0,0.55)" }}
             >
-              🔍 Click to enlarge
+              Click to enlarge
             </span>
           )}
         </span>
