@@ -13,6 +13,8 @@ const AdminCarrerPage = () => {
   const [applications, setApplications] = useState([]);
   const [appLoading, setAppLoading] = useState(true);
   const [appPage, setAppPage] = useState(1);
+  const [rejecting, setRejecting] = useState(null);
+  const [rejected, setRejected] = useState([]);
 
   // ── Jobs ──
   const [jobs, setJobs] = useState([]);
@@ -122,6 +124,25 @@ const AdminCarrerPage = () => {
     if (res.ok) setJobs((p) => p.filter((j) => j._id !== id));
   };
 
+  // ── Reject Application ──
+  const handleReject = async (app) => {
+    if (!window.confirm(`Reject ${app.name}'s application and send rejection email?`)) return;
+    setRejecting(app._id);
+    try {
+      const res = await fetch(`${API}/api/general/career/reject/${app._id}`, { method: "DELETE" });
+      const data = await res.json();
+      if (res.ok) {
+        setRejected((prev) => [...prev, app._id]);
+      } else {
+        alert(data.message || "Failed to reject application");
+      }
+    } catch (e) {
+      alert("Server error");
+    } finally {
+      setRejecting(null);
+    }
+  };
+
   // ── Download Resume ──
   const handleDownload = async (url, name) => {
     try {
@@ -162,6 +183,8 @@ const AdminCarrerPage = () => {
     { label: "Area of Interest", align: "text-left" },
     { label: "Applied For", align: "text-left" },
     { label: "Resume", align: "text-left" },
+    { label: "Status", align: "text-center" },
+    { label: "Action", align: "text-center" },
   ];
 
   return (
@@ -238,6 +261,28 @@ const AdminCarrerPage = () => {
                 className="px-3 py-1 bg-primary text-white rounded-md text-sm hover:opacity-90 transition"
               >
                 Download
+              </button>
+            </td>
+            <td className="px-4 py-3 text-center">
+              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
+                app.status === "rejected"
+                  ? "bg-red-100 text-red-600"
+                  : "bg-green-100 text-green-600"
+              }`}>
+                {app.status === "rejected" ? "Rejected" : "Pending"}
+              </span>
+            </td>
+            <td className="px-4 py-3 text-center">
+              <button
+                onClick={() => handleReject(app)}
+                disabled={rejecting === app._id || rejected.includes(app._id) || app.status === "rejected"}
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition ${
+                  rejected.includes(app._id) || app.status === "rejected"
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-red-500 text-white hover:bg-red-600 disabled:opacity-60"
+                }`}
+              >
+                {rejected.includes(app._id) || app.status === "rejected" ? "Rejected" : rejecting === app._id ? "Sending..." : "Reject"}
               </button>
             </td>
           </tr>
