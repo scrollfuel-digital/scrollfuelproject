@@ -3,6 +3,7 @@ import {
     applyCareer,
     ContactForm,
     getCareerApplications,
+    rejectApplication,
     getContactMessages,
     markContactRead
 } from "../controllers/controller.js";
@@ -16,6 +17,7 @@ router.post("/contact", ContactForm);
 
 // GET routes
 router.get("/career", getCareerApplications);
+router.delete("/career/reject/:id", rejectApplication);
 router.get("/contacts", getContactMessages);
 router.put("/contacts/read/:id", markContactRead);
 export default router;

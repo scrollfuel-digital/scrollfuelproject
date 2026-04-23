@@ -1,6 +1,7 @@
 import "../database/conn.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import nodemailer from "nodemailer";
 import AdminModel from "../models/AdminModel.js";
 import CareerModel from "../models/CareerModel.js";
 import ContactModel from "../models/ContactModel.js";
@@ -153,9 +154,8 @@ const Login = async (req, res) => {
 
 const googleSuccess = async (req, res) => {
     try {
-        console.log("REQ.USER:", req.user); // ✅ DEBUG
-
-        if (!req.user) {
+   
+     if (!req.user) {
             return res.redirect(
                 `${process.env.CLIENT_URL}/admin/auth?error=auth_failed`
             );
@@ -224,6 +224,29 @@ const applyCareer = async (req, res) => {
             resume: resumeUrl,
         });
 
+        // Send thank-you email (non-blocking)
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        transporter.sendMail({
+            from: `"ScrollFuel" <${process.env.EMAIL_USER}>`,
+            to: email,
+            subject: "Thank You for Applying to ScrollFuel!",
+            html: `
+                <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e5e7eb;border-radius:8px">
+                    <h2 style="color:#8bc53f">Thank You for Applying, ${name}! 🎉</h2>
+                    <p>We've received your application for <strong>${appliedFor || interest}</strong> at <strong>ScrollFuel</strong>.</p>
+                    <p>Our team will carefully review your application and get back to you soon.</p>
+                    <p style="margin-top:24px">Best regards,<br/><strong>Team ScrollFuel</strong></p>
+                </div>
+            `,
+        }).catch((err) => console.error("Email Error:", err.message));
+
         res.status(200).json({
             success: true,
             message: "Application submitted successfully",
@@ -232,6 +255,13 @@ const applyCareer = async (req, res) => {
 
     } catch (error) {
         console.error("Server Error:", error);
+
+        if (error.code === 11000) {
+            return res.status(400).json({
+                success: false,
+                message: "You have already applied with this email.",
+            });
+        }
 
         res.status(500).json({
             success: false,
@@ -261,6 +291,50 @@ const getCareerApplications = async (req, res) => {
             success: false,
             message: "Failed to fetch applications"
         });
+    }
+};
+
+const rejectApplication = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const application = await CareerModel.findById(id);
+
+        if (!application) {
+            return res.status(404).json({ success: false, message: "Application not found" });
+        }
+
+        // Send rejection email
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
+
+        await transporter.sendMail({
+            from: `"ScrollFuel" <${process.env.EMAIL_USER}>`,
+            to: application.email,
+            subject: "Application Update - ScrollFuel",
+            html: `
+                <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;padding:24px;border:1px solid #e5e7eb;border-radius:8px">
+                    <h2 style="color:#8bc53f">Thank You for Your Interest, ${application.name}</h2>
+                    <p>We appreciate you taking the time to apply for the <strong>${application.appliedFor || application.interest}</strong> position at <strong>ScrollFuel</strong>.</p>
+                    <p>After careful review, we have decided to move forward with other candidates whose qualifications more closely match our current needs.</p>
+                    <p>We encourage you to apply for future openings that align with your skills and experience.</p>
+                    <p style="margin-top:24px">Best wishes in your job search,<br/><strong>Team ScrollFuel</strong></p>
+                </div>
+            `,
+        });
+
+        // Update status to rejected instead of deleting
+        await CareerModel.findByIdAndUpdate(id, { status: "rejected" });
+
+        res.json({ success: true, message: "Rejection email sent and application marked as rejected" });
+
+    } catch (error) {
+        console.error("Reject Error:", error);
+        res.status(500).json({ success: false, message: "Failed to reject application" });
     }
 };
 
@@ -356,4 +430,4 @@ const markContactRead = async (req, res) => {
 
     }
 };
-export { Signup, Login, googleSuccess, applyCareer, ContactForm, getCareerApplications, getContactMessages, markContactRead };
+export { Signup, Login, googleSuccess, applyCareer, getCareerApplications, rejectApplication, ContactForm, getContactMessages, markContactRead };

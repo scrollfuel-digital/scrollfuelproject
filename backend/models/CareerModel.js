@@ -9,6 +9,7 @@ const careerSchema = new mongoose.Schema(
         interest: { type: String, required: true },
         appliedFor: { type: String, default: "" },
         resume: { type: String, required: true },
+        status: { type: String, enum: ["pending", "rejected"], default: "pending" },
     },
     { timestamps: true }
 );
