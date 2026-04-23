@@ -9,6 +9,8 @@ import Blog from "./pages/userPage/Blog";
 import BlogDetails from "./pages/userPage/BlogDetails";
 import Contact from "./pages/userPage/Contact";
 import Portfolio from "./pages/userPage/Portfolio";
+import VideoPortfolio from "./pages/userPage/VideoPortfolio";
+import SocialMediaPortfolio from "./pages/userPage/SocialMediaPortfolio";
 import Career from "./pages/userPage/Career";
 import ServicesFixed from "./pages/userPage/Servicesfixed";
 import ServiceDetails from "./pages/userPage/ServiceDetails";
@@ -63,7 +65,9 @@ function Layout() {
         <Route path="/aboutus" element={<AboutUsPage />} />
         <Route path="/blog" element={<Blog />} />
         <Route path="/blog/:slug" element={<BlogDetails />} />
-        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/portfolio/social-media-marketing" element={<SocialMediaPortfolio />} />
+        <Route path="/portfolio/video" element={<VideoPortfolio />} />
+        <Route path="/portfolio/:category" element={<Portfolio />} />
         <Route path="/career" element={<Career />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<ServicesFixed />} />
