@@ -91,7 +91,7 @@ const projects = [
     gallery: [
       "./assets/portfolio/propscroll.jpeg",
       "./assets/portfolio/getfit.jpeg",
-      "./assets/portfolio/M1.jpeg",
+      // "./assets/portfolio/M1.jpeg",
       "./assets/portfolio/portfolio3.jpeg",
       "./assets/portfolio/scrollfuel.jpeg",
       "./assets/portfolio/scrollfuel.jpeg",

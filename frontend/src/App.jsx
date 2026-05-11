@@ -26,6 +26,7 @@ import ContactMessage from "./components/admin/ContactMessage";
 import AdminCarrerPage from "./components/admin/AdminCarrerPage";
 import AdminJobs from "./pages/admin/AdminJobs";
 import AdminLayout from "./components/admin/AdminLayout";
+import ScrollToTop from "./components/ScrollToTop";
 
 function Layout() {
   const location = useLocation();
@@ -160,6 +161,7 @@ function App() {
   return (
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300">
       <BrowserRouter>
+        <ScrollToTop />
         <Layout />
       </BrowserRouter>
     </div>

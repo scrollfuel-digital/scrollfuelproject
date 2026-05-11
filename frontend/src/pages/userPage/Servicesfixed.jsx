@@ -359,17 +359,19 @@ const HeroSection = ({ servicesRef }) => {
                             />
                         </span>
                     </motion.h1>
-
+                    <h3 className="text-white">Best Digital Marketing Services in Nagpur</h3>
                     {/* Description */}
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="text-white/90 text-lg md:text-xl lg:text-xl leading-relaxed max-w-4xl font-light"
+                        className="text-white/90 leading-relaxed max-w-4xl font-light text-start"
                     >
-                        At ScrollFuel, we create digital solutions that go beyond visuals.
+                        {/* At ScrollFuel, we create digital solutions that go beyond visuals.
                         Our work helps brands communicate clearly, connect with the right
-                        audience, and deliver measurable results.
+                        audience, and deliver measurable results. */}
+                        At My Scrollfuel, we offer a complete range of digital solutions designed to elevate your brand and drive measurable results. Our services include Search Engine Optimization (SEO), Website Development, Graphic Designing, Video Editing & Production .
+                        We combine creativity, strategy, and technology to deliver campaigns that truly make an impact. As a trusted provider of the best digital marketing services in Nagpur, My Scrollfuel is here to help you build a powerful online presence, attract the right audience, and grow your business with purpose.
                     </motion.p>
 
                     {/* Stats Row */}

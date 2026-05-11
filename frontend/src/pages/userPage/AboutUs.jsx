@@ -365,8 +365,8 @@ const AboutUsPage = () => {
         { icon: Users, title: "Client-Centric", description: "Your success is our benchmark and priority", color: "secondary", direction: "right" },
     ];
 
-    const titleText = "About us";
-    const highlightWord = "us";
+    const titleText = "About Us";
+    const highlightWord = "Us";
 
     return (
         <div className="bg-white dark:bg-black dark:text-white overflow-hidden select-none">
@@ -451,15 +451,20 @@ const AboutUsPage = () => {
                                 className="h-1 bg-linear-to-r from-primary via-secondary to-primary mx-auto"
                                 style={{ width: '200px', transformOrigin: 'left' }}
                             />
+
+                            <h3 className="text-white font-bold">Top Digital Martketing Company in Nagpur</h3>
                         </div>
 
                         <motion.div initial="hidden" animate="visible" className="text-center mb-12">
                             <motion.p
                                 custom={0}
                                 variants={textReveal}
-                                className="text-xl md:text-2xl dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 text-start"
+                                className=" md:text-lg dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 text-start"
                             >
-                                ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution.
+                               At <b>Scrollfuel Digital Marketing Company in Nagpur </b>, we blend creativity and strategy to craft impactful digital marketing solutions. Our team is passionate about helping businesses thrive online with tailored strategies that drive real results. 
+                               
+                               As a <b>Top Digital Marketing Company in Nagpur</b>, we’re committed to building your digital presence with purpose and performance. Let’s grow together and take your brand to the next level.
+                                {/* ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. */}
                             </motion.p>
                         </motion.div>
 

@@ -397,7 +397,7 @@ const AboutUs = React.forwardRef((props, ref) => {
                                 </motion.span>
                             </motion.h1>
                         </motion.div>
-
+                       
                         {/* Animated underline */}
                         <motion.div className="absolute -bottom-5 left-0 right-0 h-0.5 overflow-hidden">
                             <motion.div

@@ -23,10 +23,10 @@ const clients = [
   },
   {
     id: 3,
-    username: "puranaplot",
-    handle: "@puranaplot",
-    instagramUrl: "https://www.instagram.com/puranaplotdhundhoo/",
-    avatar: "../assets/puranaplot.jpg",
+    username: "mali",
+    handle: "@mali",
+    instagramUrl: "https://www.instagram.com/mali/",
+    avatar: "../assets/mali.jpg",
     posts: [
       "/assets/portfolio/mali.jpeg",
     ],
