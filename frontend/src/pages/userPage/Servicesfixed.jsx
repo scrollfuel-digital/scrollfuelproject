@@ -370,8 +370,8 @@ const HeroSection = ({ servicesRef }) => {
                         {/* At ScrollFuel, we create digital solutions that go beyond visuals.
                         Our work helps brands communicate clearly, connect with the right
                         audience, and deliver measurable results. */}
-                        At My Scrollfuel, we offer a complete range of digital solutions designed to elevate your brand and drive measurable results. Our services include Search Engine Optimization (SEO), Website Development, Graphic Designing, Video Editing & Production .
-                        We combine creativity, strategy, and technology to deliver campaigns that truly make an impact. As a trusted provider of the best digital marketing services in Nagpur, My Scrollfuel is here to help you build a powerful online presence, attract the right audience, and grow your business with purpose.
+                        At Scrollfuel, we offer a complete range of digital solutions designed to elevate your brand and drive measurable results. Our services include Search Engine Optimization (SEO), Website Development, Graphic Designing, Video Editing & Production .
+                        We combine creativity, strategy, and technology to deliver campaigns that truly make an impact. As a trusted provider of the best digital marketing services in Nagpur, Scrollfuel is here to help you build a powerful online presence, attract the right audience, and grow your business with purpose.
                     </motion.p>
 
                     {/* Stats Row */}
