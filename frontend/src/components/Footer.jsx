@@ -81,7 +81,7 @@ const Footer = () => {
                         <p className="text-muted mt-3 font-bold">
                             Bidoba Sahkari Sanstha, Plot no 133, Wardha Road,
                             Near Hotel Center Point, Bante Layout, Sonegaon, Ujwal Nagar,
-                            Nagpur-440022
+                            Nagpur-440025
                         </p>
                         <a
                             href="https://maps.app.goo.gl/oQfiqBwaEo6xyFYYA"
