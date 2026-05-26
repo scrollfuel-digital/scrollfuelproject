@@ -590,7 +590,7 @@ const AboutUsPage = () => {
                             transition={{ delay: 0.4, duration: 0.6 }}
                             className="dark:text-white text-lg max-w-2xl mx-auto"
                         >
-                            Driven by passion, powered by data — meet the co-founder shaping the future of digital growth.
+                            Driven by passion, powered by data — meet the Founder shaping the future of digital growth.
                         </motion.p>
 
                         {/* Animated divider */}
