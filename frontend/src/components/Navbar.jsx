@@ -75,6 +75,9 @@ const Navbar = () => {
             <img
               src={dark ? "/assets/logo1.png" : "/logo2.png"}
               alt="ScrollFuel"
+              width={208}
+              height={48}
+              decoding="async"
               className="w-36 sm:w-44 lg:w-52 pb-3"
             />
           </NavLink>
@@ -168,6 +171,9 @@ const Navbar = () => {
             <img
               src={dark ? "/assets/logo1.png" : "/logo2.png"}
               alt="ScrollFuel"
+              width={128}
+              height={32}
+              decoding="async"
               className="w-32 pb-2"
             />
           </NavLink>

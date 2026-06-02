@@ -1,37 +1,53 @@
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import CustomCursor from "./components/CustomCursor";
-import AIAssistant from "./components/AIAssistant";
-import Home from "./pages/userPage/Home";
-import Blog from "./pages/userPage/Blog";
-import BlogDetails from "./pages/userPage/BlogDetails";
-import Contact from "./pages/userPage/Contact";
-import Portfolio from "./pages/userPage/Portfolio";
-import VideoPortfolio from "./pages/userPage/VideoPortfolio";
-import SocialMediaPortfolio from "./pages/userPage/SocialMediaPortfolio";
-import Career from "./pages/userPage/Career";
-import ServicesFixed from "./pages/userPage/Servicesfixed";
-import ServiceDetails from "./pages/userPage/ServiceDetails";
-import AboutUs from "./components/About";
-import AboutUsPage from "./pages/userPage/AboutUs";
-import AdminDashboard from "./components/admin/AdminDashboard";
-import AdminCreateBlog from "./pages/admin/AdminCreateBlog";
-import AdminBlogs from "./pages/admin/AdminBlogs";
-import AdminEditBlog from "./pages/admin/AdminEditBlog";
-import AuthPage from "./pages/admin/auth-page";
-import ProtectedRoute from "./components/admin/ProtectedRoute";
-import ContactMessage from "./components/admin/ContactMessage";
-import AdminCarrerPage from "./components/admin/AdminCarrerPage";
-import AdminJobs from "./pages/admin/AdminJobs";
-import AdminLayout from "./components/admin/AdminLayout";
 import ScrollToTop from "./components/ScrollToTop";
+import ProtectedRoute from "./components/admin/ProtectedRoute";
+import AdminLayout from "./components/admin/AdminLayout";
+
+/* Lazy-loaded user pages */
+const Home = lazy(() => import("./pages/userPage/Home"));
+const Blog = lazy(() => import("./pages/userPage/Blog"));
+const BlogDetails = lazy(() => import("./pages/userPage/BlogDetails"));
+const Contact = lazy(() => import("./pages/userPage/Contact"));
+const Portfolio = lazy(() => import("./pages/userPage/Portfolio"));
+const VideoPortfolio = lazy(() => import("./pages/userPage/VideoPortfolio"));
+const SocialMediaPortfolio = lazy(() => import("./pages/userPage/SocialMediaPortfolio"));
+const Career = lazy(() => import("./pages/userPage/Career"));
+const ServicesFixed = lazy(() => import("./pages/userPage/Servicesfixed"));
+const ServiceDetails = lazy(() => import("./pages/userPage/ServiceDetails"));
+const AboutUs = lazy(() => import("./components/About"));
+const AboutUsPage = lazy(() => import("./pages/userPage/AboutUs"));
+
+/* Lazy-loaded admin pages */
+const AdminDashboard = lazy(() => import("./components/admin/AdminDashboard"));
+const AdminCreateBlog = lazy(() => import("./pages/admin/AdminCreateBlog"));
+const AdminBlogs = lazy(() => import("./pages/admin/AdminBlogs"));
+const AdminEditBlog = lazy(() => import("./pages/admin/AdminEditBlog"));
+const AuthPage = lazy(() => import("./pages/admin/auth-page"));
+const ContactMessage = lazy(() => import("./components/admin/ContactMessage"));
+const AdminCarrerPage = lazy(() => import("./components/admin/AdminCarrerPage"));
+const AdminJobs = lazy(() => import("./pages/admin/AdminJobs"));
+
+/* Lazy-loaded non-critical layout pieces */
+const CustomCursor = lazy(() => import("./components/CustomCursor"));
+const AIAssistant = lazy(() => import("./components/AIAssistant"));
+
+/* Full-page loader fallback */
+const PageLoader = () => (
+  <div className="flex items-center justify-center w-full h-screen bg-white dark:bg-black">
+    <div className="w-10 h-10 border-4 border-gray-300 border-t-black dark:border-t-white rounded-full animate-spin" />
+  </div>
+);
+
+/* Wraps any lazy element in its own Suspense — valid inside <Route element={...}> */
+const S = ({ children }) => <Suspense fallback={<PageLoader />}>{children}</Suspense>;
 
 function Layout() {
   const location = useLocation();
-
   const isAdminRoute = location.pathname.startsWith("/admin");
+  const isDesktop = typeof window !== 'undefined' && window.innerWidth > 1024;
 
   /* Theme initialization */
   useEffect(() => {
@@ -56,103 +72,45 @@ function Layout() {
   }, [location]);
   return (
     <>
-      {/* Hide Navbar for admin */}
       {!isAdminRoute && <Navbar />}
 
       <Routes>
         {/* USER ROUTES */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<AboutUs />} />
-        <Route path="/aboutus" element={<AboutUsPage />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogDetails />} />
-        <Route path="/portfolio/social-media-marketing" element={<SocialMediaPortfolio />} />
-        <Route path="/portfolio/video" element={<VideoPortfolio />} />
-        <Route path="/portfolio/:category" element={<Portfolio />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/services" element={<ServicesFixed />} />
-        <Route path="/services/:slug" element={<ServiceDetails />} />
+        <Route path="/" element={<S><Home /></S>} />
+        <Route path="/about" element={<S><AboutUs /></S>} />
+        <Route path="/aboutus" element={<S><AboutUsPage /></S>} />
+        <Route path="/blog" element={<S><Blog /></S>} />
+        <Route path="/blog/:slug" element={<S><BlogDetails /></S>} />
+        <Route path="/portfolio/social-media-marketing" element={<S><SocialMediaPortfolio /></S>} />
+        <Route path="/portfolio/video" element={<S><VideoPortfolio /></S>} />
+        <Route path="/portfolio/:category" element={<S><Portfolio /></S>} />
+        <Route path="/career" element={<S><Career /></S>} />
+        <Route path="/contact" element={<S><Contact /></S>} />
+        <Route path="/services" element={<S><ServicesFixed /></S>} />
+        <Route path="/services/:slug" element={<S><ServiceDetails /></S>} />
 
         {/* ADMIN AUTH */}
-        <Route path="/admin/auth" element={<AuthPage />} />
+        <Route path="/admin/auth" element={<S><AuthPage /></S>} />
 
         {/* ADMIN ROUTES */}
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="dashboard">
-                <AdminDashboard />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/messages"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="messages">
-                <ContactMessage />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/admin/careers"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="careers">
-                <AdminCarrerPage />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/jobs"
-          element={
-            <ProtectedRoute>
-              <AdminLayout active="jobs">
-                <AdminJobs />
-              </AdminLayout>
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/blogs"
-          element={
-            <ProtectedRoute>
-
-              <AdminBlogs />
-
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin/create-blog"
-          element={
-            <ProtectedRoute>
-              <AdminCreateBlog />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/admin/edit-blog/:id"
-          element={
-            <ProtectedRoute>
-              <AdminEditBlog />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/admin/dashboard" element={<ProtectedRoute><AdminLayout active="dashboard"><S><AdminDashboard /></S></AdminLayout></ProtectedRoute>} />
+        <Route path="/admin/messages" element={<ProtectedRoute><AdminLayout active="messages"><S><ContactMessage /></S></AdminLayout></ProtectedRoute>} />
+        <Route path="/admin/careers" element={<ProtectedRoute><AdminLayout active="careers"><S><AdminCarrerPage /></S></AdminLayout></ProtectedRoute>} />
+        <Route path="/admin/jobs" element={<ProtectedRoute><AdminLayout active="jobs"><S><AdminJobs /></S></AdminLayout></ProtectedRoute>} />
+        <Route path="/admin/blogs" element={<ProtectedRoute><S><AdminBlogs /></S></ProtectedRoute>} />
+        <Route path="/admin/create-blog" element={<ProtectedRoute><S><AdminCreateBlog /></S></ProtectedRoute>} />
+        <Route path="/admin/edit-blog/:id" element={<ProtectedRoute><S><AdminEditBlog /></S></ProtectedRoute>} />
       </Routes>
 
-      {/* Hide Footer for admin */}
       {!isAdminRoute && <Footer />}
 
-      {!isAdminRoute && <CustomCursor />}
+      <Suspense fallback={null}>
+        {!isAdminRoute && isDesktop && <CustomCursor />}
+      </Suspense>
 
-      {!isAdminRoute && <AIAssistant />}
+      <Suspense fallback={null}>
+        {!isAdminRoute && <AIAssistant />}
+      </Suspense>
     </>
   );
 }

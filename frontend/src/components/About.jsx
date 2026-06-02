@@ -1,18 +1,5 @@
-import { motion, useMotionValue, useTransform } from "framer-motion";
-import {
-    Target,
-    Eye,
-    TrendingUp,
-    ShieldCheck,
-    BarChart3,
-    Users,
-    Sparkles,
-    Zap,
-    Star,
-    Heart,
-    Award,
-    Rocket
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { Target, Eye, TrendingUp, ShieldCheck, BarChart3, Users, Sparkles, Star, Rocket } from "lucide-react";
 import React, { useState } from "react";
 
 const fadeUp = {
@@ -292,31 +279,7 @@ const CreativeIcon = ({ Icon, isHovered, variant = "default" }) => {
     return variants[variant] || <Icon size={48} className="text-primary" />;
 };
 
-/* FLOATING PARTICLES BACKGROUND */
-const FloatingParticles = () => (
-    <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(15)].map((_, i) => (
-            <motion.div
-                key={i}
-                className="absolute w-1 h-1 bg-primary/40 rounded-full"
-                style={{
-                    top: `${Math.random() * 100}%`,
-                    left: `${Math.random() * 100}%`,
-                }}
-                animate={{
-                    y: [0, -30, 0],
-                    opacity: [0, 1, 0],
-                    scale: [0, 1.5, 0],
-                }}
-                transition={{
-                    duration: 3 + Math.random() * 2,
-                    repeat: Infinity,
-                    delay: Math.random() * 2,
-                }}
-            />
-        ))}
-    </div>
-);
+/* Particles removed — were causing 15 always-running Framer Motion timers on load */
 
 const AboutUs = React.forwardRef((props, ref) => {
     const [hoveredCard, setHoveredCard] = useState(null);
@@ -334,26 +297,13 @@ const AboutUs = React.forwardRef((props, ref) => {
         >
             {/* HERO SECTION WITH UNIQUE ANIMATION */}
             <div className="relative min-h-[70vh] flex items-center">
-                {/* Dynamic gradient background */}
-                <motion.div
+                {/* Static gradient — animated version was running a repeating timer on load */}
+                <div
                     className="absolute inset-0 -z-10"
-                    style={{
-                        background: 'radial-gradient(circle at 50% 50%, rgba(139, 197, 63, 0.15), transparent 70%)',
-                    }}
-                    animate={{
-                        background: [
-                            'radial-gradient(circle at 50% 50%, rgba(139, 197, 63, 0.15), transparent 70%)',
-                            'radial-gradient(circle at 60% 40%, rgba(255, 201, 59, 0.15), transparent 70%)',
-                            'radial-gradient(circle at 40% 60%, rgba(139, 197, 63, 0.15), transparent 70%)',
-                            'radial-gradient(circle at 50% 50%, rgba(139, 197, 63, 0.15), transparent 70%)',
-                        ],
-                    }}
-                    transition={{ duration: 10, repeat: Infinity }}
+                    style={{ background: 'radial-gradient(circle at 50% 50%, rgba(139, 197, 63, 0.15), transparent 70%)' }}
                 />
 
-                <FloatingParticles />
-
-                {/* <div className="text-white max-w-5xl w-full mx-auto px-8 flex flex-col items-center text-center space-y-8 relative z-10"> */}
+                {/* <div className='text-white max-w-5xl...'> */}
                 <div className="max-w-5xl w-full mx-auto px-8 flex flex-col items-center text-center space-y-8 relative z-10">
                     {/* TITLE CONTAINER */}
                     <motion.div
@@ -376,26 +326,10 @@ const AboutUs = React.forwardRef((props, ref) => {
                             animate={{ y: [0, -10, 0] }}
                         // transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                         >
-                            <motion.h1
-                                className="text-6xl md:text-7xl font-bold leading-tight"
-                                animate={{
-                                    textShadow: [
-                                        "0 0 15px rgba(139,197,63,0.5)",
-                                        "0 0 35px rgba(255,201,59,0.6)",
-                                        "0 0 15px rgba(139,197,63,0.5)",
-                                    ],
-                                }}
-                                transition={{ duration: 4, repeat: Infinity }}
-                            >
+                            <h1 className="text-6xl md:text-7xl font-bold leading-tight">
                                 About{" "}
-                                <motion.span
-                                    className="text-primary inline-block"
-                                    animate={{ scale: [1, 1.1, 1] }}
-                                // transition={{ duration: 2, repeat: Infinity }}
-                                >
-                                    Us
-                                </motion.span>
-                            </motion.h1>
+                                <span className="text-primary inline-block">Us</span>
+                            </h1>
                         </motion.div>
                        
                         {/* Animated underline */}
@@ -410,7 +344,7 @@ const AboutUs = React.forwardRef((props, ref) => {
                     </motion.div>
 
                     {/* DESCRIPTION */}
-                    <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl text-start" >
+                    <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl text-start" >
                         ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
 
                 </div>
@@ -619,7 +553,6 @@ const AboutUs = React.forwardRef((props, ref) => {
 
             {/* VALUES SECTION - CREATIVE CARD DESIGNS */}
             <div className="max-w-7xl mx-auto px-8 py-20 relative">
-                <FloatingParticles />
 
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -645,24 +578,17 @@ const AboutUs = React.forwardRef((props, ref) => {
                     >
                         Our Digital Marketing Values
                     </motion.h2> */}
-                    <motion.h2
+                    <h2
                         className="text-5xl font-bold mb-4 leading-tight pt-1"
-                        animate={{
-                            backgroundImage: [
-                                'linear-gradient(45deg, #8bc53f 0%, #ffc93b 100%)',
-                                'linear-gradient(45deg, #ffc93b 0%, #8bc53f 100%)',
-                                'linear-gradient(45deg, #8bc53f 0%, #ffc93b 100%)',
-                            ],
-                        }}
-                        transition={{ duration: 5, repeat: Infinity }}
                         style={{
+                            backgroundImage: 'linear-gradient(45deg, #8bc53f 0%, #ffc93b 100%)',
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             backgroundClip: 'text',
                         }}
                     >
                         Our Digital Marketing Values
-                    </motion.h2>
+                    </h2>
 
                     {/* Decorative line */}
                     <div className="flex items-center justify-center gap-4 mt-8">

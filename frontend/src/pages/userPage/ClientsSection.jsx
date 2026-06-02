@@ -1,5 +1,5 @@
 
-import { motion, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import React, { useRef, useEffect, useState } from "react";
 
 
@@ -36,8 +36,6 @@ const logos = [
 
 const ClientsSection = React.forwardRef((props, ref) => {
     const counterRef = useRef(null);
-    const sectionRef = useRef(null);
-
     const isInView = useInView(counterRef, { once: true });
     const [count, setCount] = useState(0);
 
@@ -62,25 +60,15 @@ const ClientsSection = React.forwardRef((props, ref) => {
         return () => clearInterval(timer);
     }, [isInView]);
 
-    const { scrollYProgress } = useScroll({
-        target: sectionRef,
-        offset: ["start end", "end start"],
-    });
-
-    const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
     return (
         <section
-            ref={sectionRef}
-            className="relative min-h-[10vh] pt-15 overflow-hidden "
+            ref={ref}
+            className="relative min-h-[10vh] pt-15 overflow-hidden"
         >
-            {/* Parallax Background */}
-            <motion.div
-                style={{ y: bgY }}
-                className="absolute inset-0 z-0"
-            >
+            {/* Static background — parallax scroll listener removed (was running on every scroll) */}
+            <div className="absolute inset-0 z-0">
                 <div className="absolute inset-0 dark:bg-white" />
-            </motion.div>
+            </div>
 
             {/* Content */}
             <div className="relative z-10 py">
@@ -135,6 +123,8 @@ const ClientsSection = React.forwardRef((props, ref) => {
                                 <img
                                     src={logo}
                                     alt="Client logo"
+                                    loading="lazy"
+                                    decoding="async"
                                     className="max-w-full max-h-full object-contain"
                                 />
                             </div>

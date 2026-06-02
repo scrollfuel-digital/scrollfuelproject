@@ -37,6 +37,9 @@ const Footer = () => {
                             <img
                                 src={dark ? "/assets/logo1.png" : "/logo2.png"}
                                 alt="Logo"
+                                width={208}
+                                height={48}
+                                decoding="async"
                                 className="w-44 sm:w-44 lg:w-52 pb-4 transition-all duration-300"
                             />
                         </NavLink>
@@ -63,6 +66,10 @@ const Footer = () => {
                                     <img
                                         src={item.icon}
                                         alt="social icon"
+                                        width={24}
+                                        height={24}
+                                        loading="lazy"
+                                        decoding="async"
                                         className="w-6 h-6 object-contain"
                                     />
                                 </a>

@@ -91,6 +91,8 @@ const TestimonialCard = ({ item }) => {
                         <img
                             src={item.img}
                             alt={item.name}
+                            loading="lazy"
+                            decoding="async"
                             onError={() => setImgError(true)}
                             className="w-full h-full object-cover"
                         />

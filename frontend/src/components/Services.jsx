@@ -293,30 +293,6 @@ const ServiceIcon = ({ type, isHovered }) => {
   return icons[type] || icons.FileText;
 };
 
-/* BACKGROUND PATTERN */
-const AnimatedBackground = ({ isHovered }) => (
-  <div className="absolute inset-0 overflow-hidden pointer-events-none">
-   
-    {/* Floating circles */}
-    <motion.div
-      className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-2xl"
-      animate={{
-        scale: isHovered ? [1, 1.2, 1] : 1,
-        opacity: isHovered ? [0.05, 0.15, 0.05] : 0.05,
-      }}
-      transition={{ duration: 3, repeat: Infinity }}
-    />
-    <motion.div
-      className="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-secondary/5 blur-2xl"
-      animate={{
-        scale: isHovered ? [1, 1.3, 1] : 1,
-        opacity: isHovered ? [0.05, 0.15, 0.05] : 0.05,
-      }}
-      transition={{ duration: 3, repeat: Infinity, delay: 1 }}
-    />
-  </div>
-);
-
 /* SERVICES SECTION WITH FORWARDED REF */
 const Services = React.forwardRef((props, ref) => {
   const navigate = useNavigate();
@@ -329,24 +305,10 @@ const Services = React.forwardRef((props, ref) => {
       // className="py-20 bg-dark text-white relative overflow-hidden"
       className="py-20 bg-white text-black dark:bg-black dark:text-white relative overflow-hidden"
     >
-      {/* Animated background elements */}
+      {/* Static background gradient blobs — no JS animation needed */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl"
-          animate={{
-            y: [0, 50, 0],
-            x: [0, 30, 0],
-          }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-        />
-        <motion.div
-          className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-secondary/5 blur-3xl"
-          animate={{
-            y: [0, -50, 0],
-            x: [0, -30, 0],
-          }}
-          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-        />
+        <div className="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-primary/5 blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-96 h-96 rounded-full bg-secondary/5 blur-3xl" />
       </div>
 
       {/* Title */}
@@ -397,8 +359,11 @@ const Services = React.forwardRef((props, ref) => {
                 whileHover={{ scale: 1.02 }}
                 transition={{ duration: 0.3 }}
               >
-                {/* Animated background on hover */}
-                <AnimatedBackground isHovered={hoveredIndex === idx} />
+              {/* Static background circles instead of always-running motion loops */}
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className="absolute top-1/4 left-1/4 w-32 h-32 rounded-full bg-primary/5 blur-2xl" />
+                <div className="absolute bottom-1/4 right-1/4 w-40 h-40 rounded-full bg-secondary/5 blur-2xl" />
+              </div>
 
                 {/* Color overlay on hover */}
                 <motion.div

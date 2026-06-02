@@ -2,35 +2,32 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favupdate.png" />
+    <link rel="icon" type="image/png" href="/favupdate.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scrollfuel - Best Digital Marketing Agency in Nagpur</title>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
-      rel="stylesheet"
-    />
+
+    <!-- Preconnect to external origins FIRST (before any requests) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.googletagmanager.com" />
+
+    <!-- Single optimised font load with display=swap (LCP improvement) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-RVBG6R9BJ0"
-    ></script>
+
+    <!-- DNS prefetch for video CDN / same origin video -->
+    <link rel="dns-prefetch" href="/assets/video/herosection.mp4" />
+
+    <!-- Google Analytics (deferred so it never blocks rendering) -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-
-      gtag("js", new Date());
-
-      gtag("config", "G-RVBG6R9BJ0", {
-        send_page_view: false,
-        debug_mode: true,
-      });
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-RVBG6R9BJ0', { send_page_view: false });
     </script>
+    <script defer src="https://www.googletagmanager.com/gtag/js?id=G-RVBG6R9BJ0"></script>
   </head>
   <body>
     <div id="root"></div>
