@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { BookOpenIcon } from "@animateicons/react/lucide";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -317,14 +318,44 @@ const PageHeading = () => (
 );
 
 const Loader = () => (
-  <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center gap-2">
-    {[0, 1, 2].map((i) => (
-      <span
-        key={i}
-        className="w-1.5 h-1.5 rounded-full bg-[#8bc53f] animate-bounce"
-        style={{ animationDelay: `${i * 0.15}s` }}
-      />
-    ))}
+  <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 select-none">
+
+    {/* Animated book icon — green on light, yellow on dark */}
+    <div className="flex flex-col items-center gap-5">
+
+      {/* Light mode icon */}
+      <div className="block dark:hidden">
+        <BookOpenIcon size={72} duration={1} color="#8bc53f" />
+      </div>
+
+      {/* Dark mode icon */}
+      <div className="hidden dark:block">
+        <BookOpenIcon size={72} duration={1} color="#ffc93b" />
+      </div>
+
+      {/* Label */}
+      <p className="text-[11px] font-bold tracking-[0.35em] text-[#8bc53f] dark:text-[#ffc93b] uppercase">
+        Loading Stories
+      </p>
+
+      {/* Staggered dots */}
+      <div className="flex gap-1.5">
+        {[0, 1, 2, 3].map((i) => (
+          <span
+            key={i}
+            className="w-1.5 h-1.5 rounded-full bg-[#8bc53f] dark:bg-[#ffc93b]"
+            style={{ animation: `dotFade 1.2s ease-in-out ${i * 0.2}s infinite` }}
+          />
+        ))}
+      </div>
+    </div>
+
+    <style>{`
+      @keyframes dotFade {
+        0%,80%,100% { opacity: 0.2; transform: scale(0.8); }
+        40%          { opacity: 1;   transform: scale(1.4); }
+      }
+    `}</style>
   </div>
 );
 
