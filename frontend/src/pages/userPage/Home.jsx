@@ -8,10 +8,8 @@ import Testimonials from "../../components/Testimonials.jsx";
 
 /* Slides */
 const slides = [
-    { type: "video", src: "/assets/video/sfweblanding1.mp4" },
-    { type: "video", src: "/assets/video/sflanding2.mp4" },
-    { type: "video", src: "/assets/video/sfweb.mp4" },
-    { type: "video", src: "/assets/video/sfweblandingpages.mp4" },
+    { type: "video", src: "/assets/video/herosection.mp4" },
+   
 ];
 
 export default function Home() {
@@ -39,15 +37,21 @@ export default function Home() {
 
     /* Slide Animation */
     const slideVariants = {
-        enter: (dir) => ({
-            x: dir > 0 ? "100%" : "-100%",
+        enter: {
+            opacity: 0,
+            scale: 1.08,
+            y: 40,
+        },
+        center: {
             opacity: 1,
-        }),
-        center: { x: 0, opacity: 1 },
-        exit: (dir) => ({
-            x: dir > 0 ? "-100%" : "100%",
-            opacity: 1,
-        }),
+            scale: 1,
+            y: 0,
+        },
+        exit: {
+            opacity: 0,
+            scale: 0.95,
+            y: -30,
+        },
     };
 
     return (
@@ -71,32 +75,17 @@ export default function Home() {
                         loop
                         playsInline
                         preload="auto"
-                        custom={direction}
                         variants={slideVariants}
                         initial="enter"
                         animate="center"
                         exit="exit"
-                        transition={{ duration: 1, ease: "easeInOut" }}
+                        transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
                         style={{ y: heroY }}
-                        className="absolute inset-0 w-full h-full object-contain md:object-cover bg-black select-none"
+                        className="absolute inset-0 w-full h-full object-cover bg-black select-none pt-20"
                     />
                 </AnimatePresence>
 
-                {/* SLIDER DOTS */}
-                <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-3">
-                    {slides.map((_, index) => (
-                        <button
-                            key={index}
-                            onClick={() =>
-                                setCurrent(([prev]) => [index, index > prev ? 1 : -1])
-                            }
-                            className={`h-2.5 rounded-full transition-all duration-300 ${current === index
-                                    ? "w-8 bg-white"
-                                    : "w-2.5 bg-white/50 hover:bg-white"
-                                }`}
-                        />
-                    ))}
-                </div>
+                
             </section>
             {/* ================= SECTIONS ================= */}
             <section className="bg-white dark:bg-black transition-colors duration-500 select-none">

@@ -6,17 +6,17 @@ const navLinks = [
   { name: "About Us", path: "/aboutus" },
   { name: "Services", path: "/services" },
   { name: "Blog", path: "/blog" },
-  {
-    name: "Portfolio",
-    path: "/portfolio/social-media-marketing",
-    dropdown: [
-      { name: "Social Media Marketing", path: "/portfolio/social-media-marketing" },
-      { name: "Branding", path: "/portfolio/branding" },
-      { name: "Logo Designing", path: "/portfolio/logo-designing" },
-      { name: "Video", path: "/portfolio/video" },
-      { name: "3D Animation", path: "/portfolio/3d-animation" },
-    ],
-  },
+  // {
+  //   name: "Portfolio",
+  //   path: "/portfolio/social-media-marketing",
+  //   dropdown: [
+  //     { name: "Social Media Marketing", path: "/portfolio/social-media-marketing" },
+  //     { name: "Branding", path: "/portfolio/branding" },
+  //     { name: "Logo Designing", path: "/portfolio/logo-designing" },
+  //     { name: "Video", path: "/portfolio/video" },
+  //     { name: "3D Animation", path: "/portfolio/3d-animation" },
+  //   ],
+  // },
   { name: "Career", path: "/career" },
 ];
 
@@ -183,7 +183,8 @@ const Navbar = () => {
         <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1">
           {navLinks.map((link) => (
             <div key={link.name}>
-              {link.dropdown ? (
+              {link.dropdown ? 
+              (
                 <>
                   {/* Portfolio accordion trigger */}
                   <button
@@ -228,7 +229,8 @@ const Navbar = () => {
                 >
                   {link.name}
                 </NavLink>
-              )}
+              )
+              }
             </div>
           ))}
         </div>
