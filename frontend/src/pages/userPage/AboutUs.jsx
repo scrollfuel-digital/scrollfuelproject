@@ -349,6 +349,12 @@ const AboutUsPage = () => {
     const scale = useTransform(scrollYProgress, [0, 0.5], [1, 0.8]);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "About Us | ScrollFuel - Digital Marketing Agency Nagpur";
+        const desc = document.querySelector("meta[name='description']");
+        if (desc) desc.setAttribute("content", "Learn about ScrollFuel, Nagpur's leading digital marketing agency. Meet our founder, our vision, mission and values that drive measurable business growth.");
+    }, []);
+
     const backgroundIcons = [
         { Icon: Megaphone, color: 'text-primary', size: 80, x: 15, y: -20, rotate: 10, duration: 6, delay: 0, top: '15%', left: '10%' },
         { Icon: BarChart3, color: 'text-secondary', size: 100, x: -10, y: -25, rotate: -8, duration: 7, delay: 0.5, top: '12%', right: '15%' },

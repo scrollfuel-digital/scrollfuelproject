@@ -364,6 +364,13 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  /* Per-page SEO — fixes Google indexing wrong content */
+  useEffect(() => {
+    document.title = "Blog | ScrollFuel - Digital Marketing Insights Nagpur";
+    const desc = document.querySelector("meta[name='description']");
+    if (desc) desc.setAttribute("content", "Read the latest digital marketing blogs from ScrollFuel. Tips on SEO, social media, branding, content strategy and business growth from Nagpur's top agency.");
+  }, []);
+
   useEffect(() => {
     const fetchBlogs = async () => {
       try {

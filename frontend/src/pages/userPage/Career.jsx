@@ -5,6 +5,13 @@ const API = import.meta.env.VITE_API_URL;
 
 const CareerPage = () => {
     const [jobs, setJobs] = useState([]);
+
+    useEffect(() => {
+        document.title = "Careers | ScrollFuel - Join Nagpur's Top Digital Marketing Agency";
+        const desc = document.querySelector("meta[name='description']");
+        if (desc) desc.setAttribute("content", "Join ScrollFuel, Nagpur's top digital marketing agency. Explore open positions in SEO, social media, design, video editing, web development and more.");
+    }, []);
+
     const [formData, setFormData] = useState({
         name: "",
         email: "",

@@ -444,6 +444,13 @@ export default function ContactUsPage() {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const containerRef = useRef(null);
+
+  useEffect(() => {
+    document.title = "Contact Us | ScrollFuel - Get a Free Digital Marketing Strategy";
+    const desc = document.querySelector("meta[name='description']");
+    if (desc) desc.setAttribute("content", "Contact ScrollFuel, the best digital marketing agency in Nagpur. Get a free consultation for SEO, social media, branding and performance marketing.");
+  }, []);
+
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const lineH = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 

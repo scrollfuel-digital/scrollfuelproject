@@ -596,6 +596,13 @@ const Services = () => {
     const { slug } = useParams();
     const totalCards = services.length;
 
+    useEffect(() => {
+        document.title = "Services | ScrollFuel - Best Digital Marketing Services in Nagpur";
+        const desc = document.querySelector("meta[name='description']");
+        if (desc) desc.setAttribute("content", "Explore ScrollFuel's digital marketing services: SEO, social media marketing, branding, video production, web design, Google Ads & lead generation in Nagpur.");
+    }, []);
+
+
     const { scrollYProgress } = useScroll({
         target: containerRef,
         offset: ["start start", "end end"],
