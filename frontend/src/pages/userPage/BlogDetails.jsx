@@ -479,7 +479,7 @@ const BlogDetails = () => {
           {blog.image && (
             <img
               src={blog.image}
-              className="w-full h-80 object-cover rounded-xl my-6"
+              className="w-full h-150 object-cover rounded-xl my-6"
             />
           )}
           {/* ── A) MARKDOWN CONTENT ── */}

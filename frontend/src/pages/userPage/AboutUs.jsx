@@ -519,6 +519,86 @@ const AboutUsPage = () => {
             </section>
 
 
+            {/* ============= SEO CONTENT SECTION ============= */}
+            <section className="py-16 px-6 bg-white dark:bg-black">
+                <div className="max-w-5xl mx-auto">
+
+                    {/* H1 block */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7 }}
+                        className="mb-10"
+                    >
+                        <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white leading-tight mb-3">
+                            Digital Marketing Agency in Nagpur
+                        </h2>
+                        <p className="text-[#8bc53f] font-semibold text-lg mb-6">
+                            Driving Business Growth Through Creative &amp; Performance Marketing
+                        </p>
+                        <h3 className="text-xl font-bold text-black dark:text-white mb-4">
+                            Transform Your Brand with Strategic Digital Marketing Solutions
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            In today's competitive digital landscape, having a website or social media profile is not enough. Businesses need a strategic approach that increases visibility, attracts qualified customers, and generates measurable results. At ScrollFuel, we help businesses grow through innovative digital marketing strategies designed to strengthen online presence, improve customer engagement, and drive long-term success.
+                        </p>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            As a leading Digital Marketing Agency in Nagpur, ScrollFuel specializes in SEO &amp; PPC Marketing, Content Strategy, Social Media Marketing, Branding &amp; Designing, Website Development, and Video &amp; Photography Services. Our team combines creativity, technology, and data-driven insights to create customized marketing solutions that align with your business goals.
+                        </p>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Whether you're a startup, local business, real estate company, educational institution, healthcare provider, or growing enterprise, we help you connect with the right audience and build a strong digital foundation for growth.
+                        </p>
+                    </motion.div>
+
+                    {/* Divider */}
+                    <div className="h-px bg-gray-200 dark:bg-gray-800 mb-10" />
+
+                    {/* Why Choose ScrollFuel */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.7, delay: 0.1 }}
+                    >
+                        <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-4">
+                            Why Choose ScrollFuel?
+                        </h2>
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+                            Businesses today need marketing strategies that deliver more than impressions and clicks. They need strategies that generate leads, improve conversions, and support sustainable growth.
+                        </p>
+                        <p className="text-gray-700 dark:text-gray-200 font-semibold mb-4">At ScrollFuel, we focus on:</p>
+
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+                            {[
+                                "Customized Marketing Strategies",
+                                "Data-Driven Decision Making",
+                                "Creative Brand Development",
+                                "Performance-Focused Campaigns",
+                                "Transparent Reporting",
+                                "Long-Term Business Growth",
+                            ].map((item, i) => (
+                                <motion.div
+                                    key={i}
+                                    initial={{ opacity: 0, x: -20 }}
+                                    whileInView={{ opacity: 1, x: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.4, delay: i * 0.07 }}
+                                    className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 rounded-xl px-4 py-3"
+                                >
+                                    <span className="w-2 h-2 rounded-full bg-[#8bc53f] shrink-0" />
+                                    <span className="text-gray-700 dark:text-gray-200 text-sm font-medium">{item}</span>
+                                </motion.div>
+                            ))}
+                        </div>
+
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                            Our goal is simple: help businesses attract more customers, strengthen their brand, and maximize return on investment through effective digital marketing solutions.
+                        </p>
+                    </motion.div>
+                </div>
+            </section>
+
             {/* ============= FOUNDER SECTION ============= */}
             <section className="py-10 px-6 bg-white text-black dark:bg-black relative overflow-hidden">
                 {/* Section background decoration */}

@@ -352,7 +352,7 @@ const Services = React.forwardRef((props, ref) => {
             >
               {/* Card container */}
               <motion.div
-                className="relative h-full min-h-100 p-8 rounded-2xl overflow-hidden border border-white/10 flex flex-col"
+                className="relative h-full p-8 rounded-2xl overflow-hidden border border-white/10 flex flex-col"
                 style={{
                   background: 'linear-gradient(135deg, rgba(20, 20, 20, 0.9) 0%, rgba(30, 30, 30, 0.8) 100%)',
                 }}
@@ -413,9 +413,9 @@ const Services = React.forwardRef((props, ref) => {
                     <ServiceIcon type={ser.icon} isHovered={hoveredIndex === idx} />
                   </motion.div>
 
-                  {/* Title - Fixed height */}
+                  {/* Title */}
                   <motion.h3
-                    className="text-xl font-bold tracking-tight mb-4 h-14 flex items-start"
+                    className="text-xl font-bold tracking-tight mb-3"
                     animate={{
                       color: hoveredIndex === idx ? 'var(--color-green)' : 'var(--color-yellow)',
                     }}
@@ -424,9 +424,9 @@ const Services = React.forwardRef((props, ref) => {
                     {ser.title}
                   </motion.h3>
 
-                  {/* Description - Fixed height with line clamp */}
+                  {/* Description */}
                   <motion.p
-                    className="text-gray-300 text-sm leading-relaxed font-light mb-6 grow line-clamp-4 h-24"
+                    className="text-gray-300 text-sm leading-relaxed font-light mb-4 line-clamp-3"
                     animate={{
                       color: hoveredIndex === idx ? '#ffffff' : '#d1d5db',
                     }}
@@ -434,6 +434,16 @@ const Services = React.forwardRef((props, ref) => {
                   >
                     {ser.description}
                   </motion.p>
+
+                  {/* Keywords as bullet list */}
+                  <ul className="text-gray-400 text-xs leading-relaxed space-y-1 mb-6 grow">
+                    {ser.keywords.slice(0, 5).map((kw, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <span className="w-1 h-1 rounded-full bg-[#8bc53f] shrink-0" />
+                        {kw}
+                      </li>
+                    ))}
+                  </ul>
 
                   {/* Footer with animated arrow - Fixed at bottom */}
                   <div className="pt-4 flex items-center justify-between mt-auto border-t border-white/5">

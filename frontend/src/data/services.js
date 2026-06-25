@@ -5,15 +5,16 @@ export const services = [
         icon: "TrendingUp",
         illustration: "/assets/hero/seo1.jpeg",
         description:
-            "Our SEO and PPC services are built to improve your online visibility and bring in the right audience.We combine organic SEO with paid advertising to create a steady and scalable growth strategy.Our team handles in-depth keyword research and on- page optimization.We also focus on technical SEO to improve site performance and search rankings. On the PPC side, we create targeted campaigns on platforms like Google Ads to drive immediate traffic and conversions.",
+            "Search visibility plays a crucial role in business growth. Our SEO and PPC marketing services help businesses improve rankings, increase website traffic, and generate qualified leads. By combining organic search strategies with paid advertising, we help businesses achieve both short-term and long-term results.",
         keywords: [
-            "SEO services",
-            "PPC services",
-            "Google Ads",
-            "Keyword research",
+            "Search Engine Optimization (SEO)",
+            "Local SEO Services",
             "Technical SEO",
-            "Local SEO",
-            "Lead generation"
+            "Keyword Research",
+            "Google Ads Management",
+            "PPC Campaign Optimization",
+            "Conversion Tracking",
+            "Lead Generation Campaigns"
         ],
         content:
             "We help brands rank higher, convert better, and scale faster using ethical SEO and high-performing paid campaigns.",
@@ -26,14 +27,14 @@ export const services = [
         icon: "FileText",
         illustration: "/assets/hero/content.jpeg",
         description:
-            "Our social media marketing builds a strong, consistent presence across leading platforms. We create strategies aligned with your brand voice, target the right audience, and encourage meaningful interaction. Through creative content, regular posting, active engagement, and performance tracking, we increase awareness, expand reach, and build lasting relationships that drive measurable business growth sustainably.",
+            "Content is the foundation of successful digital marketing. High-quality content helps businesses educate their audience, improve search visibility, and establish authority within their industry. We create content that not only attracts visitors but also encourages engagement and conversions.",
         keywords: [
-            "Content marketing",
-            "SEO content",
-            "Blog writing",
-            "Website content",
-            "Brand storytelling",
-            "Audience engagement"
+            "Website Content Development",
+            "SEO Content Writing",
+            "Blog Content Creation",
+            "Landing Page Content",
+            "Content Planning",
+            "Content Optimization"
         ],
         content:
             "From brand messaging to long-term content calendars, we build strategies that connect and convert.",
@@ -46,19 +47,16 @@ export const services = [
         icon: "Instagram",
         illustration: "/assets/hero/social.jpeg",
         description:
-            "We create a strong and consistent social media presence aligned with your brand voice and targeted audience for maximum impact. Our creative content and regular posting drive meaningful engagement and keep your brand visible. Through active audience interaction and performance analysis, we strengthen relationships and boost reach and brand awareness for long-term growth.",
+            "Social media platforms provide businesses with powerful opportunities to connect with customers and build brand awareness. Through strategic social media marketing, we help businesses strengthen relationships with their audience and increase brand visibility.",
         keywords: [
-            "content planning",
-            "social media growth",
-            "digital branding",
-            "SMM services",
-            "brand awareness",
-            "Facebook marketing",
-            "social media management",
-            "audience engagement",
-            "Instagram marketing",
-
-
+            "Instagram Marketing",
+            "Facebook Marketing",
+            "LinkedIn Marketing",
+            "YouTube Marketing",
+            "Content Planning & Design",
+            "Audience Engagement",
+            "Campaign Management",
+            "Performance Reporting"
         ],
         content:
             "We grow communities, drive engagement, and turn followers into customers.",
@@ -71,14 +69,15 @@ export const services = [
         icon: "Palette",
         illustration: "/assets/hero/branding.png",
         description:
-            "Our branding and graphic design services help businesses build a strong, memorable visual identity that stands out in today’s competitive market. We craft creative, strategic designs that reflect your brand values and communicate your message with clarity and confidence. From logo creation to complete marketing materials, every element is developed with consistency and purpose. We focus on delivering clean, modern, professional visuals that connect with your target audience, strengthen brand recognition, and support long-term business growth.",
+            "Your brand identity is one of the most valuable assets your business owns. Effective branding helps customers recognize, trust, and remember your business. Our creative team develops visual identities that communicate your values and differentiate your business from competitors.",
         keywords: [
-            "Branding services",
-            "Logo design",
-            "Graphic design",
-            "Brand identity",
-            "Marketing creatives",
-            "Visual branding"
+            "Logo Design",
+            "Brand Identity Development",
+            "Social Media Creatives",
+            "Marketing Collateral",
+            "Brochure Design",
+            "Advertisement Creatives",
+            "Corporate Branding"
         ],
         content:
             "We design brands that feel premium, memorable, and trustworthy.",
@@ -91,14 +90,14 @@ export const services = [
         icon: "Code",
         illustration: "/assets/hero/website2.png",
         description:
-            "Our website design and development services create responsive, visually appealing, user-friendly websites aligned with your business goals. We focus on clean layouts, intuitive navigation, mobile responsiveness, fast loading speed, and SEO-ready structure. Each website enhances user experience, strengthens brand credibility, and increases conversion potential, delivering measurable results that support sustainable digital growth.",
+            "Your website is often the first interaction customers have with your business. A professional website creates trust, improves user experience, and supports lead generation. Every website we build is Mobile Responsive, SEO Friendly, Fast Loading, User Focused and Conversion Optimized.",
         keywords: [
-            "Website development",
-            "Responsive design",
-            "UX UI design",
-            "SEO-friendly website",
-            "Mobile-friendly website",
-            "Website performance"
+            "Business Websites",
+            "Corporate Websites",
+            "Real Estate Websites",
+            "E-Commerce Websites",
+            "Landing Pages",
+            "Portfolio Websites"
         ],
         content:
             "Fast, responsive, and scalable websites built with modern tech.",
@@ -111,14 +110,14 @@ export const services = [
         icon: "Video",
         illustration: "/assets/hero/videophoto.jpeg",
         description:
-            "We capture your brand story, products, and services through high-quality videography and photography that leaves a lasting impression. Our visuals are thoughtfully crafted for social media, websites, advertisements, and marketing campaigns to strengthen your digital presence. From detailed product shoots to engaging corporate videos and professional event coverage, every piece reflects your brand identity. With expert lighting, creative composition, and compelling storytelling, we produce impactful content that builds trust, increases engagement, and drives meaningful business growth.",
+            "Visual content has become an essential part of modern marketing. High-quality photos and videos help businesses showcase products, services, and brand stories effectively. Professional visual content improves engagement, strengthens brand credibility, and supports marketing campaigns across multiple platforms.",
         keywords: [
-            "Videography",
-            "Photography",
-            "Product photography",
-            "Promotional videos",
-            "Social media videos",
-            "Video marketing"
+            "Product Photography",
+            "Corporate Photography",
+            "Event Photography",
+            "Brand Videos",
+            "Promotional Videos",
+            "Social Media Reels"
         ],
         content:
             "Visual storytelling that elevates your brand presence.",
