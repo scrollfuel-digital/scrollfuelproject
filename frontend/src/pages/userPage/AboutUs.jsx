@@ -26,6 +26,7 @@ import {
     Award,
     Briefcase,
     Code2,
+ Sparkles
 } from 'lucide-react';
 
 // ============= ANIMATION VARIANTS =============
@@ -341,7 +342,20 @@ const FounderCard = () => {
         </div>
     );
 };
-
+const Eyebrow = ({ children }) => (
+    <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.5 }}
+        className="inline-flex items-center gap-2 mb-5"
+    >
+        <Sparkles size={14} className="text-primary" />
+        <span className="text-xs font-semibold tracking-[0.2em] uppercase text-muted">
+            {children}
+        </span>
+    </motion.div>
+);
 const AboutUsPage = () => {
     const { scrollYProgress } = useScroll();
     const y = useTransform(scrollYProgress, [0, 1], [0, 300]);
@@ -374,6 +388,33 @@ const AboutUsPage = () => {
     const titleText = "About Us";
     const highlightWord = "Us";
 
+
+    const whyChoose = [
+        {
+            title: 'Customized Marketing Strategies',
+            text: 'Built around your business, not a template.',
+        },
+        {
+            title: 'Data-Driven Decision Making',
+            text: 'Every move backed by numbers, not guesswork.',
+        },
+        {
+            title: 'Creative Brand Development',
+            text: 'Brand stories that people actually remember.',
+        },
+        {
+            title: 'Performance-Focused Campaigns',
+            text: 'Spend tied directly to results, always.',
+        },
+        {
+            title: 'Transparent Reporting',
+            text: 'You see exactly where every rupee goes.',
+        },
+        {
+            title: 'Long-Term Business Growth',
+            text: 'We plan for your next year, not just this click.',
+        },
+    ];
     return (
         <div className="bg-white dark:bg-black dark:text-white overflow-hidden select-none">
             {/* ============= HERO SECTION ============= */}
@@ -467,9 +508,9 @@ const AboutUsPage = () => {
                                 variants={textReveal}
                                 className=" md:text-lg dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-4 text-start"
                             >
-                               At <b>Scrollfuel Digital Marketing Company in Nagpur </b>, we blend creativity and strategy to craft impactful digital marketing solutions. Our team is passionate about helping businesses thrive online with tailored strategies that drive real results. 
-                               
-                               As a <b>Top Digital Marketing Company in Nagpur</b>, we’re committed to building your digital presence with purpose and performance. Let’s grow together and take your brand to the next level.
+                                At <b>Scrollfuel Digital Marketing Company in Nagpur </b>, we blend creativity and strategy to craft impactful digital marketing solutions. Our team is passionate about helping businesses thrive online with tailored strategies that drive real results.
+
+                                As a <b>Top Digital Marketing Company in Nagpur</b>, we’re committed to building your digital presence with purpose and performance. Let’s grow together and take your brand to the next level.
                                 {/* ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. */}
                             </motion.p>
                         </motion.div>
@@ -520,85 +561,211 @@ const AboutUsPage = () => {
 
 
             {/* ============= SEO CONTENT SECTION ============= */}
-            <section className="py-16 px-6 bg-white dark:bg-black">
-                <div className="max-w-5xl mx-auto">
+            <section className="relative px-6 md:px-12 py-24 md:py-32 bg-white dark:bg-black overflow-hidden">
+                {/* Ambient floating accents — reuse existing keyframe, not Framer */}
+                <div
+                    className="absolute -top-10 right-[8%] w-40 h-40 rounded-full bg-[#8bc53f]/10 blur-3xl animate-float pointer-events-none"
+                    aria-hidden="true"
+                />
+                <div
+                    className="absolute top-1/2 -left-16 w-56 h-56 rounded-full bg-[#ffc93b]/10 blur-3xl animate-float pointer-events-none"
+                    style={{ animationDelay: '1.5s' }}
+                    aria-hidden="true"
+                />
 
-                    {/* H1 block */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7 }}
-                        className="mb-10"
-                    >
-                        <h2 className="text-3xl md:text-4xl font-bold text-black dark:text-white leading-tight mb-3">
-                            Digital Marketing Agency in Nagpur
-                        </h2>
-                        <p className="text-[#8bc53f] font-semibold text-lg mb-6">
-                            Driving Business Growth Through Creative &amp; Performance Marketing
-                        </p>
-                        <h3 className="text-xl font-bold text-black dark:text-white mb-4">
-                            Transform Your Brand with Strategic Digital Marketing Solutions
-                        </h3>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                            In today's competitive digital landscape, having a website or social media profile is not enough. Businesses need a strategic approach that increases visibility, attracts qualified customers, and generates measurable results. At ScrollFuel, we help businesses grow through innovative digital marketing strategies designed to strengthen online presence, improve customer engagement, and drive long-term success.
-                        </p>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                            As a leading Digital Marketing Agency in Nagpur, ScrollFuel specializes in SEO &amp; PPC Marketing, Content Strategy, Social Media Marketing, Branding &amp; Designing, Website Development, and Video &amp; Photography Services. Our team combines creativity, technology, and data-driven insights to create customized marketing solutions that align with your business goals.
-                        </p>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                            Whether you're a startup, local business, real estate company, educational institution, healthcare provider, or growing enterprise, we help you connect with the right audience and build a strong digital foundation for growth.
-                        </p>
-                    </motion.div>
+                <div className="relative max-w-7xl mx-auto">
+                    <Eyebrow>Digital Marketing Agency · Nagpur</Eyebrow>
 
-                    {/* Divider */}
-                    <div className="h-px bg-gray-200 dark:bg-gray-800 mb-10" />
+                    {/* Headline block */}
+                    <div className="grid lg:grid-cols-[1.15fr_1fr] gap-12 lg:gap-20 mb-16">
+                        <div>
+                            <motion.h2
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.7 }}
+                                className="font-serif text-4xl md:text-5xl lg:text-6xl leading-[1.08] mb-5"
+                            >
+                                Digital Marketing Agency{' '}
+                                <span className="text-primary italic">in Nagpur.</span>
+                            </motion.h2>
 
-                    {/* Why Choose ScrollFuel */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: 0.1 }}
-                    >
-                        <h2 className="text-2xl md:text-3xl font-bold text-black dark:text-white mb-4">
-                            Why Choose ScrollFuel?
-                        </h2>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
-                            Businesses today need marketing strategies that deliver more than impressions and clicks. They need strategies that generate leads, improve conversions, and support sustainable growth.
-                        </p>
-                        <p className="text-gray-700 dark:text-gray-200 font-semibold mb-4">At ScrollFuel, we focus on:</p>
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
-                            {[
-                                "Customized Marketing Strategies",
-                                "Data-Driven Decision Making",
-                                "Creative Brand Development",
-                                "Performance-Focused Campaigns",
-                                "Transparent Reporting",
-                                "Long-Term Business Growth",
-                            ].map((item, i) => (
-                                <motion.div
-                                    key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.4, delay: i * 0.07 }}
-                                    className="flex items-center gap-3 bg-gray-50 dark:bg-white/5 rounded-xl px-4 py-3"
-                                >
-                                    <span className="w-2 h-2 rounded-full bg-[#8bc53f] shrink-0" />
-                                    <span className="text-gray-700 dark:text-gray-200 text-sm font-medium">{item}</span>
-                                </motion.div>
-                            ))}
+                            <motion.p
+                                initial={{ opacity: 0, y: 16 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: 0.1 }}
+                                className="text-base md:text-lg font-semibold text-primary"
+                            >
+                                Driving Business Growth Through Creative &amp; Marketing
+                            </motion.p>
                         </div>
 
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
-                            Our goal is simple: help businesses attract more customers, strengthen their brand, and maximize return on investment through effective digital marketing solutions.
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.15 }}
+                            className="self-end border-l-2 border-primary pl-6"
+                        >
+                            <h3 className="font-serif text-xl md:text-2xl leading-snug">
+                                Transform your brand with strategic digital marketing
+                                solutions.
+                            </h3>
+                        </motion.div>
+                    </div>
+
+                    {/* Body copy */}
+                    <div className="grid lg:grid-cols-[220px_1fr] gap-8 lg:gap-16 pt-10 border-t border-black/10 dark:border-white/10">
+                        <span className="text-xs font-semibold tracking-[0.2em] uppercase text-muted">
+                            What we do
+                        </span>
+
+                        <div className="space-y-6 max-w-3xl">
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.1 }}
+                                className="text-black/75 dark:text-white/75 leading-relaxed text-lg"
+                            >
+                                In today's competitive digital landscape, having a website
+                                or social media profile is not enough. Businesses need a
+                                strategic approach that increases visibility, attracts
+                                qualified customers, and generates measurable results. At{' '}
+                                <span className="font-semibold text-black dark:text-white">
+                                    ScrollFuel
+                                </span>
+                                , we help businesses grow through innovative digital
+                                marketing strategies designed to strengthen online
+                                presence, improve customer engagement, and drive long-term
+                                success.
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.18 }}
+                                className="text-black/75 dark:text-white/75 leading-relaxed text-lg"
+                            >
+                                As a leading Digital Marketing Agency in Nagpur, ScrollFuel
+                                specializes in{' '}
+                                <span className="underline-primary">
+                                    SEO &amp; PPC Marketing
+                                </span>
+                                , Content Strategy, Social Media Marketing, Branding &amp;
+                                Designing, Website Development, and Video &amp; Photography
+                                Services. Our team combines creativity, technology, and
+                                data-driven insights to create customized marketing
+                                solutions that align with your business goals.
+                            </motion.p>
+                            <motion.p
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.6, delay: 0.26 }}
+                                className="text-black/75 dark:text-white/75 leading-relaxed text-lg"
+                            >
+                                Whether you're a startup, local business, real estate
+                                company, educational institution, healthcare provider, or
+                                growing enterprise, we help you connect with the right
+                                audience and build a strong digital foundation for growth.
+                            </motion.p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ============================= WHY CHOOSE — glow cards ============================= */}
+            <section className="relative px-6 md:px-12 py-24 md:py-32 bg-dark text-white overflow-hidden">
+                <div
+                    className="absolute top-0 left-1/3 w-72 h-72 rounded-full bg-[#8bc53f]/10 blur-3xl animate-float pointer-events-none"
+                    aria-hidden="true"
+                />
+
+                <div className="relative max-w-7xl mx-auto">
+                    <Eyebrow>Why Choose ScrollFuel</Eyebrow>
+
+                    <div className="grid lg:grid-cols-[1fr_1fr] gap-12 mb-16">
+                        <motion.h2
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.7 }}
+                            className="font-serif text-4xl md:text-5xl leading-[1.08]"
+                        >
+                            Impressions are easy.{' '}
+                            <span className="text-secondary italic">
+                                Outcomes are the job.
+                            </span>
+                        </motion.h2>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: 0.1 }}
+                            className="self-end text-white/65 leading-relaxed text-lg"
+                        >
+                            Businesses today need marketing strategies that deliver more
+                            than impressions and clicks. They need strategies that
+                            generate leads, improve conversions, and support sustainable
+                            growth. At ScrollFuel, we focus on:
+                        </motion.p>
+                    </div>
+
+                    {/* Glow cards — built around the existing group-hover-glow utility.
+                        Note: .group:hover .group-hover-glow is a descendant selector in
+                        the stylesheet, so the glow target must be a *child* of .group,
+                        not the .group element itself. */}
+                    <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                        {whyChoose.map((item, i) => (
+                            <motion.div
+                                key={item.title}
+                                initial={{ opacity: 0, y: 24 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.08 }}
+                                className="group relative rounded-2xl"
+                            >
+                                <div className="group-hover-glow relative rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover-border-primary">
+                                    <span className="font-serif text-3xl text-[#8bc53f]/70 group-hover-text-primary transition-colors duration-300">
+                                        {String(i + 1).padStart(2, '0')}
+                                    </span>
+                                    <h3 className="font-serif text-lg mt-3 mb-2 leading-snug">
+                                        {item.title}
+                                    </h3>
+                                    <p className="text-white/55 text-sm leading-relaxed">
+                                        {item.text}
+                                    </p>
+                                    <ArrowRight
+                                        size={16}
+                                        className="absolute bottom-6 right-6 text-white/0 group-hover:text-[#8bc53f] group-hover:translate-x-1 transition-all duration-300"
+                                    />
+                                </div>
+                            </motion.div>
+                        ))}
+                    </div>
+
+                    {/* Closing line */}
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                        className="border-t border-white/10 mt-16 pt-10"
+                    >
+                        <p className="font-serif text-2xl md:text-3xl leading-snug max-w-3xl">
+                            Our goal is simple: help businesses attract more customers,
+                            strengthen their brand, and{' '}
+                            <span className="text-primary italic">
+                                maximize return on investment
+                            </span>{' '}
+                            through effective digital marketing solutions.
                         </p>
                     </motion.div>
                 </div>
             </section>
-
             {/* ============= FOUNDER SECTION ============= */}
             <section className="py-10 px-6 bg-white text-black dark:bg-black relative overflow-hidden">
                 {/* Section background decoration */}
@@ -716,45 +883,6 @@ const AboutUsPage = () => {
                     </motion.div>
                 </div>
             </section>
-            {/* ============= VISION & MISSION SECTION ============= */}
-            {/* <section className="py-24 px-6 bg-black relative overflow-hidden">
-                <div className="container mx-auto max-w-7xl">
-                    <div className="grid md:grid-cols-2 gap-12 md:gap-20">
-                        <motion.div
-                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                            transition={{ duration: 0.8 }} whileHover={{ scale: 1.04 }} className="group relative"
-                        >
-                            <div className="relative p-10 rounded-3xl border border-primary/30 backdrop-blur-xl bg-white/5 shadow-[0_0_0px_rgba(0,0,0,0)] transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(139,197,63,0.35)] group-hover:border-primary">
-                                <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
-                                <div className="relative z-10">
-                                    <TrendingUp size={52} className="text-primary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:rotate-6" />
-                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-primary">Our Vision</h2>
-                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
-                                        To lead digital transformation by helping brands scale faster, dominate their markets, and achieve sustainable online growth through innovation, data, and strategic marketing.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-
-                        <motion.div
-                            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
-                            transition={{ duration: 0.8, delay: 0.2 }} whileHover={{ scale: 1.04 }} className="group relative"
-                        >
-                            <div className="relative p-10 rounded-3xl border border-secondary/30 backdrop-blur-xl bg-white/5 transition-all duration-500 group-hover:shadow-[0_0_80px_rgba(255,201,59,0.35)] group-hover:border-secondary">
-                                <div className="absolute inset-0 bg-linear-to-br from-secondary/10 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 rounded-3xl" />
-                                <div className="relative z-10">
-                                    <Rocket size={52} className="text-secondary mb-6 transition-all duration-500 group-hover:scale-125 group-hover:-rotate-6" />
-                                    <h2 className="text-3xl md:text-4xl font-semibold mb-4 transition-colors duration-500 group-hover:text-secondary">Our Mission</h2>
-                                    <p className="text-white/70 text-lg leading-relaxed transition-colors duration-500 group-hover:text-white">
-                                        To lead digital transformation by helping brands scale faster, dominate markets, and achieve sustainable growth through innovation, data, and strategy.
-                                    </p>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </div>
-                </div>
-            </section> */}
-
 
             {/* ============= VALUES SECTION ============= */}
             <section className="py-10 px-6 dark:bg-black">

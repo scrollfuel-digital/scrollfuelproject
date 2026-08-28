@@ -1,13 +1,13 @@
 export const services = [
     {
-        slug: "seo-ppc-marketing",
+        slug: "best-website-seo-agency-in-nagpur",
         title: "SEO & PPC Marketing",
         icon: "TrendingUp",
         illustration: "/assets/hero/seo1.jpeg",
         description:
-            "Search visibility plays a crucial role in business growth. Our SEO and PPC marketing services help businesses improve rankings, increase website traffic, and generate qualified leads. By combining organic search strategies with paid advertising, we help businesses achieve both short-term and long-term results.",
+            "Search visibility plays a crucial role in business growth. Our SEO and PPC marketing services help businesses improve rankings, increase website traffic, and generate qualified leads.",
         keywords: [
-            "Search Engine Optimization (SEO)",
+            "Search Engine Optimization(SEO)",
             "Local SEO Services",
             "Technical SEO",
             "Keyword Research",
@@ -15,19 +15,21 @@ export const services = [
             "PPC Campaign Optimization",
             "Conversion Tracking",
             "Lead Generation Campaigns"
+
         ],
         content:
-            "We help brands rank higher, convert better, and scale faster using ethical SEO and high-performing paid campaigns.",
+            "By combining organic search strategies with paid advertising, we help businesses achieve both short-term and long-term results.",
         bg: "#8bc53f",
         text: "#ffffff"
     },
+
     {
-        slug: "content-strategy",
+        slug: "content-marketing-nagpur",
         title: "Content Strategy",
         icon: "FileText",
         illustration: "/assets/hero/content.jpeg",
         description:
-            "Content is the foundation of successful digital marketing. High-quality content helps businesses educate their audience, improve search visibility, and establish authority within their industry. We create content that not only attracts visitors but also encourages engagement and conversions.",
+            "Content is the foundation of successful digital marketing. High-quality content helps businesses educate their audience, improve search visibility, and establish authority within their industry.",
         keywords: [
             "Website Content Development",
             "SEO Content Writing",
@@ -37,39 +39,38 @@ export const services = [
             "Content Optimization"
         ],
         content:
-            "From brand messaging to long-term content calendars, we build strategies that connect and convert.",
+            "We create content that not only attracts visitors but also encourages engagement and conversions.",
         bg: "#ffffff",
         text: "#000000"
     },
+
     {
-        slug: "social-media-strategy",
+        slug: "social-media-marketing-nagpur",
         title: "Social Media Strategy",
         icon: "Instagram",
-        illustration: "/assets/hero/social.jpeg",
+        illustration: "/assets/hero/social.png",
         description:
-            "Social media platforms provide businesses with powerful opportunities to connect with customers and build brand awareness. Through strategic social media marketing, we help businesses strengthen relationships with their audience and increase brand visibility.",
+            "Social media platforms provide businesses with powerful opportunities to connect with customers and build brand awareness.",
         keywords: [
-            "Instagram Marketing",
-            "Facebook Marketing",
-            "LinkedIn Marketing",
-            "YouTube Marketing",
-            "Content Planning & Design",
-            "Audience Engagement",
-            "Campaign Management",
-            "Performance Reporting"
+            "Instagram",
+            "Facebook",
+            "LinkedIn",
+            "YouTube"
+
         ],
         content:
-            "We grow communities, drive engagement, and turn followers into customers.",
+            "Our services include content planning, creative design, audience engagement, campaign management, and performance reporting. Through strategic social media marketing, we help businesses strengthen relationships with their audience and increase brand visibility.",
         bg: "#ffc93b",
         text: "#000000"
     },
+
     {
-        slug: "branding-design",
+        slug: "branding-agency-nagpur",
         title: "Branding & Design",
         icon: "Palette",
         illustration: "/assets/hero/branding.png",
         description:
-            "Your brand identity is one of the most valuable assets your business owns. Effective branding helps customers recognize, trust, and remember your business. Our creative team develops visual identities that communicate your values and differentiate your business from competitors.",
+            "Your brand identity is one of the most valuable assets your business owns. Effective branding helps customers recognize, trust, and remember your business.",
         keywords: [
             "Logo Design",
             "Brand Identity Development",
@@ -80,17 +81,18 @@ export const services = [
             "Corporate Branding"
         ],
         content:
-            "We design brands that feel premium, memorable, and trustworthy.",
+            "Our creative team develops visual identities that communicate your values and differentiate your business from competitors.",
         bg: "#8bc53f",
         text: "#ffffff"
     },
+
     {
-        slug: "web-development",
+        slug: "website-development-company-in-nagpur",
         title: "Web Development",
         icon: "Code",
         illustration: "/assets/hero/website2.png",
         description:
-            "Your website is often the first interaction customers have with your business. A professional website creates trust, improves user experience, and supports lead generation. Every website we build is Mobile Responsive, SEO Friendly, Fast Loading, User Focused and Conversion Optimized.",
+            "Your website is often the first interaction customers have with your business. A professional website creates trust, improves user experience, and supports lead generation.",
         keywords: [
             "Business Websites",
             "Corporate Websites",
@@ -100,17 +102,18 @@ export const services = [
             "Portfolio Websites"
         ],
         content:
-            "Fast, responsive, and scalable websites built with modern tech.",
+            "Every website we build is designed to be: Mobile Responsive, SEO Friendly, Fast Loading, User Focused, Conversion Optimized",
         bg: "#ffffff",
         text: "#000000"
     },
+
     {
-        slug: "videography-photography",
+        slug: "videography-photography-company-in-nagpur",
         title: "Video & Photography",
         icon: "Video",
         illustration: "/assets/hero/videophoto.jpeg",
         description:
-            "Visual content has become an essential part of modern marketing. High-quality photos and videos help businesses showcase products, services, and brand stories effectively. Professional visual content improves engagement, strengthens brand credibility, and supports marketing campaigns across multiple platforms.",
+            "Visual content has become an essential part of modern marketing. High-quality photos and videos help businesses showcase products, services, and brand stories effectively.",
         keywords: [
             "Product Photography",
             "Corporate Photography",
@@ -120,7 +123,7 @@ export const services = [
             "Social Media Reels"
         ],
         content:
-            "Visual storytelling that elevates your brand presence.",
+            "Professional visual content improves engagement, strengthens brand credibility, and supports marketing campaigns across multiple platforms.",
         bg: "#ffc93b",
         text: "#000000"
     }

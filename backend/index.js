@@ -51,7 +51,6 @@ app.use("/api/general", generalRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/jobs", jobRoutes);
-console.log("CLIENT_URL:", process.env.CLIENT_URL);
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
