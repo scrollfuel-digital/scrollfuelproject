@@ -348,10 +348,7 @@ const ServiceDetails = () => {
                             z-30
                         "
                     >
-                        <ChevronLeft
-                            size={22}
-                            strokeWidth={2}
-                        />
+                        
                     </button>
 
                     {/* ================= NEXT BUTTON ================= */}
@@ -388,10 +385,7 @@ const ServiceDetails = () => {
                             z-30
                         "
                     >
-                        <ChevronRight
-                            size={22}
-                            strokeWidth={2}
-                        />
+                        
                     </button>
                 </div>
 

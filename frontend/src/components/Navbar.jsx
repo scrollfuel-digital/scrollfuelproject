@@ -1,22 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
+import Portfolio from "../pages/userPage/Portfolio";
 
 const navLinks = [
+  {name: "Home", path: "/" },
   { name: "About Us", path: "/aboutus" },
   { name: "Services", path: "/services" },
   { name: "Blog", path: "/blog" },
-  // {
-  //   name: "Portfolio",
-  //   path: "/portfolio/social-media-marketing",
-  //   dropdown: [
-  //     { name: "Social Media Marketing", path: "/portfolio/social-media-marketing" },
-  //     { name: "Branding", path: "/portfolio/branding" },
-  //     { name: "Logo Designing", path: "/portfolio/logo-designing" },
-  //     { name: "Video", path: "/portfolio/video" },
-  //     { name: "3D Animation", path: "/portfolio/3d-animation" },
-  //   ],
-  // },
+  { name: "Portfolio" , path:"/"},
   { name: "Career", path: "/career" },
 ];
 
@@ -189,53 +181,53 @@ const Navbar = () => {
         <div className="flex-1 overflow-y-auto px-6 py-6 flex flex-col gap-1">
           {navLinks.map((link) => (
             <div key={link.name}>
-              {link.dropdown ? 
-              (
-                <>
-                  {/* Portfolio accordion trigger */}
-                  <button
-                    onClick={() => setPortfolioOpen(!portfolioOpen)}
-                    className="w-full flex items-center justify-between py-3.5 text-base font-bold uppercase tracking-widest text-black dark:text-white border-b border-gray-100 dark:border-white/10"
+              {link.dropdown ?
+                (
+                  <>
+                    {/* Portfolio accordion trigger */}
+                    <button
+                      onClick={() => setPortfolioOpen(!portfolioOpen)}
+                      className="w-full flex items-center justify-between py-3.5 text-base font-bold uppercase tracking-widest text-black dark:text-white border-b border-gray-100 dark:border-white/10"
+                    >
+                      {link.name}
+                      <ChevronDown
+                        size={18}
+                        className={`transition-transform duration-300 text-primary ${portfolioOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {/* accordion items */}
+                    <div className={`overflow-hidden transition-all duration-300 ${portfolioOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
+                      <div className="pl-4 py-2 flex flex-col gap-1">
+                        {link.dropdown.map((item) => (
+                          <NavLink
+                            key={item.path}
+                            to={item.path}
+                            onClick={close}
+                            className={({ isActive }) =>
+                              `flex items-center gap-2 py-2.5 px-3 rounded-xl text-sm font-semibold transition-all duration-150
+                            ${isActive ? "bg-primary text-white" : "text-gray-600 dark:text-gray-300 hover:bg-primary/10 hover:text-primary"}`
+                            }
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                            {item.name}
+                          </NavLink>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <NavLink
+                    to={link.path}
+                    onClick={close}
+                    className={({ isActive }) =>
+                      `flex items-center py-3.5 text-base font-bold uppercase tracking-widest border-b border-gray-100 dark:border-white/10 transition-colors duration-150
+                    ${isActive ? "text-primary" : "text-black dark:text-white hover:text-primary"}`
+                    }
                   >
                     {link.name}
-                    <ChevronDown
-                      size={18}
-                      className={`transition-transform duration-300 text-primary ${portfolioOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-
-                  {/* accordion items */}
-                  <div className={`overflow-hidden transition-all duration-300 ${portfolioOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}>
-                    <div className="pl-4 py-2 flex flex-col gap-1">
-                      {link.dropdown.map((item) => (
-                        <NavLink
-                          key={item.path}
-                          to={item.path}
-                          onClick={close}
-                          className={({ isActive }) =>
-                            `flex items-center gap-2 py-2.5 px-3 rounded-xl text-sm font-semibold transition-all duration-150
-                            ${isActive ? "bg-primary text-white" : "text-gray-600 dark:text-gray-300 hover:bg-primary/10 hover:text-primary"}`
-                          }
-                        >
-                          <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                          {item.name}
-                        </NavLink>
-                      ))}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <NavLink
-                  to={link.path}
-                  onClick={close}
-                  className={({ isActive }) =>
-                    `flex items-center py-3.5 text-base font-bold uppercase tracking-widest border-b border-gray-100 dark:border-white/10 transition-colors duration-150
-                    ${isActive ? "text-primary" : "text-black dark:text-white hover:text-primary"}`
-                  }
-                >
-                  {link.name}
-                </NavLink>
-              )
+                  </NavLink>
+                )
               }
             </div>
           ))}
