@@ -324,7 +324,7 @@ const HeroSection = ({ servicesRef }) => {
                 transition={{ delay: 0.2, duration: 0.8, ease: "easeOut" }}
                 className="relative z-20 h-full flex items-center justify-center px-6 pt-20"
             >
-                <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-7">
+                <div className="text-white max-w-5xl w-full mx-auto flex flex-col items-center text-center space-y-2  sm:space-y-7">
 
                     {/* Subtitle Badge */}
                     <motion.div
@@ -334,7 +334,7 @@ const HeroSection = ({ servicesRef }) => {
                         className="px-6 py-2 border-2 border-primary rounded-full backdrop-blur-sm"
                         style={{ background: 'rgba(139, 197, 63, 0.15)' }}
                     >
-                        <span className="text-sm md:text-base font-medium text-primary">
+                        <span className="text-sm md:text-lg lg:text-lg sm:text-xs font-medium text-primary">
                             Digital Solutions That Drive Results
                         </span>
                     </motion.div>
@@ -344,7 +344,7 @@ const HeroSection = ({ servicesRef }) => {
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 30 }}
                         transition={{ delay: 0.4, duration: 0.8 }}
-                        className="text-5xl md:text-7xl lg:text-6xl font-bold leading-tight"
+                        className="text-2xl md:text-7xl lg:text-6xl sm:text-2xl font-bold leading-tight pb-3"
                     >
                         Our{" "}
                         <span className="relative inline-block">
@@ -359,13 +359,13 @@ const HeroSection = ({ servicesRef }) => {
                             />
                         </span>
                     </motion.h1>
-                    <h3 className="text-white">Best Digital Marketing Services in Nagpur</h3>
+                   
                     {/* Description */}
                     <motion.p
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: showContent ? 1 : 0, y: showContent ? 0 : 20 }}
                         transition={{ delay: 0.6, duration: 0.8 }}
-                        className="text-white/90 leading-relaxed max-w-4xl font-light text-start"
+                        className="text-white/90 leading-relaxed max-w-4xl font-light text-justify text-sm md:text-base"
                     >
                         {/* At ScrollFuel, we create digital solutions that go beyond visuals.
                         Our work helps brands communicate clearly, connect with the right
