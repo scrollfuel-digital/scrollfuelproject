@@ -13,6 +13,8 @@ import {
     Suspense,
 } from "react";
 
+import { Helmet } from "react-helmet-async";
+
 
 const ClientsSection = lazy(() => import("./ClientsSection.jsx"));
 const Services = lazy(() => import("../../components/Services.jsx"));
@@ -36,11 +38,13 @@ const SectionLoader = () => (
     </div>
 );
 
+
 /* =========================================================
    HERO VIDEO
 ========================================================= */
 
 const VIDEO_SRC = "/assets/video/herosection.mp4";
+
 
 /* =========================================================
    VIDEO SLIDE ANIMATION
@@ -66,16 +70,19 @@ const slideVariants = {
     },
 };
 
+
 /* =========================================================
    HOME COMPONENT
 ========================================================= */
 
 export default function Home() {
+
     const heroRef = useRef(null);
 
     const [current] = useState(0);
     const [videoReady, setVideoReady] = useState(false);
     const [mountVideo, setMountVideo] = useState(false);
+
 
     /* =====================================================
        SCROLL PARALLAX
@@ -86,214 +93,309 @@ export default function Home() {
         offset: ["start start", "end start"],
     });
 
+
     const heroY = useTransform(
         scrollYProgress,
         [0, 1],
         ["0%", "25%"]
     );
 
+
     /* =====================================================
        DELAY VIDEO MOUNT
-       Helps unblock the initial page paint
     ===================================================== */
 
     useEffect(() => {
+
         const id = requestAnimationFrame(() => {
             setMountVideo(true);
         });
 
         return () => cancelAnimationFrame(id);
+
     }, []);
 
+
     return (
-        <main
-            className="
-                bg-white
-                text-black
-                dark:bg-black
-                dark:text-white
-                overflow-hidden
-                transition-colors
-                duration-500
-                select-none 
-                sm:pt-10   
-                pt-20
-            "
-        >
+        <>
             {/* =================================================
-                HERO SECTION
+                HOMEPAGE SEO
             ================================================= */}
 
-            <section
-                ref={heroRef}
+            <Helmet>
+
+                <title>
+                    Best Digital Marketing Agency in Nagpur | ScrollFuel
+                </title>
+
+                <meta
+                    name="description"
+                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
+                />
+
+                <meta
+                    name="robots"
+                    content="index, follow, max-image-preview:large"
+                />
+
+                <link
+                    rel="canonical"
+                    href="https://scrollfuel.in/"
+                />
+
+
+                {/* Open Graph */}
+
+                <meta
+                    property="og:type"
+                    content="website"
+                />
+
+                <meta
+                    property="og:site_name"
+                    content="ScrollFuel"
+                />
+
+                <meta
+                    property="og:title"
+                    content="Best Digital Marketing Agency in Nagpur | ScrollFuel"
+                />
+
+                <meta
+                    property="og:description"
+                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
+                />
+
+                <meta
+                    property="og:url"
+                    content="https://scrollfuel.in/"
+                />
+
+                <meta
+                    property="og:image"
+                    content="https://scrollfuel.in/assets/logo1.png"
+                />
+
+                <meta
+                    property="og:locale"
+                    content="en_IN"
+                />
+
+
+                {/* Twitter */}
+
+                <meta
+                    name="twitter:card"
+                    content="summary_large_image"
+                />
+
+                <meta
+                    name="twitter:title"
+                    content="Best Digital Marketing Agency in Nagpur | ScrollFuel"
+                />
+
+                <meta
+                    name="twitter:description"
+                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
+                />
+
+                <meta
+                    name="twitter:image"
+                    content="https://scrollfuel.in/assets/logo1.png"
+                />
+
+            </Helmet>
+
+
+            <main
                 className="
-                    relative
-                    w-full
+                    bg-white
+                    text-black
+                    dark:bg-black
+                    dark:text-white
                     overflow-hidden
-                    bg-black
+                    transition-colors
+                    duration-500
                     select-none
-
-                    /* ==============================
-                       MOBILE
-                       ============================== */
-
-                    h-[240px]
-
-                    /* ==============================
-                       LARGE MOBILE / TABLET
-                       ============================== */
-
-                    sm:h-[420px]
-
-                    /* ==============================
-                       LAPTOP / DESKTOP
-                       ============================== */
-
-                    md:h-screen
+                    sm:pt-10
+                    pt-20
                 "
             >
-                {/* =================================================
-                    VIDEO LOADING BACKGROUND
-                ================================================= */}
 
-                {!videoReady && (
-                    <div
-                        className="
-                            absolute
-                            inset-0
-                            bg-black
-                        "
-                        aria-hidden="true"
-                    />
-                )}
 
                 {/* =================================================
-                    HERO VIDEO
+                    HERO SECTION
                 ================================================= */}
 
-                {mountVideo && (
-                    <AnimatePresence initial={false}>
-                        <motion.video
-                            key={current}
-                            src={VIDEO_SRC}
-                            autoPlay
-                            muted
-                            loop
-                            playsInline
-                            preload="auto"
+                <section
+                    ref={heroRef}
+                    className="
+                        relative
+                        w-full
+                        overflow-hidden
+                        bg-black
+                        select-none
 
-                            onCanPlay={() => {
-                                setVideoReady(true);
-                            }}
+                        h-[240px]
+                        sm:h-[420px]
+                        md:h-screen
+                    "
+                >
 
-                            variants={slideVariants}
-                            initial="enter"
-                            animate="center"
-                            exit="exit"
 
-                            transition={{
-                                duration: 1.2,
-                                ease: [
-                                    0.25,
-                                    0.46,
-                                    0.45,
-                                    0.94,
-                                ],
-                            }}
 
-                            style={{
-                                y: heroY,
-                            }}
 
+                    {/* =================================================
+                        VIDEO LOADING BACKGROUND
+                    ================================================= */}
+
+                    {!videoReady && (
+                        <div
                             className="
                                 absolute
                                 inset-0
-
-                                w-full
-                                h-full
-
-                                object-cover
-
                                 bg-black
-                                select-none
-                                pointer-events-none
                             "
+                            aria-hidden="true"
                         />
-                    </AnimatePresence>
-                )}
-            </section>
+                    )}
 
-            {/* =================================================
-                CLIENTS SECTION
-            ================================================= */}
 
-            <section
-                className="
-                    bg-white
-                    dark:bg-black
-                    transition-colors
-                    duration-500
-                    select-none
-                "
-            >
-                <Suspense fallback={<SectionLoader />}>
-                    <ClientsSection />
-                </Suspense>
-            </section>
+                    {/* =================================================
+                        HERO VIDEO
+                    ================================================= */}
 
-            {/* =================================================
-                SERVICES SECTION
-            ================================================= */}
+                    {mountVideo && (
+                        <AnimatePresence initial={false}>
 
-            <section
-                className="
-                    bg-white
-                    dark:bg-black
-                    transition-colors
-                    duration-500
-                    select-none
-                "
-            >
-                <Suspense fallback={<SectionLoader />}>
-                    <Services />
-                </Suspense>
-            </section>
+                            <motion.video
+                                key={current}
+                                src={VIDEO_SRC}
 
-            {/* =================================================
-                ABOUT SECTION
-            ================================================= */}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                preload="auto"
 
-            <section
-                className="
-                    bg-white
-                    dark:bg-black
-                    transition-colors
-                    duration-500
-                    select-none
-                "
-            >
-                <Suspense fallback={<SectionLoader />}>
-                    <About />
-                </Suspense>
-            </section>
+                                onCanPlay={() => {
+                                    setVideoReady(true);
+                                }}
 
-            {/* =================================================
-                TESTIMONIALS SECTION
-            ================================================= */}
+                                variants={slideVariants}
 
-            <section
-                className="
-                    bg-white
-                    dark:bg-black
-                    transition-colors
-                    duration-500
-                    select-none
-                "
-            >
-                <Suspense fallback={<SectionLoader />}>
-                    <Testimonials />
-                </Suspense>
-            </section>
-        </main>
+                                initial="enter"
+                                animate="center"
+                                exit="exit"
+
+                                transition={{
+                                    duration: 1.2,
+                                    ease: [
+                                        0.25,
+                                        0.46,
+                                        0.45,
+                                        0.94,
+                                    ],
+                                }}
+
+                                style={{
+                                    y: heroY,
+                                }}
+
+                                className="
+                                    absolute
+                                    inset-0
+                                    w-full
+                                    h-full
+                                    object-cover
+                                    bg-black
+                                    select-none
+                                    pointer-events-none
+                                "
+                            />
+
+                        </AnimatePresence>
+                    )}
+
+                </section>
+
+
+                {/* =================================================
+                    CLIENTS SECTION
+                ================================================= */}
+
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        select-none
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <ClientsSection />
+                    </Suspense>
+                </section>
+
+
+                {/* =================================================
+                    SERVICES SECTION
+                ================================================= */}
+
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        select-none
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <Services />
+                    </Suspense>
+                </section>
+
+
+                {/* =================================================
+                    ABOUT SECTION
+                ================================================= */}
+
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        select-none
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <About />
+                    </Suspense>
+                </section>
+
+
+                {/* =================================================
+                    TESTIMONIALS SECTION
+                ================================================= */}
+
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        select-none
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <Testimonials />
+                    </Suspense>
+                </section>
+
+            </main>
+        </>
     );
 }
