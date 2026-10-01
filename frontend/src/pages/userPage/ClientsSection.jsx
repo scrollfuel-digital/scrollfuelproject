@@ -78,7 +78,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold select-none"
+                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold "
                 >
                     Over{" "}
                     <span className="text-primary font-bold">

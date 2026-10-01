@@ -273,7 +273,7 @@ const Testimonials = () => {
                     onMouseLeave={resumeNow}
                     className="
     flex gap-3 overflow-x-auto pb-2 
-    cursor-grab select-none
+    cursor-grab 
     [-ms-overflow-style:none]
     [scrollbar-width:none]
     [&::-webkit-scrollbar]:hidden

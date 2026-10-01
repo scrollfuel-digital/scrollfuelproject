@@ -117,7 +117,7 @@ const BlogRow = ({ blog, index, navigate }) => {
 
         {/* Ghost number — decorative */}
         <span
-          className={`absolute bottom-4 font-serif font-black text-[110px] leading-none select-none pointer-events-none transition-all duration-700 text-stone-100 dark:text-stone-900 group-hover:translate-y-2 ${isEven ? "right-6" : "left-6"
+          className={`absolute bottom-4 font-serif font-black text-[110px] leading-none pointer-events-none transition-all duration-700 text-stone-100 dark:text-stone-900 group-hover:translate-y-2 ${isEven ? "right-6" : "left-6"
             }`}
         >
           {String(index + 1).padStart(2, "0")}
@@ -318,7 +318,7 @@ const PageHeading = () => (
 );
 
 const Loader = () => (
-  <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 select-none">
+  <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 ">
 
     {/* Animated book icon — green on light, yellow on dark */}
     <div className="flex flex-col items-center gap-5">

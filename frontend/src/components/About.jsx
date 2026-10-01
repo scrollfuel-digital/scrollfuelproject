@@ -288,7 +288,7 @@ const AboutUs = React.forwardRef((props, ref) => {
     return (
         <section
             ref={ref}
-            className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative select-none"
+            className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative "
             style={{
                 WebkitUserSelect: "none",
                 userSelect: "none",

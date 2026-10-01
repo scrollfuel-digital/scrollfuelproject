@@ -416,7 +416,7 @@ const AboutUsPage = () => {
         },
     ];
     return (
-        <div className="bg-white dark:bg-black dark:text-white overflow-hidden select-none">
+        <div className="bg-white dark:bg-black dark:text-white overflow-hidden ">
             {/* ============= HERO SECTION ============= */}
             <section className="relative min-h-screen overflow-hidden">
                 <motion.div

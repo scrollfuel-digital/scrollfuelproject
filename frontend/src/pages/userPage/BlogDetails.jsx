@@ -333,7 +333,7 @@ const BlogDetails = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white select-none" style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white " style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
 
       {/* Global keyframe for shimmer */}
       <style>{`
@@ -455,7 +455,7 @@ const BlogDetails = () => {
               {keywords.map((k, i) => (
                 <span
                   key={i}
-                  className="text-xs font-semibold px-3 py-1 rounded-full cursor-pointer hover:bg-[#8bc53f] hover:text-white transition-all select-none"
+                  className="text-xs font-semibold px-3 py-1 rounded-full cursor-pointer hover:bg-[#8bc53f] hover:text-white transition-all "
                   style={{ border: "1px solid rgba(255,255,255,0.15)", }}
                 >
                   {k}
@@ -631,7 +631,7 @@ const BlogDetails = () => {
                 {keywords.map((k, i) => (
                   <span
                     key={i}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full cursor-pointer transition-all select-none"
+                    className="text-xs font-semibold px-3 py-1.5 rounded-full cursor-pointer transition-all"
                     style={{ border: "1px solid rgba(139,197,63,0.40)", color: "#8bc53f" }}
                     onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-green)"; e.currentTarget.style.color = "#fff"; }}
                     onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--color-green)"; }}

@@ -32,7 +32,7 @@ const HeroSection = ({ servicesRef }) => {
     return (
         <div
             ref={heroRef}
-            className="relative w-full h-screen overflow-hidden bg-black select-none"
+            className="relative w-full h-screen overflow-hidden bg-black "
             style={{
                 WebkitUserSelect: "none",
                 userSelect: "none",
@@ -469,7 +469,7 @@ const ServiceCard = ({ service, onClick }) => {
                 h-auto
                 shadow-2xl
                 transition-all duration-500
-                select-none
+                
             "
             style={{
                 WebkitUserSelect: "none",

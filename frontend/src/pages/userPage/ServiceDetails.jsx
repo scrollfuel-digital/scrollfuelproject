@@ -19,7 +19,7 @@ const ServiceDetails = () => {
     const service = services[currentIndex];
 
     return (
-        <div className="min-h-screen bg-dark text-white pt-28 px-4 pb-12 select-none">
+        <div className="min-h-screen bg-dark text-white pt-28 px-4 pb-12 ">
             <div className="w-full max-w-6xl mx-auto">
 
                 {/* ================= SERVICE SLIDER ================= */}

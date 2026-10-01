@@ -455,7 +455,7 @@ export default function Portfolio() {
     : projects;
 
   return (
-    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24 select-none">
+    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24 ">
 
       <div dangerouslySetInnerHTML={{
         __html: `<style>

@@ -90,7 +90,7 @@ const CareerPage = () => {
     };
 
     return (
-        <div className="min-h-screen dark:bg-black dark:text-white pt-12 select-none">
+        <div className="min-h-screen dark:bg-black dark:text-white pt-12 ">
 
             {/* Hero Section */}
             <div className="text-center mb-16 mt-19 px-4">

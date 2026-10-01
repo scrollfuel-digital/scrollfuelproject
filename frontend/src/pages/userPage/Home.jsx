@@ -216,7 +216,7 @@ export default function Home() {
                     overflow-hidden
                     transition-colors
                     duration-500
-                    select-none
+                    
                     sm:pt-10
                     pt-20
                 "
@@ -234,7 +234,7 @@ export default function Home() {
                         w-full
                         overflow-hidden
                         bg-black
-                        select-none
+                        
 
                         h-[240px]
                         sm:h-[420px]
@@ -309,7 +309,7 @@ export default function Home() {
                                     h-full
                                     object-cover
                                     bg-black
-                                    select-none
+                                    
                                     pointer-events-none
                                 "
                             />
@@ -330,7 +330,7 @@ export default function Home() {
                         dark:bg-black
                         transition-colors
                         duration-500
-                        select-none
+                        
                     "
                 >
                     <Suspense fallback={<SectionLoader />}>
@@ -349,7 +349,7 @@ export default function Home() {
                         dark:bg-black
                         transition-colors
                         duration-500
-                        select-none
+                        
                     "
                 >
                     <Suspense fallback={<SectionLoader />}>
@@ -368,7 +368,7 @@ export default function Home() {
                         dark:bg-black
                         transition-colors
                         duration-500
-                        select-none
+                        
                     "
                 >
                     <Suspense fallback={<SectionLoader />}>
@@ -387,7 +387,7 @@ export default function Home() {
                         dark:bg-black
                         transition-colors
                         duration-500
-                        select-none
+                        
                     "
                 >
                     <Suspense fallback={<SectionLoader />}>

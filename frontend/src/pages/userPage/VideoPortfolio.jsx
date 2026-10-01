@@ -216,7 +216,7 @@ function SectionLabel({ tag, title, sub }) {
 // ── Page ──────────────────────────────────────────────────────────
 export default function VideoPortfolio() {
   return (
-    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24 select-none overflow-hidden">
+    <div className="min-h-screen bg-white dark:bg-dark text-dark dark:text-white font-sans pb-24  overflow-hidden">
 
       {/* HEADER */}
       <header className="relative px-6 md:px-16 pt-28 pb-16 flex flex-col items-center text-center overflow-hidden">
