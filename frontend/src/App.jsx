@@ -78,7 +78,7 @@ function Layout() {
         {/* USER ROUTES */}
         <Route path="/" element={<S><Home /></S>} />
         <Route path="/about" element={<S><AboutUs /></S>} />
-        <Route path="/digital-marketing-company-in-nagpur/" element={<S><AboutUsPage /></S>} />
+        <Route path="/about-us/" element={<S><AboutUsPage /></S>} />
         <Route path="/blog" element={<S><Blog /></S>} />
         <Route path="/blog/:slug" element={<S><BlogDetails /></S>} />
         <Route path="/portfolio/social-media-marketing" element={<S><SocialMediaPortfolio /></S>} />

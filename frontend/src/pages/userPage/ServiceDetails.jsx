@@ -1,400 +1,217 @@
-import { useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { services } from "../../data/services";
-import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+// src/pages/userPage/ServiceDetails.jsx
+import { useEffect } from "react";
+import { Link, useParams, Navigate } from "react-router-dom";
+import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { services, getServiceBySlug } from "../../data/services";
+
+/* Renders **bold** markers as <strong> */
+const RichText = ({ text }) =>
+    text
+        .split(/\*\*(.+?)\*\*/g)
+        .map((part, i) =>
+            i % 2 ? (
+                <strong key={i} className="font-semibold text-white">
+                    {part}
+                </strong>
+            ) : (
+                part
+            )
+        );
+
+/* Sets title, meta description and canonical without extra dependencies */
+const useSeo = ({ title, description, canonical }) => {
+    useEffect(() => {
+        document.title = title;
+
+        let meta = document.querySelector("meta[name='description']");
+        if (!meta) {
+            meta = document.createElement("meta");
+            meta.name = "description";
+            document.head.appendChild(meta);
+        }
+        meta.setAttribute("content", description);
+
+        let link = document.querySelector("link[rel='canonical']");
+        if (!link) {
+            link = document.createElement("link");
+            link.rel = "canonical";
+            document.head.appendChild(link);
+        }
+        link.setAttribute("href", canonical);
+    }, [title, description, canonical]);
+};
 
 const ServiceDetails = () => {
     const { slug } = useParams();
-    const navigate = useNavigate();
+    const service = getServiceBySlug(slug);
 
-    const currentIndex = services.findIndex(
-        (service) => service.slug === slug
-    );
+    useSeo({
+        title: service?.metaTitle ?? "Services | ScrollFuel",
+        description: service?.metaDescription ?? "",
+        canonical: service?.canonical ?? "https://scrollfuel.in/services",
+    });
 
-    const [direction, setDirection] = useState(1);
+    if (!service) return <Navigate to="/services" replace />;
 
-    if (currentIndex === -1) return null;
-
-    const service = services[currentIndex];
+    const index = services.findIndex((s) => s.slug === slug);
+    const prev = services[(index - 1 + services.length) % services.length];
+    const next = services[(index + 1) % services.length];
+    const others = services.filter((s) => s.slug !== slug);
 
     return (
-        <div className="min-h-screen bg-dark text-white pt-28 px-4 pb-12 ">
-            <div className="w-full max-w-6xl mx-auto">
+        <main
+            className="min-h-screen bg-black text-white"
+            style={{ "--accent": service.accent }}
+        >
+            <div className="mx-auto max-w-6xl px-4 pb-24 pt-28 sm:px-6 md:pt-36">
+                {/* Breadcrumb */}
+                <nav aria-label="Breadcrumb" className="mb-8 text-sm text-white/60">
+                    <Link
+                        to="/services"
+                        className="inline-flex items-center gap-1.5 hover:text-[var(--accent)]"
+                    >
+                        <ArrowLeft size={16} /> All services
+                    </Link>
+                </nav>
 
-                {/* ================= SERVICE SLIDER ================= */}
-                <div className="relative">
+                {/* Header */}
+                <header className="grid items-center gap-8 md:grid-cols-2 md:gap-12">
+                    <div>
+                        <h1 className="font-serif text-3xl font-bold leading-tight sm:text-4xl lg:text-5xl">
+                            {service.h1}
+                        </h1>
+                        <p className="mt-5 max-w-lg text-base leading-relaxed text-white/70">
+                            {service.metaDescription}
+                        </p>
+                        <div className="mt-8 flex flex-wrap gap-3">
+                            <Link
+                                to="/nagpurs-best-digital-marketing-company/"
+                                className="rounded-full px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
+                                style={{ background: service.accent }}
+                            >
+                                Get a free consultation
+                            </Link>
+                        </div>
+                    </div>
 
-                    <AnimatePresence mode="wait" initial={false}>
-                        <motion.div
-                            key={service.slug}
-                            initial={{
-                                opacity: 0,
-                                x: direction > 0 ? 80 : -80,
-                            }}
-                            animate={{
-                                opacity: 1,
-                                x: 0,
-                            }}
-                            exit={{
-                                opacity: 0,
-                                x: direction > 0 ? -80 : 80,
-                            }}
-                            transition={{
-                                duration: 0.45,
-                                ease: "easeInOut",
-                            }}
-                            className="
-                                w-full
-                                grid
-                                md:grid-cols-2
-                                rounded-3xl
-                                overflow-hidden
-                                shadow-primary-lg
-                                bg-white
+                    <div className="overflow-hidden rounded-2xl border border-white/10 bg-neutral-900">
+                        <img
+                            src={service.illustration}
+                            alt={service.h1}
+                            className="aspect-[4/3] w-full object-cover"
+                        />
+                    </div>
+                </header>
 
-                                /* FIXED CARD HEIGHT */
-                                md:h-[560px]
-                                lg:h-[600px]
-                            "
+                {/* Body */}
+                <div className="mt-16 grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
+                    <article className="max-w-3xl">
+                        {/* {service.h2 && (
+                            <h2 className="mb-6 font-serif text-2xl font-bold sm:text-3xl">
+                                {service.h2}
+                            </h2>
+                        )} */}
+
+                        <div className="space-y-5 text-base leading-[1.85] text-white/75">
+                            {service.content.map((p, i) => (
+                                <p key={i}>
+                                    <RichText text={p} />
+                                </p>
+                            ))}
+                        </div>
+
+                        {/* Offerings */}
+                        <section className="mt-12 border-t border-white/10 pt-10">
+                            <h2 className="mb-5 font-serif text-xl font-bold sm:text-2xl">
+                                What we offer
+                            </h2>
+                            <ul className="grid gap-3 sm:grid-cols-2">
+                                {service.keywords.map((k) => (
+                                    <li
+                                        key={k}
+                                        className="flex items-start gap-3 text-sm text-white/80"
+                                    >
+                                        <Check
+                                            size={18}
+                                            className="mt-0.5 shrink-0 text-[var(--accent)]"
+                                        />
+                                        {k}
+                                    </li>
+                                ))}
+                            </ul>
+                        </section>
+                    </article>
+
+                    {/* Sidebar */}
+                    <aside className="space-y-6 lg:sticky lg:top-28 lg:self-start">
+                        <div className="rounded-2xl border border-white/10 bg-neutral-950 p-6">
+                            <h2 className="font-serif text-lg font-bold">
+                                Ready to get started?
+                            </h2>
+                            <p className="mt-2 text-sm leading-relaxed text-white/70">
+                                Tell us about your business and goals. We will suggest the
+                                right plan.
+                            </p>
+                            <Link
+                                to="/nagpurs-best-digital-marketing-company/"
+                                className="mt-5 block rounded-full py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
+                                style={{ background: service.accent }}
+                            >
+                                Contact ScrollFuel
+                            </Link>
+                        </div>
+
+                        <nav
+                            aria-label="Other services"
+                            className="rounded-2xl border border-white/10 bg-neutral-950 p-6"
                         >
-
-                            {/* ================= IMAGE ================= */}
-                            <div
-                                className="
-                                    relative
-                                    w-full
-                                    h-[300px]
-                                    md:h-full
-                                    overflow-hidden
-                                    bg-white
-                                "
-                            >
-                                <motion.img
-                                    src={service.illustration}
-                                    alt={service.title}
-                                    className="
-                                        absolute
-                                        inset-0
-                                        w-full
-                                        h-full
-                                        object-cover
-                                    "
-                                    whileHover={{
-                                        scale: 1.04,
-                                    }}
-                                    transition={{
-                                        duration: 0.6,
-                                        ease: "easeOut",
-                                    }}
-                                />
-
-                                {/* IMAGE OVERLAY */}
-                                <div className="absolute inset-0 bg-black/5 pointer-events-none" />
-                            </div>
-
-                            {/* ================= CONTENT AREA ================= */}
-                            <div
-                                className="
-                                    h-full
-                                    min-h-0
-                                    w-full
-
-                                    flex
-                                    flex-col
-
-                                    px-6
-                                    sm:px-8
-                                    lg:px-14
-                                    py-8
-                                    lg:py-10
-                                "
-                                style={{
-                                    background: service.bg,
-                                }}
-                            >
-
-                                {/* 
-                                    ONLY THIS AREA SCROLLS
-                                    The slider/card itself does NOT scroll.
-                                */}
-                                <div
-                                    className="
-                                        flex-1
-                                        min-h-0
-                                        overflow-y-auto
-
-                                        pr-2
-
-                                        scrollbar-thin
-                                        scrollbar-thumb-black/20
-                                        scrollbar-track-transparent
-
-                                        hover:scrollbar-thumb-black/30
-                                    "
-                                >
-                                    <div className="flex flex-col justify-center min-h-full">
-
-                                        {/* ================= TITLE ================= */}
-                                        <motion.h2
-                                            initial={{
-                                                opacity: 0,
-                                                y: 15,
-                                            }}
-                                            animate={{
-                                                opacity: 1,
-                                                y: 0,
-                                            }}
-                                            transition={{
-                                                delay: 0.08,
-                                                duration: 0.4,
-                                            }}
-                                            className="
-                                                text-2xl
-                                                md:text-3xl
-                                                lg:text-4xl
-                                                font-bold
-                                                leading-tight
-                                                mb-5
-                                            "
-                                            style={{
-                                                color: service.text,
-                                            }}
+                            <h2 className="mb-3 font-serif text-lg font-bold">
+                                Other services
+                            </h2>
+                            <ul className="divide-y divide-white/10">
+                                {others.map((s) => (
+                                    <li key={s.slug}>
+                                        <Link
+                                            to={`/services/${s.slug}`}
+                                            className="flex items-center justify-between py-3 text-sm text-white/80 transition-colors hover:text-[var(--accent)]"
                                         >
-                                            {service.title}
-                                        </motion.h2>
-
-                                        {/* ================= DESCRIPTION ================= */}
-                                        <motion.p
-                                            initial={{
-                                                opacity: 0,
-                                                y: 15,
-                                            }}
-                                            animate={{
-                                                opacity: 1,
-                                                y: 0,
-                                            }}
-                                            transition={{
-                                                delay: 0.14,
-                                                duration: 0.4,
-                                            }}
-                                            className="
-                                                text-sm
-                                                md:text-base
-                                                leading-relaxed
-                                                mb-6
-                                            "
-                                            style={{
-                                                color: service.text,
-                                            }}
-                                        >
-                                            {service.description}
-                                        </motion.p>
-
-                                        {/* ================= WHAT WE OFFER ================= */}
-                                        {service.keywords?.length > 0 && (
-                                            <motion.div
-                                                initial={{
-                                                    opacity: 0,
-                                                    y: 15,
-                                                }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    y: 0,
-                                                }}
-                                                transition={{
-                                                    delay: 0.2,
-                                                    duration: 0.4,
-                                                }}
-                                            >
-                                                <h3
-                                                    className="
-                                                        text-sm
-                                                        font-semibold
-                                                        mb-3
-                                                    "
-                                                    style={{
-                                                        color: service.text,
-                                                    }}
-                                                >
-                                                    What We Offer
-                                                </h3>
-
-                                                <div className="flex flex-wrap gap-2.5">
-                                                    {service.keywords.map(
-                                                        (keyword, i) => (
-                                                            <motion.span
-                                                                key={i}
-                                                                initial={{
-                                                                    opacity: 0,
-                                                                    scale: 0.9,
-                                                                }}
-                                                                animate={{
-                                                                    opacity: 1,
-                                                                    scale: 1,
-                                                                }}
-                                                                transition={{
-                                                                    delay:
-                                                                        0.25 +
-                                                                        i * 0.04,
-                                                                    duration: 0.3,
-                                                                }}
-                                                                whileHover={{
-                                                                    scale: 1.05,
-                                                                    y: -2,
-                                                                }}
-                                                                className="
-                                                                    px-3.5
-                                                                    py-2
-                                                                    text-xs
-                                                                    font-semibold
-                                                                    rounded-full
-                                                                    cursor-pointer
-                                                                    shadow-sm
-                                                                "
-                                                                style={{
-                                                                    background:
-                                                                        "rgba(0,0,0,0.10)",
-                                                                    color:
-                                                                        service.text,
-                                                                }}
-                                                            >
-                                                                {keyword}
-                                                            </motion.span>
-                                                        )
-                                                    )}
-                                                </div>
-                                            </motion.div>
-                                        )}
-
-                                        {/* ================= CONTENT ================= */}
-                                        {service.content && (
-                                            <motion.div
-                                                initial={{
-                                                    opacity: 0,
-                                                    y: 15,
-                                                }}
-                                                animate={{
-                                                    opacity: 1,
-                                                    y: 0,
-                                                }}
-                                                transition={{
-                                                    delay: 0.35,
-                                                    duration: 0.4,
-                                                }}
-                                                className="
-                                                    mt-6
-                                                    pt-5
-                                                    border-t
-                                                "
-                                                style={{
-                                                    borderColor:
-                                                        `${ service.text } 30`,
-                                                }}
-                                            >
-                                                <p
-                                                    className="
-                                                        text-sm
-                                                        md:text-base
-                                                        leading-relaxed
-                                                        font-medium
-                                                    "
-                                                    style={{
-                                                        color: service.text,
-                                                    }}
-                                                >
-                                                    {service.content}
-                                                </p>
-                                            </motion.div>
-                                        )}
-
-                                    </div>
-                                </div>
-                            </div>
-                        </motion.div>
-                    </AnimatePresence>
-
-                    {/* ================= PREVIOUS BUTTON ================= */}
-                    <button
-                        type="button"
-                        aria-label="Previous service"
-                        className="
-                            absolute
-                            left-2
-                            md:-left-6
-                            top-1/2
-                            -translate-y-1/2
-
-                            w-10
-                            h-10
-                            md:w-12
-                            md:h-12
-
-                            rounded-full
-                            bg-white
-                            text-black
-                            shadow-xl
-
-                            flex
-                            items-center
-                            justify-center
-
-                            hover:scale-110
-                            active:scale-95
-
-                            transition-transform
-                            duration-200
-
-                            z-30
-                        "
-                    >
-                        
-                    </button>
-
-                    {/* ================= NEXT BUTTON ================= */}
-                    <button
-                        type="button"
-                        aria-label="Next service"
-                        className="
-                            absolute
-                            right-2
-                            md:-right-6
-                            top-1/2
-                            -translate-y-1/2
-
-                            w-10
-                            h-10
-                            md:w-12
-                            md:h-12
-
-                            rounded-full
-                            bg-white
-                            text-black
-                            shadow-xl
-
-                            flex
-                            items-center
-                            justify-center
-
-                            hover:scale-110
-                            active:scale-95
-
-                            transition-transform
-                            duration-200
-
-                            z-30
-                        "
-                    >
-                        
-                    </button>
+                                            {s.metaTitle}
+                                            <ArrowRight size={15} />
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </nav>
+                    </aside>
                 </div>
 
-
-
+                {/* Prev / Next */}
+                <nav
+                    aria-label="Service navigation"
+                    className="mt-20 grid gap-4 border-t border-white/10 pt-8 sm:grid-cols-2"
+                >
+                    <Link
+                        to={`/services/${prev.slug}`}
+                        className="group rounded-xl border border-white/10 p-5 transition-colors hover:border-[var(--accent)]"
+                    >
+                        <span className="flex items-center gap-1.5 text-xs text-white/50">
+                            <ArrowLeft size={14} /> Previous
+                        </span>
+                        <span className="mt-1 block font-semibold">{prev.title}</span>
+                    </Link>
+                    <Link
+                        to={`/services/${next.slug}`}
+                        className="group rounded-xl border border-white/10 p-5 text-right transition-colors hover:border-[var(--accent)]"
+                    >
+                        <span className="flex items-center justify-end gap-1.5 text-xs text-white/50">
+                            Next <ArrowRight size={14} />
+                        </span>
+                        <span className="mt-1 block font-semibold">{next.title}</span>
+                    </Link>
+                </nav>
             </div>
-        </div>
+        </main>
     );
 };
 
 export default ServiceDetails;
-
