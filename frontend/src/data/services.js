@@ -151,7 +151,7 @@ export const services = [
     },
     {
         // Placeholder SEO copy: replace with your approved content for this page.
-        slug: "videography-photography-company-in-nagpur",
+        slug: "videography-photography-services-in-nagpur",
 
         icon: "Video",
         illustration: "/assets/hero/videophoto.jpeg",

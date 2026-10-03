@@ -1,5 +1,40 @@
 {
+  "redirects": [
+    {
+      "source": "/services/seo-ppc-service-in-nagpur",
+      "destination": "/services/seo-ppc-service-in-nagpur/",
+      "permanent": true
+    },
+    {
+      "source": "/services/social-media-marketing-services-in-nagpur",
+      "destination": "/services/social-media-marketing-services-in-nagpur/",
+      "permanent": true
+    },
+    {
+      "source": "/services/branding-design-services-in-nagpur",
+      "destination": "/services/branding-design-services-in-nagpur/",
+      "permanent": true
+    },
+    {
+      "source": "/services/videography-photography-services-in-nagpur",
+      "destination": "/services/videography-photography-services-in-nagpur/",
+      "permanent": true
+    },
+    {
+      "source": "/services/website-development-services-in-nagpur",
+      "destination": "/services/website-development-services-in-nagpur/",
+      "permanent": true
+    },
+    {
+      "source": "/services/content-marketing-services-nagpur",
+      "destination": "/services/content-marketing-services-nagpur/",
+      "permanent": true
+    }
+  ],
   "rewrites": [
-    { "source": "/(.*)", "destination": "/" }
+    {
+      "source": "/(.*)",
+      "destination": "/"
+    }
   ]
 }

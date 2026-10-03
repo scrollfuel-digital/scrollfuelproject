@@ -14,6 +14,7 @@ import {
 } from "react";
 
 import { Helmet } from "react-helmet-async";
+import FAQ from "../../components/ui/FAQ.jsx";
 
 
 const ClientsSection = lazy(() => import("./ClientsSection.jsx"));
@@ -392,6 +393,20 @@ export default function Home() {
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <Testimonials />
+                    </Suspense>
+                </section>
+
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <FAQ />
                     </Suspense>
                 </section>
 
