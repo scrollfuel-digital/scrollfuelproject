@@ -5,10 +5,10 @@ import Portfolio from "../pages/userPage/Portfolio";
 
 const navLinks = [
   {name: "Home", path: "/" },
-  { name: "About Us", path: "/digital-marketing-company-in-nagpur" },
+  { name: "About Us", path: "/about-us" },
   { name: "Services", path: "/services" },
   { name: "Blog", path: "/blog" },
-  { name: "Portfolio" , path:"/"},
+  { name: "Portfolio" , path:"/portfolio" },
   { name: "Career", path: "/career" },
 ];
 
@@ -118,10 +118,10 @@ const Navbar = () => {
             </button>
 
             <NavLink
-              to="/nagpurs-best-digital-marketing-company"
+              to="/connect-with-us"
               className="px-5 py-2.5 bg-primary text-white text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity"
             >
-              Start Project
+              Connect With Us
             </NavLink>
           </div>
 
