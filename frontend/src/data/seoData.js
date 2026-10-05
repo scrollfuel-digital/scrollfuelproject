@@ -2,10 +2,10 @@
 
 export const serviceSEO = {
   "seo-ppc-service-in-nagpur": {
-    h1: "SEO & PPC Services in Nagpur",
+    h1: "SEO and PPC Services in Nagpur",
 
     title:
-      "Professional SEO & PPC Services in Nagpur | ScrollFuel",
+      "Professional SEO and PPC Services in Nagpur | ScrollFuel",
 
     description:
       "Grow your business with SEO and PPC services in Nagpur. Improve Google visibility, attract qualified traffic and generate more leads with ScrollFuel.",
@@ -41,10 +41,10 @@ export const serviceSEO = {
   },
 
   "branding-design-services-in-nagpur": {
-    h1: "Branding & Design Services in Nagpur",
+    h1: "Branding and Design Services in Nagpur",
 
     title:
-      "Branding & Design Services in Nagpur | ScrollFuel",
+      "Branding and Design Services in Nagpur | ScrollFuel",
 
     description:
       "Build a memorable brand with branding and design services in Nagpur, including logo design, brand identity, creative design and marketing materials.",
@@ -67,10 +67,10 @@ export const serviceSEO = {
   },
 
   "videography-photography-services-in-nagpur": {
-    h1: "Videography & Photography Services in Nagpur",
+    h1: "Videography and Photography Services in Nagpur",
 
     title:
-      "Videography & Photography Services in Nagpur | ScrollFuel",
+      "Videography and Photography Services in Nagpur | ScrollFuel",
 
     description:
       "Get professional videography and photography services in Nagpur for brands, products, events and digital marketing campaigns with ScrollFuel.",
