@@ -262,8 +262,14 @@ async function prerender() {
         console.log(`🌐 Base URL: ${BASE_URL}`);
 
         // Launch Playwright.
-        browser = await chromium.launch();
-
+        browser = await chromium.launch({
+            headless: true,
+            args: [
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+            ],
+        });
         const page = await browser.newPage();
 
         // Optional: useful browser logging while debugging prerender.
