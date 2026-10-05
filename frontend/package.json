@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-   "build": "vite build && npx playwright install --with-deps chromium && node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs",
     "build:vite": "vite build",
     "prerender": "node scripts/prerender.mjs",
     "lint": "eslint .",
@@ -14,6 +14,7 @@
   "dependencies": {
     "@animateicons/react": "^0.3.3",
     "@google/genai": "^1.39.0",
+    "@sparticuz/chromium": "^147.0.0",
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.1.18",
     "@uiw/react-md-editor": "^4.0.11",
@@ -24,7 +25,6 @@
     "jodit-react": "^5.3.21",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.562.0",
-    "playwright": "^1.63.0",
     "react": "^19.2.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.2.0",

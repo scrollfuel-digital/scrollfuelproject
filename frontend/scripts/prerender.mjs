@@ -1,5 +1,5 @@
-
 import { chromium } from "playwright";
+import sparticuzChromium from "@sparticuz/chromium";
 import { spawn } from "child_process";
 import fs from "fs";
 import path from "path";
@@ -50,7 +50,10 @@ function checkServer(url) {
         const request = http.get(url, (response) => {
             response.resume();
 
-            if (response.statusCode >= 200 && response.statusCode < 500) {
+            if (
+                response.statusCode >= 200 &&
+                response.statusCode < 500
+            ) {
                 resolve(true);
             } else {
                 resolve(false);
@@ -74,21 +77,29 @@ function checkServer(url) {
 async function waitForServer(url, timeout = 30000) {
     const startTime = Date.now();
 
-    console.log(`\n⏳ Waiting for Vite preview server: ${url}`);
+    console.log(
+        `\n⏳ Waiting for Vite preview server: ${url}`
+    );
 
     while (Date.now() - startTime < timeout) {
         const ready = await checkServer(url);
 
         if (ready) {
-            console.log(`✅ Vite preview server is ready: ${url}\n`);
+            console.log(
+                `✅ Vite preview server is ready: ${url}\n`
+            );
+
             return;
         }
 
-        await new Promise((resolve) => setTimeout(resolve, 500));
+        await new Promise((resolve) =>
+            setTimeout(resolve, 500)
+        );
     }
 
     throw new Error(
-        `Vite preview server did not become ready within ${timeout / 1000} seconds.`
+        `Vite preview server did not become ready within ${timeout / 1000
+        } seconds.`
     );
 }
 
@@ -97,22 +108,16 @@ async function waitForServer(url, timeout = 30000) {
  */
 function startServer() {
     return new Promise((resolve, reject) => {
-        console.log("🚀 Starting Vite preview server...\n");
+        console.log(
+            "🚀 Starting Vite preview server...\n"
+        );
 
-        const viteCommand =
-            process.platform === "win32"
-                ? path.resolve(
-                    "node_modules",
-                    "vite",
-                    "bin",
-                    "vite.js"
-                )
-                : path.resolve(
-                    "node_modules",
-                    "vite",
-                    "bin",
-                    "vite.js"
-                );
+        const viteCommand = path.resolve(
+            "node_modules",
+            "vite",
+            "bin",
+            "vite.js"
+        );
 
         const server = spawn(
             process.execPath,
@@ -191,13 +196,20 @@ function stopServer(server) {
         return;
     }
 
-    console.log("\n🛑 Stopping Vite preview server...");
+    console.log(
+        "\n🛑 Stopping Vite preview server..."
+    );
 
     try {
         if (process.platform === "win32") {
             spawn(
                 "taskkill",
-                ["/pid", String(server.pid), "/f", "/t"],
+                [
+                    "/pid",
+                    String(server.pid),
+                    "/f",
+                    "/t",
+                ],
                 {
                     stdio: "ignore",
                     windowsHide: true,
@@ -225,7 +237,10 @@ function saveRouteHtml(route, html) {
     const normalizedRoute = normalizeRoute(route);
 
     // Remove first and last slash only for filesystem path.
-    const cleanRoute = normalizedRoute.replace(/^\/|\/$/g, "");
+    const cleanRoute = normalizedRoute.replace(
+        /^\/|\/$/g,
+        ""
+    );
 
     const outputDirectory = cleanRoute
         ? path.join(distPath, cleanRoute)
@@ -240,39 +255,115 @@ function saveRouteHtml(route, html) {
         "index.html"
     );
 
-    fs.writeFileSync(outputFile, html, "utf8");
+    fs.writeFileSync(
+        outputFile,
+        html,
+        "utf8"
+    );
 
-    console.log(`✓ Generated: ${outputFile}`);
+    console.log(
+        `✓ Generated: ${outputFile}`
+    );
+}
+
+/**
+ * Launch the correct Chromium for the environment.
+ *
+ * Local Windows:
+ *    Uses Playwright's installed Chromium.
+ *
+ * Vercel:
+ *    Uses @sparticuz/chromium.
+ */
+async function launchBrowser() {
+    const isVercel = process.env.VERCEL === "1";
+
+    if (isVercel) {
+        console.log(
+            "☁️ Vercel environment detected"
+        );
+
+        console.log(
+            "🚀 Launching Sparticuz Chromium..."
+        );
+
+        const executablePath =
+            await sparticuzChromium.executablePath();
+
+        console.log(
+            "Chromium executable:",
+            executablePath
+        );
+
+        return chromium.launch({
+            executablePath,
+            args: [
+                ...sparticuzChromium.args,
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage",
+            ],
+            headless: true,
+        });
+    }
+
+    console.log(
+        "💻 Local environment detected"
+    );
+
+    console.log(
+        "🚀 Launching Playwright Chromium..."
+    );
+
+    return chromium.launch({
+        headless: true,
+        args: [
+            "--no-sandbox",
+            "--disable-setuid-sandbox",
+            "--disable-dev-shm-usage",
+        ],
+    });
 }
 
 /**
  * Start prerendering.
  */
 async function prerender() {
-    console.log("\n🚀 Starting ScrollFuel prerender...\n");
+    console.log(
+        "\n🚀 Starting ScrollFuel prerender...\n"
+    );
 
     let server = null;
     let browser = null;
 
     try {
-        // Start Vite preview.
+        // ----------------------------------------
+        // Start Vite preview
+        // ----------------------------------------
+
         server = await startServer();
 
-        console.log("🌐 Preview server confirmed.");
-        console.log(`🌐 Base URL: ${BASE_URL}`);
+        console.log(
+            "🌐 Preview server confirmed."
+        );
 
-        // Launch Playwright.
-        browser = await chromium.launch({
-            headless: true,
-            args: [
-                "--no-sandbox",
-                "--disable-setuid-sandbox",
-                "--disable-dev-shm-usage",
-            ],
-        });
+        console.log(
+            `🌐 Base URL: ${BASE_URL}`
+        );
+
+        // ----------------------------------------
+        // Launch browser
+        // ----------------------------------------
+
+        browser = await launchBrowser();
+
+        // ----------------------------------------
+        // Create page
+        // ----------------------------------------
+
         const page = await browser.newPage();
 
-        // Optional: useful browser logging while debugging prerender.
+        // Browser console errors
         page.on("console", (message) => {
             if (message.type() === "error") {
                 console.log(
@@ -281,20 +372,34 @@ async function prerender() {
             }
         });
 
+        // React/runtime errors
         page.on("pageerror", (error) => {
             console.log(
                 `⚠️ Browser page error: ${error.message}`
             );
         });
 
+        // ----------------------------------------
+        // Render routes
+        // ----------------------------------------
+
         for (const originalRoute of routes) {
-            const route = normalizeRoute(originalRoute);
+            const route =
+                normalizeRoute(originalRoute);
 
             const url = `${BASE_URL}${route}`;
 
-            console.log("\n----------------------------------------");
-            console.log(`Rendering: ${route}`);
-            console.log(`URL: ${url}`);
+            console.log(
+                "\n----------------------------------------"
+            );
+
+            console.log(
+                `Rendering: ${route}`
+            );
+
+            console.log(
+                `URL: ${url}`
+            );
 
             try {
                 await page.goto(url, {
@@ -302,21 +407,32 @@ async function prerender() {
                     timeout: 60000,
                 });
 
-                // Give React / Helmet time to update SEO tags.
-                await page.waitForTimeout(1000);
+                // Give React / Helmet time to
+                // update SEO tags.
+                await page.waitForTimeout(
+                    1000
+                );
 
                 // Check final browser URL.
                 const finalUrl = page.url();
 
-                console.log(`Final URL: ${finalUrl}`);
+                console.log(
+                    `Final URL: ${finalUrl}`
+                );
 
                 // Get rendered HTML.
-                const html = await page.content();
+                const html =
+                    await page.content();
 
                 // Save HTML.
-                saveRouteHtml(route, html);
+                saveRouteHtml(
+                    route,
+                    html
+                );
 
-                console.log(`✅ Rendered successfully: ${route}`);
+                console.log(
+                    `✅ Rendered successfully: ${route}`
+                );
             } catch (error) {
                 console.error(
                     `\n❌ Failed to render route: ${route}`
@@ -328,11 +444,22 @@ async function prerender() {
             }
         }
 
-        console.log("\n========================================");
-        console.log("✅ ALL ROUTES PRERENDERED SUCCESSFULLY");
-        console.log("========================================\n");
+        console.log(
+            "\n========================================"
+        );
+
+        console.log(
+            "✅ ALL ROUTES PRERENDERED SUCCESSFULLY"
+        );
+
+        console.log(
+            "========================================\n"
+        );
     } finally {
-        // Close browser first.
+        // ----------------------------------------
+        // Close browser
+        // ----------------------------------------
+
         if (browser) {
             try {
                 await browser.close();
@@ -341,13 +468,22 @@ async function prerender() {
             }
         }
 
-        // Then stop preview server.
+        // ----------------------------------------
+        // Stop Vite
+        // ----------------------------------------
+
         stopServer(server);
     }
 }
 
+/**
+ * Run prerender.
+ */
 prerender().catch((error) => {
-    console.error("\n❌ Prerender failed:");
+    console.error(
+        "\n❌ Prerender failed:"
+    );
+
     console.error(error);
 
     process.exit(1);
