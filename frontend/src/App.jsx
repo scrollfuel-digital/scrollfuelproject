@@ -86,8 +86,8 @@ function Layout() {
         <Route path="/portfolio/:category" element={<S><Portfolio /></S>} />
         <Route path="/career" element={<S><Career /></S>} />
         <Route path="/connect-with-us" element={<S><Contact /></S>} />
-        <Route path="/services" element={<S><ServicesFixed /></S>} />
-        <Route path="/services/:slug" element={<S><ServiceDetails /></S>} />
+        <Route path="/services/" element={<S><ServicesFixed /></S>} />
+        <Route path="/services/:slug/" element={<S><ServiceDetails /></S>} />
 
         {/* ADMIN AUTH */}
         <Route path="/admin/auth" element={<S><AuthPage /></S>} />

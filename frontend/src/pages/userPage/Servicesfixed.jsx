@@ -23,7 +23,7 @@ const ServiceCard = ({ service }) => {
 
     return (
         <Link
-            to={`/services/${service.slug}`}
+            to={`/services/${service.slug}/`}
             aria-label={`${service.title} – view details`}
             className="group flex h-full flex-col overflow-hidden rounded-2xl border border-white/10 bg-neutral-950 transition-colors duration-300 hover:border-[var(--accent)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--accent)]"
             style={{ "--accent": service.accent }}
@@ -36,7 +36,9 @@ const ServiceCard = ({ service }) => {
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
                 />
+
                 <div className="absolute inset-0 bg-gradient-to-t from-neutral-950/70 via-transparent to-transparent" />
+
                 <span
                     className="absolute left-4 top-4 flex h-10 w-10 items-center justify-center rounded-xl text-black"
                     style={{ background: service.accent }}
@@ -64,6 +66,7 @@ const ServiceCard = ({ service }) => {
                             {k}
                         </li>
                     ))}
+
                     {extra > 0 && (
                         <li className="rounded-full px-2 py-1 text-xs text-white/50">
                             +{extra} more
@@ -76,6 +79,7 @@ const ServiceCard = ({ service }) => {
                     style={{ color: service.accent }}
                 >
                     View service
+
                     <ArrowUpRight
                         size={16}
                         className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"

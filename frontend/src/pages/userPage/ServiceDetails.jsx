@@ -105,7 +105,7 @@ const ServiceDetails = () => {
                 canonical={
                     seo?.canonical ||
                     service.canonical ||
-                    `https://scrollfuel.in/services/${slug}`
+                    `https://scrollfuel.in/services/${slug}/`
                 }
             />
 
@@ -133,7 +133,7 @@ const ServiceDetails = () => {
                         className="mb-8 text-sm text-white/60"
                     >
                         <Link
-                            to="/services"
+                            to="/services/"
                             className="inline-flex items-center gap-1.5 hover:text-[var(--accent)]"
                         >
                             <ArrowLeft size={16} />
@@ -324,7 +324,7 @@ const ServiceDetails = () => {
                                         <li key={s.slug}>
 
                                             <Link
-                                                to={`/services/${s.slug}`}
+                                                to={`/services/${s.slug}/`}
                                                 className="flex items-center justify-between py-3 text-sm text-white/80 transition-colors hover:text-[var(--accent)]"
                                             >
 
@@ -363,7 +363,7 @@ const ServiceDetails = () => {
                         --------------------------------------------- */}
 
                         <Link
-                            to={`/services/${prev.slug}`}
+                            to={`/services/${prev.slug}/`}
                             className="group rounded-xl border border-white/10 p-5 transition-colors hover:border-[var(--accent)]"
                         >
 
@@ -388,7 +388,7 @@ const ServiceDetails = () => {
                         --------------------------------------------- */}
 
                         <Link
-                            to={`/services/${next.slug}`}
+                            to={`/services/${next.slug}/`}
                             className="group rounded-xl border border-white/10 p-5 text-right transition-colors hover:border-[var(--accent)]"
                         >
 

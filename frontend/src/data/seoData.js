@@ -11,7 +11,7 @@ export const serviceSEO = {
       "Grow your business with SEO and PPC services in Nagpur. Improve Google visibility, attract qualified traffic and generate more leads with ScrollFuel.",
 
     canonical:
-      "https://scrollfuel.in/services/seo-ppc-service-in-nagpur",
+      "https://scrollfuel.in/services/seo-ppc-service-in-nagpur/",
   },
 
   "content-marketing-services-nagpur": {
@@ -24,7 +24,7 @@ export const serviceSEO = {
       "Grow your brand with Content Marketing Services in Nagpur. Get SEO-friendly content, strategic planning and engaging content that drives traffic and leads.",
 
     canonical:
-      "https://scrollfuel.in/services/content-marketing-services-nagpur",
+      "https://scrollfuel.in/services/content-marketing-services-nagpur/",
   },
 
   "social-media-marketing-services-in-nagpur": {
@@ -37,7 +37,7 @@ export const serviceSEO = {
       "Grow your brand with social media marketing services in Nagpur. Build engagement, reach your audience and generate leads with ScrollFuel.",
 
     canonical:
-      "https://scrollfuel.in/services/social-media-marketing-services-in-nagpur",
+      "https://scrollfuel.in/services/social-media-marketing-services-in-nagpur/",
   },
 
   "branding-design-services-in-nagpur": {
@@ -50,7 +50,7 @@ export const serviceSEO = {
       "Build a memorable brand with branding and design services in Nagpur, including logo design, brand identity, creative design and marketing materials.",
 
     canonical:
-      "https://scrollfuel.in/services/branding-design-services-in-nagpur",
+      "https://scrollfuel.in/services/branding-design-services-in-nagpur/",
   },
 
   "website-development-services-in-nagpur": {
@@ -63,7 +63,7 @@ export const serviceSEO = {
       "Get professional website development services in Nagpur with responsive, SEO-friendly and user-focused websites designed to grow your business online.",
 
     canonical:
-      "https://scrollfuel.in/services/website-development-services-in-nagpur",
+      "https://scrollfuel.in/services/website-development-services-in-nagpur/",
   },
 
   "videography-photography-services-in-nagpur": {
@@ -76,6 +76,6 @@ export const serviceSEO = {
       "Get professional videography and photography services in Nagpur for brands, products, events and digital marketing campaigns with ScrollFuel.",
 
     canonical:
-      "https://scrollfuel.in/services/videography-photography-services-in-nagpur",
+      "https://scrollfuel.in/services/videography-photography-services-in-nagpur/",
   },
 };
