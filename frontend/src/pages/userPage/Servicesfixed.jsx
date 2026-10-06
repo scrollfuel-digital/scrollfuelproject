@@ -106,7 +106,7 @@ const Services = () => {
     }, []);
 
     return (
-        <main className="min-h-screen bg-black text-white">
+        <main className="min-h-screen dark:bg-black">
             {/* Header */}
             <header className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pb-16 md:pt-40">
                 <motion.div
@@ -115,10 +115,10 @@ const Services = () => {
                     transition={{ duration: 0.6, ease: "easeOut" }}
                     className="max-w-3xl"
                 >
-                    <h1 className="font-serif text-4xl font-bold leading-tight sm:text-5xl md:text-6xl">
+                    <h1 className="font-serif text-4xl font-bold leading-tight sm:text-5xl md:text-6xl text-primary">
                         Digital marketing services that bring you customers
                     </h1>
-                    <p className="mt-6 max-w-2xl text-base leading-relaxed text-white/70 md:text-lg">
+                    <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
                         From search and social to branding and websites, ScrollFuel
                         helps Nagpur businesses get found, look credible and turn
                         visitors into leads. Pick a service to see how we work.

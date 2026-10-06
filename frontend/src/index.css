@@ -263,3 +263,95 @@ html.dark body {
 .animate-slideUpDown {
   animation: slideUpDown 4s ease-in-out infinite;
 }
+
+/* =========================================================
+   PORTFOLIO PAGE
+========================================================= */
+
+.portfolio-page {
+  isolation: isolate;
+}
+
+/* Smooth selection */
+::selection {
+  background: var(--color-green);
+  color: var(--color-black);
+}
+
+/* Portfolio scrollbar */
+.portfolio-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.portfolio-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--color-green);
+  border-radius: 999px;
+}
+
+/* Hide scrollbar where required */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Portfolio card shine */
+.portfolio-card-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.portfolio-card-shine::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 70%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.08),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.8s ease;
+}
+
+.portfolio-card-shine:hover::before {
+  left: 140%;
+}
+
+/* PDF viewer */
+.portfolio-pdf-viewer {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #222;
+}
+
+/* Better focus accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-green);
+  outline-offset: 3px;
+}
+
+/* Reduce animations for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

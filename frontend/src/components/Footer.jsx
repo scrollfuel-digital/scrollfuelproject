@@ -121,7 +121,7 @@ const Footer = () => {
                                         to={`/services/${ser.slug}`}
                                         className="hover-text-primary font-bold"
                                     >
-                                        {ser.title}
+                                        {ser.h1}
                                     </Link>
                                 </li>
                             ))}

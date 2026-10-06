@@ -12,8 +12,6 @@ const Blog = lazy(() => import("./pages/userPage/Blog"));
 const BlogDetails = lazy(() => import("./pages/userPage/BlogDetails"));
 const Contact = lazy(() => import("./pages/userPage/Contact"));
 const Portfolio = lazy(() => import("./pages/userPage/Portfolio"));
-const VideoPortfolio = lazy(() => import("./pages/userPage/VideoPortfolio"));
-const SocialMediaPortfolio = lazy(() => import("./pages/userPage/SocialMediaPortfolio"));
 const Career = lazy(() => import("./pages/userPage/Career"));
 const ServicesFixed = lazy(() => import("./pages/userPage/Servicesfixed"));
 const ServiceDetails = lazy(() => import("./pages/userPage/ServiceDetails"));
@@ -81,9 +79,7 @@ function Layout() {
         <Route path="/about-us" element={<S><AboutUsPage /></S>} />
         <Route path="/blog" element={<S><Blog /></S>} />
         <Route path="/blog/:slug" element={<S><BlogDetails /></S>} />
-        <Route path="/portfolio/social-media-marketing" element={<S><SocialMediaPortfolio /></S>} />
-        <Route path="/portfolio/video" element={<S><VideoPortfolio /></S>} />
-        <Route path="/portfolio/:category" element={<S><Portfolio /></S>} />
+        <Route path="/portfolio" element={<S><Portfolio /></S>} />
         <Route path="/career" element={<S><Career /></S>} />
         <Route path="/connect-with-us" element={<S><Contact /></S>} />
         <Route path="/services/" element={<S><ServicesFixed /></S>} />

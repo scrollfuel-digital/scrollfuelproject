@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Menu, X, Sun, Moon, ChevronDown } from "lucide-react";
 import { NavLink, useLocation } from "react-router-dom";
-import Portfolio from "../pages/userPage/Portfolio";
+
 
 const navLinks = [
   {name: "Home", path: "/" },
