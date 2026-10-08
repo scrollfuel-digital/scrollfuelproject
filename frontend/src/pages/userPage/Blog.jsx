@@ -49,12 +49,6 @@ const BlogRow = ({ blog, index, navigate }) => {
           style={{ padding: "24px" }}
         />
 
-        {/* Issue badge */}
-        <div className="absolute top-6 left-6 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-3 py-1.5 rounded-full border border-stone-200 dark:border-stone-700 shadow-sm">
-          <span className="text-[9px] font-bold tracking-[0.22em] text-stone-500 dark:text-stone-400 uppercase">
-            No.&nbsp;{String(index + 1).padStart(2, "0")}
-          </span>
-        </div>
 
         {/* Green sweep accent on bottom */}
         <div
@@ -74,16 +68,7 @@ const BlogRow = ({ blog, index, navigate }) => {
             }`}
         />
 
-        {/* Meta */}
-        <div className="flex items-center gap-3 mb-8">
-          <span className="text-[9px] font-bold tracking-[0.28em] text-[#8bc53f] uppercase">
-            Article
-          </span>
-          <span className="w-6 h-px bg-stone-300 dark:bg-stone-700 block" />
-          <span className="text-[9px] tracking-[0.18em] text-stone-400 dark:text-stone-500 uppercase">
-            Editorial
-          </span>
-        </div>
+
 
         {/* Main content */}
         <div className="flex-1 flex flex-col">
@@ -150,12 +135,7 @@ const SliderCard = ({ blog, index, navigate }) => (
       {/* Green tint on hover */}
       <div className="absolute inset-0 bg-[#8bc53f]/0 group-hover:bg-[#8bc53f]/8 transition-colors duration-500" />
 
-      {/* Number badge */}
-      <div className="absolute top-4 left-4 bg-white/90 dark:bg-black/80 backdrop-blur-sm px-2.5 py-1 rounded-full border border-stone-100 dark:border-stone-700">
-        <span className="text-[9px] font-bold tracking-[0.2em] text-stone-500 dark:text-stone-400 uppercase">
-          No.&nbsp;{String(index + 4).padStart(2, "0")}
-        </span>
-      </div>
+
 
       {/* Bottom green bar on hover */}
       <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#8bc53f] group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
@@ -163,16 +143,7 @@ const SliderCard = ({ blog, index, navigate }) => (
 
     {/* Card content */}
     <div className="relative p-7 overflow-hidden">
-      {/* Meta */}
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-[9px] font-bold tracking-[0.25em] text-[#8bc53f] uppercase">
-          Article
-        </span>
-        <span className="w-5 h-px bg-stone-200 dark:bg-stone-700 block" />
-        <span className="text-[9px] tracking-[0.15em] text-stone-400 dark:text-stone-500 uppercase">
-          Editorial
-        </span>
-      </div>
+
 
       {/* Title */}
       <h3 className="font-serif text-xl leading-[1.2] text-black dark:text-white mb-3 transition-transform duration-500 group-hover:-translate-y-0.5">
@@ -204,19 +175,115 @@ const SliderCard = ({ blog, index, navigate }) => (
 const SliderSection = ({ blogs, navigate }) => {
   const [current, setCurrent] = useState(0);
   const trackRef = useRef(null);
+  const isResetting = useRef(false);
+
   const total = blogs.length;
-  const CARD_W = 380;
+
+  // Gap between cards
   const GAP = 24;
 
+  if (!total) return null;
+
+  // Clone last + all blogs + clone first
+  const loopedBlogs = [
+    blogs[total - 1],
+    ...blogs,
+    blogs[0],
+  ];
+
+  const scrollToIndex = (index, smooth = true) => {
+    if (!trackRef.current) return;
+
+    const containerWidth = trackRef.current.clientWidth;
+
+    // Show exactly 3 cards
+    const CARD_W = (containerWidth - GAP * 2) / 3;
+    const STEP = CARD_W + GAP;
+
+    trackRef.current.scrollTo({
+      left: index * STEP,
+      behavior: smooth ? "smooth" : "auto",
+    });
+  };
+
   const goTo = (idx) => {
-    const clamped = Math.max(0, Math.min(idx, total - 1));
-    setCurrent(clamped);
-    if (trackRef.current) {
-      trackRef.current.scrollTo({
-        left: clamped * (CARD_W + GAP),
-        behavior: "smooth",
-      });
+    let nextIndex = idx;
+
+    if (idx < 0) {
+      nextIndex = total - 1;
     }
+
+    if (idx >= total) {
+      nextIndex = 0;
+    }
+
+    setCurrent(nextIndex);
+    scrollToIndex(nextIndex + 1);
+  };
+
+  const handleNext = () => {
+    if (isResetting.current) return;
+
+    const next = current + 1;
+
+    if (next >= total) {
+      setCurrent(0);
+
+      // Move to cloned first card
+      scrollToIndex(total + 1);
+
+      setTimeout(() => {
+        isResetting.current = true;
+
+        // Jump silently to real first card
+        scrollToIndex(1, false);
+
+        setTimeout(() => {
+          isResetting.current = false;
+        }, 50);
+      }, 450);
+
+      return;
+    }
+
+    setCurrent(next);
+    scrollToIndex(next + 1);
+  };
+
+  const handlePrevious = () => {
+    if (isResetting.current) return;
+
+    const previous = current - 1;
+
+    if (previous < 0) {
+      setCurrent(total - 1);
+
+      // Move to cloned last card
+      scrollToIndex(0);
+
+      setTimeout(() => {
+        isResetting.current = true;
+
+        // Jump silently to real last card
+        scrollToIndex(total, false);
+
+        setTimeout(() => {
+          isResetting.current = false;
+        }, 50);
+      }, 450);
+
+      return;
+    }
+
+    setCurrent(previous);
+    scrollToIndex(previous + 1);
+  };
+
+  const handleDotClick = (index) => {
+    if (isResetting.current) return;
+
+    setCurrent(index);
+    scrollToIndex(index + 1);
   };
 
   return (
@@ -224,18 +291,23 @@ const SliderSection = ({ blogs, navigate }) => {
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      transition={{
+        duration: 0.7,
+        ease: [0.22, 1, 0.36, 1],
+      }}
       className="bg-stone-50 dark:bg-[#0a0a0a] border-t border-stone-200 dark:border-stone-800 py-16 px-6 md:px-12 lg:px-20"
     >
-      {/* Section header */}
+      {/* Header */}
       <div className="flex items-end justify-between mb-10">
         <div>
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-[2px] bg-[#8bc53f]" />
+
             <span className="text-[9px] font-bold tracking-[0.28em] text-[#8bc53f] uppercase">
               More Stories
             </span>
           </div>
+
           <h2 className="font-serif text-3xl md:text-4xl text-black dark:text-white leading-tight">
             Keep Reading
           </h2>
@@ -243,30 +315,37 @@ const SliderSection = ({ blogs, navigate }) => {
 
         {/* Controls */}
         <div className="flex items-center gap-3">
+
           {/* Dot indicators */}
           <div className="hidden sm:flex items-center gap-2 mr-4">
             {blogs.map((_, i) => (
               <button
                 key={i}
-                onClick={() => goTo(i)}
+                onClick={() => handleDotClick(i)}
+                aria-label={`Go to blog ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${i === current
-                  ? "w-6 h-2 bg-[#8bc53f]"
-                  : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
+                    ? "w-6 h-2 bg-[#8bc53f]"
+                    : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
                   }`}
               />
             ))}
           </div>
 
+          {/* Previous */}
           <button
-            onClick={() => goTo(current - 1)}
-            disabled={current === 0}
+            onClick={handlePrevious}
+            disabled={total <= 1}
+            aria-label="Previous blog"
             className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:border-black dark:hover:border-white hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-black disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
           >
             ←
           </button>
+
+          {/* Next */}
           <button
-            onClick={() => goTo(current + 1)}
-            disabled={current === total - 1}
+            onClick={handleNext}
+            disabled={total <= 1}
+            aria-label="Next blog"
             className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
           >
             →
@@ -274,7 +353,7 @@ const SliderSection = ({ blogs, navigate }) => {
         </div>
       </div>
 
-      {/* Scrollable track */}
+      {/* Slider */}
       <div
         ref={trackRef}
         className="flex overflow-x-auto scroll-smooth"
@@ -285,18 +364,35 @@ const SliderSection = ({ blogs, navigate }) => {
           WebkitOverflowScrolling: "touch",
         }}
       >
-        <style>{`div::-webkit-scrollbar{display:none}`}</style>
-        {blogs.map((blog, i) => (
-          <SliderCard key={blog._id} blog={blog} index={i} navigate={navigate} />
+        <style>{`
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
+
+        {loopedBlogs.map((blog, i) => (
+          <div
+            key={`${blog._id || blog.id}-${i}`}
+            className="flex-shrink-0 w-[calc((100%-68px)/3)]"
+          >
+            <SliderCard
+              blog={blog}
+              index={i}
+              navigate={navigate}
+            />
+          </div>
         ))}
+
         <div className="flex-shrink-0 w-6" />
       </div>
 
-      {/* Progress bar */}
+      {/* Progress */}
       <div className="mt-8 h-px bg-stone-200 dark:bg-stone-800 rounded-full overflow-hidden">
         <div
           className="h-full bg-[#8bc53f] rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-          style={{ width: `${((current + 1) / total) * 100}%` }}
+          style={{
+            width: `${((current + 1) / total) * 100}%`,
+          }}
         />
       </div>
     </motion.section>
@@ -399,7 +495,9 @@ const Blog = () => {
   }
 
   const stackedBlogs = blogs.slice(0, 3);
-  const sliderBlogs = blogs.slice(3, 6);
+
+  // All remaining blogs: 4th to last blog
+  const sliderBlogs = blogs.slice(3);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black pt-20">

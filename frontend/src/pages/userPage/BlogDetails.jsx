@@ -1,10 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+
+import React, { useEffect, useRef, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
+// ============================================================
+// API
+// ============================================================
+
 const API = import.meta.env.VITE_API_URL || "";
+
+// ============================================================
+// HELPERS
+// ============================================================
 
 const safeParse = (data) => {
   try {
@@ -15,86 +24,171 @@ const safeParse = (data) => {
 };
 
 const createSlug = (title = "") =>
-  title.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-");
+  title
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]/g, "")
+    .replace(/\s+/g, "-");
 
 const getYouTubeId = (url = "") => {
   const m = url.match(
     /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/
   );
+
   return m ? m[1] : null;
 };
 
 const getVimeoId = (url = "") => {
   const m = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+
   return m ? m[1] : null;
 };
 
-const isVideoFile = (url = "") => /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+const isVideoFile = (url = "") =>
+  /\.(mp4|webm|ogg|mov)(\?.*)?$/i.test(url);
+
+// ============================================================
+// ANIMATION
+// ============================================================
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 24 },
+  hidden: {
+    opacity: 0,
+    y: 24,
+  },
+
   visible: (i = 0) => ({
     opacity: 1,
     y: 0,
-    transition: { delay: i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+
+    transition: {
+      delay: i * 0.06,
+      duration: 0.5,
+      ease: [0.22, 1, 0.36, 1],
+    },
   }),
 };
 
-/* Breadcrumb trail */
+// ============================================================
+// BREADCRUMB
+// ============================================================
+
 const Breadcrumb = ({ category, title }) => {
   const navigate = useNavigate();
+
   return (
     <nav className="flex items-center gap-2 text-xs text-gray-400 flex-wrap">
-      <span className="cursor-pointer hover:text-[#8bc53f] transition-colors" onClick={() => navigate("/")}>Home</span>
+      <span
+        className="cursor-pointer hover:text-[#8bc53f] transition-colors"
+        onClick={() => navigate("/")}
+      >
+        Home
+      </span>
+
       <span className="text-gray-500 dark:text-gray-400">›</span>
-      <span className="cursor-pointer hover:text-[#8bc53f] transition-colors" onClick={() => navigate("/blog")}>Blog</span>
+
+      <span
+        className="cursor-pointer hover:text-[#8bc53f] transition-colors"
+        onClick={() => navigate("/blog")}
+      >
+        Blog
+      </span>
+
       {category && (
         <>
           <span className="text-gray-500 dark:text-gray-400">›</span>
-          <span className="text-gray-400">{category}</span>
+
+          <span className="text-gray-400">
+            {category}
+          </span>
         </>
       )}
+
       <span className="text-gray-500 dark:text-gray-400">›</span>
-      <span className="text-gray-500 dark:text-gray-400 truncate max-w-[200px]">{title}</span>
+
+      <span className="text-gray-500 dark:text-gray-400 truncate max-w-[200px]">
+        {title}
+      </span>
     </nav>
   );
 };
 
-/* Section heading with coloured left bar */
+// ============================================================
+// SECTION HEADING
+// ============================================================
+
 const SectionHeading = ({ label, color = "green" }) => (
   <motion.div
-    variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+    variants={fadeUp}
+    initial="hidden"
+    whileInView="visible"
+    viewport={{ once: true }}
     className="flex items-center gap-3 mb-7"
   >
     <span
       className="w-1.5 h-7 rounded-full flex-shrink-0"
-      style={{ background: color === "green" ? "var(--color-green)" : "var(--color-yellow)" }}
+      style={{
+        background:
+          color === "green"
+            ? "var(--color-green)"
+            : "var(--color-yellow)",
+      }}
     />
-    <h2 className="text-xl font-black text-black dark:text-white tracking-tight">{label}</h2>
+
+    <h2 className="text-xl font-black text-black dark:text-white tracking-tight">
+      {label}
+    </h2>
   </motion.div>
 );
 
+// ============================================================
+// LIGHTBOX
+// ============================================================
+
 const Lightbox = ({ src, alt, onClose }) => (
   <motion.div
-    initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    exit={{ opacity: 0 }}
     className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/92 backdrop-blur-sm p-4"
     onClick={onClose}
   >
     <motion.div
-      initial={{ scale: 0.88, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.88, opacity: 0 }} transition={{ type: "spring", stiffness: 300, damping: 28 }}
+      initial={{ scale: 0.88, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.88, opacity: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 28,
+      }}
       className="relative max-w-5xl w-full"
       onClick={(e) => e.stopPropagation()}
     >
-      <img src={src} alt={alt || ""} className="w-full max-h-[88vh] object-contain rounded-2xl" />
-      {alt && <p className="mt-3 text-center text-white/55 text-sm italic">{alt}</p>}
+      <img
+        src={src}
+        alt={alt || ""}
+        className="w-full max-h-[88vh] object-contain rounded-2xl"
+      />
+
+      {alt && (
+        <p className="mt-3 text-center text-white/55 text-sm italic">
+          {alt}
+        </p>
+      )}
+
       <button
         onClick={onClose}
         className="absolute -top-3 -right-3 w-9 h-9 rounded-full bg-white/15 border border-white/25 flex items-center justify-center text-black dark:text-white text-xl hover:bg-white/25 transition-all"
-      >×</button>
+      >
+        ×
+      </button>
     </motion.div>
   </motion.div>
 );
+
+// ============================================================
+// INLINE IMAGE
+// ============================================================
 
 const InlineImage = ({ src, alt }) => {
   const [lightbox, setLightbox] = useState(false);
@@ -105,24 +199,40 @@ const InlineImage = ({ src, alt }) => {
       <span className="block my-7 not-prose">
         <span
           className="block relative rounded-2xl overflow-hidden group bg-gray-800"
-          style={{ cursor: status === "loaded" ? "zoom-in" : "default", minHeight: status === "loaded" ? 0 : "280px" }}
-          onClick={() => status === "loaded" && setLightbox(true)}
+          style={{
+            cursor:
+              status === "loaded"
+                ? "zoom-in"
+                : "default",
+            minHeight:
+              status === "loaded"
+                ? 0
+                : "280px",
+          }}
+          onClick={() =>
+            status === "loaded" &&
+            setLightbox(true)
+          }
         >
           {status === "loading" && (
             <span
               className="absolute inset-0 rounded-2xl"
               style={{
-                background: "linear-gradient(90deg,#1f2937 25%,#374151 50%,#1f2937 75%)",
+                background:
+                  "linear-gradient(90deg,#1f2937 25%,#374151 50%,#1f2937 75%)",
                 backgroundSize: "200% 100%",
-                animation: "blogShimmer 1.5s infinite linear",
+                animation:
+                  "blogShimmer 1.5s infinite linear",
               }}
             />
           )}
+
           {status === "error" && (
             <span className="flex items-center justify-center w-full py-12 text-gray-500 dark:text-gray-400 text-sm gap-2">
               Image could not be loaded
             </span>
           )}
+
           {status !== "error" && (
             <img
               src={src}
@@ -130,28 +240,55 @@ const InlineImage = ({ src, alt }) => {
               onLoad={() => setStatus("loaded")}
               onError={() => setStatus("error")}
               className="w-full h-auto rounded-2xl object-cover transition-all duration-500 group-hover:scale-[1.02]"
-              style={{ opacity: status === "loaded" ? 1 : 0, transition: "opacity 0.4s ease" }}
+              style={{
+                opacity:
+                  status === "loaded"
+                    ? 1
+                    : 0,
+                transition:
+                  "opacity 0.4s ease",
+              }}
             />
           )}
+
           {status === "loaded" && (
             <span
               className="absolute bottom-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity px-3 py-1.5 rounded-full text-xs font-semibold text-black dark:text-white pointer-events-none"
-              style={{ background: "rgba(0,0,0,0.55)" }}
+              style={{
+                background:
+                  "rgba(0,0,0,0.55)",
+              }}
             >
               Click to enlarge
             </span>
           )}
         </span>
+
         {alt && status === "loaded" && (
-          <span className="block text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">{alt}</span>
+          <span className="block text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+            {alt}
+          </span>
         )}
       </span>
+
       <AnimatePresence>
-        {lightbox && <Lightbox src={src} alt={alt} onClose={() => setLightbox(false)} />}
+        {lightbox && (
+          <Lightbox
+            src={src}
+            alt={alt}
+            onClose={() =>
+              setLightbox(false)
+            }
+          />
+        )}
       </AnimatePresence>
     </>
   );
 };
+
+// ============================================================
+// VIDEO EMBED
+// ============================================================
 
 const VideoEmbed = ({ url, caption }) => {
   const ytId = getYouTubeId(url);
@@ -159,14 +296,25 @@ const VideoEmbed = ({ url, caption }) => {
 
   const Wrapper = ({ children }) => (
     <figure className="my-7 not-prose">
-      <div className="relative w-full rounded-2xl overflow-hidden shadow-md" style={{ paddingBottom: "56.25%", background: "#000" }}>
+      <div
+        className="relative w-full rounded-2xl overflow-hidden shadow-md"
+        style={{
+          paddingBottom: "56.25%",
+          background: "#000",
+        }}
+      >
         {children}
       </div>
-      {caption && <figcaption className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">{caption}</figcaption>}
+
+      {caption && (
+        <figcaption className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+          {caption}
+        </figcaption>
+      )}
     </figure>
   );
 
-  if (ytId)
+  if (ytId) {
     return (
       <Wrapper>
         <iframe
@@ -175,12 +323,15 @@ const VideoEmbed = ({ url, caption }) => {
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
-          style={{ border: "none" }}
+          style={{
+            border: "none",
+          }}
         />
       </Wrapper>
     );
+  }
 
-  if (vimeoId)
+  if (vimeoId) {
     return (
       <Wrapper>
         <iframe
@@ -189,246 +340,932 @@ const VideoEmbed = ({ url, caption }) => {
           allow="autoplay; fullscreen; picture-in-picture"
           allowFullScreen
           className="absolute inset-0 w-full h-full"
-          style={{ border: "none" }}
+          style={{
+            border: "none",
+          }}
         />
       </Wrapper>
     );
+  }
 
-  if (isVideoFile(url))
+  if (isVideoFile(url)) {
     return (
       <figure className="my-7 not-prose">
-        <video src={url} controls className="w-full rounded-2xl shadow-md" style={{ background: "#000", maxHeight: "480px" }} />
-        {caption && <figcaption className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">{caption}</figcaption>}
+        <video
+          src={url}
+          controls
+          className="w-full rounded-2xl shadow-md"
+          style={{
+            background: "#000",
+            maxHeight: "480px",
+          }}
+        />
+
+        {caption && (
+          <figcaption className="text-center text-xs text-gray-500 dark:text-gray-400 mt-2 italic">
+            {caption}
+          </figcaption>
+        )}
       </figure>
     );
+  }
 
   return (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="text-[#8bc53f] underline text-sm">
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-[#8bc53f] underline text-sm"
+    >
       {caption || url}
     </a>
   );
 };
 
+// ============================================================
+// MARKDOWN COMPONENTS
+// ============================================================
+
 const markdownComponents = {
   img({ src, alt }) {
     if (!src) return null;
-    if (isVideoFile(src) || getYouTubeId(src) || getVimeoId(src))
-      return <VideoEmbed url={src} caption={alt} />;
-    return <InlineImage src={src} alt={alt} />;
+
+    if (
+      isVideoFile(src) ||
+      getYouTubeId(src) ||
+      getVimeoId(src)
+    ) {
+      return (
+        <VideoEmbed
+          url={src}
+          caption={alt}
+        />
+      );
+    }
+
+    return (
+      <InlineImage
+        src={src}
+        alt={alt}
+      />
+    );
   },
+
   a({ href, children }) {
     const text = String(children ?? "");
+
     const isVideoLink =
-      text.toLowerCase().startsWith("[video]") ||
+      text
+        .toLowerCase()
+        .startsWith("[video]") ||
       getYouTubeId(href) ||
       getVimeoId(href) ||
       isVideoFile(href);
+
     if (isVideoLink) {
-      const caption = text.replace(/^\[video\]\s*/i, "");
-      return <VideoEmbed url={href} caption={caption !== href ? caption : ""} />;
+      const caption = text.replace(
+        /^\[video\]\s*/i,
+        ""
+      );
+
+      return (
+        <VideoEmbed
+          url={href}
+          caption={
+            caption !== href
+              ? caption
+              : ""
+          }
+        />
+      );
     }
+
     return (
-      <a href={href} target="_blank" rel="noopener noreferrer" className="text-[#8bc53f] no-underline hover:underline">
+      <a
+        href={href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="text-[#8bc53f] no-underline hover:underline"
+      >
         {children}
       </a>
     );
   },
+
   p({ children }) {
-    const hasBlock = React.Children.toArray(children).some(
-      (child) =>
-        React.isValidElement(child) &&
-        (child.type === InlineImage ||
-          child.type === VideoEmbed ||
-          String(child.props?.className ?? "").includes("not-prose"))
+    const hasBlock =
+      React.Children.toArray(children).some(
+        (child) =>
+          React.isValidElement(child) &&
+          (child.type === InlineImage ||
+            child.type === VideoEmbed ||
+            String(
+              child.props?.className ?? ""
+            ).includes("not-prose"))
+      );
+
+    if (hasBlock) {
+      return <>{children}</>;
+    }
+
+    return (
+      <p className="text-gray-700 dark:text-gray-300 leading-[1.85] text-[15px] my-4">
+        {children}
+      </p>
     );
-    if (hasBlock) return <>{children}</>;
-    return <p className="text-gray-700 dark:text-gray-300 leading-[1.85] text-[15px] my-4">{children}</p>;
   },
 };
+
+// ============================================================
+// BLOG DETAILS
+// ============================================================
 
 const BlogDetails = () => {
   const { slug } = useParams();
   const navigate = useNavigate();
-  const location = useLocation();
 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [readProgress, setProgress] = useState(0);
   const [relatedPosts, setRelated] = useState([]);
 
-  /* ── fetch blog by slug ── */
+  // ==========================================================
+  // FETCH BLOGS
+  // ONE API CALL ONLY
+  // ==========================================================
+
   useEffect(() => {
-    if (!slug) return;
-    (async () => {
+    if (!slug) {
+      setBlog(null);
+      setRelated([]);
+      setLoading(false);
+      return;
+    }
+
+    let cancelled = false;
+
+    const fetchBlogs = async () => {
       try {
         setLoading(true);
-        const res = await fetch(`${API}/api/blog`);
-        const data = await res.json();
-        const all = data.data || [];
-        const matched = all.find((b) => createSlug(b.title) === slug);
-        if (!matched) { setBlog(null); return; }
-        setBlog(matched);
-        const related = all.filter(
-          (b) =>
-            b._id !== matched._id && // exclude current blog
-            b.category === matched.category // same category
+
+        // ----------------------------------------------------
+        // ONE API CALL
+        // ----------------------------------------------------
+
+        const response = await fetch(
+          `${API}/api/blog`
+        );
+
+        if (!response.ok) {
+          throw new Error(
+            `Failed to fetch blogs: ${response.status}`
+          );
+        }
+
+        const data = await response.json();
+
+        if (cancelled) return;
+
+        const allBlogs = Array.isArray(data?.data)
+          ? data.data
+          : [];
+
+        // ----------------------------------------------------
+        // FIND CURRENT BLOG
+        // ----------------------------------------------------
+
+        const matchedBlog = allBlogs.find(
+          (item) =>
+            createSlug(item.title) === slug
+        );
+
+        if (!matchedBlog) {
+          setBlog(null);
+          setRelated([]);
+          return;
+        }
+
+        setBlog(matchedBlog);
+
+        // ----------------------------------------------------
+        // ALL OTHER BLOGS
+        //
+        // Do NOT filter by category.
+        // Do NOT slice.
+        // Current blog is excluded.
+        // ----------------------------------------------------
+
+        const related = allBlogs.filter(
+          (item) =>
+            item._id !== matchedBlog._id
         );
 
         setRelated(related);
-      } catch (e) {
-        console.error(e);
+      } catch (error) {
+        if (!cancelled) {
+          console.error(
+            "Error fetching blogs:",
+            error
+          );
+
+          setBlog(null);
+          setRelated([]);
+        }
       } finally {
-        setLoading(false);
+        if (!cancelled) {
+          setLoading(false);
+        }
       }
-    })();
+    };
+
+    fetchBlogs();
+
+    // Prevent old request from updating state
+    // after navigating to another blog.
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
-  /* ── scroll progress ── */
+  // ==========================================================
+  // SCROLL PROGRESS
+  // ==========================================================
+
   useEffect(() => {
     const onScroll = () => {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(total > 0 ? (window.scrollY / total) * 100 : 0);
+      const total =
+        document.documentElement.scrollHeight -
+        window.innerHeight;
+
+      setProgress(
+        total > 0
+          ? (window.scrollY / total) * 100
+          : 0
+      );
     };
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
+
+    window.addEventListener(
+      "scroll",
+      onScroll
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        onScroll
+      );
+    };
   }, []);
 
-  /* ── loading / not-found states ── */
-  if (loading)
+  // ==========================================================
+  // LOADING
+  // ==========================================================
+
+  if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-white text-black dark:bg-black dark:text-white" >
+      <div className="min-h-screen flex items-center justify-center bg-white text-black dark:bg-black dark:text-white">
         <motion.div
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          animate={{
+            rotate: 360,
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: "linear",
+          }}
           className="w-12 h-12 border-4 rounded-full"
-          style={{ borderColor: "var(--color-green)", borderTopColor: "transparent" }}
+          style={{
+            borderColor:
+              "var(--color-green)",
+            borderTopColor:
+              "transparent",
+          }}
         />
       </div>
     );
+  }
 
-  if (!blog)
+  // ==========================================================
+  // NOT FOUND
+  // ==========================================================
+
+  if (!blog) {
     return (
       <div className="min-h-screen flex items-center justify-center text-gray-500 dark:text-gray-400 text-sm">
         Blog post not found.
       </div>
     );
+  }
 
-  /* ── derived data ── */
+  // ==========================================================
+  // DERIVED DATA
+  // ==========================================================
+
   const keywords = safeParse(blog.keywords);
-  const heroImage = blog.hero_image || "/assets/blog.jpeg";
-  const authorName = blog.company || blog.author || "Digital Team";
+
+  const heroImage =
+    blog.hero_image ||
+    "/assets/blog.jpeg";
+
+  const authorName =
+    blog.company ||
+    blog.author ||
+    "Digital Team";
+
   const formattedDate = blog?.createdAt
-    ? new Date(blog.createdAt).toLocaleDateString("en-IN", { day: "2-digit", month: "long", year: "numeric" })
+    ? new Date(
+      blog.createdAt
+    ).toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "long",
+      year: "numeric",
+    })
     : null;
 
-  const shareUrl = typeof window !== "undefined" ? window.location.href : "";
+  const shareUrl =
+    typeof window !== "undefined"
+      ? window.location.href
+      : "";
+
+  // ==========================================================
+  // SHARE
+  // ==========================================================
 
   const handleShare = (platform) => {
-    if (platform === "Copy Link") { navigator.clipboard?.writeText(shareUrl); return; }
+    if (platform === "Copy Link") {
+      navigator.clipboard?.writeText(
+        shareUrl
+      );
+
+      return;
+    }
+
     const map = {
-      LinkedIn: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
-      Twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(blog.title)}`,
+      LinkedIn:
+        `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+          shareUrl
+        )}`,
+
+      Twitter:
+        `https://twitter.com/intent/tweet?url=${encodeURIComponent(
+          shareUrl
+        )}&text=${encodeURIComponent(
+          blog.title
+        )}`,
     };
-    window.open(map[platform], "_blank", "noopener");
+
+    window.open(
+      map[platform],
+      "_blank",
+      "noopener"
+    );
   };
 
-  return (
-    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white " style={{ fontFamily: "'Plus Jakarta Sans', sans-serif" }}>
+  // ==========================================================
+  // RELATED BLOG CARD
+  // ==========================================================
 
-      {/* Global keyframe for shimmer */}
+  const RelatedBlogCard = ({
+    post,
+    mobile = false,
+  }) => {
+    const postSlug = createSlug(
+      post.title
+    );
+
+    return (
+      <div
+        onClick={() =>
+          navigate(
+            `/blog/${postSlug}`,
+            {
+              state: {
+                blogId: post._id,
+              },
+            }
+          )
+        }
+        className={
+          mobile
+            ? "flex gap-4 cursor-pointer group"
+            : "flex gap-3 group cursor-pointer"
+        }
+      >
+        {post.hero_image ? (
+          <img
+            src={post.hero_image}
+            alt={post.title}
+            className={
+              mobile
+                ? "w-20 h-16 rounded-xl object-cover flex-shrink-0"
+                : "w-16 h-14 rounded-xl object-cover flex-shrink-0"
+            }
+          />
+        ) : (
+          <div
+            className={
+              mobile
+                ? "w-20 h-16 rounded-xl flex-shrink-0 flex items-center justify-center text-black dark:text-white text-xs font-black"
+                : "w-16 h-14 rounded-xl flex-shrink-0 flex items-center justify-center text-black dark:text-white text-xs font-black"
+            }
+            style={{
+              background:
+                "linear-gradient(135deg,#8bc53f,#5a8c1e)",
+            }}
+          >
+            Blog
+          </div>
+        )}
+
+        <div className="flex-1 min-w-0">
+          {post.category && (
+            <p className="text-[10px] uppercase tracking-wider font-bold text-[#8bc53f] mb-1">
+              {post.category}
+            </p>
+          )}
+
+          <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">
+            {post.title}
+          </p>
+
+          {post.createdAt && (
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {new Date(
+                post.createdAt
+              ).toLocaleDateString(
+                "en-IN",
+                {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                }
+              )}
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
+  // ==========================================================
+  // UI
+  // ==========================================================
+  const RelatedPostsSlider = ({
+    relatedPosts,
+    navigate,
+    createSlug,
+  }) => {
+    const [current, setCurrent] = useState(0);
+    const trackRef = useRef(null);
+    const isResetting = useRef(false);
+
+    const total = relatedPosts.length;
+
+    const GAP = 24;
+
+    if (!total) return null;
+
+    // Clone last 3 + original posts + first 3
+    const cloneCount = Math.min(3, total);
+
+    const loopedPosts = [
+      ...relatedPosts.slice(-cloneCount),
+      ...relatedPosts,
+      ...relatedPosts.slice(0, cloneCount),
+    ];
+
+    const scrollToIndex = (index, smooth = true) => {
+      if (!trackRef.current) return;
+
+      const containerWidth = trackRef.current.clientWidth;
+
+      // Exactly 3 cards visible
+      const cardWidth =
+        (containerWidth - GAP * 2) / 3;
+
+      const step = cardWidth + GAP;
+
+      trackRef.current.scrollTo({
+        left: index * step,
+        behavior: smooth ? "smooth" : "auto",
+      });
+    };
+
+    const handleNext = () => {
+      if (isResetting.current) return;
+
+      const next = current + 1;
+
+      if (next >= total) {
+        setCurrent(0);
+
+        // Move to cloned first card
+        scrollToIndex(
+          cloneCount + total,
+          true
+        );
+
+        setTimeout(() => {
+          isResetting.current = true;
+
+          // Jump silently to real first card
+          scrollToIndex(
+            cloneCount,
+            false
+          );
+
+          setTimeout(() => {
+            isResetting.current = false;
+          }, 50);
+        }, 450);
+
+        return;
+      }
+
+      setCurrent(next);
+
+      scrollToIndex(
+        cloneCount + next,
+        true
+      );
+    };
+
+    const handlePrevious = () => {
+      if (isResetting.current) return;
+
+      const previous = current - 1;
+
+      if (previous < 0) {
+        setCurrent(total - 1);
+
+        // Move to cloned last card
+        scrollToIndex(0, true);
+
+        setTimeout(() => {
+          isResetting.current = true;
+
+          // Jump silently to real last card
+          scrollToIndex(
+            cloneCount + total - 1,
+            false
+          );
+
+          setTimeout(() => {
+            isResetting.current = false;
+          }, 50);
+        }, 450);
+
+        return;
+      }
+
+      setCurrent(previous);
+
+      scrollToIndex(
+        cloneCount + previous,
+        true
+      );
+    };
+
+    const handleDotClick = (index) => {
+      if (isResetting.current) return;
+
+      setCurrent(index);
+
+      scrollToIndex(
+        cloneCount + index,
+        true
+      );
+    };
+
+    return (
+      <div className="w-full">
+
+        {/* Controls */}
+        <div className="flex justify-end items-center gap-3 mb-6">
+
+          {/* Dots */}
+          <div className="hidden md:flex items-center gap-2 mr-3">
+            {relatedPosts.map((_, i) => (
+              <button
+                key={i}
+                onClick={() =>
+                  handleDotClick(i)
+                }
+                aria-label={`Go to post ${i + 1}`}
+                className={`rounded-full transition-all duration-300 ${i === current
+                  ? "w-6 h-2 bg-[#8bc53f]"
+                  : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400"
+                  }`}
+              />
+            ))}
+          </div>
+
+          {/* Previous */}
+          <button
+            onClick={handlePrevious}
+            disabled={total <= 1}
+            aria-label="Previous related post"
+            className="w-10 h-10 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white disabled:opacity-30 transition-all"
+          >
+            ←
+          </button>
+
+          {/* Next */}
+          <button
+            onClick={handleNext}
+            disabled={total <= 1}
+            aria-label="Next related post"
+            className="w-10 h-10 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white disabled:opacity-30 transition-all"
+          >
+            →
+          </button>
+        </div>
+
+        {/* Slider */}
+        <div
+          ref={trackRef}
+          className="flex overflow-x-hidden"
+          style={{
+            gap: `${GAP}px`,
+          }}
+        >
+          {loopedPosts.map((post, i) => {
+            const postSlug = createSlug(
+              post.title
+            );
+
+            return (
+              <motion.div
+                key={`${post._id || post.id}-${i}`}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{
+                  once: true,
+                }}
+                onClick={() =>
+                  navigate(
+                    `/blog/${postSlug}`,
+                    {
+                      state: {
+                        blogId: post._id,
+                      },
+                    }
+                  )
+                }
+                className="flex-shrink-0 cursor-pointer group"
+                style={{
+                  width:
+                    "calc((100% - 48px) / 3)",
+                }}
+              >
+                <div
+                  className="rounded-2xl overflow-hidden h-full hover:shadow-lg transition-all duration-300"
+                  style={{
+                    background:
+                      "rgba(255,255,255,0.04)",
+                    border:
+                      "1px solid rgba(255,255,255,0.08)",
+                  }}
+                >
+
+                  {/* Image */}
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      height: "180px",
+                    }}
+                  >
+                    {post.hero_image ? (
+                      <img
+                        src={post.hero_image}
+                        alt={post.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div
+                        className="w-full h-full flex items-center justify-center text-black dark:text-white font-black text-2xl"
+                        style={{
+                          background:
+                            "linear-gradient(135deg,#8bc53f,#5a8c1e)",
+                        }}
+                      >
+                        {post.title?.[0]?.toUpperCase()}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="p-5">
+
+                    {post.category && (
+                      <span className="text-xs font-black uppercase tracking-widest text-[#8bc53f]">
+                        {post.category}
+                      </span>
+                    )}
+
+                    <h3 className="mt-2 text-base font-black text-black dark:text-white group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">
+                      {post.title}
+                    </h3>
+
+                    {post.createdAt && (
+                      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
+                        {new Date(
+                          post.createdAt
+                        ).toLocaleDateString(
+                          "en-IN",
+                          {
+                            month: "long",
+                            day: "numeric",
+                            year: "numeric",
+                          }
+                        )}
+                      </p>
+                    )}
+
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+      </div>
+    );
+  };
+  return (
+    <div
+      className="min-h-screen bg-white dark:bg-black text-black dark:text-white"
+      style={{
+        fontFamily:
+          "'Plus Jakarta Sans', sans-serif",
+      }}
+    >
+      {/* ======================================================
+          SHIMMER
+      ====================================================== */}
+
       <style>{`
         @keyframes blogShimmer {
-          0%   { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
+          0% {
+            background-position: 200% 0;
+          }
+
+          100% {
+            background-position: -200% 0;
+          }
         }
       `}</style>
 
-      {/* ── Read progress bar ── */}
+      {/* ======================================================
+          READ PROGRESS
+      ====================================================== */}
+
       <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-gray-800 pointer-events-none">
         <div
           className="h-full transition-all duration-100"
           style={{
             width: `${readProgress}%`,
-            background: "linear-gradient(90deg, var(--color-green), var(--color-yellow))",
+            background:
+              "linear-gradient(90deg, var(--color-green), var(--color-yellow))",
           }}
         />
       </div>
 
-      {/* ── HERO SECTION ── */}
-      {/* <section className="relative w-full overflow-hidden" style={{ minHeight: "62vh" }}> */}
+      {/* ======================================================
+          HERO
+      ====================================================== */}
+
       <section className="relative w-full overflow-hidden min-h-[45vh] sm:min-h-[55vh] md:min-h-[62vh]">
-        {/* Layer 1 — background image */}
         <img
           src={heroImage}
           alt={blog.title}
           className="absolute inset-0 w-full h-full object-cover object-center"
-          style={{ zIndex: 0, filter: "brightness(0.48)" }}
+          style={{
+            zIndex: 0,
+            filter: "brightness(0.48)",
+          }}
         />
-        {/* Layer 2 — gradient darkening overlay */}
+
         <div
           className="absolute inset-0"
           style={{
             zIndex: 1,
-            background: "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.58) 55%, rgba(0,0,0,0.93) 100%)",
+            background:
+              "linear-gradient(180deg, rgba(0,0,0,0.22) 0%, rgba(0,0,0,0.58) 55%, rgba(0,0,0,0.93) 100%)",
           }}
         />
 
-        {/* Layer 3 — back button */}
-        <div className="absolute top-24 left-5 md:left-12" style={{ zIndex: 20 }}>
-          <button
-            onClick={() => navigate("/blog")}
-            className="flex items-center gap-2 text-xs font-semibold bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full hover:bg-white/25 transition-all text-black dark:text-white"
+        {/* Back button */}
 
+        <div
+          className="absolute top-24 left-5 md:left-12"
+          style={{
+            zIndex: 20,
+          }}
+        >
+          <button
+            onClick={() =>
+              navigate("/blog")
+            }
+            className="flex items-center gap-2 text-xs font-semibold bg-white/10 backdrop-blur-sm border border-white/20 px-4 py-2 rounded-full hover:bg-white/25 transition-all text-black dark:text-white"
           >
             ← Back to Blogs
           </button>
         </div>
 
-        {/* Layer 4 — title + author anchored to bottom */}
-        <div className="absolute bottom-0 left-0 right-0 px-5 md:px-12 pb-10" style={{ zIndex: 20 }}>
-          <div className="max-w-5xl">
+        {/* Hero content */}
 
-            {/* Category badge */}
+        <div
+          className="absolute bottom-0 left-0 right-0 px-5 md:px-12 pb-10"
+          style={{
+            zIndex: 20,
+          }}
+        >
+          <div className="max-w-5xl">
             {blog.category && (
               <motion.span
-                variants={fadeUp} initial="hidden" animate="visible" custom={0}
+                variants={fadeUp}
+                initial="hidden"
+                animate="visible"
+                custom={0}
                 className="inline-block mb-4 px-4 py-1 rounded-full text-xs font-black uppercase tracking-widest"
-                style={{ background: "var(--color-yellow)", color: "#000000" }}
+                style={{
+                  background:
+                    "var(--color-yellow)",
+                  color: "#000000",
+                }}
               >
                 {blog.category}
               </motion.span>
             )}
 
-            {/* Title */}
             <motion.h1
-              variants={fadeUp} initial="hidden" animate="visible" custom={1}
-              className="text-3xl sm:text-4xl md:text-5xl font-black leading-[1.15] mb-6 text-white dark:text-white"
-
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+              className="text-3xl sm:text-4xl md:text-5xl font-black leading-[1.15] mb-6 text-white"
             >
               {blog.title}
             </motion.h1>
 
-            {/* Author + read-time row */}
             <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={2}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={2}
               className="flex flex-wrap items-center gap-5"
             >
               <div className="flex items-center gap-3">
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center font-black text-sm flex-shrink-0"
-                  style={{ background: "linear-gradient(135deg,#8bc53f,#5a8c1e)", color: "#ffffff" }}
+                  style={{
+                    background:
+                      "linear-gradient(135deg,#8bc53f,#5a8c1e)",
+                    color: "#ffffff",
+                  }}
                 >
-                  {authorName?.[0]?.toUpperCase() || "A"}
+                  {authorName?.[0]?.toUpperCase() ||
+                    "A"}
                 </div>
+
                 <div>
-                  <p className="text-sm font-bold text-white dark:text-white" >{authorName}</p>
-                  {formattedDate && <p className="text-xs" style={{ color: "rgba(255,255,255,0.60)" }}>{formattedDate}</p>}
+                  <p className="text-sm font-bold text-white">
+                    {authorName}
+                  </p>
+
+                  {formattedDate && (
+                    <p
+                      className="text-xs"
+                      style={{
+                        color:
+                          "rgba(255,255,255,0.60)",
+                      }}
+                    >
+                      {formattedDate}
+                    </p>
+                  )}
                 </div>
               </div>
 
               {blog.read_time && (
-                <span className="flex items-center gap-1.5 text-xs" style={{ color: "rgba(255,255,255,0.60)" }}>
-                  <span className="w-5 h-5 rounded-md flex items-center justify-center" style={{ background: "rgba(255,255,255,0.15)" }}>⏱</span>
+                <span
+                  className="flex items-center gap-1.5 text-xs"
+                  style={{
+                    color:
+                      "rgba(255,255,255,0.60)",
+                  }}
+                >
+                  <span
+                    className="w-5 h-5 rounded-md flex items-center justify-center"
+                    style={{
+                      background:
+                        "rgba(255,255,255,0.15)",
+                    }}
+                  >
+                    ⏱
+                  </span>
+
                   {blog.read_time} min read
                 </span>
               )}
@@ -437,26 +1274,147 @@ const BlogDetails = () => {
         </div>
       </section>
 
-      {/* ── Breadcrumb strip ── */}
-      <div style={{ background: "rgba(255,255,255,0.03)", borderBottom: "1px solid rgba(255,255,255,0.07)" }}>
+      {/* ======================================================
+          BREADCRUMB
+      ====================================================== */}
+
+      <div
+        style={{
+          background:
+            "rgba(255,255,255,0.03)",
+          borderBottom:
+            "1px solid rgba(255,255,255,0.07)",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-5 md:px-12 py-3">
-          <Breadcrumb category={blog.category} title={blog.title} />
+          <Breadcrumb
+            category={blog.category}
+            title={blog.title}
+          />
         </div>
       </div>
 
-      {/* ── MAIN CONTENT GRID ── */}
-      <div className="max-w-7xl mx-auto px-5 md:px-12 py-10 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-start">
+      {/* ======================================================
+          MAIN CONTENT
+      ====================================================== */}
 
+      <div className="max-w-7xl mx-auto px-5 md:px-12 py-10 grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-12 items-start">
         <main className="min-w-0 space-y-12">
 
+          {/* Description */}
+
+          {blog.description && (
+            <motion.p
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
+              className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed border-l-4 pl-5"
+              style={{
+                borderColor:
+                  "var(--color-green)",
+              }}
+            >
+              {blog.description}
+            </motion.p>
+          )}
+
+          {/* Second image */}
+
+          {blog.image && (
+            <img
+              src={blog.image}
+              alt={blog.title}
+              className="w-full h-[600px] object-cover rounded-xl my-6"
+            />
+          )}
+
+          {/* Markdown content */}
+
+          <motion.div
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+            }}
+          >
+            <div
+              className="
+                prose prose-base max-w-none
+                text-gray-800 dark:text-gray-300
+                dark:prose-invert
+                prose-ul:list-disc prose-ul:list-inside
+                prose-ol:list-decimal prose-ol:list-inside
+                prose-li:marker:text-gray-400
+                prose-headings:font-black
+                prose-headings:text-black dark:prose-headings:text-white
+                prose-headings:tracking-tight
+                prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
+                prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
+                prose-h4:text-base prose-h4:mt-6 prose-h4:mb-2
+                prose-p:text-gray-800 dark:prose-p:text-gray-300
+                prose-p:leading-[1.85] prose-p:text-[15px]
+                prose-li:text-gray-800 dark:prose-li:text-gray-300
+                prose-li:text-[15px] prose-li:leading-relaxed
+                prose-strong:text-black dark:prose-strong:text-white
+                prose-strong:font-bold
+                prose-a:text-[#8bc53f]
+                prose-a:no-underline
+                hover:prose-a:underline
+                prose-blockquote:border-l-4
+                prose-blockquote:border-[#8bc53f]
+                prose-blockquote:pl-5
+                prose-blockquote:italic
+                prose-blockquote:text-gray-700
+                dark:prose-blockquote:text-gray-300
+                prose-blockquote:rounded-r-xl
+                prose-blockquote:py-2
+                prose-code:bg-gray-200
+                dark:prose-code:bg-gray-800
+                prose-code:text-black
+                dark:prose-code:text-gray-200
+                prose-code:px-1.5
+                prose-code:py-0.5
+                prose-code:rounded
+                prose-code:text-sm
+                prose-ul:pl-6
+                prose-ol:pl-6
+                [&_h2]:scroll-mt-20
+                [&_h3]:scroll-mt-20
+              "
+            >
+              <ReactMarkdown
+                remarkPlugins={[
+                  remarkGfm,
+                ]}
+                components={
+                  markdownComponents
+                }
+              >
+                {blog.content}
+              </ReactMarkdown>
+            </div>
+          </motion.div>
+
           {/* Tags */}
+
           {keywords.length > 0 && (
-            <motion.div variants={fadeUp} initial="hidden" animate="visible" custom={0} className="flex flex-wrap gap-2">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={0}
+              className="flex flex-wrap gap-2"
+            >
               {keywords.map((k, i) => (
                 <span
                   key={i}
-                  className="text-xs font-semibold px-3 py-1 rounded-full cursor-pointer hover:bg-[#8bc53f] hover:text-white transition-all "
-                  style={{ border: "1px solid rgba(255,255,255,0.15)", }}
+                  className="text-xs font-semibold px-3 py-1 rounded-full cursor-pointer hover:bg-[#8bc53f] hover:text-white transition-all"
+                  style={{
+                    border:
+                      "1px solid rgba(255,255,255,0.15)",
+                  }}
                 >
                   {k}
                 </span>
@@ -464,125 +1422,111 @@ const BlogDetails = () => {
             </motion.div>
           )}
 
-          {/* Description */}
-          {blog.description && (
-            <motion.p
-              variants={fadeUp} initial="hidden" animate="visible" custom={1}
-              className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed border-l-4 pl-5"
-              style={{ borderColor: "var(--color-green)" }}
-            >
-              {blog.description}
-            </motion.p>
-          )}
+          {/* Author */}
 
-          {/* SECOND IMAGE */}
-          {blog.image && (
-            <img
-              src={blog.image}
-              className="w-full h-150 object-cover rounded-xl my-6"
-            />
-          )}
-          {/* ── A) MARKDOWN CONTENT ── */}
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}>
-            <div
-              className="
-  prose prose-base max-w-none 
-  text-gray-800 dark:text-gray-300
-
-  dark:prose-invert
-
-  prose-ul:list-disc prose-ul:list-inside
-  prose-ol:list-decimal prose-ol:list-inside
-  prose-li:marker:text-gray-400
-
-  prose-headings:font-black 
-  prose-headings:text-black dark:prose-headings:text-white
-  prose-headings:tracking-tight
-
-  prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
-  prose-h3:text-lg prose-h3:mt-8 prose-h3:mb-3
-  prose-h4:text-base prose-h4:mt-6 prose-h4:mb-2
-
-  prose-p:text-gray-800 dark:prose-p:text-gray-300 
-  prose-p:leading-[1.85] prose-p:text-[15px]
-
-  prose-li:text-gray-800 dark:prose-li:text-gray-300 
-  prose-li:text-[15px] prose-li:leading-relaxed
-
-  prose-strong:text-black dark:prose-strong:text-white 
-  prose-strong:font-bold
-
-  prose-a:text-[#8bc53f] prose-a:no-underline hover:prose-a:underline
-
-  prose-blockquote:border-l-4 prose-blockquote:border-[#8bc53f]
-  prose-blockquote:pl-5 prose-blockquote:italic 
-  prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-300
-  prose-blockquote:rounded-r-xl prose-blockquote:py-2
-
-  prose-code:bg-gray-200 dark:prose-code:bg-gray-800
-  prose-code:text-black dark:prose-code:text-gray-200
-  prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
-
-  prose-ul:pl-6 prose-ol:pl-6
-
-  [&_h2]:scroll-mt-20 [&_h3]:scroll-mt-20
-"
-            >
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                components={markdownComponents}
-              >
-                {blog.content}
-              </ReactMarkdown>
-            </div>
-          </motion.div>
-
-
-          {/* ── G) AUTHOR BIO ── */}
           <motion.div
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+            }}
             className="rounded-2xl p-6 flex flex-col sm:flex-row gap-5 items-start"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{
+              background:
+                "rgba(255,255,255,0.04)",
+              border:
+                "1px solid rgba(255,255,255,0.08)",
+            }}
           >
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center text-black dark:text-white font-black text-xl flex-shrink-0"
-              style={{ background: "linear-gradient(135deg,#8bc53f,#5a8c1e)" }}
+              style={{
+                background:
+                  "linear-gradient(135deg,#8bc53f,#5a8c1e)",
+              }}
             >
               {authorName[0]?.toUpperCase()}
             </div>
+
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">Written by</p>
-              <p className="font-black text-black dark:text-white text-base">{authorName}</p>
-              <p className="text-sm text-gray-400 mt-1 leading-relaxed">Sharing insights on digital strategy, marketing, and growth.</p>
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-1">
+                Written by
+              </p>
+
+              <p className="font-black text-black dark:text-white text-base">
+                {authorName}
+              </p>
+
+              <p className="text-sm text-gray-400 mt-1 leading-relaxed">
+                Sharing insights on digital strategy,
+                marketing, and growth.
+              </p>
             </div>
           </motion.div>
 
-          {/* ── H) SHARE STRIP ── */}
+          {/* Share */}
+
           <motion.div
-            variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+            }}
             className="rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4"
             style={{
-              background: "linear-gradient(135deg,rgba(139,197,63,0.08),rgba(255,201,59,0.08))",
-              border: "1px solid rgba(139,197,63,0.20)",
+              background:
+                "linear-gradient(135deg,rgba(139,197,63,0.08),rgba(255,201,59,0.08))",
+              border:
+                "1px solid rgba(139,197,63,0.20)",
             }}
           >
             <div>
-              <p className="font-black text-black dark:text-white text-base">Found this helpful?</p>
-              <p className="text-gray-400 text-sm">Share it with your network.</p>
+              <p className="font-black text-black dark:text-white text-base">
+                Found this helpful?
+              </p>
+
+              <p className="text-gray-400 text-sm">
+                Share it with your network.
+              </p>
             </div>
+
             <div className="flex gap-2 flex-wrap">
-              {["LinkedIn", "Twitter", "Copy Link"].map((label) => (
+              {[
+                "LinkedIn",
+                "Twitter",
+                "Copy Link",
+              ].map((label) => (
                 <button
                   key={label}
-                  onClick={() => handleShare(label)}
+                  onClick={() =>
+                    handleShare(label)
+                  }
                   className="px-5 py-2.5 rounded-full text-sm font-semibold transition-all hover:scale-[1.03]"
                   style={{
-                    background: "rgba(255,255,255,0.07)",
-                    border: "1px solid rgba(255,255,255,0.15)",
+                    background:
+                      "rgba(255,255,255,0.07)",
+                    border:
+                      "1px solid rgba(255,255,255,0.15)",
                     color: "#e5e7eb",
                   }}
-                  onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-green)"; e.currentTarget.style.color = "#fff"; e.currentTarget.style.borderColor = "var(--color-green)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.background = "rgba(255,255,255,0.07)"; e.currentTarget.style.color = "#e5e7eb"; e.currentTarget.style.borderColor = "rgba(255,255,255,0.15)"; }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background =
+                      "var(--color-green)";
+                    e.currentTarget.style.color =
+                      "#fff";
+                    e.currentTarget.style.borderColor =
+                      "var(--color-green)";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background =
+                      "rgba(255,255,255,0.07)";
+                    e.currentTarget.style.color =
+                      "#e5e7eb";
+                    e.currentTarget.style.borderColor =
+                      "rgba(255,255,255,0.15)";
+                  }}
                 >
                   {label}
                 </button>
@@ -590,158 +1534,244 @@ const BlogDetails = () => {
             </div>
           </motion.div>
 
-          {/* ── I) RELATED POSTS — mobile only ── */}
+          {/* ==================================================
+              MOBILE RELATED POSTS
+          ================================================== */}
+
           {relatedPosts.length > 0 && (
             <div className="lg:hidden">
-              <SectionHeading label="Related Articles" color="green" />
-              <div className="space-y-4">
-                {relatedPosts.slice(0, 3).map((post, i) => {
-                  const ps = createSlug(post.title);
-                  return (
-                    <div key={i} onClick={() => navigate(`/blog/${ps}`)} className="flex gap-4 cursor-pointer group">
-                      {post.hero_image && (
-                        <img src={post.hero_image} alt={post.title} className="w-20 h-5 rounded-xl object-cover flex-shrink-0" />
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-bold text-gray-700 dark:text-gray-300 group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">{post.title}</p>
-                        {post.createdAt && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            {new Date(post.createdAt).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" })}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })}
+              <SectionHeading
+                label="Related Articles"
+                color="green"
+              />
+
+              <div className="space-y-5">
+                {relatedPosts.map(
+                  (post) => (
+                    <RelatedBlogCard
+                      key={post._id}
+                      post={post}
+                      mobile
+                    />
+                  )
+                )}
               </div>
             </div>
           )}
         </main>
 
+        {/* ====================================================
+            DESKTOP SIDEBAR
+        ==================================================== */}
+
         <aside className="hidden lg:flex flex-col gap-6 lg:sticky lg:top-6 self-start">
+
           {/* Topics */}
+
           {keywords.length > 0 && (
             <motion.div
-              variants={fadeUp} initial="hidden" animate="visible" custom={1}
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              custom={1}
               className="rounded-2xl p-5"
-              style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+              style={{
+                background:
+                  "rgba(255,255,255,0.04)",
+                border:
+                  "1px solid rgba(255,255,255,0.08)",
+              }}
             >
-              <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4">Topics</p>
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4">
+                Topics
+              </p>
+
               <div className="flex flex-wrap gap-2">
-                {keywords.map((k, i) => (
-                  <span
-                    key={i}
-                    className="text-xs font-semibold px-3 py-1.5 rounded-full cursor-pointer transition-all"
-                    style={{ border: "1px solid rgba(139,197,63,0.40)", color: "#8bc53f" }}
-                    onMouseEnter={(e) => { e.currentTarget.style.background = "var(--color-green)"; e.currentTarget.style.color = "#fff"; }}
-                    onMouseLeave={(e) => { e.currentTarget.style.background = "transparent"; e.currentTarget.style.color = "var(--color-green)"; }}
-                  >{k}</span>
-                ))}
+                {keywords.map(
+                  (k, i) => (
+                    <span
+                      key={i}
+                      className="text-xs font-semibold px-3 py-1.5 rounded-full cursor-pointer transition-all"
+                      style={{
+                        border:
+                          "1px solid rgba(139,197,63,0.40)",
+                        color:
+                          "#8bc53f",
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.background =
+                          "var(--color-green)";
+                        e.currentTarget.style.color =
+                          "#fff";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.background =
+                          "transparent";
+                        e.currentTarget.style.color =
+                          "var(--color-green)";
+                      }}
+                    >
+                      {k}
+                    </span>
+                  )
+                )}
               </div>
             </motion.div>
           )}
 
-          {/* Related Posts */}
+          {/* ==================================================
+              ALL RELATED POSTS
+          ================================================== */}
+
           <motion.div
-            variants={fadeUp} initial="hidden" animate="visible" custom={2}
+            variants={fadeUp}
+            initial="hidden"
+            animate="visible"
+            custom={2}
             className="rounded-2xl p-5"
-            style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
+            style={{
+              background:
+                "rgba(255,255,255,0.04)",
+              border:
+                "1px solid rgba(255,255,255,0.08)",
+            }}
           >
-            <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400 mb-4">Related Posts</p>
-            <div className="space-y-4">
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-xs font-black uppercase tracking-widest text-gray-500 dark:text-gray-400">
+                All Posts
+              </p>
+
+            </div>
+
+            <div className="space-y-5 max-h-[70vh] overflow-y-auto pr-1">
               {relatedPosts.length > 0 ? (
-                relatedPosts.slice(0, 4).map((post, i) => {
-                  const ps = createSlug(post.title);
-                  return (
-                    <div key={i} onClick={() => navigate(`/blog/${ps}`, { state: { blogId: post._id } })} className="flex gap-3 group cursor-pointer">
-                      {post.hero_image ? (
-                        <img src={post.hero_image} alt={post.title}
-                          // className="w-16 h-14 rounded-xl object-cover flex-shrink-0" 
-                          className="w-16 h-9 sm:h-14 rounded-xl object-cover flex-shrink-0"
-                        />
-                      ) : (
-                        <div className="w-16 h-14 rounded-xl flex-shrink-0 flex items-center justify-center text-black dark:text-white text-xs font-black" style={{ background: "linear-gradient(135deg,#8bc53f,#5a8c1e)" }}>Blog</div>
-                      )}
-                      <div className="flex-1 min-w-0">
-                        <p className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">{post.title}</p>
-                        {post.createdAt && (
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
-                            {new Date(post.createdAt).toLocaleDateString("en-IN", { month: "short", day: "numeric", year: "numeric" })}
-                          </p>
-                        )}
-                      </div>
-                    </div>
-                  );
-                })
+                relatedPosts.map(
+                  (post) => (
+                    <RelatedBlogCard
+                      key={post._id}
+                      post={post}
+                    />
+                  )
+                )
               ) : (
-                <p className="text-sm text-gray-500 dark:text-gray-400">No related posts.</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  No other posts available.
+                </p>
               )}
             </div>
           </motion.div>
 
-          {/* CTA Card */}
+          {/* CTA */}
+
           <motion.div
-            variants={fadeUp} initial="hidden" animate="visible" custom={3}
+            variants={fadeUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{
+              once: true,
+            }}
+            custom={3}
             className="rounded-2xl p-6 relative overflow-hidden"
-            style={{ background: "linear-gradient(135deg,#111 50%,#1c320a)" }}
+            style={{
+              background:
+                "linear-gradient(135deg,#111 50%,#1c320a)",
+            }}
           >
-            <div className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-25" style={{ background: "var(--color-yellow)" }} />
-            <div className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full opacity-20" style={{ background: "var(--color-green)" }} />
-            <p className="relative text-xs font-black uppercase tracking-widest mb-2" style={{ color: "var(--color-yellow)" }}>Free Consultation</p>
-            <h3 className="relative text-xl font-black leading-tight mb-2 text-black dark:text-white" >Ready to grow your business?</h3>
-            <p className="relative text-sm mb-5 leading-relaxed" style={{ color: "rgba(255,255,255,0.55)" }}>Let our experts craft a strategy built for your goals.</p>
+            <div
+              className="absolute -top-8 -right-8 w-28 h-28 rounded-full opacity-25"
+              style={{
+                background:
+                  "var(--color-yellow)",
+              }}
+            />
+
+            <div
+              className="absolute -bottom-6 -left-6 w-20 h-20 rounded-full opacity-20"
+              style={{
+                background:
+                  "var(--color-green)",
+              }}
+            />
+
+            <p
+              className="relative text-xs font-black uppercase tracking-widest mb-2"
+              style={{
+                color:
+                  "var(--color-yellow)",
+              }}
+            >
+              Free Consultation
+            </p>
+
+            <h3 className="relative text-xl font-black leading-tight mb-2 text-white">
+              Ready to grow your business?
+            </h3>
+
+            <p
+              className="relative text-sm mb-5 leading-relaxed"
+              style={{
+                color:
+                  "rgba(255,255,255,0.55)",
+              }}
+            >
+              Let our experts craft a strategy built
+              for your goals.
+            </p>
+
             <button
               className="relative w-full py-3 rounded-xl font-black text-sm text-black transition-all hover:scale-[1.03] active:scale-95"
-              style={{ background: "var(--color-green)" }}
-              onClick={() => navigate(`/contact`)}
-            >Get in Touch →</button>
+              style={{
+                background:
+                  "var(--color-green)",
+              }}
+              onClick={() =>
+                navigate("/contact")
+              }
+            >
+              Get in Touch →
+            </button>
           </motion.div>
         </aside>
       </div>
 
-      {relatedPosts.length > 0 && (
-        <section
-          className="border-t py-14 px-5 md:px-12"
-          style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.07)" }}
-        >
-          <div className="max-w-7xl mx-auto">
-            <SectionHeading label="Maybe You Want to Read" color="green" />
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {relatedPosts.slice(0, 3).map((post, i) => {
-                const ps = createSlug(post.title);
-                return (
-                  <motion.div
-                    key={i}
-                    variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true }} custom={i}
-                    onClick={() => navigate(`/blog/${ps}`, { state: { blogId: post._id } })}
-                    className="rounded-2xl overflow-hidden cursor-pointer group hover:shadow-lg transition-all duration-300"
-                    style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)" }}
-                  >
-                    <div className="overflow-hidden" style={{ height: "180px" }}>
-                      {post.hero_image ? (
-                        <img src={post.hero_image} alt={post.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      ) : (
-                        <div className="w-full h-full flex items-center justify-center text-black dark:text-white font-black text-2xl" style={{ background: "linear-gradient(135deg,#8bc53f,#5a8c1e)" }}>
-                          {post.title?.[0]?.toUpperCase()}
-                        </div>
-                      )}
-                    </div>
-                    <div className="p-5">
-                      {post.category && <span className="text-xs font-black uppercase tracking-widest text-[#8bc53f]">{post.category}</span>}
-                      <h3 className="mt-2 text-base font-black text-black dark:text-white group-hover:text-[#8bc53f] transition-colors leading-snug line-clamp-2">{post.title}</h3>
-                      {post.createdAt && (
-                        <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
-                          {new Date(post.createdAt).toLocaleDateString("en-IN", { month: "long", day: "numeric", year: "numeric" })}
-                        </p>
-                      )}
-                    </div>
-                  </motion.div>
-                );
-              })}
+      {/* ======================================================
+          ALL OTHER BLOGS
+      ====================================================== */}
+      {/* ======================================================
+    RELATED POSTS
+====================================================== */}
+
+      <div className="max-w-7xl mx-auto px-5 md:px-12">
+        {relatedPosts.length > 0 && (
+          <section className="mt-20 pb-20">
+
+            {/* Section Header */}
+            <div className="flex items-end justify-between mb-8">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-[2px] bg-[#8bc53f]" />
+
+                  <span className="text-[9px] font-bold tracking-[0.28em] text-[#8bc53f] uppercase">
+                    More Stories
+                  </span>
+                </div>
+
+                <h2 className="font-serif text-3xl md:text-4xl text-black dark:text-white">
+                  Related Posts
+                </h2>
+              </div>
             </div>
-          </div>
-        </section>
-      )}
+
+            {/* Infinite Slider */}
+            <RelatedPostsSlider
+              relatedPosts={relatedPosts}
+              navigate={navigate}
+              createSlug={createSlug}
+            />
+
+          </section>
+        )}
+      </div>
     </div>
   );
 };
