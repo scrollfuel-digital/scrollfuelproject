@@ -490,9 +490,62 @@ const BlogDetails = () => {
   const [relatedPosts, setRelated] = useState([]);
 
   // ==========================================================
-  // FETCH BLOGS
-  // ONE API CALL ONLY
+  // DYNAMIC SEO METADATA
   // ==========================================================
+
+  useEffect(() => {
+    if (!blog || !slug) return;
+
+    const title =
+      blog.metaTitle ||
+      blog.seoTitle ||
+      `${blog.title} | ScrollFuel`;
+
+    const description =
+      blog.metaDescription ||
+      blog.seoDescription ||
+      blog.description ||
+      "Read the latest digital marketing insights from ScrollFuel.";
+
+    const canonicalUrl =
+      `https://scrollfuel.in/blog/${slug}`;
+
+    // Update document title
+    document.title = title;
+
+    // Update meta description
+    let descriptionTag = document.querySelector(
+      'meta[name="description"]'
+    );
+
+    if (!descriptionTag) {
+      descriptionTag = document.createElement("meta");
+      descriptionTag.setAttribute("name", "description");
+      document.head.appendChild(descriptionTag);
+    }
+
+    descriptionTag.setAttribute(
+      "content",
+      description
+    );
+
+    // Update canonical URL
+    let canonicalTag = document.querySelector(
+      'link[rel="canonical"]'
+    );
+
+    if (!canonicalTag) {
+      canonicalTag = document.createElement("link");
+      canonicalTag.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalTag);
+    }
+
+    canonicalTag.setAttribute(
+      "href",
+      canonicalUrl
+    );
+
+  }, [blog, slug]);
 
   useEffect(() => {
     if (!slug) {

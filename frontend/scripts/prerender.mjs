@@ -14,6 +14,22 @@ const routes = [
     "/about/",
     "/about-us/",
     "/blog/",
+
+    //Individual blog detail pages 
+    "/blog/personal-branding-on-social-media-to-win-more-clients/",
+    "/blog/how-seo-helps-real-estate-builders-get-more-leads/",
+    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
+    "/blog/how-to-scale-your-business-faster-with-digital-marketing-in-2026/",
+    "/blog/ai-in-digital-marketing-enhancing-creativity-not-replacing-it/",
+    "/blog/content-marketing-strategy-that-works-in-2026-beyond-keywords/",
+    "/blog/how-to-rank-on-google-even-without-website-clicks/",
+    "/blog/how-to-combine-seo-and-affiliate-marketing-strategy/",
+    "/blog/how-to-rank-in-google-ai-overviews/",
+    "/blog/the-technical-seo-checklist-for-search-engines-and-ai-search/",
+    "/blog/how-a-modern-website-redesign-can-increase-leads-by-2x-2026-guide/",
+    "/blog/how-personal-branding-on-social-media-can-help-you-win-more-clients/",
+    "/blog/google-ads-vs-meta-ads-which-is-better-for-your-business/",
+    
     "/portfolio/social-media-marketing/",
     "/portfolio/video/",
     "/career/",

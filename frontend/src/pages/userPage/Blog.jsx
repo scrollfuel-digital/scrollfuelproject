@@ -2,9 +2,12 @@ import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { BookOpenIcon } from "@animateicons/react/lucide";
-
+import { pageSEO } from "../../data/seoData";
 const API = import.meta.env.VITE_API_URL;
-
+const seo = pageSEO["blog"] || {
+  title: "Digital Marketing Blog",
+  description: "Explore the ScrollFuel digital marketing blog for SEO tips, PPC strategies, social media insights, content marketing and online growth tips."
+};
 const stripHTML = (html) => {
   if (!html) return "";
   const d = document.createElement("div");
@@ -31,7 +34,7 @@ const BlogRow = ({ blog, index, navigate }) => {
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
       onClick={() =>
-        navigate(`/blog/${createSlug(blog.title)}`, { state: { blogId: blog._id } })
+        navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
       }
       className="group relative grid grid-cols-1 md:grid-cols-2 border-b border-stone-200 dark:border-stone-800 cursor-pointer overflow-hidden bg-white dark:bg-black hover:bg-stone-50 dark:hover:bg-[#111111] transition-colors duration-500"
       style={{ minHeight: "460px" }}
@@ -115,7 +118,7 @@ const BlogRow = ({ blog, index, navigate }) => {
 const SliderCard = ({ blog, index, navigate }) => (
   <div
     onClick={() =>
-      navigate(`/blog/${createSlug(blog.title)}`, { state: { blogId: blog._id } })
+      navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
     }
     className="group relative shrink-0 cursor-pointer overflow-hidden bg-white dark:bg-[#111111] border border-stone-200 dark:border-stone-800 rounded-2xl"
     style={{ width: "380px" }}
@@ -324,8 +327,8 @@ const SliderSection = ({ blogs, navigate }) => {
                 onClick={() => handleDotClick(i)}
                 aria-label={`Go to blog ${i + 1}`}
                 className={`rounded-full transition-all duration-300 ${i === current
-                    ? "w-6 h-2 bg-[#8bc53f]"
-                    : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
+                  ? "w-6 h-2 bg-[#8bc53f]"
+                  : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
                   }`}
               />
             ))}
@@ -404,14 +407,21 @@ const PageHeading = () => (
     initial={{ opacity: 0, y: -20 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7 }}
-    className="border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-black"
-  >
-    <h1 className="text-5xl font-bold text-center mb-12">
-      <span className="text-primary">Blogs</span>
+    className="border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-black py-10 md:py-14"
+
+  >   
+    <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 font-serif text-primary dark:text-white">
+      {seo.h1}
     </h1>
+
+    <p className="max-w-2xl mx-auto px-6 text-center text-sm md:text-base leading-relaxed text-stone-600 dark:text-stone-400">
+      Explore digital marketing insights, SEO strategies, PPC tips, and social media trends to grow your business online.
+    </p>
+  
 
   </motion.header>
 );
+
 
 const Loader = () => (
   <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 ">
@@ -460,13 +470,36 @@ const Blog = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  /* Per-page SEO — fixes Google indexing wrong content */
   useEffect(() => {
-    document.title = "Blog | ScrollFuel - Digital Marketing Insights Nagpur";
-    const desc = document.querySelector("meta[name='description']");
-    if (desc) desc.setAttribute("content", "Read the latest digital marketing blogs from ScrollFuel. Tips on SEO, social media, branding, content strategy and business growth from Nagpur's top agency.");
-  }, []);
+    // Update page title
+    document.title = seo.title;
 
+    // Update meta description
+    let descriptionTag = document.querySelector(
+      'meta[name="description"]'
+    );
+
+    if (!descriptionTag) {
+      descriptionTag = document.createElement("meta");
+      descriptionTag.setAttribute("name", "description");
+      document.head.appendChild(descriptionTag);
+    }
+
+    descriptionTag.setAttribute("content", seo.description);
+
+    // Create or update canonical URL
+    let canonicalTag = document.querySelector(
+      'link[rel="canonical"]'
+    );
+
+    if (!canonicalTag) {
+      canonicalTag = document.createElement("link");
+      canonicalTag.setAttribute("rel", "canonical");
+      document.head.appendChild(canonicalTag);
+    }
+
+    canonicalTag.setAttribute("href", seo.canonical);
+  }, []);
   useEffect(() => {
     const fetchBlogs = async () => {
       try {

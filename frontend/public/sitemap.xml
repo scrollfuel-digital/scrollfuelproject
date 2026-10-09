@@ -1,64 +1,94 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Homepage -->
-  <url>
-    <loc>https://scrollfuel.in/</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-
   <!-- Main Pages -->
   <url>
-    <loc>https://scrollfuel.in/about-us</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <loc>https://scrollfuel.in/</loc>
   </url>
-
+  <url>
+    <loc>https://scrollfuel.in/about-us</loc>
+  </url>
   <url>
     <loc>https://scrollfuel.in/services</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
   </url>
-
   <url>
     <loc>https://scrollfuel.in/contact-us</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.7</priority>
   </url>
-
-  <!-- Service Pages -->
-  <url>
-    <loc>https://scrollfuel.in/seo-services</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://scrollfuel.in/social-media-marketing-nagpur</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <url>
-    <loc>https://scrollfuel.in/google-ads-agency-nagpur</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Blog Section -->
   <url>
     <loc>https://scrollfuel.in/blog</loc>
-    <lastmod>2026-04-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
+  </url>
+
+  <!-- SEO Service Pages -->
+  <url>
+    <loc>https://scrollfuel.in/seo-services</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/social-media-marketing-nagpur</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/google-ads-agency-nagpur</loc>
+  </url>
+
+  <!-- Detailed Service Pages -->
+  <url>
+    <loc>https://scrollfuel.in/services/seo-ppc-service-in-nagpur/</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/services/content-marketing-services-nagpur/</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/services/social-media-marketing-services-in-nagpur/</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/services/branding-design-services-in-nagpur/</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/services/website-development-services-in-nagpur/</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/services/videography-photography-services-in-nagpur/</loc>
+  </url>
+
+  <!-- Blog Posts -->
+  <url>
+    <loc>https://scrollfuel.in/blog/how-to-scale-your-business-faster-with-digital-marketing-in-2026</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/ai-in-digital-marketing-enhancing-creativity-not-replacing-it</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/content-marketing-strategy-that-works-in-2026-beyond-keywords</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-to-rank-on-google-even-without-website-clicks</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-to-combine-seo-and-affiliate-marketing-strategy</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-to-rank-in-google-ai-overviews</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/the-technical-seo-checklist-for-search-engines-and-ai-search</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-a-modern-website-redesign-can-increase-leads-by-2x-2026-guide</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-personal-branding-on-social-media-can-help-you-win-more-clients</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/google-ads-vs-meta-ads-which-is-better-for-your-business</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/personal-branding-on-social-media-to-win-more-clients</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-google-business-profile-helps-real-estate-get-enquiries</loc>
+  </url>
+  <url>
+    <loc>https://scrollfuel.in/blog/how-seo-helps-real-estate-builders-get-more-leads</loc>
   </url>
 
 </urlset>

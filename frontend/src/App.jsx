@@ -75,13 +75,13 @@ function Layout() {
       <Routes>
         {/* USER ROUTES */}
         <Route path="/" element={<S><Home /></S>} />
-        <Route path="/about" element={<S><AboutUs /></S>} />
-        <Route path="/about-us" element={<S><AboutUsPage /></S>} />
-        <Route path="/blog" element={<S><Blog /></S>} />
-        <Route path="/blog/:slug" element={<S><BlogDetails /></S>} />
-        <Route path="/portfolio" element={<S><Portfolio /></S>} />
-        <Route path="/career" element={<S><Career /></S>} />
-        <Route path="/connect-with-us" element={<S><Contact /></S>} />
+        <Route path="/about/" element={<S><AboutUs /></S>} />
+        <Route path="/about-us/" element={<S><AboutUsPage /></S>} />
+        <Route path="/blog/" element={<S><Blog /></S>} />
+        <Route path="/blog/:slug/" element={<S><BlogDetails /></S>} />
+        <Route path="/portfolio/" element={<S><Portfolio /></S>} />
+        <Route path="/career/" element={<S><Career /></S>} />
+        <Route path="/connect-with-us/" element={<S><Contact /></S>} />
         <Route path="/services/" element={<S><ServicesFixed /></S>} />
         <Route path="/services/:slug/" element={<S><ServiceDetails /></S>} />
 
