@@ -49,12 +49,12 @@ const Footer = () => {
                     <div className="flex flex-col items-end mr-4 mb-4 md:mt-10">
                         <div className="flex items-center">
                             {[
-                                { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/logo/instagram3.png" },
-                                { href: "https://www.youtube.com/@ScrollfuelOfficial", icon: "/assets/logo/youtube5.png" },
-                                { href: "https://www.facebook.com/scrollfuel.nagpur", icon: "/assets/logo/facebook1.png" },
-                                { href: "https://www.behance.net/scrollfuel60b4", icon: "/assets/logo/behance1.png" },
-                                { href: "https://www.linkedin.com/company/scrollfuel/", icon: "/assets/logo/linkdin1.png" },
-                                { href: "https://in.pinterest.com/scrollfuel/_created/", icon: "/assets/logo/pinterest1.png" }
+                                { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/logo/instagram_icon.jpg" },
+                                { href: "https://www.youtube.com/@ScrollfuelOfficial", icon: "/assets/logo/youtube_icon.jpg" },
+                                { href: "https://www.facebook.com/scrollfuel.nagpur", icon: "/assets/logo/facebook_logo.jpg" },
+                                { href: "https://www.behance.net/scrollfuel60b4", icon: "/assets/logo/be_logo.jpg" },
+                                { href: "https://www.linkedin.com/company/scrollfuel/", icon: "/assets/logo/linkedin_icon.jpg" },
+                                { href: "https://in.pinterest.com/scrollfuel/_created/", icon: "/assets/logo/pinterest_icon.jpg" }
                             ].map((item, index) => (
                                 <a
                                     key={index}

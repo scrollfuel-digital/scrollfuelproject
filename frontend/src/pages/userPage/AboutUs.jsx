@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
-
+import { pageSEO } from "../../data/seoData";
 import {
     Target,
     Eye,
@@ -26,7 +26,7 @@ import {
     Award,
     Briefcase,
     Code2,
- Sparkles
+    Sparkles
 } from 'lucide-react';
 
 // ============= ANIMATION VARIANTS =============
@@ -364,10 +364,35 @@ const AboutUsPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        document.title = "About Us | ScrollFuel - Digital Marketing Agency Nagpur";
-        const desc = document.querySelector("meta[name='description']");
-        if (desc) desc.setAttribute("content", "Learn about ScrollFuel, Nagpur's leading digital marketing agency. Meet our founder, our vision, mission and values that drive measurable business growth.");
+        const seo = pageSEO.about;
+
+        document.title = seo.title;
+
+        let description = document.querySelector(
+            'meta[name="description"]'
+        );
+
+        if (!description) {
+            description = document.createElement("meta");
+            description.setAttribute("name", "description");
+            document.head.appendChild(description);
+        }
+
+        description.setAttribute("content", seo.description);
+
+        let canonical = document.querySelector(
+            'link[rel="canonical"]'
+        );
+
+        if (!canonical) {
+            canonical = document.createElement("link");
+            canonical.setAttribute("rel", "canonical");
+            document.head.appendChild(canonical);
+        }
+
+        canonical.setAttribute("href", seo.canonical);
     }, []);
+
 
     const backgroundIcons = [
         { Icon: Megaphone, color: 'text-primary', size: 80, x: 15, y: -20, rotate: 10, duration: 6, delay: 0, top: '15%', left: '10%' },
@@ -522,7 +547,7 @@ const AboutUsPage = () => {
                             className="flex flex-wrap justify-center gap-6 mb-20"
                         >
                             <motion.button
-                                onClick={() => navigate("/contact")} // ✅ moved here
+                                onClick={() => navigate("/connect-with-us")} // ✅ moved here
                                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(139, 197, 63, 0.5)" }}
                                 whileTap={{ scale: 0.95 }}
                                 className="group relative px-8 py-4 bg-primary text-black font-semibold rounded-full overflow-hidden transition-all duration-300 flex items-center gap-2"

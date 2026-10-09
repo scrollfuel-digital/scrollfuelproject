@@ -118,7 +118,7 @@ const Navbar = () => {
             </button>
 
             <NavLink
-              to="/connect-with-us"
+              to="/connect-with-us/"
               className="px-5 py-2.5 bg-primary text-white text-xs font-bold uppercase tracking-widest rounded-full hover:opacity-90 transition-opacity"
             >
               Connect With Us
@@ -236,7 +236,7 @@ const Navbar = () => {
         {/* drawer footer */}
         <div className="px-6 py-6 border-t border-gray-100 dark:border-white/10 flex flex-col gap-3 shrink-0">
           <NavLink
-            to="/contact"
+            to="/connect-with-us/"
             onClick={close}
             className="w-full py-3.5 bg-primary text-white text-sm font-bold uppercase tracking-widest rounded-2xl text-center hover:opacity-90 transition-opacity"
           >

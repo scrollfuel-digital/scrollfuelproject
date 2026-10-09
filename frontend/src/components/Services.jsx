@@ -415,18 +415,18 @@ const Services = React.forwardRef((props, ref) => {
 
                   {/* Title */}
                   <motion.h3
-                    className="text-xl font-bold tracking-tight mb-3"
+                    className="text-3xl font-bold tracking-tight mb-3"
                     animate={{
-                      color: hoveredIndex === idx ? 'var(--color-green)' : 'var(--color-yellow)',
+                      color: hoveredIndex === idx ? 'var(--color-green)' : 'var(--color-white)',
                     }}
                     transition={{ duration: 0.3 }}
                   >
-                    {ser.title}
+                    {ser.h1}
                   </motion.h3>
 
                   {/* Description */}
                   <motion.p
-                    className="text-gray-300 text-sm leading-relaxed font-light mb-4 line-clamp-3"
+                    className="text-gray-300 text-lg leading-relaxed font-semibold mb-4 line-clamp-3"
                     animate={{
                       color: hoveredIndex === idx ? '#ffffff' : '#d1d5db',
                     }}
@@ -436,7 +436,7 @@ const Services = React.forwardRef((props, ref) => {
                   </motion.p>
 
                   {/* Keywords as bullet list */}
-                  <ul className="text-gray-400 text-xs leading-relaxed space-y-1 mb-6 grow">
+                  <ul className="text-gray-400 text-lg font-semibold leading-relaxed space-y-1 mb-6 grow">
                     {ser.keywords.slice(0, 5).map((kw, i) => (
                       <li key={i} className="flex items-center gap-2">
                         <span className="w-1 h-1 rounded-full bg-[#8bc53f] shrink-0" />
@@ -448,7 +448,7 @@ const Services = React.forwardRef((props, ref) => {
                   {/* Footer with animated arrow - Fixed at bottom */}
                   <div className="pt-4 flex items-center justify-between mt-auto border-t border-white/5">
                     <motion.div
-                      className="flex items-center gap-2 text-sm font-medium"
+                      className="flex items-center gap-2 text-lg font-bold"
                       animate={{
                         color: hoveredIndex === idx ? 'var(--color-green)' : 'rgba(255, 255, 255, 0.5)',
                       }}

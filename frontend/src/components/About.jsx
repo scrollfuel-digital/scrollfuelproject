@@ -331,7 +331,7 @@ const AboutUs = React.forwardRef((props, ref) => {
                                 <span className="text-primary inline-block">Us</span>
                             </h1>
                         </motion.div>
-                       
+
                         {/* Animated underline */}
                         <motion.div className="absolute -bottom-5 left-0 right-0 h-0.5 overflow-hidden">
                             <motion.div
@@ -345,7 +345,8 @@ const AboutUs = React.forwardRef((props, ref) => {
 
                     {/* DESCRIPTION */}
                     <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ duration: 0.8 }} className="text-black/70 dark:text-white/70 text-lg leading-relaxed max-w-3xl text-start" >
-                        ScrollFuel is a leading digital marketing agency in Nagpur helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution. </motion.p>
+                        ScrollFuel is a leading <b className="text-primary"> Digital Marketing Agency in Nagpur </b> helping businesses grow online. We are committed to helping businesses succeed online. Our approach combines creativity, technology, and analytics to deliver measurable digital marketing results. We help brands win online through strategy, creativity, and performance-driven execution.
+                    </motion.p>
 
                 </div>
 

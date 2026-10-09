@@ -167,7 +167,7 @@ const ServiceDetails = () => {
                             <div className="mt-8 flex flex-wrap gap-3">
 
                                 <Link
-                                    to="/nagpurs-best-digital-marketing-company/"
+                                    to="/connect-with-us/"
                                     className="rounded-full px-6 py-3 text-sm font-semibold text-black transition-opacity hover:opacity-90"
                                     style={{
                                         background: service.accent,
@@ -290,7 +290,7 @@ const ServiceDetails = () => {
 
 
                                 <Link
-                                    to="/nagpurs-best-digital-marketing-company/"
+                                    to="/connect-with-us/"
                                     className="mt-5 block rounded-full py-3 text-center text-sm font-semibold text-black transition-opacity hover:opacity-90"
                                     style={{
                                         background:

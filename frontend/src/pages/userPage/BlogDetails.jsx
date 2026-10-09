@@ -1378,7 +1378,7 @@ const BlogDetails = () => {
             <img
               src={blog.image}
               alt={blog.title}
-              className="w-full h-[600px] object-cover rounded-xl my-6"
+              className="w-full h-[600px] object-contain rounded-xl my-6"
             />
           )}
 
