@@ -138,7 +138,7 @@ function ActivityFeed({ activities }) {
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
                 <h3 style={{ fontSize: 15, fontWeight: 800, color: "var(--text)", letterSpacing: "-0.01em" }}>Recent Activity</h3>
                 <button
-                    onClick={() => navigate("/admin/activity")}
+                    onClick={() => navigate("/blog/")}
                     style={{
                         fontSize: 11, fontWeight: 700, color: "#8bc53f",
                         background: "rgba(139,197,63,0.1)", border: "1px solid rgba(139,197,63,0.2)",

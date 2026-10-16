@@ -41,7 +41,19 @@ const AdminCarrerPage = () => {
     localStorage.removeItem("user");
     window.location.href = "/admin/auth";
   };
+  const formatDate = (dateString) => {
+    if (!dateString) return "—";
 
+    const date = new Date(dateString);
+
+    if (Number.isNaN(date.getTime())) return "—";
+
+    const day = String(date.getDate()).padStart(2, "0");
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const year = date.getFullYear();
+
+    return `${day}/${month}/${year}`;
+  };
   // ── Fetch Applications ──
   const fetchApplications = async () => {
     try {
@@ -176,6 +188,7 @@ const AdminCarrerPage = () => {
   ];
 
   const appColumns = [
+    { label: "Date", align: "text-left" },
     { label: "Name", align: "text-left" },
     { label: "Email", align: "text-left" },
     { label: "Contact", align: "text-left" },
@@ -249,6 +262,9 @@ const AdminCarrerPage = () => {
         emptyMessage="No applications found"
         renderRow={(app) => (
           <tr key={app._id} className="border-b border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800">
+            <td className="px-4 py-3 whitespace-nowrap">
+              {formatDate(app.createdAt)}
+            </td>
             <td className="px-4 py-3 break-words">{app.name}</td>
             <td className="px-4 py-3 break-words">{app.email}</td>
             <td className="px-4 py-3">{app.contact}</td>
@@ -264,11 +280,10 @@ const AdminCarrerPage = () => {
               </button>
             </td>
             <td className="px-4 py-3 text-center">
-              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${
-                app.status === "rejected"
-                  ? "bg-red-100 text-red-600"
-                  : "bg-green-100 text-green-600"
-              }`}>
+              <span className={`px-2 py-0.5 rounded-full text-xs font-semibold ${app.status === "rejected"
+                ? "bg-red-100 text-red-600"
+                : "bg-green-100 text-green-600"
+                }`}>
                 {app.status === "rejected" ? "Rejected" : "Pending"}
               </span>
             </td>
@@ -276,11 +291,10 @@ const AdminCarrerPage = () => {
               <button
                 onClick={() => handleReject(app)}
                 disabled={rejecting === app._id || rejected.includes(app._id) || app.status === "rejected"}
-                className={`px-3 py-1 rounded-md text-xs font-semibold transition ${
-                  rejected.includes(app._id) || app.status === "rejected"
-                    ? "bg-gray-400 text-white cursor-not-allowed"
-                    : "bg-red-500 text-white hover:bg-red-600 disabled:opacity-60"
-                }`}
+                className={`px-3 py-1 rounded-md text-xs font-semibold transition ${rejected.includes(app._id) || app.status === "rejected"
+                  ? "bg-gray-400 text-white cursor-not-allowed"
+                  : "bg-red-500 text-white hover:bg-red-600 disabled:opacity-60"
+                  }`}
               >
                 {rejected.includes(app._id) || app.status === "rejected" ? "Rejected" : rejecting === app._id ? "Sending..." : "Reject"}
               </button>
