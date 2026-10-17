@@ -104,10 +104,10 @@ const Footer = () => {
                         <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">Company</h4>
                         <ul className="space-y-3 text-muted">
                             <li><a href="/" className="hover-text-primary font-bold">Home</a></li>
-                            <li><a href="/digital-marketing-company-in-nagpur" className="hover-text-primary font-bold">About</a></li>
-                            <li><a href="/blog" className="hover-text-primary font-bold">Blog</a></li>
-                            <li><a href="/portfolio" className="hover-text-primary font-bold">Portfolio</a></li>
-                            <li><a href="/career" className="hover-text-primary font-bold">Career</a></li>
+                            <li><a href="/about-us/" className="hover-text-primary font-bold">About</a></li>
+                            <li><a href="/blog/" className="hover-text-primary font-bold">Blog</a></li>
+                            <li><a href="/portfolio/" className="hover-text-primary font-bold">Portfolio</a></li>
+                            <li><a href="/career/" className="hover-text-primary font-bold">Career</a></li>
                         </ul>
                     </div>
 

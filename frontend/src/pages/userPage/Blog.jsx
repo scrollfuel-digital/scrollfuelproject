@@ -1,28 +1,594 @@
-import React, { useState, useEffect, useRef } from "react";
+// import React, { useState, useEffect, useRef } from "react";
+// import { motion } from "framer-motion";
+// import { useNavigate } from "react-router-dom";
+// import { BookOpenIcon } from "@animateicons/react/lucide";
+// import { pageSEO } from "../../data/seoData";
+// const API = import.meta.env.VITE_API_URL;
+// const seo = pageSEO["blog"] || {
+//   title: "Digital Marketing Blog",
+//   description: "Explore the ScrollFuel digital marketing blog for SEO tips, PPC strategies, social media insights, content marketing and online growth tips."
+// };
+// const stripHTML = (html) => {
+//   if (!html) return "";
+//   const d = document.createElement("div");
+//   d.innerHTML = html;
+//   return (d.textContent || d.innerText || "").replace(/[#*_`>-]/g, "").trim();
+// };
+
+// const createSlug = (title) =>
+//   title?.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-");
+
+// const getImageUrl = (img) => {
+//   if (!img) return "/assets/blog.jpeg";
+//   if (img.startsWith("http")) return img;
+//   return `${API}${img}`;
+// };
+
+// const BlogRow = ({ blog, index, navigate }) => {
+//   const isEven = index % 2 === 0;
+
+//   return (
+//     <motion.article
+//       initial={{ opacity: 0, y: 52 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true, margin: "-80px" }}
+//       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+//       onClick={() =>
+//         navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
+//       }
+//       className="group relative grid grid-cols-1 md:grid-cols-2 border-b border-stone-200 dark:border-stone-800 cursor-pointer overflow-hidden bg-white dark:bg-black hover:bg-stone-50 dark:hover:bg-[#111111] transition-colors duration-500"
+//       style={{ minHeight: "460px" }}
+//     >
+//       {/* IMAGE SIDE */}
+//       <div
+//         className={`relative flex items-center justify-center bg-stone-50 dark:bg-[#111111] overflow-hidden ${isEven ? "md:order-1" : "md:order-2"
+//           }`}
+//         style={{ minHeight: "340px" }}
+//       >
+//         <img
+//           src={getImageUrl(blog?.hero_image)}
+//           alt={blog?.title}
+//           className="w-full h-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+//           style={{ padding: "24px" }}
+//         />
+
+
+//         {/* Green sweep accent on bottom */}
+//         <div
+//           className={`absolute bottom-0 h-[3px] w-0 bg-[#8bc53f] group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isEven ? "left-0" : "right-0"
+//             }`}
+//         />
+//       </div>
+
+//       {/* CONTENT SIDE */}
+//       <div
+//         className={`relative flex flex-col justify-between px-10 py-12 md:px-14 lg:px-20 lg:py-16 overflow-hidden bg-white dark:bg-black ${isEven ? "md:order-2" : "md:order-1"
+//           }`}
+//       >
+//         {/* Top accent line — grows on hover */}
+//         <div
+//           className={`absolute top-0 h-[2px] w-12 bg-[#8bc53f] transition-all duration-500 group-hover:w-24 ${isEven ? "left-0" : "right-0"
+//             }`}
+//         />
+
+
+
+//         {/* Main content */}
+//         <div className="flex-1 flex flex-col">
+//           {/* Title */}
+//           <h2 className="font-serif text-3xl md:text-[2.2rem] lg:text-[2.6rem] leading-[1.08] text-black dark:text-white mb-5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
+//             {blog.title}
+//           </h2>
+
+//           {/* Divider — grows on hover */}
+//           <div className="w-8 h-px bg-stone-200 dark:bg-stone-700 mb-5 transition-all duration-500 group-hover:w-16 group-hover:bg-stone-300 dark:group-hover:bg-stone-600" />
+
+//           {/* Excerpt — slides up on hover */}
+//           <div className="overflow-hidden flex-1">
+//             <p className="text-[#8d8c8c] text-[14px] leading-[1.8] translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[60ms] line-clamp-4">
+//               {stripHTML(blog?.content).slice(0, 240)}
+//             </p>
+//           </div>
+//         </div>
+
+//         {/* CTA — slides up from below */}
+//         <div className="mt-8 overflow-hidden">
+//           <div className="translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[100ms]">
+//             <span className="inline-flex items-center gap-3 text-[10px] font-bold tracking-[0.22em] text-black dark:text-white uppercase">
+//               Read Article
+//               <span className="inline-flex items-center justify-center w-8 h-8 rounded-full border border-black dark:border-white text-sm transition-all duration-300 group-hover:bg-[#8bc53f] group-hover:border-[#8bc53f] group-hover:text-white">
+//                 →
+//               </span>
+//             </span>
+//           </div>
+//         </div>
+
+//         {/* Ghost number — decorative */}
+//         <span
+//           className={`absolute bottom-4 font-serif font-black text-[110px] leading-none pointer-events-none transition-all duration-700 text-stone-100 dark:text-stone-900 group-hover:translate-y-2 ${isEven ? "right-6" : "left-6"
+//             }`}
+//         >
+//           {String(index + 1).padStart(2, "0")}
+//         </span>
+//       </div>
+//     </motion.article>
+//   );
+// };
+
+// const SliderCard = ({ blog, index, navigate }) => (
+//   <div
+//     onClick={() =>
+//       navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
+//     }
+//     className="group relative shrink-0 cursor-pointer overflow-hidden bg-white dark:bg-[#111111] border border-stone-200 dark:border-stone-800 rounded-2xl"
+//     style={{ width: "380px" }}
+//   >
+//     {/* Image area */}
+//     <div
+//       className="relative flex items-center justify-center bg-stone-50 dark:bg-[#1a1a1a] overflow-hidden"
+//       style={{ height: "240px" }}
+//     >
+//       <img
+//         src={getImageUrl(blog?.hero_image)}
+//         alt={blog?.title}
+//         className="w-full h-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
+//         style={{ padding: "16px" }}
+//       />
+
+//       {/* Green tint on hover */}
+//       <div className="absolute inset-0 bg-[#8bc53f]/0 group-hover:bg-[#8bc53f]/8 transition-colors duration-500" />
+
+
+
+//       {/* Bottom green bar on hover */}
+//       <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#8bc53f] group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
+//     </div>
+
+//     {/* Card content */}
+//     <div className="relative p-7 overflow-hidden">
+
+
+//       {/* Title */}
+//       <h3 className="font-serif text-xl leading-[1.2] text-black dark:text-white mb-3 transition-transform duration-500 group-hover:-translate-y-0.5">
+//         {blog.title}
+//       </h3>
+
+//       {/* Excerpt — slides up */}
+//       <div className="overflow-hidden mb-5">
+//         <p className="text-[#8d8c8c] text-[13px] leading-relaxed translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[60ms] line-clamp-3">
+//           {stripHTML(blog?.content).slice(0, 140)}
+//         </p>
+//       </div>
+
+//       {/* CTA — slides up */}
+//       <div className="overflow-hidden">
+//         <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[100ms]">
+//           <span className="inline-flex items-center gap-2 text-[9px] font-bold tracking-[0.2em] text-black dark:text-white uppercase">
+//             Read Article
+//             <span className="inline-flex items-center justify-center w-6 h-6 rounded-full border border-black dark:border-white text-xs transition-all duration-300 group-hover:bg-[#8bc53f] group-hover:border-[#8bc53f] group-hover:text-white">
+//               →
+//             </span>
+//           </span>
+//         </div>
+//       </div>
+//     </div>
+//   </div>
+// );
+
+// const SliderSection = ({ blogs, navigate }) => {
+//   const [current, setCurrent] = useState(0);
+//   const trackRef = useRef(null);
+//   const isResetting = useRef(false);
+
+//   const total = blogs.length;
+
+//   // Gap between cards
+//   const GAP = 24;
+
+//   if (!total) return null;
+
+//   // Clone last + all blogs + clone first
+//   const loopedBlogs = [
+//     blogs[total - 1],
+//     ...blogs,
+//     blogs[0],
+//   ];
+
+//   const scrollToIndex = (index, smooth = true) => {
+//     if (!trackRef.current) return;
+
+//     const containerWidth = trackRef.current.clientWidth;
+
+//     // Show exactly 3 cards
+//     const CARD_W = (containerWidth - GAP * 2) / 3;
+//     const STEP = CARD_W + GAP;
+
+//     trackRef.current.scrollTo({
+//       left: index * STEP,
+//       behavior: smooth ? "smooth" : "auto",
+//     });
+//   };
+
+//   const goTo = (idx) => {
+//     let nextIndex = idx;
+
+//     if (idx < 0) {
+//       nextIndex = total - 1;
+//     }
+
+//     if (idx >= total) {
+//       nextIndex = 0;
+//     }
+
+//     setCurrent(nextIndex);
+//     scrollToIndex(nextIndex + 1);
+//   };
+
+//   const handleNext = () => {
+//     if (isResetting.current) return;
+
+//     const next = current + 1;
+
+//     if (next >= total) {
+//       setCurrent(0);
+
+//       // Move to cloned first card
+//       scrollToIndex(total + 1);
+
+//       setTimeout(() => {
+//         isResetting.current = true;
+
+//         // Jump silently to real first card
+//         scrollToIndex(1, false);
+
+//         setTimeout(() => {
+//           isResetting.current = false;
+//         }, 50);
+//       }, 450);
+
+//       return;
+//     }
+
+//     setCurrent(next);
+//     scrollToIndex(next + 1);
+//   };
+
+//   const handlePrevious = () => {
+//     if (isResetting.current) return;
+
+//     const previous = current - 1;
+
+//     if (previous < 0) {
+//       setCurrent(total - 1);
+
+//       // Move to cloned last card
+//       scrollToIndex(0);
+
+//       setTimeout(() => {
+//         isResetting.current = true;
+
+//         // Jump silently to real last card
+//         scrollToIndex(total, false);
+
+//         setTimeout(() => {
+//           isResetting.current = false;
+//         }, 50);
+//       }, 450);
+
+//       return;
+//     }
+
+//     setCurrent(previous);
+//     scrollToIndex(previous + 1);
+//   };
+
+//   const handleDotClick = (index) => {
+//     if (isResetting.current) return;
+
+//     setCurrent(index);
+//     scrollToIndex(index + 1);
+//   };
+
+//   return (
+//     <motion.section
+//       initial={{ opacity: 0, y: 40 }}
+//       whileInView={{ opacity: 1, y: 0 }}
+//       viewport={{ once: true, margin: "-60px" }}
+//       transition={{
+//         duration: 0.7,
+//         ease: [0.22, 1, 0.36, 1],
+//       }}
+//       className="bg-stone-50 dark:bg-[#0a0a0a] border-t border-stone-200 dark:border-stone-800 py-16 px-6 md:px-12 lg:px-20"
+//     >
+//       {/* Header */}
+//       <div className="flex items-end justify-between mb-10">
+//         <div>
+//           <div className="flex items-center gap-3 mb-2">
+//             <div className="w-8 h-[2px] bg-[#8bc53f]" />
+
+//             <span className="text-[9px] font-bold tracking-[0.28em] text-[#8bc53f] uppercase">
+//               More Stories
+//             </span>
+//           </div>
+
+//           <h2 className="font-serif text-3xl md:text-4xl text-black dark:text-white leading-tight">
+//             Keep Reading
+//           </h2>
+//         </div>
+
+//         {/* Controls */}
+//         <div className="flex items-center gap-3">
+
+//           {/* Dot indicators */}
+//           <div className="hidden sm:flex items-center gap-2 mr-4">
+//             {blogs.map((_, i) => (
+//               <button
+//                 key={i}
+//                 onClick={() => handleDotClick(i)}
+//                 aria-label={`Go to blog ${i + 1}`}
+//                 className={`rounded-full transition-all duration-300 ${i === current
+//                   ? "w-6 h-2 bg-[#8bc53f]"
+//                   : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
+//                   }`}
+//               />
+//             ))}
+//           </div>
+
+//           {/* Previous */}
+//           <button
+//             onClick={handlePrevious}
+//             disabled={total <= 1}
+//             aria-label="Previous blog"
+//             className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:border-black dark:hover:border-white hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-black disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
+//           >
+//             ←
+//           </button>
+
+//           {/* Next */}
+//           <button
+//             onClick={handleNext}
+//             disabled={total <= 1}
+//             aria-label="Next blog"
+//             className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
+//           >
+//             →
+//           </button>
+//         </div>
+//       </div>
+
+//       {/* Slider */}
+//       <div
+//         ref={trackRef}
+//         className="flex overflow-x-auto scroll-smooth"
+//         style={{
+//           gap: `${GAP}px`,
+//           scrollbarWidth: "none",
+//           msOverflowStyle: "none",
+//           WebkitOverflowScrolling: "touch",
+//         }}
+//       >
+//         <style>{`
+//           div::-webkit-scrollbar {
+//             display: none;
+//           }
+//         `}</style>
+
+//         {loopedBlogs.map((blog, i) => (
+//           <div
+//             key={`${blog._id || blog.id}-${i}`}
+//             className="flex-shrink-0 w-[calc((100%-68px)/3)]"
+//           >
+//             <SliderCard
+//               blog={blog}
+//               index={i}
+//               navigate={navigate}
+//             />
+//           </div>
+//         ))}
+
+//         <div className="flex-shrink-0 w-6" />
+//       </div>
+
+//       {/* Progress */}
+//       <div className="mt-8 h-px bg-stone-200 dark:bg-stone-800 rounded-full overflow-hidden">
+//         <div
+//           className="h-full bg-[#8bc53f] rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+//           style={{
+//             width: `${((current + 1) / total) * 100}%`,
+//           }}
+//         />
+//       </div>
+//     </motion.section>
+//   );
+// };
+
+// const PageHeading = () => (
+//   <motion.header
+//     initial={{ opacity: 0, y: -20 }}
+//     animate={{ opacity: 1, y: 0 }}
+//     transition={{ duration: 0.7 }}
+//     className="border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-black py-10 md:py-14"
+
+//   >   
+//     <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 font-serif text-primary dark:text-white">
+//       {seo.h1}
+//     </h1>
+
+//     <p className="max-w-2xl mx-auto px-6 text-center text-sm md:text-base leading-relaxed text-stone-600 dark:text-stone-400">
+//       Explore digital marketing insights, SEO strategies, PPC tips, and social media trends to grow your business online.
+//     </p>
+
+
+//   </motion.header>
+// );
+
+
+// const Loader = () => (
+//   <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 ">
+
+//     {/* Animated book icon — green on light, yellow on dark */}
+//     <div className="flex flex-col items-center gap-5">
+
+//       {/* Light mode icon */}
+//       <div className="block dark:hidden">
+//         <BookOpenIcon size={72} duration={1} color="#8bc53f" />
+//       </div>
+
+//       {/* Dark mode icon */}
+//       <div className="hidden dark:block">
+//         <BookOpenIcon size={72} duration={1} color="#ffc93b" />
+//       </div>
+
+//       {/* Label */}
+//       <p className="text-[11px] font-bold tracking-[0.35em] text-[#8bc53f] dark:text-[#ffc93b] uppercase">
+//         Loading Stories
+//       </p>
+
+//       {/* Staggered dots */}
+//       <div className="flex gap-1.5">
+//         {[0, 1, 2, 3].map((i) => (
+//           <span
+//             key={i}
+//             className="w-1.5 h-1.5 rounded-full bg-[#8bc53f] dark:bg-[#ffc93b]"
+//             style={{ animation: `dotFade 1.2s ease-in-out ${i * 0.2}s infinite` }}
+//           />
+//         ))}
+//       </div>
+//     </div>
+
+//     <style>{`
+//       @keyframes dotFade {
+//         0%,80%,100% { opacity: 0.2; transform: scale(0.8); }
+//         40%          { opacity: 1;   transform: scale(1.4); }
+//       }
+//     `}</style>
+//   </div>
+// );
+
+// const Blog = () => {
+//   const navigate = useNavigate();
+//   const [blogs, setBlogs] = useState([]);
+//   const [loading, setLoading] = useState(true);
+
+//   useEffect(() => {
+//     // Update page title
+//     document.title = seo.title;
+
+//     // Update meta description
+//     let descriptionTag = document.querySelector(
+//       'meta[name="description"]'
+//     );
+
+//     if (!descriptionTag) {
+//       descriptionTag = document.createElement("meta");
+//       descriptionTag.setAttribute("name", "description");
+//       document.head.appendChild(descriptionTag);
+//     }
+
+//     descriptionTag.setAttribute("content", seo.description);
+
+//     // Create or update canonical URL
+//     let canonicalTag = document.querySelector(
+//       'link[rel="canonical"]'
+//     );
+
+//     if (!canonicalTag) {
+//       canonicalTag = document.createElement("link");
+//       canonicalTag.setAttribute("rel", "canonical");
+//       document.head.appendChild(canonicalTag);
+//     }
+
+//     canonicalTag.setAttribute("href", seo.canonical);
+//   }, []);
+//   useEffect(() => {
+//     const fetchBlogs = async () => {
+//       try {
+//         const res = await fetch(`${API}/api/blog`);
+//         const data = await res.json();
+//         setBlogs(data.data || []);
+//       } catch (err) {
+//         console.error("Error fetching blogs:", err);
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+//     fetchBlogs();
+//   }, []);
+
+//   if (loading) return <Loader />;
+
+//   if (blogs.length === 0) {
+//     return (
+//       <div className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+//         <p className="font-serif text-4xl text-stone-300 dark:text-stone-700">
+//           No stories yet.
+//         </p>
+//       </div>
+//     );
+//   }
+
+//   const stackedBlogs = blogs.slice(0, 3);
+
+//   // All remaining blogs: 4th to last blog
+//   const sliderBlogs = blogs.slice(3);
+
+//   return (
+//     <div className="min-h-screen bg-white dark:bg-black pt-20">
+//       <style>{`
+//         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap');
+//         .font-serif { font-family: 'Playfair Display', Georgia, serif; }
+//       `}</style>
+
+//       <PageHeading />
+
+//       {/* Stacked rows — blogs 1, 2, 3 */}
+//       <div>
+//         {stackedBlogs.map((blog, i) => (
+//           <BlogRow key={blog._id} blog={blog} index={i} navigate={navigate} />
+//         ))}
+//       </div>
+
+//       {/* Slider — blogs 4, 5, 6 */}
+//       {sliderBlogs.length > 0 && (
+//         <SliderSection blogs={sliderBlogs} navigate={navigate} />
+//       )}
+
+//       {/* Footer accent */}
+//       <div className="h-[3px] bg-gradient-to-r from-[#8bc53f] via-[#ffc93b] to-transparent" />
+//     </div>
+//   );
+// };
+
+// export default Blog;
+
+
+import React, { useState, useEffect, useMemo } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { BookOpenIcon } from "@animateicons/react/lucide";
 import { pageSEO } from "../../data/seoData";
-const API = import.meta.env.VITE_API_URL;
-const seo = pageSEO["blog"] || {
+import {
+  blogSlug,
+  getImageUrl,
+  fetchBlogList,
+  getCachedBlogList,
+  prefetchBlog,
+} from "../../utils/blogUtils";
+import useLoopSlider from "../../utils/useLoopSlider";
+
+const seo = {
   title: "Digital Marketing Blog",
-  description: "Explore the ScrollFuel digital marketing blog for SEO tips, PPC strategies, social media insights, content marketing and online growth tips."
-};
-const stripHTML = (html) => {
-  if (!html) return "";
-  const d = document.createElement("div");
-  d.innerHTML = html;
-  return (d.textContent || d.innerText || "").replace(/[#*_`>-]/g, "").trim();
+  description:
+    "Explore the ScrollFuel digital marketing blog for SEO tips, PPC strategies, social media insights, content marketing and online growth tips.",
+  h1: "Digital Marketing Blog",
+  canonical: "https://scrollfuel.in/blog/",
+  ...(pageSEO["blog"] || {}),
 };
 
-const createSlug = (title) =>
-  title?.toLowerCase().replace(/[^a-z0-9 ]/g, "").replace(/\s+/g, "-");
+const goToBlog = (navigate, blog) =>
+  navigate(`/blog/${blogSlug(blog)}/`, { state: { blogId: blog._id } });
 
-const getImageUrl = (img) => {
-  if (!img) return "/assets/blog.jpeg";
-  if (img.startsWith("http")) return img;
-  return `${API}${img}`;
-};
+/* ================= STACKED ROW ================= */
 
 const BlogRow = ({ blog, index, navigate }) => {
   const isEven = index % 2 === 0;
@@ -33,9 +599,9 @@ const BlogRow = ({ blog, index, navigate }) => {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
-      onClick={() =>
-        navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
-      }
+      onClick={() => goToBlog(navigate, blog)}
+      onMouseEnter={() => prefetchBlog(blogSlug(blog))}
+      onTouchStart={() => prefetchBlog(blogSlug(blog))}
       className="group relative grid grid-cols-1 md:grid-cols-2 border-b border-stone-200 dark:border-stone-800 cursor-pointer overflow-hidden bg-white dark:bg-black hover:bg-stone-50 dark:hover:bg-[#111111] transition-colors duration-500"
       style={{ minHeight: "460px" }}
     >
@@ -46,14 +612,14 @@ const BlogRow = ({ blog, index, navigate }) => {
         style={{ minHeight: "340px" }}
       >
         <img
-          src={getImageUrl(blog?.hero_image)}
+          src={getImageUrl(blog?.hero_image, 900)}
           alt={blog?.title}
+          loading={index === 0 ? "eager" : "lazy"}
+          decoding="async"
           className="w-full h-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
           style={{ padding: "24px" }}
         />
 
-
-        {/* Green sweep accent on bottom */}
         <div
           className={`absolute bottom-0 h-[3px] w-0 bg-[#8bc53f] group-hover:w-full transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${isEven ? "left-0" : "right-0"
             }`}
@@ -65,33 +631,25 @@ const BlogRow = ({ blog, index, navigate }) => {
         className={`relative flex flex-col justify-between px-10 py-12 md:px-14 lg:px-20 lg:py-16 overflow-hidden bg-white dark:bg-black ${isEven ? "md:order-2" : "md:order-1"
           }`}
       >
-        {/* Top accent line — grows on hover */}
         <div
           className={`absolute top-0 h-[2px] w-12 bg-[#8bc53f] transition-all duration-500 group-hover:w-24 ${isEven ? "left-0" : "right-0"
             }`}
         />
 
-
-
-        {/* Main content */}
         <div className="flex-1 flex flex-col">
-          {/* Title */}
           <h2 className="font-serif text-3xl md:text-[2.2rem] lg:text-[2.6rem] leading-[1.08] text-black dark:text-white mb-5 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1">
             {blog.title}
           </h2>
 
-          {/* Divider — grows on hover */}
           <div className="w-8 h-px bg-stone-200 dark:bg-stone-700 mb-5 transition-all duration-500 group-hover:w-16 group-hover:bg-stone-300 dark:group-hover:bg-stone-600" />
 
-          {/* Excerpt — slides up on hover */}
           <div className="overflow-hidden flex-1">
             <p className="text-[#8d8c8c] text-[14px] leading-[1.8] translate-y-5 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[60ms] line-clamp-4">
-              {stripHTML(blog?.content).slice(0, 240)}
+              {blog.excerpt}
             </p>
           </div>
         </div>
 
-        {/* CTA — slides up from below */}
         <div className="mt-8 overflow-hidden">
           <div className="translate-y-10 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[100ms]">
             <span className="inline-flex items-center gap-3 text-[10px] font-bold tracking-[0.22em] text-black dark:text-white uppercase">
@@ -103,7 +661,6 @@ const BlogRow = ({ blog, index, navigate }) => {
           </div>
         </div>
 
-        {/* Ghost number — decorative */}
         <span
           className={`absolute bottom-4 font-serif font-black text-[110px] leading-none pointer-events-none transition-all duration-700 text-stone-100 dark:text-stone-900 group-hover:translate-y-2 ${isEven ? "right-6" : "left-6"
             }`}
@@ -115,52 +672,42 @@ const BlogRow = ({ blog, index, navigate }) => {
   );
 };
 
-const SliderCard = ({ blog, index, navigate }) => (
+/* ================= SLIDER CARD ================= */
+
+const SliderCard = ({ blog, navigate }) => (
   <div
-    onClick={() =>
-      navigate(`/blog/${createSlug(blog.title)}/`, { state: { blogId: blog._id } })
-    }
-    className="group relative shrink-0 cursor-pointer overflow-hidden bg-white dark:bg-[#111111] border border-stone-200 dark:border-stone-800 rounded-2xl"
-    style={{ width: "380px" }}
+    onClick={() => goToBlog(navigate, blog)}
+    onMouseEnter={() => prefetchBlog(blogSlug(blog))}
+    className="group relative w-full cursor-pointer overflow-hidden bg-white dark:bg-[#111111] border border-stone-200 dark:border-stone-800 rounded-2xl"
   >
-    {/* Image area */}
     <div
       className="relative flex items-center justify-center bg-stone-50 dark:bg-[#1a1a1a] overflow-hidden"
       style={{ height: "240px" }}
     >
       <img
-        src={getImageUrl(blog?.hero_image)}
+        src={getImageUrl(blog?.hero_image, 600)}
         alt={blog?.title}
+        loading="lazy"
+        decoding="async"
         className="w-full h-full object-contain transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
         style={{ padding: "16px" }}
       />
 
-      {/* Green tint on hover */}
-      <div className="absolute inset-0 bg-[#8bc53f]/0 group-hover:bg-[#8bc53f]/8 transition-colors duration-500" />
-
-
-
-      {/* Bottom green bar on hover */}
+      <div className="absolute inset-0 bg-[#8bc53f]/0 group-hover:bg-[#8bc53f]/10 transition-colors duration-500" />
       <div className="absolute bottom-0 left-0 h-[3px] w-0 bg-[#8bc53f] group-hover:w-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" />
     </div>
 
-    {/* Card content */}
     <div className="relative p-7 overflow-hidden">
-
-
-      {/* Title */}
       <h3 className="font-serif text-xl leading-[1.2] text-black dark:text-white mb-3 transition-transform duration-500 group-hover:-translate-y-0.5">
         {blog.title}
       </h3>
 
-      {/* Excerpt — slides up */}
       <div className="overflow-hidden mb-5">
         <p className="text-[#8d8c8c] text-[13px] leading-relaxed translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[60ms] line-clamp-3">
-          {stripHTML(blog?.content).slice(0, 140)}
+          {blog.excerpt?.slice(0, 140)}
         </p>
       </div>
 
-      {/* CTA — slides up */}
       <div className="overflow-hidden">
         <div className="translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[100ms]">
           <span className="inline-flex items-center gap-2 text-[9px] font-bold tracking-[0.2em] text-black dark:text-white uppercase">
@@ -175,232 +722,116 @@ const SliderCard = ({ blog, index, navigate }) => (
   </div>
 );
 
+/* ================= SLIDER SECTION ================= */
+
+const VISIBLE = 3;
+const GAP = 24;
+
 const SliderSection = ({ blogs, navigate }) => {
-  const [current, setCurrent] = useState(0);
-  const trackRef = useRef(null);
-  const isResetting = useRef(false);
-
   const total = blogs.length;
+  const { trackRef, current, canLoop, clones, next, prev, goTo } = useLoopSlider(
+    total,
+    VISIBLE,
+    GAP
+  );
 
-  // Gap between cards
-  const GAP = 24;
+  const looped = useMemo(
+    () =>
+      canLoop
+        ? [...blogs.slice(-clones), ...blogs, ...blogs.slice(0, clones)]
+        : blogs,
+    [blogs, canLoop, clones]
+  );
 
   if (!total) return null;
 
-  // Clone last + all blogs + clone first
-  const loopedBlogs = [
-    blogs[total - 1],
-    ...blogs,
-    blogs[0],
-  ];
-
-  const scrollToIndex = (index, smooth = true) => {
-    if (!trackRef.current) return;
-
-    const containerWidth = trackRef.current.clientWidth;
-
-    // Show exactly 3 cards
-    const CARD_W = (containerWidth - GAP * 2) / 3;
-    const STEP = CARD_W + GAP;
-
-    trackRef.current.scrollTo({
-      left: index * STEP,
-      behavior: smooth ? "smooth" : "auto",
-    });
-  };
-
-  const goTo = (idx) => {
-    let nextIndex = idx;
-
-    if (idx < 0) {
-      nextIndex = total - 1;
-    }
-
-    if (idx >= total) {
-      nextIndex = 0;
-    }
-
-    setCurrent(nextIndex);
-    scrollToIndex(nextIndex + 1);
-  };
-
-  const handleNext = () => {
-    if (isResetting.current) return;
-
-    const next = current + 1;
-
-    if (next >= total) {
-      setCurrent(0);
-
-      // Move to cloned first card
-      scrollToIndex(total + 1);
-
-      setTimeout(() => {
-        isResetting.current = true;
-
-        // Jump silently to real first card
-        scrollToIndex(1, false);
-
-        setTimeout(() => {
-          isResetting.current = false;
-        }, 50);
-      }, 450);
-
-      return;
-    }
-
-    setCurrent(next);
-    scrollToIndex(next + 1);
-  };
-
-  const handlePrevious = () => {
-    if (isResetting.current) return;
-
-    const previous = current - 1;
-
-    if (previous < 0) {
-      setCurrent(total - 1);
-
-      // Move to cloned last card
-      scrollToIndex(0);
-
-      setTimeout(() => {
-        isResetting.current = true;
-
-        // Jump silently to real last card
-        scrollToIndex(total, false);
-
-        setTimeout(() => {
-          isResetting.current = false;
-        }, 50);
-      }, 450);
-
-      return;
-    }
-
-    setCurrent(previous);
-    scrollToIndex(previous + 1);
-  };
-
-  const handleDotClick = (index) => {
-    if (isResetting.current) return;
-
-    setCurrent(index);
-    scrollToIndex(index + 1);
-  };
+  const cardWidth = `calc((100% - ${GAP * (VISIBLE - 1)}px) / ${VISIBLE})`;
 
   return (
     <motion.section
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-60px" }}
-      transition={{
-        duration: 0.7,
-        ease: [0.22, 1, 0.36, 1],
-      }}
+      transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
       className="bg-stone-50 dark:bg-[#0a0a0a] border-t border-stone-200 dark:border-stone-800 py-16 px-6 md:px-12 lg:px-20"
     >
-      {/* Header */}
       <div className="flex items-end justify-between mb-10">
         <div>
           <div className="flex items-center gap-3 mb-2">
             <div className="w-8 h-[2px] bg-[#8bc53f]" />
-
             <span className="text-[9px] font-bold tracking-[0.28em] text-[#8bc53f] uppercase">
               More Stories
             </span>
           </div>
-
           <h2 className="font-serif text-3xl md:text-4xl text-black dark:text-white leading-tight">
             Keep Reading
           </h2>
         </div>
 
-        {/* Controls */}
-        <div className="flex items-center gap-3">
+        {canLoop && (
+          <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-2 mr-4">
+              {blogs.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to blog ${i + 1}`}
+                  className={`rounded-full transition-all duration-300 ${i === current
+                      ? "w-6 h-2 bg-[#8bc53f]"
+                      : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
+                    }`}
+                />
+              ))}
+            </div>
 
-          {/* Dot indicators */}
-          <div className="hidden sm:flex items-center gap-2 mr-4">
-            {blogs.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => handleDotClick(i)}
-                aria-label={`Go to blog ${i + 1}`}
-                className={`rounded-full transition-all duration-300 ${i === current
-                  ? "w-6 h-2 bg-[#8bc53f]"
-                  : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400 dark:hover:bg-stone-500"
-                  }`}
-              />
-            ))}
+            <button
+              onClick={prev}
+              aria-label="Previous blog"
+              className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:border-black dark:hover:border-white hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-black transition-all duration-300"
+            >
+              ←
+            </button>
+
+            <button
+              onClick={next}
+              aria-label="Next blog"
+              className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white transition-all duration-300"
+            >
+              →
+            </button>
           </div>
-
-          {/* Previous */}
-          <button
-            onClick={handlePrevious}
-            disabled={total <= 1}
-            aria-label="Previous blog"
-            className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:border-black dark:hover:border-white hover:text-black dark:hover:text-white hover:bg-white dark:hover:bg-black disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
-          >
-            ←
-          </button>
-
-          {/* Next */}
-          <button
-            onClick={handleNext}
-            disabled={total <= 1}
-            aria-label="Next blog"
-            className="w-11 h-11 rounded-full border border-stone-300 dark:border-stone-700 flex items-center justify-center text-stone-600 dark:text-stone-400 hover:bg-[#8bc53f] hover:border-[#8bc53f] hover:text-white disabled:opacity-25 disabled:cursor-not-allowed transition-all duration-300"
-          >
-            →
-          </button>
-        </div>
+        )}
       </div>
 
-      {/* Slider */}
       <div
         ref={trackRef}
-        className="flex overflow-x-auto scroll-smooth"
-        style={{
-          gap: `${GAP}px`,
-          scrollbarWidth: "none",
-          msOverflowStyle: "none",
-          WebkitOverflowScrolling: "touch",
-        }}
+        className="flex overflow-x-hidden"
+        style={{ gap: `${GAP}px` }}
       >
-        <style>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
-
-        {loopedBlogs.map((blog, i) => (
+        {looped.map((blog, i) => (
           <div
-            key={`${blog._id || blog.id}-${i}`}
-            className="flex-shrink-0 w-[calc((100%-68px)/3)]"
+            key={`${blog._id}-${i}`}
+            className="flex-shrink-0"
+            style={{ width: cardWidth }}
           >
-            <SliderCard
-              blog={blog}
-              index={i}
-              navigate={navigate}
-            />
+            <SliderCard blog={blog} navigate={navigate} />
           </div>
         ))}
-
-        <div className="flex-shrink-0 w-6" />
       </div>
 
-      {/* Progress */}
-      <div className="mt-8 h-px bg-stone-200 dark:bg-stone-800 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-[#8bc53f] rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
-          style={{
-            width: `${((current + 1) / total) * 100}%`,
-          }}
-        />
-      </div>
+      {canLoop && (
+        <div className="mt-8 h-px bg-stone-200 dark:bg-stone-800 rounded-full overflow-hidden">
+          <div
+            className="h-full bg-[#8bc53f] rounded-full transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]"
+            style={{ width: `${((current + 1) / total) * 100}%` }}
+          />
+        </div>
+      )}
     </motion.section>
   );
 };
+
+/* ================= PAGE HEADING ================= */
 
 const PageHeading = () => (
   <motion.header
@@ -408,43 +839,34 @@ const PageHeading = () => (
     animate={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.7 }}
     className="border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-black py-10 md:py-14"
-
-  >   
+  >
     <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 font-serif text-primary dark:text-white">
       {seo.h1}
     </h1>
 
     <p className="max-w-2xl mx-auto px-6 text-center text-sm md:text-base leading-relaxed text-stone-600 dark:text-stone-400">
-      Explore digital marketing insights, SEO strategies, PPC tips, and social media trends to grow your business online.
+      Explore digital marketing insights, SEO strategies, PPC tips, and social media
+      trends to grow your business online.
     </p>
-  
-
   </motion.header>
 );
 
+/* ================= LOADER ================= */
 
 const Loader = () => (
-  <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6 ">
-
-    {/* Animated book icon — green on light, yellow on dark */}
+  <div className="min-h-screen bg-white dark:bg-black flex flex-col items-center justify-center gap-6">
     <div className="flex flex-col items-center gap-5">
-
-      {/* Light mode icon */}
       <div className="block dark:hidden">
         <BookOpenIcon size={72} duration={1} color="#8bc53f" />
       </div>
-
-      {/* Dark mode icon */}
       <div className="hidden dark:block">
         <BookOpenIcon size={72} duration={1} color="#ffc93b" />
       </div>
 
-      {/* Label */}
       <p className="text-[11px] font-bold tracking-[0.35em] text-[#8bc53f] dark:text-[#ffc93b] uppercase">
         Loading Stories
       </p>
 
-      {/* Staggered dots */}
       <div className="flex gap-1.5">
         {[0, 1, 2, 3].map((i) => (
           <span
@@ -459,60 +881,56 @@ const Loader = () => (
     <style>{`
       @keyframes dotFade {
         0%,80%,100% { opacity: 0.2; transform: scale(0.8); }
-        40%          { opacity: 1;   transform: scale(1.4); }
+        40%         { opacity: 1;   transform: scale(1.4); }
       }
     `}</style>
   </div>
 );
 
+/* ================= PAGE ================= */
+
 const Blog = () => {
   const navigate = useNavigate();
-  const [blogs, setBlogs] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [blogs, setBlogs] = useState(() => getCachedBlogList() || []);
+  const [loading, setLoading] = useState(() => !getCachedBlogList());
 
+  // SEO
   useEffect(() => {
-    // Update page title
     document.title = seo.title;
 
-    // Update meta description
-    let descriptionTag = document.querySelector(
-      'meta[name="description"]'
-    );
-
+    let descriptionTag = document.querySelector('meta[name="description"]');
     if (!descriptionTag) {
       descriptionTag = document.createElement("meta");
       descriptionTag.setAttribute("name", "description");
       document.head.appendChild(descriptionTag);
     }
-
     descriptionTag.setAttribute("content", seo.description);
 
-    // Create or update canonical URL
-    let canonicalTag = document.querySelector(
-      'link[rel="canonical"]'
-    );
-
+    let canonicalTag = document.querySelector('link[rel="canonical"]');
     if (!canonicalTag) {
       canonicalTag = document.createElement("link");
       canonicalTag.setAttribute("rel", "canonical");
       document.head.appendChild(canonicalTag);
     }
-
     canonicalTag.setAttribute("href", seo.canonical);
   }, []);
+
+  // Data (served from cache instantly when available, refreshed in background)
   useEffect(() => {
-    const fetchBlogs = async () => {
-      try {
-        const res = await fetch(`${API}/api/blog`);
-        const data = await res.json();
-        setBlogs(data.data || []);
-      } catch (err) {
-        console.error("Error fetching blogs:", err);
-      } finally {
-        setLoading(false);
-      }
+    let cancelled = false;
+
+    fetchBlogList()
+      .then((data) => {
+        if (!cancelled) setBlogs(data);
+      })
+      .catch((err) => console.error("Error fetching blogs:", err))
+      .finally(() => {
+        if (!cancelled) setLoading(false);
+      });
+
+    return () => {
+      cancelled = true;
     };
-    fetchBlogs();
   }, []);
 
   if (loading) return <Loader />;
@@ -528,32 +946,31 @@ const Blog = () => {
   }
 
   const stackedBlogs = blogs.slice(0, 3);
-
-  // All remaining blogs: 4th to last blog
   const sliderBlogs = blogs.slice(3);
 
   return (
     <div className="min-h-screen bg-white dark:bg-black pt-20">
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap');
-        .font-serif { font-family: 'Playfair Display', Georgia, serif; }
-      `}</style>
+      {/*
+        Font: do NOT @import here (late + render-blocking).
+        Put this in index.html <head> instead:
+          <link rel="preconnect" href="https://fonts.googleapis.com">
+          <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+          <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&display=swap">
+      */}
+      <style>{`.font-serif { font-family: 'Playfair Display', Georgia, serif; }`}</style>
 
       <PageHeading />
 
-      {/* Stacked rows — blogs 1, 2, 3 */}
       <div>
         {stackedBlogs.map((blog, i) => (
           <BlogRow key={blog._id} blog={blog} index={i} navigate={navigate} />
         ))}
       </div>
 
-      {/* Slider — blogs 4, 5, 6 */}
       {sliderBlogs.length > 0 && (
         <SliderSection blogs={sliderBlogs} navigate={navigate} />
       )}
 
-      {/* Footer accent */}
       <div className="h-[3px] bg-gradient-to-r from-[#8bc53f] via-[#ffc93b] to-transparent" />
     </div>
   );
