@@ -25,7 +25,9 @@ app.use(express.urlencoded({ extended: true }));
 const allowedOrigins = [
     "http://localhost:5173",
     "https://scrollfuelproject-git-main-divyani-bhusaris-projects-d2314264.vercel.app",
-    "https://scrollfuel.in" // ADD THIS
+    "https://scrollfuel.in",
+    "http://localhost:4173",
+    "http://127.0.0.1:4173", // ADD THIS
 ];
 
 app.use(

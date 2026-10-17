@@ -3,6 +3,7 @@ import upload from "../middleware/upload.js";
 import {
     createBlog,
     getBlogs,
+    getBlogBySlug,
     getBlogById,
     updateBlog,
     deleteBlog,
@@ -10,7 +11,7 @@ import {
 
 const router = express.Router();
 
-// ✅ CREATE BLOG (FIXED)
+// CREATE
 router.post(
     "/",
     upload.fields([
@@ -20,13 +21,16 @@ router.post(
     createBlog
 );
 
-// GET ALL
+// GET ALL (lightweight list)
 router.get("/", getBlogs);
 
-// GET SINGLE
+// GET SINGLE BY SLUG (+ related) — must be BEFORE "/:id"
+router.get("/slug/:slug", getBlogBySlug);
+
+// GET SINGLE BY ID
 router.get("/:id", getBlogById);
 
-// ✅ UPDATE BLOG (FIXED)
+// UPDATE
 router.put(
     "/:id",
     upload.fields([
