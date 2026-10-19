@@ -15,7 +15,12 @@ const routes = [
     "/about-us/",
     "/blog/",
 
-    //Individual blog detail pages 
+    //Individual blog detail pages
+    "/blog/real-estate-digital-marketing-in-nagpur-a-practical-guide-for-builders/",
+    "/blog/how-to-choose-the-best-digital-marketing-agency-in-nagpur/",
+    "/blog/how-to-improve-google-maps-ranking-in-nagpur/", 
+    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
+    "/blog/how-seo-helps-real-estate-builders-get-more-leads/",
     "/blog/personal-branding-on-social-media-to-win-more-clients/",
     "/blog/how-seo-helps-real-estate-builders-get-more-leads/",
     "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
