@@ -1,18 +1,20 @@
+
 import { Phone, Mail } from "lucide-react";
 import { NavLink, Link } from "react-router-dom";
-import { services } from "../data/services.js";
+import { servicesData } from "../data/servicesData.js";
 import { useState, useEffect } from "react";
 
 const Footer = () => {
-
-    const [dark, setDark] = useState(
+    const [dark, setDark] = useState(() =>
         document.documentElement.classList.contains("dark")
     );
 
-    /* Watch for theme change */
+    // Watch for theme changes
     useEffect(() => {
         const observer = new MutationObserver(() => {
-            setDark(document.documentElement.classList.contains("dark"));
+            setDark(
+                document.documentElement.classList.contains("dark")
+            );
         });
 
         observer.observe(document.documentElement, {
@@ -23,9 +25,44 @@ const Footer = () => {
         return () => observer.disconnect();
     }, []);
 
-    return (
-        <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300 ">
+    // servicesData is an object, so convert it into an array
+    const services = Object.values(servicesData);
 
+    const socialLinks = [
+        {
+            href: "https://www.instagram.com/scrollfuel/",
+            icon: "/assets/logo/instagram_icon.jpg",
+            name: "Instagram",
+        },
+        {
+            href: "https://www.youtube.com/@ScrollfuelOfficial",
+            icon: "/assets/logo/youtube_icon.jpg",
+            name: "YouTube",
+        },
+        {
+            href: "https://www.facebook.com/scrollfuel.nagpur",
+            icon: "/assets/logo/facebook_logo.jpg",
+            name: "Facebook",
+        },
+        {
+            href: "https://www.behance.net/scrollfuel60b4",
+            icon: "/assets/logo/be_logo.jpg",
+            name: "Behance",
+        },
+        {
+            href: "https://www.linkedin.com/company/scrollfuel/",
+            icon: "/assets/logo/linkedin_icon.jpg",
+            name: "LinkedIn",
+        },
+        {
+            href: "https://in.pinterest.com/scrollfuel/_created/",
+            icon: "/assets/logo/pinterest_icon.jpg",
+            name: "Pinterest",
+        },
+    ];
+
+    return (
+        <footer className="bg-white dark:bg-black text-black dark:text-white transition-colors duration-300">
             <div className="max-w-7xl mx-auto">
 
                 {/* TOP SECTION */}
@@ -36,7 +73,7 @@ const Footer = () => {
                         <NavLink to="/" end className="flex items-center">
                             <img
                                 src={dark ? "/assets/logo1.png" : "/logo2.png"}
-                                alt="Logo"
+                                alt="ScrollFuel Digital Marketing Agency"
                                 width={208}
                                 height={48}
                                 decoding="async"
@@ -47,25 +84,19 @@ const Footer = () => {
 
                     {/* SOCIAL ICONS */}
                     <div className="flex flex-col items-end mr-4 mb-4 md:mt-10">
-                        <div className="flex items-center">
-                            {[
-                                { href: "https://www.instagram.com/scrollfuel/", icon: "/assets/logo/instagram_icon.jpg" },
-                                { href: "https://www.youtube.com/@ScrollfuelOfficial", icon: "/assets/logo/youtube_icon.jpg" },
-                                { href: "https://www.facebook.com/scrollfuel.nagpur", icon: "/assets/logo/facebook_logo.jpg" },
-                                { href: "https://www.behance.net/scrollfuel60b4", icon: "/assets/logo/be_logo.jpg" },
-                                { href: "https://www.linkedin.com/company/scrollfuel/", icon: "/assets/logo/linkedin_icon.jpg" },
-                                { href: "https://in.pinterest.com/scrollfuel/_created/", icon: "/assets/logo/pinterest_icon.jpg" }
-                            ].map((item, index) => (
+                        <div className="flex items-center flex-wrap">
+                            {socialLinks.map((item) => (
                                 <a
-                                    key={index}
+                                    key={item.name}
                                     href={item.href}
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label={`Visit ScrollFuel on ${item.name}`}
                                     className="w-14 h-14 flex items-center justify-center"
                                 >
                                     <img
                                         src={item.icon}
-                                        alt="social icon"
+                                        alt=""
                                         width={24}
                                         height={24}
                                         loading="lazy"
@@ -76,115 +107,157 @@ const Footer = () => {
                             ))}
                         </div>
                     </div>
-
                 </div>
 
                 {/* BOTTOM SECTION */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-5 text-sm pb-5 pl-10 md:pl-10">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-5 text-sm pb-5 px-4 md:pl-10 md:pr-6">
 
-                    {/* Address */}
+                    {/* ADDRESS */}
                     <div>
-                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">Address</h4>
+                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">
+                            Address
+                        </h4>
+
                         <p className="text-muted mt-3 font-bold">
                             Bidoba Sahkari Sanstha, Plot no 133, Wardha Road,
-                            Near Hotel Center Point, Bante Layout, Sonegaon, Ujwal Nagar,
-                            Nagpur-440025
+                            Near Hotel Center Point, Bante Layout, Sonegaon,
+                            Ujwal Nagar, Nagpur-440025
                         </p>
+
                         <a
                             href="https://maps.app.goo.gl/oQfiqBwaEo6xyFYYA"
                             target="_blank"
+                            rel="noopener noreferrer"
                             className="inline-block mt-4 text-primary hover-text-secondary transition font-bold pb-2"
                         >
                             Find on Map →
                         </a>
                     </div>
 
-                    {/* Company */}
-                    <div className="pl-0 md:pl-20">
-                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">Company</h4>
-                        <ul className="space-y-3 text-muted">
-                            <li><a href="/" className="hover-text-primary font-bold">Home</a></li>
-                            <li><a href="/about-us/" className="hover-text-primary font-bold">About</a></li>
-                            <li><a href="/blog/" className="hover-text-primary font-bold">Blog</a></li>
-                            <li><a href="/portfolio/" className="hover-text-primary font-bold">Portfolio</a></li>
-                            <li><a href="/career/" className="hover-text-primary font-bold">Career</a></li>
-                        </ul>
-                    </div>
+                    {/* COMPANY */}
+                    <div className="pl-0 md:pl-10">
+                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">
+                            Company
+                        </h4>
 
-                    {/* Services */}
-                    <div>
-                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">Services</h4>
                         <ul className="space-y-3 text-muted">
-                            {services.slice(0, 4).map((ser) => (
-                                <li key={ser.slug}>
-                                    <Link
-                                        to={`/services/${ser.slug}`}
-                                        className="hover-text-primary font-bold"
-                                    >
-                                        {ser.h1}
-                                    </Link>
-                                </li>
-                            ))}
                             <li>
-                                <Link to="/services" className="hover-text-primary font-bold">
-                                    More...
+                                <NavLink to="/" end className="hover-text-primary font-bold">
+                                    Home
+                                </NavLink>
+                            </li>
+                            <li>
+                                <Link to="/about-us/" className="hover-text-primary font-bold">
+                                    About
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/blog/" className="hover-text-primary font-bold">
+                                    Blog
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/portfolio/" className="hover-text-primary font-bold">
+                                    Portfolio
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/career/" className="hover-text-primary font-bold">
+                                    Career
                                 </Link>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Contact */}
+                    {/* SERVICES */}
                     <div>
-                        <h4 className="font-semibold text-lg mb-4 text-black dark:text-white">Contact</h4>
-                        <ul className="space-y-3 font-bold">
-                            <li className="flex items-center text-muted">
-                                <Phone size={16} className="text-primary mr-2" />
+                        <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">
+                            Services
+                        </h4>
 
-                                <a href="tel:+919699660972" className="hover:text-primary">
+                        <ul className="space-y-3 text-muted">
+                            {services.map((service) => (
+                                <li key={service.slug}>
+                                    <Link
+                                        to={service.path}
+                                        className="hover-text-primary font-bold"
+                                    >
+                                        {service.footer}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+
+                    {/* CONTACT */}
+                    <div>
+                        <h4 className="font-semibold text-lg mb-4 text-black dark:text-white">
+                            Contact
+                        </h4>
+
+                        <ul className="space-y-3 font-bold">
+
+                            <li className="flex flex-wrap items-center text-muted">
+                                <Phone
+                                    size={16}
+                                    className="text-primary mr-2 shrink-0"
+                                />
+
+                                <a
+                                    href="tel:+919699660972"
+                                    className="hover:text-primary"
+                                >
                                     +91 9699660972
                                 </a>
 
                                 <span className="mx-1">,</span>
 
-                                <a href="tel:+918788430110" className="hover:text-primary">
+                                <a
+                                    href="tel:+918788430110"
+                                    className="hover:text-primary"
+                                >
                                     +91 8788430110
                                 </a>
                             </li>
 
-                            <li className="relative pl-7 text-muted font-bold">
-                                <Mail size={16} className="absolute left-0 top-1 text-primary" />
+                            <li className="relative pl-7 text-muted">
+                                <Mail
+                                    size={16}
+                                    className="absolute left-0 top-1 text-primary"
+                                />
+
                                 <a
-                                    href="https://mail.google.com/mail/?view=cm&fs=1&to=scrollfuel@gmail.com"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="hover-text-primary"
+                                    href="mailto:scrollfuel@gmail.com"
+                                    className="hover-text-primary break-words"
                                 >
                                     scrollfuel@gmail.com
                                 </a>
                             </li>
 
                             <li className="relative pl-7 text-muted">
-                                <Mail size={16} className="absolute left-0 top-1 text-primary" />
+                                <Mail
+                                    size={16}
+                                    className="absolute left-0 top-1 text-primary"
+                                />
+
                                 <a
                                     href="mailto:scrollfueldigital@gmail.com"
-                                    className="hover-text-primary"
+                                    className="hover-text-primary break-words"
                                 >
                                     scrollfueldigital@gmail.com
                                 </a>
                             </li>
                         </ul>
                     </div>
-
                 </div>
             </div>
 
-            {/* Bottom Bar */}
+            {/* BOTTOM BAR */}
             <div className="border-t border-black/10 dark:border-white/10 transition-colors duration-300">
                 <div className="max-w-7xl mx-auto px-6 py-6 text-center text-xs font-bold text-muted">
                     © {new Date().getFullYear()} ScrollFuel Digital Marketing Agency. All rights reserved.
                 </div>
             </div>
-
         </footer>
     );
 };

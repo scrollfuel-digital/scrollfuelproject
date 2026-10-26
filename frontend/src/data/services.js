@@ -3,7 +3,7 @@ const SITE = "https://scrollfuel.in/services";
 
 export const services = [
     {
-        slug: "seo-ppc-service-in-nagpur",
+        slug: "seo-ppc-service",
 
         icon: "TrendingUp",
         illustration: "/assets/hero/seo1.jpeg",
@@ -25,7 +25,7 @@ export const services = [
         metaTitle: "Professional SEO & PPC Services in Nagpur | Scrollfuel",
         metaDescription:
             "Grow your business with SEO and PPC services in Nagpur. Improve Google visibility, attract qualified traffic and generate more leads with ScrollFuel.",
-        canonical: `${SITE}/seo-ppc-service-in-nagpur/`,
+        canonical: `${SITE}/seo-ppc-service/`,
         h2: "SEO & PPC Service in Nagpur",
         content: [
             "ScrollFuel provides SEO and PPC services in Nagpur designed to help businesses improve online visibility, attract relevant visitors and generate qualified leads. Our **SEO agency in Nagpur** combines technical optimization, keyword research, on-page SEO, content strategy and local SEO to build sustainable search visibility.",
@@ -38,7 +38,7 @@ export const services = [
         ],
     },
     {
-        slug: "content-marketing-services-nagpur",
+        slug: "content-marketing-services",
         icon: "FileText",
         illustration: "/assets/hero/content.jpeg",
         accent: "#ffc93b",
@@ -58,7 +58,7 @@ export const services = [
         metaDescription:
             "Grow your brand with Content Marketing Services in Nagpur. Get SEO-friendly content, strategic planning and engaging content that drives traffic and leads.",
         // NOTE: canonical should equal the live URL of this page. The brief had a different value; see notes.
-        canonical: `${SITE}/content-marketing-services-nagpur`,
+        canonical: `${SITE}/content-marketing-services`,
         content: [
             "ScrollFuel offers professional **Content Marketing Services in Nagpur** to help businesses build a strong online presence, attract the right audience and improve organic visibility. Our content strategies are designed around your business goals, target audience and industry requirements.",
             "As a **Content Marketing Service in Nagpur**, we create valuable and engaging content that supports both users and search engines. From SEO-friendly website content and blogs to service pages, landing pages and informative articles, our team focuses on creating content that communicates your brand message clearly.",
@@ -68,7 +68,7 @@ export const services = [
         ],
     },
     {
-        slug: "social-media-marketing-services-in-nagpur",
+        slug: "social-media-marketing-services",
 
         icon: "Instagram",
         illustration: "/assets/hero/social.png",
@@ -81,7 +81,7 @@ export const services = [
         metaTitle: "Social Media Marketing Services in Nagpur | ScrollFuel",
         metaDescription:
             "Grow your brand with social media marketing services in Nagpur. Build engagement, reach your audience and generate leads with ScrollFuel.",
-        canonical: `${SITE}/social-media-marketing-services-in-nagpur`,
+        canonical: `${SITE}/social-media-marketing-services`,
         content: [
             "ScrollFuel provides professional **Social Media Marketing Services Nagpur** to help businesses build a stronger online presence, connect with their target audience and generate meaningful business opportunities. We create social media strategies that are aligned with your brand, audience and marketing goals.",
             "As a **Social Media Marketing Service in Nagpur**, we help businesses manage their social presence across platforms such as Instagram, Facebook, LinkedIn and YouTube. Our approach includes content planning, creative posts, audience engagement, profile optimization and performance tracking.",
@@ -91,7 +91,7 @@ export const services = [
         ],
     },
     {
-        slug: "branding-design-services-in-nagpur",
+        slug: "branding-design-services",
 
         icon: "Palette",
         illustration: "/assets/hero/branding.png",
@@ -111,7 +111,7 @@ export const services = [
         metaTitle: "Branding & Design Services in Nagpur | ScrollFuel",
         metaDescription:
             "Build a memorable brand with branding and design services in Nagpur, including logo design, brand identity, creative design and marketing materials.",
-        canonical: `${SITE}/branding-design-services-in-nagpur`,
+        canonical: `${SITE}/branding-design-services`,
         content: [
             "ScrollFuel provides professional **Branding and Design Services in Nagpur** to help businesses create a strong, memorable and consistent brand identity. We combine creative thinking with strategic design to help businesses communicate their values clearly and connect with their target audience.",
             "As a **Branding Service in Nagpur**, we develop customized branding solutions based on your business goals, industry and audience. From logo concepts and visual identity to marketing creatives and brand communication, we focus on creating a consistent look and feel across your digital and offline presence.",
@@ -121,7 +121,7 @@ export const services = [
         ],
     },
     {
-        slug: "website-development-services-in-nagpur",
+        slug: "website-development-services",
 
         icon: "Code",
         illustration: "/assets/hero/website2.png",
@@ -140,7 +140,7 @@ export const services = [
         metaTitle: "Website Development Services in Nagpur | ScrollFuel",
         metaDescription:
             "Get professional website development services in Nagpur with responsive, SEO-friendly and user-focused websites designed to grow your business online.",
-        canonical: `${SITE}/website-development-services-in-nagpur`,
+        canonical: `${SITE}/website-development-services`,
         content: [
             "ScrollFuel provides professional **Website Development Services in Nagpur** to help businesses create fast, responsive and user-friendly websites that support their online growth. We develop websites with a focus on functionality, performance, mobile responsiveness and search engine-friendly structure.",
             "As a **Website Development Company in Nagpur**, we understand that every business has different website requirements. Our team creates customized websites based on your business objectives, target audience and industry needs. From business websites and service-based websites to ecommerce platforms, we focus on delivering a smooth and engaging user experience.",
@@ -151,7 +151,7 @@ export const services = [
     },
     {
         // Placeholder SEO copy: replace with your approved content for this page.
-        slug: "videography-photography-services-in-nagpur",
+        slug: "videography-photography-services",
 
         icon: "Video",
         illustration: "/assets/hero/videophoto.jpeg",
@@ -171,7 +171,7 @@ export const services = [
         metaTitle: "Videography & Photography Services in Nagpur | ScrollFuel",
         metaDescription:
             "Get professional videography and photography services in Nagpur for brands, products, events and digital marketing campaigns with ScrollFuel.",
-        canonical: `${SITE}/videography-photography-services-in-nagpur`,
+        canonical: `${SITE}/videography-photography-services`,
         content: [
             "Bring your brand, products and important moments to life with professional **Photography and Videography Services in Nagpur ** from ScrollFuel. We create high-quality visual content that helps businesses showcase their products, services and brand story in an engaging way. Our **Videography Services in Nagpur** are designed for businesses looking to create professional promotional videos, social media reels, corporate videos, product videos and other digital content. We focus on clear storytelling, creative presentation and visuals that capture attention across digital platforms.",
             "With our **Photography Services in Nagpur**, businesses can create professional images for websites, social media, marketing campaigns, products and promotional materials. Our photography approach focuses on presenting your brand and products in a visually appealing and authentic manner.",

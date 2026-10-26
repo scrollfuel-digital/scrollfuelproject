@@ -291,8 +291,8 @@ const SliderSection = ({ blogs, navigate }) => {
                   aria-label={`Go to blog ${index + 1}`}
                   aria-current={index === current ? "true" : undefined}
                   className={`rounded-full transition-all duration-300 ${index === current
-                      ? "w-6 h-2 bg-[#8bc53f]"
-                      : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400"
+                    ? "w-6 h-2 bg-[#8bc53f]"
+                    : "w-2 h-2 bg-stone-300 dark:bg-stone-700 hover:bg-stone-400"
                     }`}
                 />
               ))}
@@ -372,45 +372,6 @@ const PageHeading = ({ heading }) => (
 );
 
 /* ============================================================
-   LOADING COMPONENT
-============================================================ */
-
-const Loader = () => (
-  <div className="min-h-[50vh] bg-white dark:bg-black flex flex-col items-center justify-center gap-5">
-    <div className="dark:hidden">
-      <BookOpenIcon size={64} duration={1} color="#8bc53f" />
-    </div>
-
-    <div className="hidden dark:block">
-      <BookOpenIcon size={64} duration={1} color="#ffc93b" />
-    </div>
-
-    <p className="text-[11px] font-bold tracking-[0.35em] text-[#8bc53f] dark:text-[#ffc93b] uppercase">
-      Loading Stories
-    </p>
-
-    <div className="flex gap-1.5">
-      {[0, 1, 2, 3].map((index) => (
-        <span
-          key={index}
-          className="w-1.5 h-1.5 rounded-full bg-[#8bc53f] dark:bg-[#ffc93b]"
-          style={{
-            animation: `dotFade 1.2s ease-in-out ${index * 0.2}s infinite`,
-          }}
-        />
-      ))}
-    </div>
-
-    <style>{`
-      @keyframes dotFade {
-        0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
-        40% { opacity: 1; transform: scale(1.4); }
-      }
-    `}</style>
-  </div>
-);
-
-/* ============================================================
    EMPTY STATE
 ============================================================ */
 
@@ -438,7 +399,7 @@ const Blog = () => {
   const cachedBlogs = getCachedBlogList();
 
   const [blogs, setBlogs] = useState(() => cachedBlogs || []);
-  const [loading, setLoading] = useState(() => !cachedBlogs);
+  const [loaded, setLoaded] = useState(() => !!cachedBlogs);
   const [error, setError] = useState(false);
 
   /* ---------- FETCH BLOGS ---------- */
@@ -452,17 +413,14 @@ const Blog = () => {
 
         setBlogs(Array.isArray(result) ? result : []);
         setError(false);
+        setLoaded(true);
       })
       .catch((err) => {
         console.error("Error fetching blogs:", err);
 
         if (!cancelled) {
           setError(true);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setLoading(false);
+          setLoaded(true);
         }
       });
 
@@ -497,10 +455,8 @@ const Blog = () => {
 
       <PageHeading heading={seo} />
 
-      {loading && blogs.length === 0 ? (
-        <Loader />
-      ) : blogs.length === 0 ? (
-        error ? (
+      {blogs.length === 0 ? (
+        !loaded ? null : error ? (
           <div className="min-h-[40vh] flex items-center justify-center px-6">
             <p className="text-sm text-stone-500 dark:text-stone-400 text-center">
               Unable to load blog posts right now. Please refresh the page and

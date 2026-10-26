@@ -124,24 +124,6 @@ const ServiceDetails = () => {
                 <div className="mx-auto max-w-6xl px-4 pb-24 pt-28 sm:px-6 md:pt-36">
 
 
-                    {/* =================================================
-                        BREADCRUMB
-                    ================================================= */}
-
-                    <nav
-                        aria-label="Breadcrumb"
-                        className="mb-8 text-sm text-white/60"
-                    >
-                        <Link
-                            to="/services/"
-                            className="inline-flex items-center gap-1.5 hover:text-[var(--accent)]"
-                        >
-                            <ArrowLeft size={16} />
-
-                            All services
-                        </Link>
-                    </nav>
-
 
                     {/* =================================================
                         HEADER

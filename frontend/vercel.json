@@ -1,34 +1,34 @@
 {
   "redirects": [
     {
-      "source": "/services/seo-ppc-service-in-nagpur",
-      "destination": "/services/seo-ppc-service-in-nagpur/",
-      "permanent": true
+      "source": "/services/seo-ppc-service",
+      "destination": "/services/seo-ppc-service/",
+      "statusCode": 301
     },
     {
-      "source": "/services/social-media-marketing-services-in-nagpur",
-      "destination": "/services/social-media-marketing-services-in-nagpur/",
-      "permanent": true
+      "source": "/services/social-media-marketing-services",
+      "destination": "/services/social-media-marketing-services/",
+      "statusCode": 301
     },
     {
-      "source": "/services/branding-design-services-in-nagpur",
-      "destination": "/services/branding-design-services-in-nagpur/",
-      "permanent": true
+      "source": "/services/branding-design-services",
+      "destination": "/services/branding-design-services/",
+      "statusCode": 301
     },
     {
-      "source": "/services/videography-photography-services-in-nagpur",
-      "destination": "/services/videography-photography-services-in-nagpur/",
-      "permanent": true
+      "source": "/services/videography-photography-services",
+      "destination": "/services/videography-photography-services/",
+      "statusCode": 301
     },
     {
-      "source": "/services/website-development-services-in-nagpur",
-      "destination": "/services/website-development-services-in-nagpur/",
-      "permanent": true
+      "source": "/services/website-development-services",
+      "destination": "/services/website-development-services/",
+      "statusCode": 301
     },
     {
-      "source": "/services/content-marketing-services-nagpur",
-      "destination": "/services/content-marketing-services-nagpur/",
-      "permanent": true
+      "source": "/services/content-marketing-services",
+      "destination": "/services/content-marketing-services/",
+      "statusCode": 301
     }
   ],
   "rewrites": [
