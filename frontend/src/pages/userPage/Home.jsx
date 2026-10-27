@@ -344,7 +344,7 @@ export default function Home() {
                     SERVICES SECTION
                 ================================================= */}
 
-                <section
+                {/* <section
                     className="
                         bg-white
                         dark:bg-black
@@ -356,7 +356,7 @@ export default function Home() {
                     <Suspense fallback={<SectionLoader />}>
                         <Services />
                     </Suspense>
-                </section>
+                </section> */}
 
 
                 {/* =================================================

@@ -14,8 +14,12 @@ const routes = [
     "/about/",
     "/about-us/",
     "/blog/",
+    "/services/",
 
     //Individual blog detail pages
+    "/blog/how-much-does-website-development-cost-for-a-small-business-in-india/",
+    "/blog/digital-marketing-for-clinics-and-doctors-in-nagpur/",
+    "/blog/free-google-business-profile-checklist-for-nagpur-businesses/",
     "/blog/real-estate-digital-marketing-in-nagpur-a-practical-guide-for-builders/",
     "/blog/how-to-choose-the-best-digital-marketing-agency-in-nagpur/",
     "/blog/how-to-improve-google-maps-ranking-in-nagpur/", 
@@ -41,13 +45,22 @@ const routes = [
     "/connect-with-us/",
     "/services/",
 
-    // Service pages
+    // Nagpur Service pages
     "/services/seo-ppc-service-in-nagpur/",
     "/services/social-media-marketing-services-in-nagpur/",
     "/services/branding-design-services-in-nagpur/",
     "/services/videography-photography-services-in-nagpur/",
     "/services/website-development-services-in-nagpur/",
     "/services/content-marketing-services-nagpur/",
+
+
+    // Service page 
+    "/seo-and-ppc-services/",
+    "/content-marketing-services/",
+    "/social-media-marketing-services/",
+    "/website-development-services/",
+    "/branding-and-design-services/",
+    "/videography-and-photography-services/"
 ];
 
 const distPath = path.resolve("dist");

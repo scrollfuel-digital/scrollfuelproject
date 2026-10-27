@@ -73,6 +73,15 @@ export const pageSEO = {
     title: "About ScrollFuel | Digital Marketing Company in Nagpur",
     description:
       "Learn about ScrollFuel, a digital marketing company in Nagpur offering SEO, PPC, social media, content marketing and branding solutions.",
-    canonical: `${SITE_URL}/digital-marketing-company-in-nagpur/`,
+    canonical: `${SITE_URL}/about-us/`,
+  },
+
+  services: {
+    h1: "Digital Marketing Services",
+    primaryKeyword: "Digital marketing company",
+    title:"Digital Marketing Services | SEO, Ads, Websites | ScrollFuel",
+    description:
+      " Explore ScrollFuel's digital marketing services: SEO and PPC, social media, websites, branding, content and video. Get a free consultation today.",
+    canonical: `${SITE_URL}/services/`,
   },
 };

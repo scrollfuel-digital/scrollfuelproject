@@ -329,6 +329,7 @@ const AboutUs = React.forwardRef((props, ref) => {
                             <h1 className="text-6xl md:text-7xl font-bold leading-tight">
                                 About{" "}
                                 <span className="text-primary inline-block">Us</span>
+                                
                             </h1>
                         </motion.div>
 

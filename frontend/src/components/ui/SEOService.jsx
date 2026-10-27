@@ -5,12 +5,26 @@ import { getSeoServiceByPath } from "../../data/seoService.js";
 
 const SITE_URL = "https://scrollfuel.in";
 
+const normalizePath = (pathname = "/") => {
+    const pathOnly = pathname.split("?")[0].split("#")[0];
+
+    if (!pathOnly || pathOnly === "/") return "/";
+
+    return `/${pathOnly.split("/").filter(Boolean).join("/")}/`;
+};
+
 const setMetaTag = (attribute, key, content) => {
     if (!content) return;
 
-    let element = document.head.querySelector(
-        `meta[${attribute}="${key}"]`
-    );
+    const selector = `meta[${attribute}="${key}"]`;
+    const elements = document.head.querySelectorAll(selector);
+
+    // Reuse the first matching tag and remove duplicates.
+    let element = elements[0];
+
+    elements.forEach((item, index) => {
+        if (index > 0) item.remove();
+    });
 
     if (!element) {
         element = document.createElement("meta");
@@ -22,7 +36,17 @@ const setMetaTag = (attribute, key, content) => {
 };
 
 const setCanonical = (href) => {
-    let element = document.head.querySelector('link[rel="canonical"]');
+    if (!href) return;
+
+    const elements = document.head.querySelectorAll(
+        'link[rel="canonical"]'
+    );
+
+    let element = elements[0];
+
+    elements.forEach((item, index) => {
+        if (index > 0) item.remove();
+    });
 
     if (!element) {
         element = document.createElement("link");
@@ -37,18 +61,51 @@ const SEOService = () => {
     const location = useLocation();
 
     useEffect(() => {
-        const pathname = location.pathname || "/";
+        const pathname = normalizePath(location.pathname);
         const seo = getSeoServiceByPath(pathname);
 
         if (!seo) {
-            // Avoid leaving metadata from the previous route on an unknown route.
             document.title = "ScrollFuel | Digital Marketing Agency";
+
             setMetaTag(
                 "name",
                 "description",
                 "Explore digital marketing, SEO, PPC, content marketing and creative services from ScrollFuel."
             );
-            setCanonical(`${SITE_URL}${pathname === "/" ? "/" : pathname}`);
+
+            setMetaTag("name", "robots", "index, follow");
+
+            setMetaTag(
+                "property",
+                "og:title",
+                "ScrollFuel | Digital Marketing Agency"
+            );
+
+            setMetaTag(
+                "property",
+                "og:description",
+                "Explore digital marketing, SEO, PPC, content marketing and creative services from ScrollFuel."
+            );
+
+            setMetaTag("property", "og:type", "website");
+            setMetaTag("property", "og:url", `${SITE_URL}${pathname}`);
+            setMetaTag("property", "og:site_name", "ScrollFuel");
+
+            setMetaTag("name", "twitter:card", "summary");
+            setMetaTag(
+                "name",
+                "twitter:title",
+                "ScrollFuel | Digital Marketing Agency"
+            );
+
+            setMetaTag(
+                "name",
+                "twitter:description",
+                "Explore digital marketing, SEO, PPC, content marketing and creative services from ScrollFuel."
+            );
+
+            setCanonical(`${SITE_URL}${pathname}`);
+
             return;
         }
 

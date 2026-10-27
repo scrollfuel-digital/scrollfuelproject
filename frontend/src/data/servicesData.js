@@ -64,7 +64,7 @@ export const servicesData = {
         description:
             "Explore professional content marketing services and content creation services with ScrollFuel. Build brand awareness, engage audiences, and support business growth.",
         canonical: `${SITE}/content-marketing-services/`,
-        h1: "Professional content marketing services",
+        h1: "Professional Content Marketing Services",
         footer: "Content Marketing Services",
         sections: [
             {
@@ -110,7 +110,7 @@ export const servicesData = {
         description:
             "Grow your brand with professional social media marketing services from ScrollFuel. Build engagement, manage social platforms, and connect with your target audience.",
         canonical: `${SITE}/social-media-marketing-services/`,
-        h1: "Social media marketing services",
+        h1: "Social Media Marketing Services",
         footer: "Social Media Marketing Services",
         sections: [
             {

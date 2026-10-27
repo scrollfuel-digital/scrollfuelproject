@@ -133,24 +133,24 @@ const Services = () => {
     return (
         <main className="min-h-screen dark:bg-black">
             {/* Header */}
-            <header className="mx-auto max-w-6xl px-4 pb-12 pt-32 sm:px-6 md:pb-16 md:pt-40">
+
+            <header className="mx-auto max-w-6xl px-4 pb-12 pt-32 text-center sm:px-6 md:pb-16 md:pt-40">
                 <motion.div
                     initial={reduce ? false : { opacity: 0, y: 24 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut" }}
-                    className="max-w-3xl"
+                    className="mx-auto max-w-3xl"
                 >
                     <h1 className="font-serif text-4xl font-bold leading-tight text-primary sm:text-5xl md:text-6xl">
-                        Digital marketing services that bring you customers
+                        Digital Marketing Services
                     </h1>
 
-                    <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted md:text-lg">
-                        From search and social to branding and websites, ScrollFuel helps
-                        Nagpur businesses get found, look credible, and turn visitors into
-                        leads. Pick a service to see how we work.
+                    <p className="mx-auto mt-6 max-w-8xl text-base leading-relaxed text-muted md:text-lg">
+                        ScrollFuel helps businesses get found and turn visitors into customers with SEO and PPC, social media, websites, branding, content and video.
                     </p>
                 </motion.div>
             </header>
+
 
             {/* Cards: data comes only from servicesData.js */}
             <section
