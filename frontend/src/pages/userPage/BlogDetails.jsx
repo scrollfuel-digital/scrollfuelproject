@@ -774,8 +774,6 @@ const BlogDetails = () => {
       setData(null);
     }
 
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-
     fetchBlogBySlug(slug)
       .then((result) => {
         if (cancelled) return;
@@ -995,18 +993,7 @@ const BlogDetails = () => {
         author={authorName}
       />
 
-      <style>{`
-        @keyframes blogShimmer {
-          0% { background-position: 200% 0; }
-          100% { background-position: -200% 0; }
-        }
-
-        .font-serif {
-          font-family: 'Playfair Display', Georgia, serif;
-        }
-      `}</style>
-
-      {/* READ PROGRESS */}
+{/* READ PROGRESS */}
       <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] bg-gray-800 pointer-events-none">
         <div
           ref={progressRef}
@@ -1383,7 +1370,7 @@ const BlogDetails = () => {
               type="button"
               className="relative w-full py-3 rounded-xl font-black text-sm text-black transition-all hover:scale-[1.03] active:scale-95"
               style={{ background: "var(--color-green)" }}
-              onClick={() => navigate("/contact")}
+              onClick={() => navigate("/connect-with-us/")}
             >
               Get in Touch →
             </button>

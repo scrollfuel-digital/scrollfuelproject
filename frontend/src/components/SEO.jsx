@@ -1,9 +1,35 @@
-
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 
 const SITE_NAME = "ScrollFuel";
 const SITE_URL = "https://scrollfuel.in";
 const DEFAULT_IMAGE = `${SITE_URL}/assets/logo1.png`;
+
+const setMeta = (attr, key, value) => {
+    if (!value) return;
+    let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+    if (!el) {
+        el = document.createElement("meta");
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+    }
+    el.setAttribute("content", value);
+};
+
+const setCanonical = (href) => {
+    if (!href) return;
+    let el = document.head.querySelector('link[rel="canonical"]');
+    if (!el) {
+        el = document.createElement("link");
+        el.setAttribute("rel", "canonical");
+        document.head.appendChild(el);
+    }
+    el.setAttribute("href", href);
+};
+
+const toAbsolute = (url) => {
+    if (!url) return DEFAULT_IMAGE;
+    try { return new URL(url, SITE_URL).href; } catch { return DEFAULT_IMAGE; }
+};
 
 const SEO = ({
     title,
@@ -16,91 +42,40 @@ const SEO = ({
     author,
     noIndex = false,
 }) => {
-    const absoluteUrl = (url) => {
-        if (!url) return undefined;
+    const canonicalUrl = toAbsolute(canonical);
+    const imageUrl = toAbsolute(image);
 
-        try {
-            return new URL(url, SITE_URL).href;
-        } catch {
-            return undefined;
+    useEffect(() => {
+        if (title) document.title = title;
+
+        setMeta("name", "description", description);
+        setMeta("name", "robots", noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
+
+        setMeta("property", "og:type", type);
+        setMeta("property", "og:site_name", SITE_NAME);
+        setMeta("property", "og:locale", "en_IN");
+        setMeta("property", "og:title", title || SITE_NAME);
+        setMeta("property", "og:description", description);
+        setMeta("property", "og:url", canonicalUrl);
+        setMeta("property", "og:image", imageUrl);
+        setMeta("property", "og:image:alt", title || SITE_NAME);
+
+        setMeta("name", "twitter:card", "summary_large_image");
+        setMeta("name", "twitter:title", title || SITE_NAME);
+        setMeta("name", "twitter:description", description);
+        setMeta("name", "twitter:image", imageUrl);
+        setMeta("name", "twitter:image:alt", title || SITE_NAME);
+
+        setCanonical(canonicalUrl);
+
+        if (type === "article") {
+            setMeta("property", "article:published_time", publishedTime);
+            setMeta("property", "article:modified_time", modifiedTime);
+            setMeta("property", "article:author", author);
         }
-    };
+    }, [title, description, canonicalUrl, imageUrl, type, noIndex, publishedTime, modifiedTime, author]);
 
-    const canonicalUrl = absoluteUrl(canonical);
-    const imageUrl = absoluteUrl(image) || DEFAULT_IMAGE;
-
-    return (
-        <Helmet>
-            <title>{title}</title>
-
-            {description && (
-                <meta name="description" content={description} />
-            )}
-
-            {canonicalUrl && (
-                <link rel="canonical" href={canonicalUrl} />
-            )}
-
-            <meta
-                name="robots"
-                content={
-                    noIndex
-                        ? "noindex, nofollow"
-                        : "index, follow, max-image-preview:large"
-                }
-            />
-
-            {/* Open Graph */}
-            <meta property="og:type" content={type} />
-            <meta property="og:site_name" content={SITE_NAME} />
-            <meta property="og:locale" content="en_IN" />
-            <meta property="og:title" content={title || SITE_NAME} />
-
-            {description && (
-                <meta property="og:description" content={description} />
-            )}
-
-            {canonicalUrl && (
-                <meta property="og:url" content={canonicalUrl} />
-            )}
-
-            <meta property="og:image" content={imageUrl} />
-            <meta property="og:image:alt" content={title || SITE_NAME} />
-
-            {/* Twitter / X */}
-            <meta
-                name="twitter:card"
-                content="summary_large_image"
-            />
-            <meta name="twitter:title" content={title || SITE_NAME} />
-
-            {description && (
-                <meta name="twitter:description" content={description} />
-            )}
-
-            <meta name="twitter:image" content={imageUrl} />
-            <meta name="twitter:image:alt" content={title || SITE_NAME} />
-
-            {/* Article metadata */}
-            {type === "article" && publishedTime && (
-                <meta
-                    property="article:published_time"
-                    content={publishedTime}
-                />
-            )}
-
-            {type === "article" && modifiedTime && (
-                <meta
-                    property="article:modified_time"
-                    content={modifiedTime}
-                />
-            )}
-
-            {type === "article" && author && (
-                <meta property="article:author" content={author} />
-            )}
-        </Helmet>
-    );
+    return null;
 };
 
 export default SEO;

@@ -1,9 +1,8 @@
 
 import { Phone, Mail } from "lucide-react";
 import { NavLink, Link } from "react-router-dom";
-import { servicesData } from "../data/servicesData.js";
 import { useState, useEffect } from "react";
-
+import { serviceSEO } from "../data/seoData.js";
 const Footer = () => {
     const [dark, setDark] = useState(() =>
         document.documentElement.classList.contains("dark")
@@ -25,8 +24,6 @@ const Footer = () => {
         return () => observer.disconnect();
     }, []);
 
-    // servicesData is an object, so convert it into an array
-    const services = Object.values(servicesData);
 
     const socialLinks = [
         {
@@ -170,16 +167,17 @@ const Footer = () => {
                     </div>
 
                     {/* SERVICES */}
+
                     <div>
                         <h4 className="font-semibold text-lg mb-3 text-black dark:text-white">
-                            Services
+                            Services 
                         </h4>
 
                         <ul className="space-y-3 text-muted">
-                            {services.map((service) => (
-                                <li key={service.slug}>
+                            {Object.entries(serviceSEO).map(([slug, service]) => (
+                                <li key={slug}>
                                     <Link
-                                        to={service.path}
+                                        to={`/services/${slug}/`}
                                         className="hover-text-primary font-bold"
                                     >
                                         {service.footer}
@@ -188,7 +186,6 @@ const Footer = () => {
                             ))}
                         </ul>
                     </div>
-
                     {/* CONTACT */}
                     <div>
                         <h4 className="font-semibold text-lg mb-4 text-black dark:text-white">

@@ -447,13 +447,7 @@ const Blog = () => {
         type="website"
       />
 
-      <style>{`
-        .font-serif {
-          font-family: 'Playfair Display', Georgia, serif;
-        }
-      `}</style>
-
-      <PageHeading heading={seo} />
+<PageHeading heading={seo} />
 
       {blogs.length === 0 ? (
         !loaded ? null : error ? (

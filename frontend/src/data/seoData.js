@@ -6,24 +6,30 @@ export const serviceSEO = {
     h1: "SEO and PPC Services in Nagpur",
     primaryKeyword: "SEO and PPC services in Nagpur",
     title: "Professional SEO and PPC Services in Nagpur | ScrollFuel",
+    footer: "SEO and PPC Services",
+    serviceSlug: "seo-ppc-service",
     description:
       "Grow your business with SEO and PPC services in Nagpur. Improve Google visibility, attract qualified traffic and generate more leads with ScrollFuel.",
     canonical: `${SITE_URL}/services/seo-ppc-service-in-nagpur/`,
   },
 
-  "content-marketing-services-nagpur": {
+  "content-marketing-services-in-nagpur": {
     h1: "Content Marketing Services in Nagpur",
     primaryKeyword: "Content marketing services in Nagpur",
     title: "Content Marketing Services in Nagpur | ScrollFuel",
+    footer: "Content Marketing Services",
+    serviceSlug: "content-marketing-services",
     description:
       "Grow your brand with content marketing services in Nagpur. Get SEO-friendly content, strategic planning and engaging content that drives traffic and leads.",
-    canonical: `${SITE_URL}/services/content-marketing-services-nagpur/`,
+    canonical: `${SITE_URL}/services/content-marketing-services-in-nagpur/`,
   },
 
   "social-media-marketing-services-in-nagpur": {
     h1: "Social Media Marketing Services in Nagpur",
     primaryKeyword: "Social media marketing services in Nagpur",
     title: "Social Media Marketing Services in Nagpur | ScrollFuel",
+    footer: "Social Media Marketing Services",
+    serviceSlug: "social-media-marketing-services",
     description:
       "Grow your brand with social media marketing services in Nagpur. Build engagement, reach your audience and generate leads with ScrollFuel.",
     canonical: `${SITE_URL}/services/social-media-marketing-services-in-nagpur/`,
@@ -33,6 +39,8 @@ export const serviceSEO = {
     h1: "Branding and Design Services in Nagpur",
     primaryKeyword: "Branding and design services in Nagpur",
     title: "Branding and Design Services in Nagpur | ScrollFuel",
+    footer: "Branding and Graphic Design Services",
+    serviceSlug: "branding-design-services",
     description:
       "Build a memorable brand with branding and design services in Nagpur, including logo design, brand identity, creative design and marketing materials.",
     canonical: `${SITE_URL}/services/branding-design-services-in-nagpur/`,
@@ -42,6 +50,8 @@ export const serviceSEO = {
     h1: "Website Development Services in Nagpur",
     primaryKeyword: "Website development services in Nagpur",
     title: "Website Development Services in Nagpur | ScrollFuel",
+    footer: "Website Development Services",
+    serviceSlug: "website-development-services",
     description:
       "Get professional website development services in Nagpur with responsive, SEO-friendly and user-focused websites designed to grow your business online.",
     canonical: `${SITE_URL}/services/website-development-services-in-nagpur/`,
@@ -51,6 +61,8 @@ export const serviceSEO = {
     h1: "Videography and Photography Services in Nagpur",
     primaryKeyword: "Videography and photography services in Nagpur",
     title: "Videography and Photography Services in Nagpur | ScrollFuel",
+    footer: "Videography and Photography Services",
+    serviceSlug: "videography-photography-services",
     description:
       "Get professional videography and photography services in Nagpur for brands, products, events and digital marketing campaigns with ScrollFuel.",
     canonical: `${SITE_URL}/services/videography-photography-services-in-nagpur/`,
@@ -79,7 +91,7 @@ export const pageSEO = {
   services: {
     h1: "Digital Marketing Services",
     primaryKeyword: "Digital marketing company",
-    title:"Digital Marketing Services | SEO, Ads, Websites | ScrollFuel",
+    title: "Digital Marketing Services | SEO, Ads, Websites | ScrollFuel",
     description:
       " Explore ScrollFuel's digital marketing services: SEO and PPC, social media, websites, branding, content and video. Get a free consultation today.",
     canonical: `${SITE_URL}/services/`,

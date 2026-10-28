@@ -4,11 +4,11 @@ import { NavLink, useLocation } from "react-router-dom";
 
 
 const navLinks = [
-  {name: "Home", path: "/" },
+  { name: "Home", path: "/" },
   { name: "About Us", path: "/about-us/" },
   { name: "Services", path: "/services/" },
   { name: "Blog", path: "/blog/" },
-  { name: "Portfolio" , path:"/portfolio/" },
+  { name: "Portfolio", path: "/portfolio/" },
   { name: "Career", path: "/career/" },
 ];
 

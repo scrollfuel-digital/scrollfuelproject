@@ -75,31 +75,41 @@ export const getSeoService = (identifier) => {
     return null;
 };
 
+
 export const getSeoServiceByPath = (pathname = "/") => {
     const currentPath = normalizePath(pathname);
 
-    // Find general service pages using their existing paths.
+    // 1. Global service pages
     for (const [key, dataKey] of Object.entries(generalServiceKeys)) {
         const service = servicesData[dataKey];
 
-        if (service?.path && normalizePath(service.path) === currentPath) {
+        if (
+            service?.path &&
+            normalizePath(service.path) === currentPath
+        ) {
             return seoService.general[key];
         }
     }
 
-    // Find Nagpur landing pages by their canonical URL.
-    for (const data of Object.values(seoService.nagpur)) {
-        if (normalizePath(new URL(data.canonical).pathname) === currentPath) {
+    // 2. Nagpur-specific service pages
+    for (const [slug, data] of Object.entries(seoService.nagpur)) {
+        const expectedPath = `/services/${slug}/`;
+
+        if (currentPath === normalizePath(expectedPath)) {
             return data;
         }
     }
 
-    // Find general pages by their canonical URL.
+    // 3. Other pages (home, about, blog, etc.)
     for (const data of Object.values(seoService.pages)) {
-        if (normalizePath(new URL(data.canonical).pathname) === currentPath) {
+        if (
+            data.canonical &&
+            normalizePath(new URL(data.canonical).pathname) === currentPath
+        ) {
             return data;
         }
     }
 
     return null;
 };
+

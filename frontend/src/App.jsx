@@ -5,7 +5,6 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import ProtectedRoute from "./components/admin/ProtectedRoute";
 import AdminLayout from "./components/admin/AdminLayout";
-import SEOService from "./components/ui/SEOService";
 /* Lazy-loaded user pages */
 const Home = lazy(() => import("./pages/userPage/Home"));
 const Blog = lazy(() => import("./pages/userPage/Blog"));
@@ -19,29 +18,12 @@ const AboutUs = lazy(() => import("./components/About"));
 const AboutUsPage = lazy(() => import("./pages/userPage/AboutUs"));
 
 /* Lazy-loaded individual service pages */
-const SeoPpcService = lazy(
-  () => import("./pages/userPage/servicePage/SeoPpcService")
-);
-
-const ContentMarketing = lazy(
-  () => import("./pages/userPage/servicePage/ContentMarketing")
-);
-
-const SocialMarketing = lazy(
-  () => import("./pages/userPage/servicePage/SocialMarketing")
-);
-
-const WebsiteDevelopment = lazy(
-  () => import("./pages/userPage/servicePage/WebsiteDevelopment")
-);
-
-const VideographyService = lazy(
-  () => import("./pages/userPage/servicePage/VideographyService")
-);
-
-const BrandingService = lazy(
-  () => import("./pages/userPage/servicePage/BrandingService")
-);
+const SeoPpcService = lazy(() => import("./pages/userPage/servicePage/SeoPpcService"));
+const ContentMarketing = lazy(() => import("./pages/userPage/servicePage/ContentMarketing"));
+const SocialMarketing = lazy(() => import("./pages/userPage/servicePage/SocialMarketing"));
+const WebsiteDevelopment = lazy(() => import("./pages/userPage/servicePage/WebsiteDevelopment"));
+const VideographyService = lazy(() => import("./pages/userPage/servicePage/VideographyService"));
+const BrandingService = lazy(() => import("./pages/userPage/servicePage/BrandingService"));
 
 /* Lazy-loaded admin pages */
 const AdminDashboard = lazy(() => import("./components/admin/AdminDashboard"));
@@ -102,7 +84,7 @@ function Layout() {
         <Route path="/" element={<S><Home /></S>} />
         <Route path="/about/" element={<S><AboutUs /></S>} />
         <Route path="/about-us/" element={<S><AboutUsPage /></S>} />
-        <Route path="/blog/" element={<S><Blog /></S>} />
+        <Route path="/blog" element={<S><Blog /></S>} />
         <Route path="/blog/:slug/" element={<S><BlogDetails /></S>} />
         <Route path="/portfolio/" element={<S><Portfolio /></S>} />
         <Route path="/career/" element={<S><Career /></S>} />
@@ -115,35 +97,12 @@ function Layout() {
         />
 
         {/* INDIVIDUAL SERVICE PAGES */}
-        <Route
-          path="/seo-and-ppc-services/"
-          element={<S><SeoPpcService /></S>}
-        />
-
-        <Route
-          path="/content-marketing-services/"
-          element={<S><ContentMarketing /></S>}
-        />
-
-        <Route
-          path="/social-media-marketing-services/"
-          element={<S><SocialMarketing /></S>}
-        />
-
-        <Route
-          path="/website-development-services/"
-          element={<S><WebsiteDevelopment /></S>}
-        />
-
-        <Route
-          path="/videography-and-photography-services/"
-          element={<S><VideographyService /></S>}
-        />
-
-        <Route
-          path="/branding-and-design-services/"
-          element={<S><BrandingService /></S>}
-        />
+        <Route path="/seo-and-ppc-services/" element={<S><SeoPpcService /></S>} />
+        <Route path="/content-marketing-services/" element={<S><ContentMarketing /></S>} />
+        <Route path="/social-media-marketing-services/" element={<S><SocialMarketing /></S>} />
+        <Route path="/website-development-services/" element={<S><WebsiteDevelopment /></S>} />
+        <Route path="/videography-and-photography-services/" element={<S><VideographyService /></S>} />
+        <Route path="/branding-and-design-services/" element={<S><BrandingService /></S>} />
 
         {/* DYNAMIC SERVICE ROUTE — KEEP THIS */}
         <Route
@@ -182,7 +141,6 @@ function App() {
     <div className="bg-white dark:bg-black text-black dark:text-white min-h-screen transition-colors duration-300">
       <BrowserRouter>
         <ScrollToTop />
-        <SEOService />
         <Layout />
       </BrowserRouter>
     </div>

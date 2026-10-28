@@ -37,15 +37,15 @@ const ServiceDetails = () => {
     const { slug } = useParams();
 
     /* ---------------------------------------------
-       Get service information
-    --------------------------------------------- */
-    const service = getServiceBySlug(slug);
-
-
-    /* ---------------------------------------------
        Get SEO information based on slug
     --------------------------------------------- */
     const seo = serviceSEO[slug];
+
+    /* ---------------------------------------------
+       Get service information — Nagpur slugs map to
+       a serviceSlug that matches services.js
+    --------------------------------------------- */
+    const service = getServiceBySlug(seo?.serviceSlug ?? slug);
 
 
     /* ---------------------------------------------

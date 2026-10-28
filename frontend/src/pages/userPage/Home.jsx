@@ -15,6 +15,7 @@ import {
 
 import { Helmet } from "react-helmet-async";
 import FAQ from "../../components/ui/FAQ.jsx";
+import WorkCTA from "../../components/workCTA.jsx";
 
 
 const ClientsSection = lazy(() => import("./ClientsSection.jsx"));
@@ -344,10 +345,10 @@ export default function Home() {
                     SERVICES SECTION
                 ================================================= */}
 
-                {/* <section
+                <section
                     className="
                         bg-white
-                        dark:bg-black
+                        !dark:bg-black
                         transition-colors
                         duration-500
                         
@@ -356,7 +357,7 @@ export default function Home() {
                     <Suspense fallback={<SectionLoader />}>
                         <Services />
                     </Suspense>
-                </section> */}
+                </section>
 
 
                 {/* =================================================
@@ -393,6 +394,19 @@ export default function Home() {
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <Testimonials />
+                    </Suspense>
+                </section>
+                <section
+                    className="
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        
+                    "
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <WorkCTA />
                     </Suspense>
                 </section>
 

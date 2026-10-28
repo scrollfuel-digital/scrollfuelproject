@@ -260,6 +260,11 @@ html.dark body {
   }
 }
 
+@keyframes blogShimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
 .animate-slideUpDown {
   animation: slideUpDown 4s ease-in-out infinite;
 }
