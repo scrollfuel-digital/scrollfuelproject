@@ -1,87 +1,3 @@
-// import { useEffect } from "react";
-
-// const SITE_NAME = "ScrollFuel";
-// const SITE_URL = "https://scrollfuel.in";
-// const DEFAULT_IMAGE = `${SITE_URL}/assets/logo1.png`;
-
-// const setMeta = (attr, key, value) => {
-//     if (!value) return;
-//     let el = document.head.querySelector(`meta[${attr}="${key}"]`);
-//     if (!el) {
-//         el = document.createElement("meta");
-//         el.setAttribute(attr, key);
-//         document.head.appendChild(el);
-//     }
-//     el.setAttribute("content", value);
-// };
-
-// const setCanonical = (href) => {
-//     if (!href) return;
-//     let el = document.head.querySelector('link[rel="canonical"]');
-//     if (!el) {
-//         el = document.createElement("link");
-//         el.setAttribute("rel", "canonical");
-//         document.head.appendChild(el);
-//     }
-//     el.setAttribute("href", href);
-// };
-
-// const toAbsolute = (url) => {
-//     if (!url) return DEFAULT_IMAGE;
-//     try { return new URL(url, SITE_URL).href; } catch { return DEFAULT_IMAGE; }
-// };
-
-// const SEO = ({
-//     title,
-//     description,
-//     canonical,
-//     image = DEFAULT_IMAGE,
-//     type = "website",
-//     publishedTime,
-//     modifiedTime,
-//     author,
-//     noIndex = false,
-// }) => {
-//     const canonicalUrl = toAbsolute(canonical);
-//     const imageUrl = toAbsolute(image);
-
-//     useEffect(() => {
-//         if (title) document.title = title;
-
-//         setMeta("name", "description", description);
-//         setMeta("name", "robots", noIndex ? "noindex, nofollow" : "index, follow, max-image-preview:large");
-
-//         setMeta("property", "og:type", type);
-//         setMeta("property", "og:site_name", SITE_NAME);
-//         setMeta("property", "og:locale", "en_IN");
-//         setMeta("property", "og:title", title || SITE_NAME);
-//         setMeta("property", "og:description", description);
-//         setMeta("property", "og:url", canonicalUrl);
-//         setMeta("property", "og:image", imageUrl);
-//         setMeta("property", "og:image:alt", title || SITE_NAME);
-
-//         setMeta("name", "twitter:card", "summary_large_image");
-//         setMeta("name", "twitter:title", title || SITE_NAME);
-//         setMeta("name", "twitter:description", description);
-//         setMeta("name", "twitter:image", imageUrl);
-//         setMeta("name", "twitter:image:alt", title || SITE_NAME);
-
-//         setCanonical(canonicalUrl);
-
-//         if (type === "article") {
-//             setMeta("property", "article:published_time", publishedTime);
-//             setMeta("property", "article:modified_time", modifiedTime);
-//             setMeta("property", "article:author", author);
-//         }
-//     }, [title, description, canonicalUrl, imageUrl, type, noIndex, publishedTime, modifiedTime, author]);
-
-//     return null;
-// };
-
-// export default SEO;
-
-
-
 
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -95,48 +11,62 @@ const DEFAULT_TITLE =
 const DEFAULT_DESCRIPTION =
     "ScrollFuel is a digital marketing agency in Nagpur offering SEO, PPC, social media marketing, branding and website development services.";
 
-const DEFAULT_IMAGE = `${SITE_URL}/assets/logo1.png`;
+const DEFAULT_KEYWORDS =
+    "digital marketing agency Nagpur, SEO services Nagpur, social media marketing Nagpur, PPC agency Nagpur, branding agency Nagpur, web development Nagpur, ScrollFuel";
 
-// Update or create meta tags
-const setMeta = (attr, key, value) => {
-    if (value === undefined || value === null || value === "") return;
+const DEFAULT_IMAGE =
+    `${SITE_URL}/assets/logo1.png`;
 
-    let el = document.head.querySelector(
-        `meta[${attr}="${key}"]`
-    );
-
-    if (!el) {
-        el = document.createElement("meta");
-        el.setAttribute(attr, key);
-        document.head.appendChild(el);
+// Create or update meta tags
+const setMeta = (attribute, key, value) => {
+    if (
+        value === undefined ||
+        value === null ||
+        value === ""
+    ) {
+        return;
     }
 
-    el.setAttribute("content", value);
+    let element = document.head.querySelector(
+        `meta[${attribute}="${key}"]`
+    );
+
+    if (!element) {
+        element = document.createElement("meta");
+
+        element.setAttribute(attribute, key);
+
+        document.head.appendChild(element);
+    }
+
+    element.setAttribute("content", value);
 };
 
 // Remove metadata
-const removeMeta = (attr, key) => {
+const removeMeta = (attribute, key) => {
     document.head.querySelector(
-        `meta[${attr}="${key}"]`
+        `meta[${attribute}="${key}"]`
     )?.remove();
 };
 
-// Update canonical URL
+// Create or update canonical URL
 const setCanonical = (href) => {
-    let el = document.head.querySelector(
+    let element = document.head.querySelector(
         'link[rel="canonical"]'
     );
 
-    if (!el) {
-        el = document.createElement("link");
-        el.setAttribute("rel", "canonical");
-        document.head.appendChild(el);
+    if (!element) {
+        element = document.createElement("link");
+
+        element.setAttribute("rel", "canonical");
+
+        document.head.appendChild(element);
     }
 
-    el.setAttribute("href", href);
+    element.setAttribute("href", href);
 };
 
-// Convert relative URLs into absolute URLs
+// Convert relative image URL into absolute URL
 const toAbsolute = (url, fallback) => {
     try {
         return new URL(url || fallback, SITE_URL).href;
@@ -147,14 +77,19 @@ const toAbsolute = (url, fallback) => {
 
 // Normalize canonical URL
 const getCanonical = (canonical, pathname) => {
-    const path = canonical || pathname;
+    const pagePath = canonical || pathname;
 
-    const url = new URL(path, SITE_URL);
+    const url = new URL(pagePath, SITE_URL);
 
+    // Remove query parameters and hash
     url.search = "";
     url.hash = "";
 
-    if (url.pathname !== "/" && !url.pathname.endsWith("/")) {
+    // Add trailing slash
+    if (
+        url.pathname !== "/" &&
+        !url.pathname.endsWith("/")
+    ) {
         url.pathname += "/";
     }
 
@@ -163,13 +98,23 @@ const getCanonical = (canonical, pathname) => {
 
 const SEO = ({
     title = DEFAULT_TITLE,
+
     description = DEFAULT_DESCRIPTION,
+
+    keywords = DEFAULT_KEYWORDS,
+
     canonical,
+
     image = DEFAULT_IMAGE,
+
     type = "website",
+
     publishedTime,
+
     modifiedTime,
+
     author,
+
     noIndex = false,
 }) => {
     const location = useLocation();
@@ -185,11 +130,33 @@ const SEO = ({
             DEFAULT_IMAGE
         );
 
-        // Page title
+        // ====================================
+        // PAGE TITLE
+        // ====================================
+
         document.title = title;
 
-        // Basic SEO
-        setMeta("name", "description", description);
+        // ====================================
+        // BASIC SEO META TAGS
+        // ====================================
+
+        setMeta(
+            "name",
+            "title",
+            title
+        );
+
+        setMeta(
+            "name",
+            "description",
+            description
+        );
+
+        setMeta(
+            "name",
+            "keywords",
+            keywords
+        );
 
         setMeta(
             "name",
@@ -199,27 +166,114 @@ const SEO = ({
                 : "index, follow, max-image-preview:large"
         );
 
-        // Open Graph
-        setMeta("property", "og:type", type);
-        setMeta("property", "og:site_name", SITE_NAME);
-        setMeta("property", "og:locale", "en_IN");
-        setMeta("property", "og:title", title);
-        setMeta("property", "og:description", description);
-        setMeta("property", "og:url", canonicalUrl);
-        setMeta("property", "og:image", imageUrl);
-        setMeta("property", "og:image:alt", title);
+        // ====================================
+        // OPEN GRAPH META TAGS
+        // ====================================
 
-        // Twitter
-        setMeta("name", "twitter:card", "summary_large_image");
-        setMeta("name", "twitter:title", title);
-        setMeta("name", "twitter:description", description);
-        setMeta("name", "twitter:image", imageUrl);
-        setMeta("name", "twitter:image:alt", title);
+        setMeta(
+            "property",
+            "og:type",
+            type
+        );
 
-        // Canonical
+        setMeta(
+            "property",
+            "og:site_name",
+            SITE_NAME
+        );
+
+        setMeta(
+            "property",
+            "og:locale",
+            "en_IN"
+        );
+
+        setMeta(
+            "property",
+            "og:title",
+            title
+        );
+
+        setMeta(
+            "property",
+            "og:description",
+            description
+        );
+
+        setMeta(
+            "property",
+            "og:url",
+            canonicalUrl
+        );
+
+        setMeta(
+            "property",
+            "og:image",
+            imageUrl
+        );
+
+        setMeta(
+            "property",
+            "og:image:width",
+            "1200"
+        );
+
+        setMeta(
+            "property",
+            "og:image:height",
+            "630"
+        );
+
+        setMeta(
+            "property",
+            "og:image:alt",
+            title
+        );
+
+        // ====================================
+        // TWITTER META TAGS
+        // ====================================
+
+        setMeta(
+            "name",
+            "twitter:card",
+            "summary_large_image"
+        );
+
+        setMeta(
+            "name",
+            "twitter:title",
+            title
+        );
+
+        setMeta(
+            "name",
+            "twitter:description",
+            description
+        );
+
+        setMeta(
+            "name",
+            "twitter:image",
+            imageUrl
+        );
+
+        setMeta(
+            "name",
+            "twitter:image:alt",
+            title
+        );
+
+        // ====================================
+        // CANONICAL URL
+        // ====================================
+
         setCanonical(canonicalUrl);
 
-        // Article metadata
+        // ====================================
+        // BLOG ARTICLE META TAGS
+        // ====================================
+
         if (type === "article") {
             setMeta(
                 "property",
@@ -239,14 +293,26 @@ const SEO = ({
                 author
             );
         } else {
-            removeMeta("property", "article:published_time");
-            removeMeta("property", "article:modified_time");
-            removeMeta("property", "article:author");
+            removeMeta(
+                "property",
+                "article:published_time"
+            );
+
+            removeMeta(
+                "property",
+                "article:modified_time"
+            );
+
+            removeMeta(
+                "property",
+                "article:author"
+            );
         }
 
     }, [
         title,
         description,
+        keywords,
         canonical,
         image,
         type,

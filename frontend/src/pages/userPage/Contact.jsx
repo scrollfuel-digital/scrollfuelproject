@@ -1,6 +1,8 @@
 import { motion, useScroll, useTransform, AnimatePresence, useMotionValue, useSpring } from "framer-motion";
 import { Phone, Mail, MapPin, MessageCircle, Send, ArrowUpRight, Zap, CheckCircle, Star, Clock, Globe } from "lucide-react";
 import { useEffect, useState, useRef } from "react";
+import SEO from "../../components/SEO";
+import { pageSEO } from "../../data/seoData";
 
 const API = import.meta.env.VITE_API_URL;
 
@@ -445,11 +447,7 @@ export default function ContactUsPage() {
   const [loading, setLoading] = useState(false);
   const containerRef = useRef(null);
 
-  useEffect(() => {
-    document.title = "Contact Us | ScrollFuel - Get a Free Digital Marketing Strategy";
-    const desc = document.querySelector("meta[name='description']");
-    if (desc) desc.setAttribute("content", "Contact ScrollFuel, the best digital marketing agency in Nagpur. Get a free consultation for SEO, social media, branding and performance marketing.");
-  }, []);
+  useEffect(() => {}, []);
 
   const { scrollYProgress } = useScroll({ target: containerRef, offset: ["start start", "end end"] });
   const lineH = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
@@ -496,6 +494,11 @@ export default function ContactUsPage() {
 
   return (
     <div className="dark:bg-black dark:text-white overflow-hidden " ref={containerRef}>
+      <SEO
+        title={pageSEO.contact.title}
+        description={pageSEO.contact.description}
+        canonical={pageSEO.contact.canonical}
+      />
 
       {/* SCROLL LINE */}
       <div className="fixed left-0 top-0 w-0.5 h-full z-50 bg-white/5">

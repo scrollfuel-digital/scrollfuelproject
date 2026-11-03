@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import SEO from "../../components/SEO";
+import { pageSEO } from "../../data/seoData";
 import {
   ArrowDownToLine,
   ArrowRight,
@@ -244,6 +246,11 @@ const Portfolio = () => {
 
   return (
     <>
+      <SEO
+        title={pageSEO.portfolio.title}
+        description={pageSEO.portfolio.description}
+        canonical={pageSEO.portfolio.canonical}
+      />
       <main className="overflow-hidden bg-white text-black dark:bg-black dark:text-white">
 
         {/* =========================================================

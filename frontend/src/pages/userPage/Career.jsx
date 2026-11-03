@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import SEO from "../../components/SEO";
+import { pageSEO } from "../../data/seoData";
 
 const API = import.meta.env.VITE_API_URL;
 
 const CareerPage = () => {
     const [jobs, setJobs] = useState([]);
-
-    useEffect(() => {
-        document.title = "Careers | ScrollFuel - Join Nagpur's Top Digital Marketing Agency";
-        const desc = document.querySelector("meta[name='description']");
-        if (desc) desc.setAttribute("content", "Join ScrollFuel, Nagpur's top digital marketing agency. Explore open positions in SEO, social media, design, video editing, web development and more.");
-    }, []);
 
     const [formData, setFormData] = useState({
         name: "",
@@ -91,6 +87,11 @@ const CareerPage = () => {
 
     return (
         <div className="min-h-screen dark:bg-black dark:text-white pt-12 ">
+            <SEO
+                title={pageSEO.career.title}
+                description={pageSEO.career.description}
+                canonical={pageSEO.career.canonical}
+            />
 
             {/* Hero Section */}
             <div className="text-center mb-16 mt-19 px-4">

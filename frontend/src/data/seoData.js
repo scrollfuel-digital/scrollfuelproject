@@ -96,4 +96,31 @@ export const pageSEO = {
       " Explore ScrollFuel's digital marketing services: SEO and PPC, social media, websites, branding, content and video. Get a free consultation today.",
     canonical: `${SITE_URL}/services/`,
   },
+
+  career: {
+    h1: "Careers at ScrollFuel",
+    primaryKeyword: "Digital marketing jobs Nagpur",
+    title: "Careers | ScrollFuel – Join Nagpur's Top Digital Marketing Agency",
+    description:
+      "Join ScrollFuel, Nagpur's top digital marketing agency. Explore open positions in SEO, social media, design, video editing, web development and more.",
+    canonical: `${SITE_URL}/career/`,
+  },
+
+  contact: {
+    h1: "Contact ScrollFuel",
+    primaryKeyword: "Digital marketing agency contact Nagpur",
+    title: "Contact Us | ScrollFuel – Get a Free Digital Marketing Strategy",
+    description:
+      "Contact ScrollFuel, the best digital marketing agency in Nagpur. Get a free consultation for SEO, social media, branding and performance marketing.",
+    canonical: `${SITE_URL}/connect-with-us/`,
+  },
+
+  portfolio: {
+    h1: "Our Portfolio",
+    primaryKeyword: "Digital marketing portfolio Nagpur",
+    title: "Portfolio | ScrollFuel – Digital Marketing Work & Case Studies",
+    description:
+      "Explore ScrollFuel's portfolio of digital marketing projects including SEO, social media campaigns, branding, website design and performance marketing.",
+    canonical: `${SITE_URL}/portfolio/`,
+  },
 };

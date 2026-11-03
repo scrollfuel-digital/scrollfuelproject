@@ -1,3 +1,4 @@
+
 import { chromium } from "playwright";
 import sparticuzChromium from "@sparticuz/chromium";
 import { spawn } from "child_process";
@@ -9,6 +10,13 @@ const PORT = 4173;
 const HOST = "127.0.0.1";
 const BASE_URL = `http://${HOST}:${PORT}`;
 
+const SITE_URL = "https://scrollfuel.in";
+
+const DEFAULT_TITLE =
+    "Best Digital Marketing Agency in Nagpur | ScrollFuel";
+
+const distPath = path.resolve("dist");
+
 const routes = [
     "/",
     "/about/",
@@ -16,23 +24,17 @@ const routes = [
     "/blog/",
     "/services/",
 
-    //Individual blog detail pages
+    // Individual blog detail pages
     "/blog/why-does-my-website-rank-in-google-but-not-appear-in-ai-search-results/",
     "/blog/how-much-does-website-development-cost-for-a-small-business-in-india/",
     "/blog/digital-marketing-for-clinics-and-doctors-in-nagpur/",
-    "/blog/free-google-business-profile-checklist-for-nagpur-businesses",
-    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
-    "/blog/how-much-does-website-development-cost-for-a-small-business-in-india/",
-    "/blog/digital-marketing-for-clinics-and-doctors-in-nagpur/",
     "/blog/free-google-business-profile-checklist-for-nagpur-businesses/",
+    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
     "/blog/real-estate-digital-marketing-in-nagpur-a-practical-guide-for-builders/",
     "/blog/how-to-choose-the-best-digital-marketing-agency-in-nagpur/",
-    "/blog/how-to-improve-google-maps-ranking-in-nagpur/", 
-    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
+    "/blog/how-to-improve-google-maps-ranking-in-nagpur/",
     "/blog/how-seo-helps-real-estate-builders-get-more-leads/",
     "/blog/personal-branding-on-social-media-to-win-more-clients/",
-    "/blog/how-seo-helps-real-estate-builders-get-more-leads/",
-    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
     "/blog/how-to-scale-your-business-faster-with-digital-marketing-in-2026/",
     "/blog/ai-in-digital-marketing-enhancing-creativity-not-replacing-it/",
     "/blog/content-marketing-strategy-that-works-in-2026-beyond-keywords/",
@@ -43,14 +45,16 @@ const routes = [
     "/blog/how-a-modern-website-redesign-can-increase-leads-by-2x-2026-guide/",
     "/blog/how-personal-branding-on-social-media-can-help-you-win-more-clients/",
     "/blog/google-ads-vs-meta-ads-which-is-better-for-your-business/",
-    
+
+    // Portfolio
     "/portfolio/social-media-marketing/",
     "/portfolio/video/",
+
+    // Career and contact
     "/career/",
     "/connect-with-us/",
-    "/services/",
 
-    // Nagpur Service pages
+    // Nagpur service pages
     "/services/seo-ppc-service-in-nagpur/",
     "/services/social-media-marketing-services-in-nagpur/",
     "/services/branding-design-services-in-nagpur/",
@@ -58,45 +62,44 @@ const routes = [
     "/services/website-development-services-in-nagpur/",
     "/services/content-marketing-services-nagpur/",
 
-
-    // Service page 
+    // Main service pages
     "/seo-and-ppc-services/",
     "/content-marketing-services/",
     "/social-media-marketing-services/",
     "/website-development-services/",
     "/branding-and-design-services/",
-    "/videography-and-photography-services/"
+    "/videography-and-photography-services/",
 ];
 
-const distPath = path.resolve("dist");
-
-/**
- * Make sure every non-root route has a trailing slash.
- */
 function normalizeRoute(route) {
     if (route === "/") {
         return "/";
     }
 
-    return route.endsWith("/") ? route : `${route}/`;
+    return route.endsWith("/")
+        ? route
+        : `${route}/`;
 }
 
-/**
- * Check whether Vite preview server is actually responding.
- */
+// Remove duplicate routes automatically
+const uniqueRoutes = [
+    ...new Set(routes.map(normalizeRoute)),
+];
+
+console.log(
+    `📄 Total unique routes: ${uniqueRoutes.length}`
+);
+
+
 function checkServer(url) {
     return new Promise((resolve) => {
         const request = http.get(url, (response) => {
             response.resume();
 
-            if (
+            resolve(
                 response.statusCode >= 200 &&
-                response.statusCode < 500
-            ) {
-                resolve(true);
-            } else {
-                resolve(false);
-            }
+                response.statusCode < 400
+            );
         });
 
         request.on("error", () => {
@@ -110,10 +113,10 @@ function checkServer(url) {
     });
 }
 
-/**
- * Wait until Vite preview server is actually ready.
- */
-async function waitForServer(url, timeout = 30000) {
+async function waitForServer(
+    url,
+    timeout = 30000
+) {
     const startTime = Date.now();
 
     console.log(
@@ -125,7 +128,7 @@ async function waitForServer(url, timeout = 30000) {
 
         if (ready) {
             console.log(
-                `✅ Vite preview server is ready: ${url}\n`
+                "✅ Vite preview server is ready.\n"
             );
 
             return;
@@ -137,18 +140,14 @@ async function waitForServer(url, timeout = 30000) {
     }
 
     throw new Error(
-        `Vite preview server did not become ready within ${timeout / 1000
-        } seconds.`
+        `Vite preview server did not start within ${timeout / 1000} seconds.`
     );
 }
 
-/**
- * Start Vite preview server.
- */
 function startServer() {
     return new Promise((resolve, reject) => {
         console.log(
-            "🚀 Starting Vite preview server...\n"
+            "\n🚀 Starting Vite preview server...\n"
         );
 
         const viteCommand = path.resolve(
@@ -176,6 +175,7 @@ function startServer() {
         );
 
         let stderrBuffer = "";
+        let settled = false;
 
         server.stdout.on("data", (data) => {
             process.stdout.write(data.toString());
@@ -190,46 +190,46 @@ function startServer() {
         });
 
         server.on("error", (error) => {
-            reject(error);
+            if (!settled) {
+                settled = true;
+                reject(error);
+            }
         });
 
         server.on("exit", (code, signal) => {
-            if (code !== null && code !== 0) {
-                console.error(
-                    `\n❌ Vite preview server exited with code ${code}`
-                );
+            if (!settled && code !== 0) {
+                settled = true;
 
-                if (stderrBuffer) {
-                    console.error(stderrBuffer);
-                }
-            }
-
-            if (signal) {
-                console.log(
-                    `\n⚠️ Vite preview server stopped with signal ${signal}`
+                reject(
+                    new Error(
+                        `Vite server exited unexpectedly. Code: ${code}, Signal: ${signal}\n${stderrBuffer}`
+                    )
                 );
             }
         });
 
         waitForServer(`${BASE_URL}/`)
             .then(() => {
-                resolve(server);
+                if (!settled) {
+                    settled = true;
+                    resolve(server);
+                }
             })
             .catch((error) => {
                 try {
                     server.kill();
                 } catch {
-                    // Ignore cleanup errors.
+                    // Ignore cleanup errors
                 }
 
-                reject(error);
+                if (!settled) {
+                    settled = true;
+                    reject(error);
+                }
             });
     });
 }
 
-/**
- * Stop Vite preview server safely.
- */
 function stopServer(server) {
     if (!server || server.killed) {
         return;
@@ -259,55 +259,171 @@ function stopServer(server) {
         }
     } catch (error) {
         console.warn(
-            "⚠️ Could not stop preview server cleanly:",
+            "Could not stop server:",
             error.message
         );
     }
 }
 
-/**
- * Remove duplicate <title>, <meta name/property>, and <link rel="canonical"> tags
- * from the raw HTML string, keeping only the LAST occurrence of each (the one
- * React wrote via SEO.jsx).
- */
+function getAttribute(tag, attribute) {
+    const escaped = attribute.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&"
+    );
+
+    const regex = new RegExp(
+        `${escaped}\\s*=\\s*(?:"([^"]*)"|'([^']*)')`,
+        "i"
+    );
+
+    const match = tag.match(regex);
+
+    return match
+        ? (match[1] ?? match[2] ?? "").toLowerCase()
+        : null;
+}
+
 function deduplicateHead(html) {
-    // Deduplicate <title> — keep last
-    const titleMatches = [...html.matchAll(/<title>[^<]*<\/title>/gi)];
-    if (titleMatches.length > 1) {
-        const last = titleMatches[titleMatches.length - 1][0];
-        html = html.replace(/<title>[^<]*<\/title>/gi, "");
-        // Insert before </head>
-        html = html.replace(/<\/head>/, `${last}</head>`);
+
+    const titles = [
+        ...html.matchAll(
+            /<title\b[^>]*>[\s\S]*?<\/title>/gi
+        ),
+    ];
+
+    if (titles.length > 1) {
+        const lastTitle =
+            titles[titles.length - 1][0];
+
+        html = html.replace(
+            /<title\b[^>]*>[\s\S]*?<\/title>/gi,
+            ""
+        );
+
+        html = html.replace(
+            "</head>",
+            `${lastTitle}</head>`
+        );
     }
 
-    // Deduplicate <meta name="description"> — keep last
-    const descMatches = [...html.matchAll(/<meta[^>]+name=["']description["'][^>]*>/gi)];
-    if (descMatches.length > 1) {
-        const last = descMatches[descMatches.length - 1][0];
-        html = html.replace(/<meta[^>]+name=["']description["'][^>]*>/gi, "").replace("</head>", `${last}</head>`);
+    const metaTags = [
+        ...html.matchAll(/<meta\b[^>]*>/gi),
+    ];
+
+    const seenMeta = new Set();
+    const removeMeta = [];
+
+    for (
+        let i = metaTags.length - 1;
+        i >= 0;
+        i--
+    ) {
+        const tag = metaTags[i][0];
+
+        const name = getAttribute(tag, "name");
+        const property = getAttribute(
+            tag,
+            "property"
+        );
+
+        const key = name
+            ? `name:${name}`
+            : property
+                ? `property:${property}`
+                : null;
+
+        if (!key) {
+            continue;
+        }
+
+        if (seenMeta.has(key)) {
+            removeMeta.push(metaTags[i]);
+        } else {
+            seenMeta.add(key);
+        }
     }
 
-    // Deduplicate <link rel="canonical"> — keep last
-    const canonMatches = [...html.matchAll(/<link[^>]+rel=["']canonical["'][^>]*>/gi)];
-    if (canonMatches.length > 1) {
-        const last = canonMatches[canonMatches.length - 1][0];
-        html = html.replace(/<link[^>]+rel=["']canonical["'][^>]*>/gi, "").replace("</head>", `${last}</head>`);
+    // Remove from last index to first index
+    for (const match of removeMeta) {
+        html =
+            html.slice(0, match.index) +
+            html.slice(
+                match.index + match[0].length
+            );
+    }
+
+    const canonicalTags = [
+        ...html.matchAll(/<link\b[^>]*>/gi),
+    ].filter(
+        (match) =>
+            getAttribute(match[0], "rel") ===
+            "canonical"
+    );
+
+    if (canonicalTags.length > 1) {
+        const lastCanonical =
+            canonicalTags[canonicalTags.length - 1][0];
+
+        html = html.replace(
+            /<link\b[^>]*>/gi,
+            (tag) =>
+                getAttribute(tag, "rel") ===
+                    "canonical"
+                    ? ""
+                    : tag
+        );
+
+        html = html.replace(
+            "</head>",
+            `${lastCanonical}</head>`
+        );
     }
 
     return html;
 }
 
-/**
- * Save rendered HTML as:
- *
- * dist/
- *   route-name/
- *      index.html
- */
-function saveRouteHtml(route, html) {
-    const normalizedRoute = normalizeRoute(route);
+function validateSEO(html, route) {
+    const checks = {
+        title: /<title\b[^>]*>[\s\S]*?<\/title>/i.test(html),
 
-    // Remove first and last slash only for filesystem path.
+        description:
+            /<meta\b(?=[^>]*\bname=["']description["'])[^>]*>/i.test(html),
+
+        keywords:
+            /<meta\b(?=[^>]*\bname=["']keywords["'])[^>]*>/i.test(html),
+
+        canonical:
+            /<link\b(?=[^>]*\brel=["']canonical["'])[^>]*>/i.test(html),
+
+        ogImage:
+            /<meta\b(?=[^>]*\bproperty=["']og:image["'])[^>]*>/i.test(html),
+
+        ogWidth:
+            /<meta\b(?=[^>]*\bproperty=["']og:image:width["'])[^>]*>/i.test(html),
+
+        ogHeight:
+            /<meta\b(?=[^>]*\bproperty=["']og:image:height["'])[^>]*>/i.test(html),
+    };
+
+    const missing = Object.entries(checks)
+        .filter(([, valid]) => !valid)
+        .map(([key]) => key);
+
+    if (missing.length > 0) {
+        console.warn(
+            `⚠️ Missing SEO tags for ${route}: ${missing.join(", ")}`
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+function saveRouteHtml(route, html) {
+    const normalizedRoute =
+        normalizeRoute(route);
+
     const cleanRoute = normalizedRoute.replace(
         /^\/|\/$/g,
         ""
@@ -326,28 +442,30 @@ function saveRouteHtml(route, html) {
         "index.html"
     );
 
+    const finalHtml = deduplicateHead(html);
+
+    const isValid = validateSEO(
+        finalHtml,
+        route
+    );
+
     fs.writeFileSync(
         outputFile,
-        deduplicateHead(html),
+        finalHtml,
         "utf8"
     );
 
     console.log(
-        `✓ Generated: ${outputFile}`
+        `${isValid ? "✓" : "⚠️"} Generated: ${outputFile}`
     );
+
+    return isValid;
 }
 
-/**
- * Launch the correct Chromium for the environment.
- *
- * Local Windows:
- *    Uses Playwright's installed Chromium.
- *
- * Vercel:
- *    Uses @sparticuz/chromium.
- */
+
 async function launchBrowser() {
-    const isVercel = process.env.VERCEL === "1";
+    const isVercel =
+        process.env.VERCEL === "1";
 
     if (isVercel) {
         console.log(
@@ -361,19 +479,16 @@ async function launchBrowser() {
         const executablePath =
             await sparticuzChromium.executablePath();
 
-        console.log(
-            "Chromium executable:",
-            executablePath
-        );
-
         return chromium.launch({
             executablePath,
+
             args: [
                 ...sparticuzChromium.args,
                 "--no-sandbox",
                 "--disable-setuid-sandbox",
                 "--disable-dev-shm-usage",
             ],
+
             headless: true,
         });
     }
@@ -388,6 +503,7 @@ async function launchBrowser() {
 
     return chromium.launch({
         headless: true,
+
         args: [
             "--no-sandbox",
             "--disable-setuid-sandbox",
@@ -396,43 +512,125 @@ async function launchBrowser() {
     });
 }
 
-/**
- * Start prerendering.
- */
+async function waitForSEO(page, route) {
+    console.log(
+        "⏳ Waiting for React SEO metadata..."
+    );
+
+    // Wait for React to create/update canonical
+    await page.waitForFunction(
+        () => {
+            const canonical =
+                document.querySelector(
+                    'link[rel="canonical"]'
+                );
+
+            const description =
+                document.querySelector(
+                    'meta[name="description"]'
+                );
+
+            return (
+                document.title.trim().length > 0 &&
+                canonical?.href &&
+                description?.content?.trim().length > 10
+            );
+        },
+        null,
+        {
+            timeout: 20000,
+        }
+    );
+
+    // Blog pages use API data, so wait for
+    // their actual dynamic title and description.
+    const isBlogDetail =
+        /^\/blog\/[^/]+\/$/.test(route);
+
+    if (isBlogDetail) {
+        await page.waitForFunction(
+            (defaultTitle) => {
+                const title = document.title;
+
+                const description =
+                    document.querySelector(
+                        'meta[name="description"]'
+                    )?.content;
+
+                return (
+                    title.trim().length > 0 &&
+                    title !== defaultTitle &&
+                    description &&
+                    description.trim().length > 10
+                );
+            },
+            DEFAULT_TITLE,
+            {
+                timeout: 30000,
+            }
+        );
+    }
+
+    // Allow remaining metadata to settle
+    await page.waitForTimeout(700);
+}
+
+// ==========================================
+// MAIN PRERENDER FUNCTION
+// ==========================================
+
 async function prerender() {
     console.log(
-        "\n🚀 Starting ScrollFuel prerender...\n"
+        "\n========================================"
+    );
+
+    console.log(
+        "🚀 STARTING SCROLLFUEL PRERENDER"
+    );
+
+    console.log(
+        "========================================\n"
     );
 
     let server = null;
     let browser = null;
 
+    let successfulRoutes = 0;
+    let failedRoutes = 0;
+
     try {
-        // ----------------------------------------
-        // Start Vite preview
-        // ----------------------------------------
+        // ----------------------------------
+        // Start preview server
+        // ----------------------------------
+
+        if (!fs.existsSync(distPath)) {
+            throw new Error(
+                "dist folder not found. Run npm run build first."
+            );
+        }
 
         server = await startServer();
 
         console.log(
-            "🌐 Preview server confirmed."
+            `🌐 Preview URL: ${BASE_URL}`
         );
 
-        console.log(
-            `🌐 Base URL: ${BASE_URL}`
-        );
-
-        // ----------------------------------------
+        // ----------------------------------
         // Launch browser
-        // ----------------------------------------
+        // ----------------------------------
 
         browser = await launchBrowser();
 
-        // ----------------------------------------
-        // Create page
-        // ----------------------------------------
+        // ----------------------------------
+        // Create browser page
+        // ----------------------------------
 
         const page = await browser.newPage();
+
+        await page.setViewportSize({
+            width: 1366,
+            height: 900,
+        });
 
         // Browser console errors
         page.on("console", (message) => {
@@ -443,21 +641,18 @@ async function prerender() {
             }
         });
 
-        // React/runtime errors
+        // React runtime errors
         page.on("pageerror", (error) => {
             console.log(
                 `⚠️ Browser page error: ${error.message}`
             );
         });
 
-        // ----------------------------------------
-        // Render routes
-        // ----------------------------------------
+        // ----------------------------------
+        // Render every unique route
+        // ----------------------------------
 
-        for (const originalRoute of routes) {
-            const route =
-                normalizeRoute(originalRoute);
-
+        for (const route of uniqueRoutes) {
             const url = `${BASE_URL}${route}`;
 
             console.log(
@@ -465,124 +660,154 @@ async function prerender() {
             );
 
             console.log(
-                `Rendering: ${route}`
-            );
-
-            console.log(
-                `URL: ${url}`
+                `📄 Rendering: ${route}`
             );
 
             try {
-                await page.goto(url, {
-                    waitUntil: "networkidle",
-                    timeout: 60000,
-                });
-
-                // For blog detail pages, wait for the API fetch to complete
-                // and SEO tags to be written by React.
-                const isBlogDetail = /^\/blog\/[^/]+\/$/.test(route);
-                const DEFAULT_TITLE = "Best Digital Marketing Agency in Nagpur | ScrollFuel";
-
-                try {
-                    await page.waitForFunction(
-                        (defaultTitle) => document.title !== defaultTitle && document.title.trim() !== "",
-                        DEFAULT_TITLE,
-                        { timeout: isBlogDetail ? 20000 : 8000 }
-                    );
-                } catch {
-                    // Page may legitimately use the default title (e.g. homepage).
-                }
-
-                // For blog detail pages also wait for meta description to appear.
-                if (isBlogDetail) {
-                    try {
-                        await page.waitForFunction(
-                            () => {
-                                const el = document.head.querySelector('meta[name="description"]');
-                                return el && el.getAttribute("content") && el.getAttribute("content").length > 10;
-                            },
-                            { timeout: 15000 }
-                        );
-                    } catch {
-                        console.warn(`⚠️ Meta description not set for: ${route}`);
+                const response = await page.goto(
+                    url,
+                    {
+                        waitUntil: "domcontentloaded",
+                        timeout: 60000,
                     }
-                }
-
-                // Extra settle time for all meta tags to be written.
-                await page.waitForTimeout(isBlogDetail ? 1000 : 500);
-
-                // Check final browser URL.
-                const finalUrl = page.url();
-
-                console.log(
-                    `Final URL: ${finalUrl}`
                 );
 
-                // Get rendered HTML.
-                const html =
-                    await page.content();
+                if (
+                    !response ||
+                    response.status() >= 400
+                ) {
+                    throw new Error(
+                        `Page returned HTTP ${response?.status() ?? "no response"}`
+                    );
+                }
 
-                // Save HTML.
-                saveRouteHtml(
+                // Wait for React SEO
+                await waitForSEO(page, route);
+
+                // Check browser URL
+                console.log(
+                    `🌐 Final URL: ${page.url()}`
+                );
+
+                // Check page metadata
+                const metadata =
+                    await page.evaluate(() => {
+                        return {
+                            title: document.title,
+
+                            description:
+                                document.querySelector(
+                                    'meta[name="description"]'
+                                )?.content,
+
+                            keywords:
+                                document.querySelector(
+                                    'meta[name="keywords"]'
+                                )?.content,
+
+                            canonical:
+                                document.querySelector(
+                                    'link[rel="canonical"]'
+                                )?.href,
+
+                            ogImage:
+                                document.querySelector(
+                                    'meta[property="og:image"]'
+                                )?.content,
+                        };
+                    });
+
+                console.log(
+                    "SEO Metadata:",
+                    metadata
+                );
+
+                // Validate canonical host
+                const canonicalUrl = new URL(
+                    metadata.canonical
+                );
+
+                if (
+                    canonicalUrl.hostname !==
+                    new URL(SITE_URL).hostname
+                ) {
+                    throw new Error(
+                        `Invalid canonical domain: ${metadata.canonical}`
+                    );
+                }
+
+                // Get rendered HTML
+                const html = await page.content();
+
+                // Save generated HTML
+                const valid = saveRouteHtml(
                     route,
                     html
                 );
 
+                if (!valid) {
+                    throw new Error(
+                        `SEO validation failed for ${route}`
+                    );
+                }
+
+                successfulRoutes++;
+
                 console.log(
-                    `✅ Rendered successfully: ${route}`
+                    `✅ Successfully prerendered: ${route}`
                 );
+
             } catch (error) {
+                failedRoutes++;
+
                 console.error(
-                    `\n❌ Failed to render route: ${route}`
+                    `\n❌ Failed route: ${route}`
                 );
 
-                console.error(error);
+                console.error(
+                    error.message
+                );
 
-                throw error;
+                // Continue with remaining routes
+                continue;
             }
+        }
+        
+
+        if (failedRoutes > 0) {
+            throw new Error(
+                `${failedRoutes} routes failed during prerendering. Check the errors above.`
+            );
         }
 
         console.log(
-            "\n========================================"
+            "🎉 ALL ROUTES PRERENDERED SUCCESSFULLY!"
         );
 
-        console.log(
-            "✅ ALL ROUTES PRERENDERED SUCCESSFULLY"
-        );
-
-        console.log(
-            "========================================\n"
-        );
     } finally {
-        // ----------------------------------------
-        // Close browser
-        // ----------------------------------------
-
+       
         if (browser) {
             try {
                 await browser.close();
+
+                console.log(
+                    "✅ Browser closed."
+                );
             } catch {
-                // Ignore browser cleanup errors.
+                // Ignore cleanup errors
             }
         }
-
-        // ----------------------------------------
-        // Stop Vite
-        // ----------------------------------------
 
         stopServer(server);
     }
 }
 
-/**
- * Run prerender.
- */
 prerender().catch((error) => {
     console.error(
-        "\n❌ Prerender failed:"
+        "\n❌ PRERENDER FAILED:"
     );
 
     console.error(error);
 
-    process.exit(1);
+    process.exitCode = 1;
 });
