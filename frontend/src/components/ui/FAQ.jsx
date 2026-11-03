@@ -35,7 +35,7 @@ const FAQ = () => {
     return (
         <section
             id="faq"
-            className="bg-black py-16 sm:py-20 lg:py-24"
+            className="dark:bg-black py-16 sm:py-20 lg:py-24"
             aria-labelledby="faq-heading"
         >
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
@@ -50,7 +50,7 @@ const FAQ = () => {
 
                     <h2
                         id="faq-heading"
-                        className="font-serif text-3xl font-bold leading-tight text-white sm:text-4xl lg:text-5xl"
+                        className="font-serif text-3xl font-bold leading-tight dark:text-white sm:text-4xl lg:text-5xl"
                     >
                         Digital Marketing FAQs
                     </h2>
@@ -68,7 +68,7 @@ const FAQ = () => {
                     {faqData.map((faq, index) => (
                         <article
                             key={faq.question}
-                            className="rounded-2xl border border-gray-800 bg-black px-5 py-6 transition-all duration-300 hover:border-primary sm:px-7 sm:py-7"
+                            className="rounded-2xl dark:border dark:border-gray-800 dark:bg-black px-5 py-6 transition-all duration-300 hover:border-primary sm:px-7 sm:py-7"
                         >
                             {/* QUESTION */}
                             <div className="flex items-start gap-4">
@@ -76,7 +76,7 @@ const FAQ = () => {
                                     {String(index + 1).padStart(2, "0")}
                                 </span>
 
-                                <h3 className="font-serif text-lg font-semibold leading-7 text-white sm:text-xl">
+                                <h3 className="font-serif text-lg font-semibold leading-7 dark:text-white sm:text-xl">
                                     {faq.question}
                                 </h3>
                             </div>
@@ -102,7 +102,7 @@ const FAQ = () => {
                                         href="https://wa.me/918788430110"
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="inline-flex items-center rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-white"
+                                        className="inline-flex items-center rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-primary-contrast"
                                     >
                                         WhatsApp Us
                                     </a>

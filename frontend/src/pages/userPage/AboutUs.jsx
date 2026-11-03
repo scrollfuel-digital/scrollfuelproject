@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useAnimationFrame } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import { pageSEO } from "../../data/seoData";
 import SEO from "../../components/SEO";
@@ -28,7 +28,7 @@ import {
     Palette
 } from 'lucide-react';
 
-// ============= ANIMATION VARIANTS =============
+
 
 const textReveal = {
     hidden: { opacity: 0, y: 100, rotateX: 90 },
@@ -339,7 +339,24 @@ const AboutUsPage = () => {
         // SEO is handled by the <SEO> component below
     }, []);
 
+    const scrollRef = useRef(null);
 
+    useAnimationFrame((time, delta) => {
+        const container = scrollRef.current;
+
+        if (!container) return;
+
+        // Scroll speed in pixels per second
+        container.scrollTop += (delta / 1000) * 25;
+
+        // Restart smoothly when reaching the bottom
+        if (
+            container.scrollTop + container.clientHeight >=
+            container.scrollHeight - 1
+        ) {
+            container.scrollTop = 0;
+        }
+    });
     const backgroundIcons = [
         { Icon: Megaphone, color: 'text-primary', size: 80, x: 15, y: -20, rotate: 10, duration: 6, delay: 0, top: '15%', left: '10%' },
         { Icon: BarChart3, color: 'text-secondary', size: 100, x: -10, y: -25, rotate: -8, duration: 7, delay: 0.5, top: '12%', right: '15%' },
@@ -508,7 +525,7 @@ const AboutUsPage = () => {
                                 style={{ width: '200px', transformOrigin: 'left' }}
                             />
 
-                            <h3 className="text-white font-bold">Top Digital Marketing Company in Nagpur</h3>
+                            <h3 className="dark:text-white font-bold">Top Digital Marketing Company in Nagpur</h3>
                         </div>
 
                         {/* Description (from content doc) */}
@@ -516,7 +533,7 @@ const AboutUsPage = () => {
                             <motion.div
                                 custom={0}
                                 variants={textReveal}
-                                className="md:text-lg dark:text-gray-300 max-w-3xl mx-auto leading-relaxed text-start space-y-4"
+                                className="md:text-lg dark:text-gray-300 max-w-3xl mx-auto leading-relaxed  space-y-4 text-justify"
                             >
                                 <p>
                                     <b>ScrollFuel</b> is a digital marketing company in Nagpur helping businesses build a stronger online presence through creative strategies, data-driven decisions, and practical digital solutions. Based in Nagpur, Maharashtra, we work with businesses that want to improve their visibility, connect with the right audience, and grow in an increasingly competitive digital world.
@@ -587,42 +604,64 @@ const AboutUsPage = () => {
                         </p>
                     </div>
 
-                    {/* Right: service rows */}
-                    <ul className="divide-y divide-black/10 dark:divide-white/10 border-y border-black/10 dark:border-white/10">
-                        {services.map(({ icon: Icon, title, text }) => (
-                            <li
-                                key={title}
-                                className="group flex gap-5 py-7 px-2 sm:px-4 transition-colors duration-300 hover:bg-primary/5"
-                            >
-                                <span className="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center border border-primary/40 text-primary bg-primary/10 transition-colors duration-300 group-hover:bg-primary group-hover:text-black">
-                                    <Icon size={22} />
-                                </span>
-                                <div>
-                                    <h3 className="text-lg md:text-xl font-semibold leading-snug mb-1.5 transition-colors duration-300 group-hover:text-primary">
-                                        {title}
-                                    </h3>
-                                    <p className="text-black/65 dark:text-white/65 leading-relaxed max-w-xl">
-                                        {text}
-                                    </p>
-                                </div>
-                            </li>
-                        ))}
-                    </ul>
+
+                    {/* Right: Auto Vertical Scrolling Services */}
+
+                    <div
+                        ref={scrollRef}
+                        className="h-[390px] overflow-y-auto
+               scrollbar-hide"
+                    >
+                        <ul className="divide-y divide-black/10 dark:divide-white/10">
+
+                            {services.map(({ icon: Icon, title, text }, index) => (
+                                <li
+                                    key={title}
+                                    className="group flex gap-5 py-7 px-2 sm:px-4
+                           transition-colors duration-300
+                           hover:bg-primary/5"
+                                >
+                                    <span className="shrink-0 w-12 h-12 rounded-xl
+                                 flex items-center justify-center
+                                 border border-primary/40
+                                 text-primary bg-primary/10
+                                 group-hover:bg-primary
+                                 group-hover:text-black">
+                                        <Icon size={22} />
+                                    </span>
+
+                                    <div>
+                                        <h3 className="text-lg md:text-xl font-semibold
+                                   leading-snug mb-1.5
+                                   group-hover:text-primary">
+                                            {title}
+                                        </h3>
+
+                                        <p className="text-black/65 dark:text-white/65
+                                  leading-relaxed max-w-xl">
+                                            {text}
+                                        </p>
+                                    </div>
+                                </li>
+                            ))}
+
+                        </ul>
+                    </div>
                 </div>
             </section>
 
             {/* ============= BEYOND LOCAL + APPROACH (new styling) ============= */}
-            <section className="bg-primary text-black">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-24 grid md:grid-cols-2 gap-12 md:gap-0">
+            <section className="dark:bg-black dark:text-white">
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-10 grid md:grid-cols-2 gap-12 md:gap-0">
 
                     <div className="md:pr-12 lg:pr-20">
                         <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
                             Helping Businesses Grow Beyond Local Markets
                         </h2>
-                        <p className="text-lg leading-relaxed text-black/80 mb-4">
+                        <p className="text-lg leading-relaxed  mb-4">
                             While Nagpur is our home base, our digital marketing solutions are designed to serve businesses beyond our local market. We work to understand each client’s audience, industry, competition, and objectives before recommending a suitable strategy.
                         </p>
-                        <p className="text-lg leading-relaxed text-black/80">
+                        <p className="text-lg leading-relaxed ">
                             Our focus is on clear communication, relevant solutions, and continuous improvement rather than one-size-fits-all marketing packages.
                         </p>
                     </div>
@@ -631,13 +670,13 @@ const AboutUsPage = () => {
                         <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
                             Our Approach
                         </h2>
-                        <p className="text-lg leading-relaxed text-black/80">
+                        <p className="text-lg leading-relaxed ">
                             At ScrollFuel, we believe effective digital marketing starts with understanding your business. We focus on practical planning, thoughtful execution, and measurable performance indicators so businesses can make informed decisions about their online growth.
                         </p>
                     </div>
                 </div>
 
-                <div className="border-t-2 border-black/25">
+                <div className="border-t-2 dark:border-white/50 ">
                     <p className="max-w-7xl mx-auto px-6 md:px-12 py-10 text-xl md:text-3xl font-semibold leading-snug">
                         Let’s build your digital presence and grow your business with ScrollFuel.
                     </p>
@@ -798,46 +837,71 @@ const AboutUsPage = () => {
             </section>
 
             {/* ============= WHY CHOOSE SCROLLFUEL (new styling) ============= */}
-            <section className="px-6 md:px-12 py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950">
+            <section className="px-6 md:px-12 py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950 flex ">
                 <div className="max-w-7xl mx-auto">
 
-                    <div className="max-w-3xl mb-14">
+
+                    <div className="max-w-4xl mx-auto mb-14 text-center">
+
                         <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] mb-4">
                             Why Choose ScrollFuel?
                         </h2>
+
                         <h3 className="text-xl md:text-2xl font-semibold text-primary mb-6">
                             Digital Strategies Built Around Your Business Goals
                         </h3>
-                        <div className="space-y-4 text-lg leading-relaxed text-black/70 dark:text-white/70">
+
+                        <div className="space-y-4 text-lg leading-relaxed text-black/70 dark:text-white/70 text-justify">
                             <p>
-                                Choosing the right digital marketing partner is about more than promoting your business online. It is about finding a team that understands your goals, listens to your challenges, and helps you identify the right opportunities for growth.
+                                Choosing the right digital marketing partner is about more than promoting your business online. It is about finding a team that understands your goals, listens to your challenges, and helps you identify the right opportunities for growth. At ScrollFuel, we combine creative thinking, practical strategy, and digital expertise to help businesses strengthen their online presence. Based in Nagpur, Maharashtra, we work with businesses looking to improve local visibility as well as reach customers across India and international markets.
+                            
                             </p>
-                            <p>
-                                At ScrollFuel, we combine creative thinking, practical strategy, and digital expertise to help businesses strengthen their online presence. Based in Nagpur, Maharashtra, we work with businesses looking to improve local visibility as well as reach customers across India and international markets.
-                            </p>
+
                         </div>
+
                     </div>
 
-                    <p className="font-semibold text-lg md:text-xl mb-8 border-l-4 border-secondary pl-4">
+
+                    <p className="font-semibold text-lg md:text-xl mb-8 border-l-4 border-secondary pl-4 ">
                         Here’s what makes ScrollFuel a valuable partner for your digital journey:
                     </p>
 
+
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-                        {whyChoose.map((item) => (
-                            <div key={item.title} className="group border-t-2 border-black/15 dark:border-white/15 pt-6 relative">
-                                <span className="absolute -top-0.5 left-0 h-0.5 w-0 bg-primary transition-all duration-500 group-hover:w-full" />
-                                <h4 className="text-xl font-semibold leading-snug mb-3 transition-colors duration-300 group-hover:text-primary">
-                                    {item.title}
-                                </h4>
-                                <p className="text-black/65 dark:text-white/65 leading-relaxed">
-                                    {item.text}
-                                </p>
+                        {whyChoose.map((item, index) => (
+                            <div
+                                key={item.title}
+                                className="group relative border-t border-black/20 dark:border-white/20 pt-6 cursor-pointer"
+                            >
+                                {/* Animated top line */}
+                                <span className="absolute top-0 left-0 h-[2px] w-0 bg-primary transition-all duration-500 group-hover:w-full" />
+
+                                {/* Number + Title */}
+                                <div className="flex items-start gap-4">
+                                    <span className="text-sm font-semibold text-primary mt-1">
+                                        {String(index + 1).padStart(2, "0")}
+                                    </span>
+
+                                    <h4 className="text-xl md:text-2xl font-semibold leading-snug transition-all duration-300 group-hover:text-primary">
+                                        {item.title}
+                                    </h4>
+                                </div>
+
+                                {/* Description appears on hover */}
+                                <div className="grid grid-rows-[0fr] opacity-0 translate-y-3 transition-all duration-500 ease-in-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:translate-y-0">
+                                    <div className="overflow-hidden">
+                                        <p className="pl-9 pt-4 text-black/65 dark:text-white/65 leading-relaxed">
+                                            {item.text}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         ))}
                     </div>
 
+
                     {/* CTA block */}
-                    <div className="mt-20 rounded-3xl border border-primary/40 bg-white dark:bg-black p-8 md:p-14 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
+                    <div className="mt-20 rounded-3xl bg-white dark:bg-black p-8 md:p-14 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
                         <div className="max-w-2xl">
                             <h3 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
                                 Let’s Grow Your Business Together
