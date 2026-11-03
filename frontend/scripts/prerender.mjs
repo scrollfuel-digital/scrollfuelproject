@@ -19,7 +19,6 @@ const distPath = path.resolve("dist");
 
 const routes = [
     "/",
-    "/about/",
     "/about-us/",
     "/blog/",
     "/services/",
@@ -47,8 +46,7 @@ const routes = [
     "/blog/google-ads-vs-meta-ads-which-is-better-for-your-business/",
 
     // Portfolio
-    "/portfolio/social-media-marketing/",
-    "/portfolio/video/",
+    "/portfolio/",
 
     // Career and contact
     "/career/",

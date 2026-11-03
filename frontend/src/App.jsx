@@ -82,7 +82,6 @@ function Layout() {
       <Routes>
         {/* USER ROUTES */}
         <Route path="/" element={<S><Home /></S>} />
-        <Route path="/about/" element={<S><AboutUs /></S>} />
         <Route path="/about-us/" element={<S><AboutUsPage /></S>} />
         <Route path="/blog/" element={<S><Blog /></S>} />
         <Route path="/blog/:slug/" element={<S><BlogDetails /></S>} />
