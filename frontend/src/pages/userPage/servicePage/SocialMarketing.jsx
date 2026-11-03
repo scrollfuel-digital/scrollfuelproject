@@ -2,11 +2,12 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, ArrowUpRight, ChevronDown } from "lucide-react";
 import { servicesData } from "../../../data/servicesData.js";
+import SEO from "../../../components/SEO";
 
-const service = servicesData.socialMedia;
 const ANCHOR = "social-section";
 
 const SocialMarketing = () => {
+  const service = servicesData.socialMedia;
   const sections = service?.sections ?? [];
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -102,6 +103,12 @@ const SocialMarketing = () => {
   };
 
   return (
+    <>
+      <SEO
+        title={service.title}
+        description={service.description}
+        canonical={service.canonical}
+      />
     <main
       className="min-h-screen bg-white text-neutral-900 dark:bg-black dark:text-white"
       style={{ "--accent": service.accent }}
@@ -350,6 +357,7 @@ const SocialMarketing = () => {
         </ul>
       </section>
     </main>
+    </>
   );
 };
 

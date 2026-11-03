@@ -17,6 +17,11 @@ const routes = [
     "/services/",
 
     //Individual blog detail pages
+    "/blog/why-does-my-website-rank-in-google-but-not-appear-in-ai-search-results/",
+    "/blog/how-much-does-website-development-cost-for-a-small-business-in-india/",
+    "/blog/digital-marketing-for-clinics-and-doctors-in-nagpur/",
+    "/blog/free-google-business-profile-checklist-for-nagpur-businesses",
+    "/blog/how-google-business-profile-helps-real-estate-get-enquiries/",
     "/blog/how-much-does-website-development-cost-for-a-small-business-in-india/",
     "/blog/digital-marketing-for-clinics-and-doctors-in-nagpur/",
     "/blog/free-google-business-profile-checklist-for-nagpur-businesses/",
@@ -261,6 +266,38 @@ function stopServer(server) {
 }
 
 /**
+ * Remove duplicate <title>, <meta name/property>, and <link rel="canonical"> tags
+ * from the raw HTML string, keeping only the LAST occurrence of each (the one
+ * React wrote via SEO.jsx).
+ */
+function deduplicateHead(html) {
+    // Deduplicate <title> — keep last
+    const titleMatches = [...html.matchAll(/<title>[^<]*<\/title>/gi)];
+    if (titleMatches.length > 1) {
+        const last = titleMatches[titleMatches.length - 1][0];
+        html = html.replace(/<title>[^<]*<\/title>/gi, "");
+        // Insert before </head>
+        html = html.replace(/<\/head>/, `${last}</head>`);
+    }
+
+    // Deduplicate <meta name="description"> — keep last
+    const descMatches = [...html.matchAll(/<meta[^>]+name=["']description["'][^>]*>/gi)];
+    if (descMatches.length > 1) {
+        const last = descMatches[descMatches.length - 1][0];
+        html = html.replace(/<meta[^>]+name=["']description["'][^>]*>/gi, "").replace("</head>", `${last}</head>`);
+    }
+
+    // Deduplicate <link rel="canonical"> — keep last
+    const canonMatches = [...html.matchAll(/<link[^>]+rel=["']canonical["'][^>]*>/gi)];
+    if (canonMatches.length > 1) {
+        const last = canonMatches[canonMatches.length - 1][0];
+        html = html.replace(/<link[^>]+rel=["']canonical["'][^>]*>/gi, "").replace("</head>", `${last}</head>`);
+    }
+
+    return html;
+}
+
+/**
  * Save rendered HTML as:
  *
  * dist/
@@ -291,7 +328,7 @@ function saveRouteHtml(route, html) {
 
     fs.writeFileSync(
         outputFile,
-        html,
+        deduplicateHead(html),
         "utf8"
     );
 
@@ -441,11 +478,38 @@ async function prerender() {
                     timeout: 60000,
                 });
 
-                // Give React / Helmet time to
-                // update SEO tags.
-                await page.waitForTimeout(
-                    1000
-                );
+                // For blog detail pages, wait for the API fetch to complete
+                // and SEO tags to be written by React.
+                const isBlogDetail = /^\/blog\/[^/]+\/$/.test(route);
+                const DEFAULT_TITLE = "Best Digital Marketing Agency in Nagpur | ScrollFuel";
+
+                try {
+                    await page.waitForFunction(
+                        (defaultTitle) => document.title !== defaultTitle && document.title.trim() !== "",
+                        DEFAULT_TITLE,
+                        { timeout: isBlogDetail ? 20000 : 8000 }
+                    );
+                } catch {
+                    // Page may legitimately use the default title (e.g. homepage).
+                }
+
+                // For blog detail pages also wait for meta description to appear.
+                if (isBlogDetail) {
+                    try {
+                        await page.waitForFunction(
+                            () => {
+                                const el = document.head.querySelector('meta[name="description"]');
+                                return el && el.getAttribute("content") && el.getAttribute("content").length > 10;
+                            },
+                            { timeout: 15000 }
+                        );
+                    } catch {
+                        console.warn(`⚠️ Meta description not set for: ${route}`);
+                    }
+                }
+
+                // Extra settle time for all meta tags to be written.
+                await page.waitForTimeout(isBlogDetail ? 1000 : 500);
 
                 // Check final browser URL.
                 const finalUrl = page.url();

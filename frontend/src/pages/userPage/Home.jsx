@@ -13,7 +13,7 @@ import {
     Suspense,
 } from "react";
 
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO";
 import FAQ from "../../components/ui/FAQ.jsx";
 import WorkCTA from "../../components/workCTA.jsx";
 
@@ -124,89 +124,11 @@ export default function Home() {
                 HOMEPAGE SEO
             ================================================= */}
 
-            <Helmet>
-
-                <title>
-                    Best Digital Marketing Agency in Nagpur | ScrollFuel
-                </title>
-
-                <meta
-                    name="description"
-                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
-                />
-
-                <meta
-                    name="robots"
-                    content="index, follow, max-image-preview:large"
-                />
-
-                <link
-                    rel="canonical"
-                    href="https://scrollfuel.in/"
-                />
-
-
-                {/* Open Graph */}
-
-                <meta
-                    property="og:type"
-                    content="website"
-                />
-
-                <meta
-                    property="og:site_name"
-                    content="ScrollFuel"
-                />
-
-                <meta
-                    property="og:title"
-                    content="Best Digital Marketing Agency in Nagpur | ScrollFuel"
-                />
-
-                <meta
-                    property="og:description"
-                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
-                />
-
-                <meta
-                    property="og:url"
-                    content="https://scrollfuel.in/"
-                />
-
-                <meta
-                    property="og:image"
-                    content="https://scrollfuel.in/assets/logo1.png"
-                />
-
-                <meta
-                    property="og:locale"
-                    content="en_IN"
-                />
-
-
-                {/* Twitter */}
-
-                <meta
-                    name="twitter:card"
-                    content="summary_large_image"
-                />
-
-                <meta
-                    name="twitter:title"
-                    content="Best Digital Marketing Agency in Nagpur | ScrollFuel"
-                />
-
-                <meta
-                    name="twitter:description"
-                    content="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
-                />
-
-                <meta
-                    name="twitter:image"
-                    content="https://scrollfuel.in/assets/logo1.png"
-                />
-
-            </Helmet>
+            <SEO
+                title="Best Digital Marketing Agency in Nagpur | ScrollFuel"
+                description="ScrollFuel is a digital marketing agency in Nagpur offering SEO, social media marketing, branding, web development, content, video production and performance marketing."
+                canonical="https://scrollfuel.in/"
+            />
 
 
             <main

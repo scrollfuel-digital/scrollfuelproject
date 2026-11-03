@@ -7,6 +7,13 @@ import { services, getServiceBySlug } from "../../data/services";
 import SEO from "../../components/SEO";
 import { serviceSEO } from "../../data/seoData";
 
+// Build a map: serviceSlug -> nagpur slug (e.g. "content-marketing-services" -> "content-marketing-services-nagpur")
+const serviceSlugToNagpurSlug = Object.fromEntries(
+    Object.entries(serviceSEO)
+        .filter(([, data]) => data.serviceSlug)
+        .map(([nagpurSlug, data]) => [data.serviceSlug, nagpurSlug])
+);
+
 
 /* =========================================================
    Renders **bold** text as <strong>
@@ -59,8 +66,12 @@ const ServiceDetails = () => {
     /* ---------------------------------------------
        Previous / Next service
     --------------------------------------------- */
+    const nagpurSlug = seo?.serviceSlug
+        ? serviceSlugToNagpurSlug[seo.serviceSlug] ?? slug
+        : slug;
+
     const index = services.findIndex(
-        (s) => s.slug === slug
+        (s) => s.slug === (seo?.serviceSlug ?? slug)
     );
 
     const prev =
@@ -306,7 +317,7 @@ const ServiceDetails = () => {
                                         <li key={s.slug}>
 
                                             <Link
-                                                to={`/services/${s.slug}/`}
+                                                to={`/services/${serviceSlugToNagpurSlug[s.slug] ?? s.slug}/`}
                                                 className="flex items-center justify-between py-3 text-sm text-white/80 transition-colors hover:text-[var(--accent)]"
                                             >
 
@@ -345,7 +356,7 @@ const ServiceDetails = () => {
                         --------------------------------------------- */}
 
                         <Link
-                            to={`/services/${prev.slug}/`}
+                            to={`/services/${serviceSlugToNagpurSlug[prev.slug] ?? prev.slug}/`}
                             className="group rounded-xl border border-white/10 p-5 transition-colors hover:border-[var(--accent)]"
                         >
 
@@ -370,7 +381,7 @@ const ServiceDetails = () => {
                         --------------------------------------------- */}
 
                         <Link
-                            to={`/services/${next.slug}/`}
+                            to={`/services/${serviceSlugToNagpurSlug[next.slug] ?? next.slug}/`}
                             className="group rounded-xl border border-white/10 p-5 text-right transition-colors hover:border-[var(--accent)]"
                         >
 

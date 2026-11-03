@@ -13,7 +13,7 @@ export const serviceSEO = {
     canonical: `${SITE_URL}/services/seo-ppc-service-in-nagpur/`,
   },
 
-  "content-marketing-services-in-nagpur": {
+  "content-marketing-services-nagpur": {
     h1: "Content Marketing Services in Nagpur",
     primaryKeyword: "Content marketing services in Nagpur",
     title: "Content Marketing Services in Nagpur | ScrollFuel",
@@ -21,7 +21,7 @@ export const serviceSEO = {
     serviceSlug: "content-marketing-services",
     description:
       "Grow your brand with content marketing services in Nagpur. Get SEO-friendly content, strategic planning and engaging content that drives traffic and leads.",
-    canonical: `${SITE_URL}/services/content-marketing-services-in-nagpur/`,
+    canonical: `${SITE_URL}/services/content-marketing-services-nagpur/`,
   },
 
   "social-media-marketing-services-in-nagpur": {
@@ -73,7 +73,7 @@ export const pageSEO = {
   blog: {
     h1: "Digital Marketing Blog",
     primaryKeyword: "Digital marketing blog",
-    title: "Digital Marketing Blog | ScrollFuel",
+    title: "Digital Marketing Blog | SEO, PPC & Growth Tips | ScrollFuel",
     description:
       "Explore the ScrollFuel digital marketing blog for SEO tips, PPC strategies, social media insights, content marketing and online growth tips.",
     canonical: `${SITE_URL}/blog/`,
@@ -82,7 +82,7 @@ export const pageSEO = {
   about: {
     h1: "About ScrollFuel – Digital Marketing Company in Nagpur",
     primaryKeyword: "Digital marketing company in Nagpur",
-    title: "About ScrollFuel | Digital Marketing Company in Nagpur",
+    title: "About Us | ScrollFuel – Digital Marketing Company in Nagpur",
     description:
       "Learn about ScrollFuel, a digital marketing company in Nagpur offering SEO, PPC, social media, content marketing and branding solutions.",
     canonical: `${SITE_URL}/about-us/`,

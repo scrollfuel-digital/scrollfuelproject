@@ -9,6 +9,7 @@ import {
     Star,
 } from "lucide-react";
 import { servicesData } from "../../../data/servicesData.js";
+import SEO from "../../../components/SEO";
 
 
 const SeoPpcService = () => {
@@ -80,6 +81,12 @@ const SeoPpcService = () => {
         });
     };
     return (
+        <>
+            <SEO
+                title={service.title}
+                description={service.description}
+                canonical={service.canonical}
+            />
         <main className="min-h-screen bg-white text-neutral-900 dark:bg-black dark:text-white">
             {/* Reading progress */}
             <div
@@ -361,6 +368,7 @@ const SeoPpcService = () => {
                 </ul>
             </section>
         </main>
+        </>
     );
 };
 

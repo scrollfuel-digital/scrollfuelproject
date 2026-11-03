@@ -145,7 +145,7 @@ const Footer = () => {
                             </li>
                             <li>
                                 <Link to="/about-us/" className="hover-text-primary font-bold">
-                                    About
+                                    About Us
                                 </Link>
                             </li>
                             <li>

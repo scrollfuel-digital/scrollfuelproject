@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 
 import { servicesData } from "../../data/servicesData";
+import SEO from "../../components/SEO";
 
 const ICONS = {
     TrendingUp,
@@ -113,25 +114,15 @@ const ServiceCard = ({ service }) => {
 const Services = () => {
     const reduce = useReducedMotion();
 
-    useEffect(() => {
-        document.title = "Digital Marketing Services in Nagpur | ScrollFuel";
-
-        const description =
-            "Explore ScrollFuel's digital marketing services in Nagpur: SEO and PPC, content marketing, social media marketing, branding, website development, and video production.";
-
-        let meta = document.querySelector('meta[name="description"]');
-
-        if (!meta) {
-            meta = document.createElement("meta");
-            meta.name = "description";
-            document.head.appendChild(meta);
-        }
-
-        meta.setAttribute("content", description);
-    }, []);
+    useEffect(() => {}, []);
 
     return (
         <main className="min-h-screen dark:bg-black">
+            <SEO
+                title="Digital Marketing Services in Nagpur | ScrollFuel"
+                description="Explore ScrollFuel's digital marketing services in Nagpur: SEO and PPC, content marketing, social media marketing, branding, website development, and video production."
+                canonical="https://scrollfuel.in/services/"
+            />
             {/* Header */}
 
             <header className="mx-auto max-w-6xl px-4 pb-12 pt-32 text-center sm:px-6 md:pb-16 md:pt-40">

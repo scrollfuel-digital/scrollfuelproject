@@ -3,25 +3,31 @@
   <head>
     <meta charset="UTF-8" />
 
-    <link
-      rel="icon"
-      type="image/png"
-      href="/favupdate.png"
-    />
+    <!-- Google Analytics (GA4) -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-RVBG6R9BJ0"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        window.dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-RVBG6R9BJ0");
+    </script>
 
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favupdate.png" />
+
+    <!-- Viewport -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Robots -->
-    <meta
-      name="robots"
-      content="index, follow, max-image-preview:large"
-    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
 
-    <!-- Default fallback title -->
-    <title>ScrollFuel | Digital Marketing Agency in Nagpur</title>
+    <!-- Default SEO Title -->
+    <title>Best Digital Marketing Agency in Nagpur | ScrollFuel</title>
 
     <!-- Local Business Schema -->
     <script type="application/ld+json">
@@ -53,9 +59,6 @@
   <body>
     <div id="root"></div>
 
-    <script
-      type="module"
-      src="/src/main.jsx"
-    ></script>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

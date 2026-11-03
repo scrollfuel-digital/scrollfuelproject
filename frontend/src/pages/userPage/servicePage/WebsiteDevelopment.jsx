@@ -7,6 +7,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { servicesData } from "../../../data/servicesData.js";
+import SEO from "../../../components/SEO";
 
 /*
  * Styling notes (index.css):
@@ -17,10 +18,10 @@ import { servicesData } from "../../../data/servicesData.js";
  * - Avoid bg-white: index.css flips it to black in dark mode.
  */
 
-const service = servicesData.websiteDevelopment;
 const ANCHOR = "website-section";
 
 const WebsiteDevelopment = () => {
+  const service = servicesData.websiteDevelopment;
   const sections = service?.sections ?? [];
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -99,6 +100,12 @@ const WebsiteDevelopment = () => {
     });
   };
   return (
+    <>
+      <SEO
+        title={service.title}
+        description={service.description}
+        canonical={service.canonical}
+      />
     <main
       className="min-h-screen bg-white text-neutral-900 dark:bg-black dark:text-white"
       style={{ "--accent": service.accent }}
@@ -345,6 +352,7 @@ const WebsiteDevelopment = () => {
         </ul>
       </section>
     </main>
+    </>
   );
 };
 

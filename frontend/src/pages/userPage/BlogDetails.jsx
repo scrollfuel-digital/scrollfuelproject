@@ -517,13 +517,13 @@ const RelatedBlogCard = ({ post, mobile = false, navigate }) => {
       role="link"
       tabIndex={0}
       onClick={() =>
-        navigate(`/blog/${slug}`, {
+        navigate(`/blog/${slug}/`, {
           state: { blogId: post._id },
         })
       }
       onKeyDown={(event) => {
         if (event.key === "Enter") {
-          navigate(`/blog/${slug}`, {
+          navigate(`/blog/${slug}/`, {
             state: { blogId: post._id },
           });
         }
@@ -666,7 +666,7 @@ const RelatedPostsSlider = ({ relatedPosts, navigate }) => {
             <div
               key={`${post._id}-${index}`}
               onClick={() =>
-                navigate(`/blog/${postSlug}`, {
+                navigate(`/blog/${postSlug}/`, {
                   state: { blogId: post._id },
                 })
               }
@@ -913,7 +913,7 @@ const BlogDetails = () => {
     .trim()
     .slice(0, 160);
 
-  const pageCanonical = `${SITE_URL}/blog/${encodeURIComponent(slug)}/`;
+  const pageCanonical = `${SITE_URL}/blog/${slug}/`;
 
   const optimizedSeoImage = blog.hero_image
     ? optimizeImage(blog.hero_image, 1200)

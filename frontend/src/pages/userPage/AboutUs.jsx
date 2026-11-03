@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from "react-router-dom";
 import { pageSEO } from "../../data/seoData";
+import SEO from "../../components/SEO";
 import {
     Target,
     TrendingUp,
@@ -335,33 +336,7 @@ const AboutUsPage = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const seo = pageSEO.about;
-
-        document.title = seo.title;
-
-        let description = document.querySelector(
-            'meta[name="description"]'
-        );
-
-        if (!description) {
-            description = document.createElement("meta");
-            description.setAttribute("name", "description");
-            document.head.appendChild(description);
-        }
-
-        description.setAttribute("content", seo.description);
-
-        let canonical = document.querySelector(
-            'link[rel="canonical"]'
-        );
-
-        if (!canonical) {
-            canonical = document.createElement("link");
-            canonical.setAttribute("rel", "canonical");
-            document.head.appendChild(canonical);
-        }
-
-        canonical.setAttribute("href", seo.canonical);
+        // SEO is handled by the <SEO> component below
     }, []);
 
 
@@ -446,6 +421,11 @@ const AboutUsPage = () => {
 
     return (
         <div className="bg-white dark:bg-black dark:text-white overflow-hidden ">
+            <SEO
+                title={pageSEO.about.title}
+                description={pageSEO.about.description}
+                canonical={pageSEO.about.canonical}
+            />
             {/* ============= HERO SECTION ============= */}
             <section className="relative min-h-screen overflow-hidden">
                 <motion.div

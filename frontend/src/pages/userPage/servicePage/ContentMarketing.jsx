@@ -7,12 +7,13 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { servicesData } from "../../../data/servicesData.js";
+import SEO from "../../../components/SEO";
 
 
-const service = servicesData.contentMarketing;
 const ANCHOR = "content-section";
 
 const ContentMarketing = () => {
+  const service = servicesData.contentMarketing;
   const sections = service?.sections ?? [];
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -93,6 +94,12 @@ const ContentMarketing = () => {
   }
 
   return (
+    <>
+      <SEO
+        title={service.title}
+        description={service.description}
+        canonical={service.canonical}
+      />
     <main
       className="min-h-screen bg-white text-neutral-900 dark:bg-black dark:text-white"
       style={{ "--accent": service.accent }}
@@ -341,6 +348,7 @@ const ContentMarketing = () => {
         </ul>
       </section>
     </main>
+    </>
   );
 };
 
