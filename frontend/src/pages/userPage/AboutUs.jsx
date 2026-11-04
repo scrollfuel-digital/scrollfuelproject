@@ -651,37 +651,85 @@ const AboutUsPage = () => {
             </section>
 
             {/* ============= BEYOND LOCAL + APPROACH (new styling) ============= */}
-            <section className="dark:bg-black dark:text-white">
-                <div className="max-w-7xl mx-auto px-6 md:px-12 py-10 md:py-10 grid md:grid-cols-2 gap-12 md:gap-0">
 
-                    <div className="md:pr-12 lg:pr-20">
-                        <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
-                            Helping Businesses Grow Beyond Local Markets
-                        </h2>
-                        <p className="text-lg leading-relaxed  mb-4">
-                            While Nagpur is our home base, our digital marketing solutions are designed to serve businesses beyond our local market. We work to understand each client’s audience, industry, competition, and objectives before recommending a suitable strategy.
-                        </p>
-                        <p className="text-lg leading-relaxed ">
-                            Our focus is on clear communication, relevant solutions, and continuous improvement rather than one-size-fits-all marketing packages.
-                        </p>
+            <section className="relative overflow-hidden bg-[#f8f9f5] dark:bg-neutral-950 dark:text-white">
+
+                <div className="max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
+
+                    {/* SECTION LABEL */}
+                    <div className="flex items-center gap-3 mb-12">
+                        <span className="w-10 h-[2px] bg-primary"></span>
+                        <span className="text-sm font-bold uppercase tracking-[0.2em] text-primary">
+                            Beyond Boundaries
+                        </span>
                     </div>
 
-                    <div className="md:pl-12 lg:pl-20 md:border-l-2 md:border-black/25">
-                        <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
-                            Our Approach
-                        </h2>
-                        <p className="text-lg leading-relaxed ">
-                            At ScrollFuel, we believe effective digital marketing starts with understanding your business. We focus on practical planning, thoughtful execution, and measurable performance indicators so businesses can make informed decisions about their online growth.
-                        </p>
+                    {/* MAIN CONTENT */}
+                    <div className="grid md:grid-cols-12 gap-10 md:gap-16">
+
+                        {/* LEFT CONTENT */}
+                        <div className="md:col-span-7">
+                            <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-[1.12] tracking-tight mb-8 max-w-3xl">
+                                Helping Businesses Grow Beyond Local Markets
+                            </h2>
+
+                            <div className="max-w-2xl space-y-5">
+                                <p className="text-base md:text-lg leading-[1.9] text-neutral-600 dark:text-neutral-300">
+                                    While Nagpur is our home base, our digital marketing solutions are designed to serve businesses beyond our local market. We work to understand each client’s audience, industry, competition, and objectives before recommending a suitable strategy.
+                                </p>
+
+                                <p className="text-base md:text-lg leading-[1.9] text-neutral-600 dark:text-neutral-300">
+                                    Our focus is on clear communication, relevant solutions, and continuous improvement rather than one-size-fits-all marketing packages.
+                                </p>
+                            </div>
+                        </div>
+
+                        {/* RIGHT CONTENT */}
+                        <div className="md:col-span-5">
+                            <div className="relative p-7 md:p-9 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-white/10 shadow-sm">
+
+                                <div className="flex items-center justify-between mb-8">
+                                    <span className="text-xs font-bold uppercase tracking-[0.18em] text-primary">
+                                        How We Work
+                                    </span>
+
+                                   
+                                </div>
+
+                                <h3 className="text-2xl md:text-3xl font-bold mb-5">
+                                    Our Approach
+                                </h3>
+
+                                <p className="text-base md:text-lg leading-[1.9] text-neutral-600 dark:text-neutral-300">
+                                    At ScrollFuel, we believe effective digital marketing starts with understanding your business. We focus on practical planning, thoughtful execution, and measurable performance indicators so businesses can make informed decisions about their online growth.
+                                </p>
+
+                                <div className="mt-8 h-1 w-16 rounded-full bg-primary"></div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
 
-                <div className="border-t-2 dark:border-white/50 ">
-                    <p className="max-w-7xl mx-auto px-6 md:px-12 py-10 text-xl md:text-3xl font-semibold leading-snug">
-                        Let’s build your digital presence and grow your business with ScrollFuel.
-                    </p>
+                {/* BOTTOM STATEMENT */}
+                <div className="border-t border-neutral-200 dark:border-white/15">
+                    <div className="max-w-7xl mx-auto px-6 md:px-12 py-9 md:py-12">
+                        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+
+                            <p className="text-xl md:text-3xl lg:text-4xl font-semibold leading-snug max-w-4xl">
+                                Let’s build your digital presence and grow your business with ScrollFuel.
+                            </p>
+
+                            <span className="hidden md:block text-primary text-5xl font-light">
+                                ↗
+                            </span>
+
+                        </div>
+                    </div>
                 </div>
+
             </section>
+
 
             {/* ============= FOUNDER SECTION (unchanged) ============= */}
             <section className="py-10 px-6 bg-white text-black dark:bg-black relative overflow-hidden">
@@ -837,93 +885,240 @@ const AboutUsPage = () => {
             </section>
 
             {/* ============= WHY CHOOSE SCROLLFUEL (new styling) ============= */}
-            <section className="px-6 md:px-12 py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950 flex ">
+
+
+            <section className="relative px-6 md:px-12 py-20 md:py-28 bg-neutral-50 dark:bg-neutral-950">
+
                 <div className="max-w-7xl mx-auto">
 
+                    {/* MAIN SPLIT LAYOUT */}
+                    <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 lg:gap-20 items-start">
 
-                    <div className="max-w-4xl mx-auto mb-14 text-center">
+                        {/* LEFT CONTENT */}
+                        <div className="lg:sticky lg:top-28">
 
-                        <h2 className="text-4xl md:text-5xl font-bold leading-[1.1] mb-4">
-                            Why Choose ScrollFuel?
-                        </h2>
+                            <span className="inline-flex items-center gap-2 text-sm font-semibold tracking-[0.2em] uppercase text-primary mb-6">
+                                <span className="w-8 h-[2px] bg-primary"></span>
+                                Why ScrollFuel
+                            </span>
 
-                        <h3 className="text-xl md:text-2xl font-semibold text-primary mb-6">
-                            Digital Strategies Built Around Your Business Goals
-                        </h3>
+                            <h2 className="text-4xl md:text-5xl xl:text-6xl font-bold leading-[1.08] mb-6">
+                                Why Choose
+                                <span className="block text-primary mt-2">
+                                    ScrollFuel?
+                                </span>
+                            </h2>
 
-                        <div className="space-y-4 text-lg leading-relaxed text-black/70 dark:text-white/70 text-justify">
-                            <p>
-                                Choosing the right digital marketing partner is about more than promoting your business online. It is about finding a team that understands your goals, listens to your challenges, and helps you identify the right opportunities for growth. At ScrollFuel, we combine creative thinking, practical strategy, and digital expertise to help businesses strengthen their online presence. Based in Nagpur, Maharashtra, we work with businesses looking to improve local visibility as well as reach customers across India and international markets.
-                            
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                    <p className="font-semibold text-lg md:text-xl mb-8 border-l-4 border-secondary pl-4 ">
-                        Here’s what makes ScrollFuel a valuable partner for your digital journey:
-                    </p>
-
-
-                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-12">
-                        {whyChoose.map((item, index) => (
-                            <div
-                                key={item.title}
-                                className="group relative border-t border-black/20 dark:border-white/20 pt-6 cursor-pointer"
-                            >
-                                {/* Animated top line */}
-                                <span className="absolute top-0 left-0 h-[2px] w-0 bg-primary transition-all duration-500 group-hover:w-full" />
-
-                                {/* Number + Title */}
-                                <div className="flex items-start gap-4">
-                                    <span className="text-sm font-semibold text-primary mt-1">
-                                        {String(index + 1).padStart(2, "0")}
-                                    </span>
-
-                                    <h4 className="text-xl md:text-2xl font-semibold leading-snug transition-all duration-300 group-hover:text-primary">
-                                        {item.title}
-                                    </h4>
-                                </div>
-
-                                {/* Description appears on hover */}
-                                <div className="grid grid-rows-[0fr] opacity-0 translate-y-3 transition-all duration-500 ease-in-out group-hover:grid-rows-[1fr] group-hover:opacity-100 group-hover:translate-y-0">
-                                    <div className="overflow-hidden">
-                                        <p className="pl-9 pt-4 text-black/65 dark:text-white/65 leading-relaxed">
-                                            {item.text}
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-
-
-                    {/* CTA block */}
-                    <div className="mt-20 rounded-3xl bg-white dark:bg-black p-8 md:p-14 grid lg:grid-cols-[1fr_auto] gap-8 items-center">
-                        <div className="max-w-2xl">
-                            <h3 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
-                                Let’s Grow Your Business Together
+                            <h3 className="text-xl md:text-2xl font-semibold mb-6 leading-snug">
+                                Digital Strategies Built Around Your Business Goals
                             </h3>
-                            <p className="text-lg leading-relaxed text-black/70 dark:text-white/70 mb-4">
-                                Whether you want to improve your Google visibility, build a professional website, strengthen your brand, or explore new digital marketing opportunities, ScrollFuel is ready to understand your goals and discuss the right next steps.
+
+                            <p className="text-base md:text-lg leading-relaxed text-black/65 dark:text-white/65 mb-8 text-justify">
+                                Choosing the right digital marketing partner is about more than
+                                promoting your business online. It is about finding a team that
+                                understands your goals, listens to your challenges, and helps
+                                you identify the right opportunities for growth.
                             </p>
-                            <p className="font-semibold text-lg">
-                                Have a business goal in mind? Let’s talk about how ScrollFuel can help you move forward.
+
+                            <p className="text-base md:text-lg leading-relaxed text-black/65 dark:text-white/65 mb-10 text-justify">
+                                At ScrollFuel, we combine creative thinking, practical strategy,
+                                and digital expertise to help businesses strengthen their online
+                                presence. Based in Nagpur, Maharashtra, we work with businesses
+                                across India and international markets.
                             </p>
+
                         </div>
 
-                        <button
-                            onClick={() => navigate("/connect-with-us")}
-                            className="group inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-primary text-black font-semibold transition-colors duration-300 hover:bg-secondary focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-                        >
-                            Let’s Discuss Your Business Goals
-                            <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-1" />
-                        </button>
+
+                        {/* RIGHT CONTENT - SIX FEATURES */}
+                        <div className="relative">
+
+                            <p className="font-semibold text-lg md:text-xl mb-8 leading-relaxed">
+                                Here's what makes ScrollFuel a valuable partner for your digital journey:
+                            </p>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-6">
+
+                                {whyChoose.map((item, index) => (
+
+                                    <div
+                                        key={item.title}
+                                        className="group relative z-0 hover:z-50"
+                                    >
+
+                                        {/* FEATURE CARD */}
+                                        <div className="
+                                relative min-h-[155px] p-6
+                                border border-black/10 dark:border-white/10
+                                bg-white dark:bg-neutral-900
+                                rounded-2xl
+                                transition-all duration-300
+                                group-hover:border-primary
+                                group-hover:shadow-xl
+                                group-hover:shadow-primary/10
+                                group-hover:-translate-y-1
+                                cursor-pointer
+                            ">
+
+                                            {/* NUMBER AND ICON */}
+                                            <div className="flex items-start justify-between gap-3 mb-5">
+
+                                                <span className="text-sm font-bold text-primary tracking-wider">
+                                                    {String(index + 1).padStart(2, "0")}
+                                                </span>
+
+                                                <ArrowRight
+                                                    size={18}
+                                                    className="
+                                            text-black/40 dark:text-white/40
+                                            transition-all duration-300
+                                            group-hover:text-primary
+                                            group-hover:rotate-[-45deg]
+                                        "
+                                                />
+
+                                            </div>
+
+                                            {/* TITLE */}
+                                            <h4 className="
+                                    text-lg md:text-xl font-semibold leading-snug
+                                    transition-colors duration-300
+                                    group-hover:text-primary
+                                ">
+                                                {item.title}
+                                            </h4>
+
+
+                                            {/* POPUP - OPENS ABOVE THE CARD */}
+                                            <div className="
+                                    absolute z-[9999]
+                                    left-0 right-0
+                                    bottom-full mb-2
+                                    p-5 rounded-xl
+
+                                    bg-white dark:bg-neutral-800
+                                    border border-primary/30
+                                    shadow-2xl shadow-black/20
+
+                                    opacity-0 invisible
+                                    translate-y-2
+
+                                    transition-all duration-300 ease-out
+
+                                    group-hover:opacity-100
+                                    group-hover:visible
+                                    group-hover:translate-y-0
+
+                                    pointer-events-none
+                                ">
+
+                                                <p className="text-sm leading-relaxed text-black/70 dark:text-white/70">
+                                                    {item.text}
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                ))}
+
+                            </div>
+
+
+
+                        </div>
+
                     </div>
+
+
+                    {/* CTA SECTION */}
+                    <div className="
+            relative mt-24 rounded-3xl overflow-hidden
+            bg-neutral-900
+            text-white p-8 md:p-14
+            grid lg:grid-cols-[1fr_auto]
+            gap-8 items-center
+        ">
+
+                        {/* BACKGROUND EFFECT */}
+                        <div className="
+                absolute top-0 right-0
+                w-72 h-72
+                bg-primary/10
+                blur-[100px]
+                rounded-full
+                pointer-events-none
+            "></div>
+
+
+                        {/* CTA TEXT */}
+                        <div className="relative z-10 max-w-2xl">
+
+                            <span className="text-primary font-semibold text-sm tracking-[0.2em] uppercase mb-4 block">
+                                Let's Build Something Great
+                            </span>
+
+                            <h3 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
+                                Let's Grow Your Business Together
+                            </h3>
+
+                            <p className="text-base md:text-lg leading-relaxed text-white/70 mb-5">
+                                Whether you want to improve your Google visibility, build a
+                                professional website, strengthen your brand, or explore new
+                                digital marketing opportunities, ScrollFuel is ready to
+                                understand your goals and discuss the right next steps.
+                            </p>
+
+                            <p className="font-semibold text-white">
+                                Have a business goal in mind? Let's talk about our next move.
+                            </p>
+
+                        </div>
+
+
+                        {/* CTA BUTTON */}
+                        <div className="relative z-10">
+
+                            <button
+                                onClick={() => navigate("/connect-with-us")}
+                                className="
+                        group inline-flex items-center justify-center gap-3
+                        px-8 py-4 rounded-full
+                        bg-primary text-black font-semibold
+                        hover:bg-secondary
+                        transition-all duration-300
+                        hover:shadow-lg hover:shadow-primary/20
+                        whitespace-nowrap
+                        focus-visible:outline
+                        focus-visible:outline-2
+                        focus-visible:outline-offset-4
+                        focus-visible:outline-primary
+                    "
+                            >
+
+                                Let's Discuss Your Goals
+
+                                <ArrowRight
+                                    size={18}
+                                    className="
+                            transition-transform duration-300
+                            group-hover:translate-x-1
+                        "
+                                />
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
                 </div>
+
             </section>
+
+
         </div>
     );
 };
