@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { useNavigate, useLocation } from "react-router-dom";
 import SEO from "../../components/SEO";
 import { pageSEO } from "../../data/seoData";
 
@@ -18,6 +19,9 @@ const CareerPage = () => {
         appliedFor: "",
     });
     const [otherInterest, setOtherInterest] = useState("");
+    const [selectedJob, setSelectedJob] = useState(null);
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         fetch(`${API}/api/jobs/all`)
@@ -25,6 +29,15 @@ const CareerPage = () => {
             .then((d) => setJobs(d.data || []))
             .catch(console.error);
     }, []);
+
+    // Auto-scroll to form if URL has #apply-form on load
+    useEffect(() => {
+        if (location.hash === "#apply-form") {
+            setTimeout(() => {
+                document.getElementById("apply-form")?.scrollIntoView({ behavior: "smooth" });
+            }, 300);
+        }
+    }, [location.hash]);
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -88,9 +101,21 @@ const CareerPage = () => {
     return (
         <div className="min-h-screen dark:bg-black dark:text-white pt-12 ">
             <SEO
-                title={pageSEO.career.title}
-                description={pageSEO.career.description}
-                canonical={pageSEO.career.canonical}
+                title={
+                    selectedJob
+                        ? `Apply for ${selectedJob} | ScrollFuel Careers`
+                        : pageSEO.career.title
+                }
+                description={
+                    selectedJob
+                        ? `Apply for the ${selectedJob} position at ScrollFuel, Nagpur's top digital marketing agency.`
+                        : pageSEO.career.description
+                }
+                canonical={
+                    selectedJob
+                        ? `${pageSEO.career.canonical}#apply-form`
+                        : pageSEO.career.canonical
+                }
             />
 
             {/* Hero Section */}
@@ -154,6 +179,8 @@ const CareerPage = () => {
                                     <button
                                         onClick={() => {
                                             setFormData((prev) => ({ ...prev, appliedFor: job.title }));
+                                            setSelectedJob(job.title);
+                                            navigate(`${location.pathname}#apply-form`, { replace: true });
                                             document.getElementById("apply-form").scrollIntoView({ behavior: "smooth" });
                                         }}
                                         className="px-5 py-2 bg-primary text-white text-sm font-semibold rounded-lg hover:opacity-90 transition"

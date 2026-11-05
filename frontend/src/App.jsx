@@ -1,5 +1,24 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation, matchPath } from "react-router-dom";
 import { useEffect, lazy, Suspense } from "react";
+
+/* ── Page title map for instant tab refresh on navigation ── */
+const PAGE_TITLES = [
+  { path: "/", title: "Best Digital Marketing Agency in Nagpur | ScrollFuel" },
+  { path: "/about-us/", title: "About ScrollFuel – Digital Marketing Company in Nagpur" },
+  { path: "/blog/", title: "Digital Marketing Blog | SEO, PPC & Growth Tips | ScrollFuel" },
+  { path: "/blog/:slug/", title: "Blog | ScrollFuel" },
+  { path: "/portfolio/", title: "Portfolio | ScrollFuel – Digital Marketing Work & Case Studies" },
+  { path: "/career/", title: "Careers | ScrollFuel – Join Nagpur's Top Digital Marketing Agency" },
+  { path: "/connect-with-us/", title: "Contact Us | ScrollFuel – Get a Free Digital Marketing Strategy" },
+  { path: "/services/", title: "Digital Marketing Services | SEO, Ads, Websites | ScrollFuel" },
+  { path: "/services/:slug/", title: "Services | ScrollFuel" },
+  { path: "/seo-and-ppc-services/", title: "Professional SEO and PPC Services in Nagpur | ScrollFuel" },
+  { path: "/content-marketing-services/", title: "Content Marketing Services in Nagpur | ScrollFuel" },
+  { path: "/social-media-marketing-services/", title: "Social Media Marketing Services in Nagpur | ScrollFuel" },
+  { path: "/website-development-services/", title: "Website Development Services in Nagpur | ScrollFuel" },
+  { path: "/videography-and-photography-services/", title: "Videography and Photography Services in Nagpur | ScrollFuel" },
+  { path: "/branding-and-design-services/", title: "Branding and Design Services in Nagpur | ScrollFuel" },
+];
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
@@ -65,8 +84,14 @@ function Layout() {
     }
   }, []);
 
-  // GOOGLE ANALYTICS TRACKING
+  // GOOGLE ANALYTICS TRACKING + INSTANT TAB TITLE REFRESH
   useEffect(() => {
+    // Instantly update tab title on every navigation
+    const match = PAGE_TITLES.find(({ path }) =>
+      matchPath({ path, end: true }, location.pathname)
+    );
+    if (match) document.title = match.title;
+
     if (window.gtag) {
       window.gtag("event", "page_view", {
         page_path: location.pathname,
