@@ -9,34 +9,20 @@ const SERVICES_SECTION = {
   cta: "View All Services",
   cards: [
     {
-      path: "/seo-and-ppc-services/",
-      icon: "Target",
-      title: "SEO and PPC Services",
-      description:
-        "Reach relevant audiences through organic search strategies and paid advertising campaigns.",
-    },
-    {
-      path: "/content-marketing-services/",
-      icon: "FileText",
-      title: "Content Marketing",
-      description:
-        "Share useful, engaging content that answers customer questions and builds trust.",
-    },
-    {
       path: "/social-media-marketing-services/",
       icon: "Instagram",
       title: "Social Media Marketing",
       description:
         "Build brand awareness and connect with your audience through relevant social platforms.",
     },
-    {
+     {
       path: "/website-development-services/",
       icon: "Code",
       title: "Website Development",
       description:
         "Create responsive, user-friendly websites designed around your business needs.",
     },
-    {
+     {
       path: "/branding-and-design-services/",
       icon: "Palette",
       title: "Branding and Design",
@@ -44,11 +30,25 @@ const SERVICES_SECTION = {
         "Present your business with consistent branding and professional visual content.",
     },
     {
+      path: "/seo-and-ppc-services/",
+      icon: "Target",
+      title: "SEO and PPC Services",
+      description:
+        "Reach relevant audiences through organic search strategies and paid advertising campaigns.",
+    },
+    {
       path: "/videography-and-photography-services/",
       icon: "Camera",
       title: "Videography and Photography",
       description:
         "Professional Photography and Videography Services for Brand Marketing and Business Growth.",
+    },
+    {
+      path: "/content-marketing-services/",
+      icon: "FileText",
+      title: "Content Marketing",
+      description:
+        "Share useful, engaging content that answers customer questions and builds trust.",
     },
   ],
 };

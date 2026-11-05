@@ -140,7 +140,7 @@ const CareerPage = () => {
                                 )}
 
                                 {/* Description */}
-                                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-3 flex-1">
+                                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed line-clamp-4 flex-1">
                                     {job.description}
                                 </p>
 

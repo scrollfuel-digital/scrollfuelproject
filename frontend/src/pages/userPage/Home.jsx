@@ -1,3 +1,4 @@
+
 import {
     motion,
     useScroll,
@@ -17,12 +18,25 @@ import SEO from "../../components/SEO";
 import FAQ from "../../components/ui/FAQ.jsx";
 import WorkCTA from "../../components/workCTA.jsx";
 
-
 const ClientsSection = lazy(() => import("./ClientsSection.jsx"));
 const Services = lazy(() => import("../../components/Services.jsx"));
 const About = lazy(() => import("../../components/About.jsx"));
 const Testimonials = lazy(() => import("../../components/Testimonials.jsx"));
 
+/* =========================================================
+   COMMON SECTION SPACING
+========================================================= */
+
+const SECTION_SPACING = `
+    py-12
+    sm:py-14
+    md:py-16
+    lg:py-5
+`;
+
+/* =========================================================
+   SECTION LOADER
+========================================================= */
 
 const SectionLoader = () => (
     <div className="w-full h-40 flex items-center justify-center">
@@ -40,13 +54,11 @@ const SectionLoader = () => (
     </div>
 );
 
-
 /* =========================================================
    HERO VIDEO
 ========================================================= */
 
 const VIDEO_SRC = "/assets/video/herosection.mp4";
-
 
 /* =========================================================
    VIDEO SLIDE ANIMATION
@@ -72,7 +84,6 @@ const slideVariants = {
     },
 };
 
-
 /* =========================================================
    HOME COMPONENT
 ========================================================= */
@@ -85,7 +96,6 @@ export default function Home() {
     const [videoReady, setVideoReady] = useState(false);
     const [mountVideo, setMountVideo] = useState(false);
 
-
     /* =====================================================
        SCROLL PARALLAX
     ===================================================== */
@@ -95,28 +105,23 @@ export default function Home() {
         offset: ["start start", "end start"],
     });
 
-
     const heroY = useTransform(
         scrollYProgress,
         [0, 1],
         ["0%", "25%"]
     );
 
-
     /* =====================================================
        DELAY VIDEO MOUNT
     ===================================================== */
 
     useEffect(() => {
-
         const id = requestAnimationFrame(() => {
             setMountVideo(true);
         });
 
         return () => cancelAnimationFrame(id);
-
     }, []);
-
 
     return (
         <>
@@ -130,7 +135,6 @@ export default function Home() {
                 canonical="https://scrollfuel.in/"
             />
 
-
             <main
                 className="
                     bg-white
@@ -140,12 +144,10 @@ export default function Home() {
                     overflow-hidden
                     transition-colors
                     duration-500
-                    
-                    sm:pt-10
                     pt-20
+                    sm:pt-10
                 "
             >
-
 
                 {/* =================================================
                     HERO SECTION
@@ -158,20 +160,13 @@ export default function Home() {
                         w-full
                         overflow-hidden
                         bg-black
-                        
-
                         h-[240px]
                         sm:h-[420px]
                         md:h-screen
                     "
                 >
 
-
-
-
-                    {/* =================================================
-                        VIDEO LOADING BACKGROUND
-                    ================================================= */}
+                    {/* VIDEO LOADING BACKGROUND */}
 
                     {!videoReady && (
                         <div
@@ -184,10 +179,7 @@ export default function Home() {
                         />
                     )}
 
-
-                    {/* =================================================
-                        HERO VIDEO
-                    ================================================= */}
+                    {/* HERO VIDEO */}
 
                     {mountVideo && (
                         <AnimatePresence initial={false}>
@@ -195,7 +187,6 @@ export default function Home() {
                             <motion.video
                                 key={current}
                                 src={VIDEO_SRC}
-
                                 autoPlay
                                 muted
                                 loop
@@ -207,7 +198,6 @@ export default function Home() {
                                 }}
 
                                 variants={slideVariants}
-
                                 initial="enter"
                                 animate="center"
                                 exit="exit"
@@ -233,7 +223,6 @@ export default function Home() {
                                     h-full
                                     object-cover
                                     bg-black
-                                    
                                     pointer-events-none
                                 "
                             />
@@ -243,106 +232,115 @@ export default function Home() {
 
                 </section>
 
-
                 {/* =================================================
                     CLIENTS SECTION
                 ================================================= */}
 
                 <section
-                    className="
+                    className={`
                         bg-white
                         dark:bg-black
                         transition-colors
                         duration-500
-                        
-                    "
+                        ${SECTION_SPACING}
+                    `}
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <ClientsSection />
                     </Suspense>
                 </section>
 
-
                 {/* =================================================
                     SERVICES SECTION
                 ================================================= */}
 
                 <section
-                    className="
+                    className={`
                         bg-white
-                        !dark:bg-black
+                        dark:bg-black
                         transition-colors
                         duration-500
-                        
-                    "
+                        ${SECTION_SPACING}
+                    `}
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <Services />
                     </Suspense>
                 </section>
 
-
                 {/* =================================================
                     ABOUT SECTION
                 ================================================= */}
 
                 <section
-                    className="
+                    className={`
                         bg-white
                         dark:bg-black
                         transition-colors
                         duration-500
-                        
-                    "
+                        ${SECTION_SPACING}
+                    `}
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <About />
                     </Suspense>
                 </section>
 
-
                 {/* =================================================
                     TESTIMONIALS SECTION
                 ================================================= */}
 
+                {/* Uncomment when testimonials are needed */}
+
+                {/*
                 <section
-                    className="
+                    className={`
                         bg-white
                         dark:bg-black
                         transition-colors
                         duration-500
-                        
-                    "
+                        ${SECTION_SPACING}
+                    `}
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <Testimonials />
                     </Suspense>
                 </section>
-                <section
-                    className="
-                        bg-white
-                        dark:bg-black
-                        transition-colors
-                        duration-500
-                        
-                    "
-                >
-                    <Suspense fallback={<SectionLoader />}>
-                        <WorkCTA />
-                    </Suspense>
-                </section>
+                */}
+
+                {/* =================================================
+                    FAQ SECTION
+                ================================================= */}
 
                 <section
-                    className="
+                    className={`
                         bg-white
                         dark:bg-black
                         transition-colors
                         duration-500
-                        
-                    "
+                        ${SECTION_SPACING}
+                    `}
                 >
                     <Suspense fallback={<SectionLoader />}>
                         <FAQ />
+                    </Suspense>
+                </section>
+
+                {/* =================================================
+                    WORK CTA SECTION
+                ================================================= */}
+
+                <section
+                    className={`
+                        bg-white
+                        dark:bg-black
+                        transition-colors
+                        duration-500
+                        ${SECTION_SPACING}
+                    `}
+                >
+                    <Suspense fallback={<SectionLoader />}>
+                        <WorkCTA />
                     </Suspense>
                 </section>
 

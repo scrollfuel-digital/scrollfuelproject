@@ -88,7 +88,7 @@ export const pageSEO = {
   about: {
     h1: "About ScrollFuel – Digital Marketing Company in Nagpur",
     primaryKeyword: "Digital marketing company in Nagpur",
-    title: "About Us | ScrollFuel – Digital Marketing Company in Nagpur",
+    title: "About ScrollFuel",
     description:
       "Learn about ScrollFuel, a digital marketing company in Nagpur offering SEO, PPC, social media, content marketing and branding solutions.",
     canonical: `${SITE_URL}/about-us/`,

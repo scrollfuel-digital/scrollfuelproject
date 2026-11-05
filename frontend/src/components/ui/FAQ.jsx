@@ -1,8 +1,12 @@
+import React, { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus } from "lucide-react";
+
 const faqData = [
     {
-        question: "What does a digital marketing agency in Nagpur do?",
+        question: "Is the ad budget included in your Package?",
         answer:
-            "A digital marketing agency helps your business get found and chosen online. At ScrollFuel, we handle SEO, social media marketing, paid ads, branding, website development and video production, so your business gets more visibility, enquiries and sales.",
+            "No. For paid ads on Google or Meta, there are two separate costs: our fee for planning, setting up and managing the campaigns, and your ad budget, which goes directly to the platform. We explain both clearly before you start, so there are no surprises.",
     },
     {
         question: "How much do digital marketing services cost in Nagpur?",
@@ -20,9 +24,9 @@ const faqData = [
             "Ads bring quick results but stop when your budget stops. SEO builds steady, long-term traffic that keeps working for you. The best approach for most businesses is to use both together, and ScrollFuel manages them as one plan.",
     },
     {
-        question: "How will I know my marketing is working?",
+        question: "Will my business rank first on Google?",
         answer:
-            "We track important numbers such as website traffic, leads, calls and ad performance, and share clear monthly reports. You always know what is working, what is being improved and where your money is going.",
+            "We cannot promise that, and be careful with anyone who does. Google decides the rankings, and results depend on your competition and your website. What we promise is a clear plan, steady work and honest monthly reports, so you always know what is working."
     },
     {
         question: "How do I get started with ScrollFuel?",
@@ -32,6 +36,12 @@ const faqData = [
 ];
 
 const FAQ = () => {
+    const [activeIndex, setActiveIndex] = useState(null);
+
+    const toggleFAQ = (index) => {
+        setActiveIndex(activeIndex === index ? null : index);
+    };
+
     return (
         <section
             id="faq"
@@ -40,9 +50,7 @@ const FAQ = () => {
         >
             <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
 
-                {/* =========================
-            HEADER
-        ========================== */}
+                {/* HEADER */}
                 <div className="mx-auto mb-12 max-w-3xl text-center">
                     <span className="mb-3 inline-block text-sm font-semibold uppercase tracking-[0.2em] text-primary">
                         Frequently Asked Questions
@@ -61,55 +69,96 @@ const FAQ = () => {
                     </p>
                 </div>
 
-                {/* =========================
-            FAQ LIST
-        ========================== */}
-                <div className="space-y-5">
-                    {faqData.map((faq, index) => (
-                        <article
-                            key={faq.question}
-                            className="rounded-2xl dark:border dark:border-gray-800 dark:bg-black px-5 py-6 transition-all duration-300 hover:border-primary sm:px-7 sm:py-7"
-                        >
-                            {/* QUESTION */}
-                            <div className="flex items-start gap-4">
-                                <span className="shrink-0 text-sm font-semibold text-primary">
-                                    {String(index + 1).padStart(2, "0")}
-                                </span>
+                {/* FAQ ACCORDION */}
+                <div className="space-y-4">
+                    {faqData.map((faq, index) => {
+                        const isOpen = activeIndex === index;
 
-                                <h3 className="font-serif text-lg font-semibold leading-7 dark:text-white sm:text-xl">
-                                    {faq.question}
-                                </h3>
-                            </div>
+                        return (
+                            <article
+                                key={faq.question}
+                                className={`rounded-2xl border px-5 sm:px-7 transition-all duration-300
+                                ${isOpen
+                                    ? "border-primary bg-primary/[0.04]"
+                                    : "border-primary hover:border-primary/50"
+                                }`}
+                            >
+                                {/* QUESTION */}
+                                <button
+                                    type="button"
+                                    onClick={() => toggleFAQ(index)}
+                                    aria-expanded={isOpen}
+                                    className="flex w-full items-center justify-between gap-4 py-6 text-left"
+                                >
+                                    <div className="flex items-start gap-4">
+                                        <span className="shrink-0 text-sm font-semibold text-primary">
+                                            {String(index + 1).padStart(2, "0")}
+                                        </span>
 
-                            {/* ANSWER */}
-                            <div className="mt-4 pl-8">
-                                <p className="text-sm leading-7 text-gray-400 sm:text-base">
-                                    {faq.answer}
-                                </p>
-                            </div>
+                                        <h3 className="font-serif text-base font-semibold leading-7 dark:text-white sm:text-xl">
+                                            {faq.question}
+                                        </h3>
+                                    </div>
 
-                            {/* CTA ON LAST FAQ */}
-                            {index === faqData.length - 1 && (
-                                <div className="mt-6 flex flex-wrap gap-3 pl-8">
-                                    <a
-                                        href="tel:+918788430110"
-                                        className="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-primary"
+                                    <span className={`shrink-0 rounded-full p-2 transition-all duration-300
+                                        ${isOpen
+                                            ? "bg-primary text-white rotate-180"
+                                            : "bg-white/5 text-primary"
+                                        }`}
                                     >
-                                        Call Us
-                                    </a>
+                                        {isOpen ? (
+                                            <Minus size={18} />
+                                        ) : (
+                                            <Plus size={18} />
+                                        )}
+                                    </span>
+                                </button>
 
-                                    <a
-                                        href="https://wa.me/918788430110"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="inline-flex items-center rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-primary-contrast"
-                                    >
-                                        WhatsApp Us
-                                    </a>
-                                </div>
-                            )}
-                        </article>
-                    ))}
+                                {/* ANSWER */}
+                                <AnimatePresence initial={false}>
+                                    {isOpen && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: "auto", opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{
+                                                duration: 0.35,
+                                                ease: "easeInOut"
+                                            }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="border-t border-gray-800/70 pb-6 pt-4 pl-8">
+                                                <p className="text-sm leading-7 dark:text-white sm:text-base">
+                                                    {faq.answer}
+                                                </p>
+
+                                                {/* CTA ON LAST FAQ */}
+                                                {index === faqData.length - 1 && (
+                                                    <div className="mt-5 flex flex-wrap gap-3">
+                                                        <a
+                                                            href="tel:+918788430110"
+                                                            className="inline-flex items-center rounded-full bg-primary px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:shadow-lg"
+                                                        >
+                                                            Call Us
+                                                        </a>
+
+                                                        <a
+                                                            href="https://wa.me/918788430110"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="inline-flex items-center rounded-full border border-primary px-5 py-2.5 text-sm font-semibold text-primary transition-all duration-300 hover:bg-primary hover:text-white"
+                                                        >
+                                                            WhatsApp Us
+                                                        </a>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </article>
+                        );
+                    })}
                 </div>
 
             </div>

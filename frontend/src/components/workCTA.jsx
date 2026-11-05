@@ -23,10 +23,7 @@ const WORK = {
 
 const CTA = {
     heading: "Ready to Grow Your Business Online?",
-    paragraphs: [
-        "Whether you're looking to improve your Google visibility in Nagpur, build a better website, or reach customers across wider markets, ScrollFuel is ready to discuss your goals.",
-        "Tell us about your business and what you want to achieve. Let's explore the digital solutions that make sense for you.",
-    ],
+
     button: "Let's Discuss Your Business Goals",
 };
 
@@ -37,7 +34,7 @@ const WorkCTA = React.forwardRef((props, ref) => {
     return (
         <div ref={ref} className="bg-white text-black dark:bg-black dark:text-white overflow-hidden relative">
             {/* ============ WORK INTRO ============ */}
-            <section className="relative py-20 px-8">
+            {/* <section className="relative py-20 px-8">
                 <div
                     className="absolute inset-0 -z-0 pointer-events-none"
                     style={{ background: "radial-gradient(circle at 50% 0%, rgba(139, 197, 63, 0.12), transparent 65%)" }}
@@ -54,7 +51,7 @@ const WorkCTA = React.forwardRef((props, ref) => {
                         {WORK.heading}
                     </motion.h2>
 
-                    {/* Divider */}
+                  
                     <div className="mt-6 flex items-center justify-center gap-3" aria-hidden="true">
                         <motion.span
                             className="h-0.5 w-16 md:w-24 origin-right"
@@ -92,7 +89,6 @@ const WorkCTA = React.forwardRef((props, ref) => {
                         {WORK.description}
                     </motion.p>
 
-                    {/* Topic chips */}
                     <motion.ul
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
@@ -111,70 +107,74 @@ const WorkCTA = React.forwardRef((props, ref) => {
                         ))}
                     </motion.ul>
                 </div>
-            </section>
+            </section> */}
 
-            {/* ============ CTA ============ */}
-            <section className="relative px-8 pb-24">
+           
+            {/* ============ SIMPLE CTA ============ */}
+            <section className="relative px-6 md:px-12 pb-20">
+
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
+                    initial={{ opacity: 0, y: 25 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.25 }}
-                    transition={{ duration: 0.8 }}
-                    className="max-w-6xl mx-auto rounded-3xl p-px"
-                    style={{
-                        background:
-                            "linear-gradient(135deg, rgba(139,197,63,0.9), rgba(255,201,59,0.25) 50%, rgba(139,197,63,0.6))",
-                    }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                    className="
+            max-w-6xl mx-auto
+            rounded-2xl
+            px-8 py-12 md:px-14 md:py-14
+            bg-gray-50 dark:bg-neutral-900
+            border border-gray-200 dark:border-white/10
+            text-center
+        "
                 >
-                    <div
-                        className="relative overflow-hidden rounded-[calc(1.5rem-1px)] px-8 py-14 md:px-16 md:py-20"
-                        style={{ background: "linear-gradient(135deg, #141414 0%, #262626 100%)" }}
+
+                    {/* Heading */}
+                    <h2 className="
+            text-2xl md:text-4xl
+            font-bold
+            leading-tight
+            text-black dark:text-white
+        ">
+                        {CTA.heading}
+                    </h2>
+
+                    {/* Accent Line */}
+                    <div className="
+            w-16 h-1
+            rounded-full
+            bg-primary
+            mx-auto my-6
+        " />
+
+                    {/* Button */}
+                    <Link
+                        to={CONTACT_PATH}
+                        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
+                        className="
+                inline-flex items-center gap-2
+                px-7 py-3.5
+                rounded-full
+                bg-primary
+                text-black
+                text-base font-semibold
+                transition-all duration-300
+                hover:bg-secondary
+                hover:shadow-lg
+                hover:shadow-primary/20
+            "
                     >
-                        {/* Glows */}
-                        <span className="absolute -top-24 -left-24 w-80 h-80 rounded-full bg-primary/15 blur-3xl pointer-events-none" />
-                        <span className="absolute -bottom-28 right-1/4 w-80 h-80 rounded-full bg-secondary/10 blur-3xl pointer-events-none" />
+                        {CTA.button}
 
-                        {/* Decorative rings */}
-                        <div className="hidden lg:block absolute -right-24 top-1/2 -translate-y-1/2 pointer-events-none" aria-hidden="true">
-                            <svg width="420" height="420" viewBox="0 0 420 420" fill="none" strokeWidth="1.5">
-                                <circle cx="210" cy="210" r="200" stroke="var(--color-green)" strokeOpacity="0.25" />
-                                <circle cx="210" cy="210" r="150" stroke="var(--color-yellow)" strokeOpacity="0.25" />
-                                <circle cx="210" cy="210" r="100" stroke="var(--color-green)" strokeOpacity="0.3" />
-                                <circle cx="210" cy="210" r="50" stroke="var(--color-yellow)" strokeOpacity="0.35" />
-                                <circle cx="210" cy="210" r="8" fill="var(--color-green)" />
-                            </svg>
-                        </div>
+                        <ArrowRight
+                            size={18}
+                            className="transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                    </Link>
 
-                        <div className="relative z-10 max-w-3xl">
-                            <h2 className="font-serif text-3xl md:text-5xl font-extrabold leading-tight text-white">
-                                {CTA.heading}
-                            </h2>
-
-                            <span
-                                className="block h-1 w-20 rounded-full my-8"
-                                style={{ background: "linear-gradient(90deg, var(--color-green), var(--color-yellow))" }}
-                            />
-
-                            <div className="space-y-5">
-                                {CTA.paragraphs.map((p, i) => (
-                                    <p key={i} className="text-lg md:text-xl leading-relaxed text-white/75">
-                                        {p}
-                                    </p>
-                                ))}
-                            </div>
-
-                            <Link
-                                to={CONTACT_PATH}
-                                onClick={() => window.scrollTo({ top: 0, left: 0 })}
-                                className="group mt-10 inline-flex items-center gap-3 bg-primary text-black font-bold text-lg px-8 py-4 rounded-full shadow-primary hover-shadow-primary transition-all duration-300 hover:scale-105"
-                            >
-                                {CTA.button}
-                                <ArrowRight size={20} className="transition-transform duration-300 group-hover:translate-x-1.5" />
-                            </Link>
-                        </div>
-                    </div>
                 </motion.div>
+
             </section>
+            
         </div>
     );
 });

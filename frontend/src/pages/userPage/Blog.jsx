@@ -360,14 +360,11 @@ const PageHeading = ({ heading }) => (
     transition={{ duration: 0.7 }}
     className="border-b border-stone-200 dark:border-stone-800 bg-white dark:bg-black py-10 md:py-14"
   >
-    <h1 className="text-4xl md:text-5xl font-bold text-center mb-4 font-serif text-primary dark:text-white">
-      {heading.h1}
-    </h1>
 
-    <p className="max-w-2xl mx-auto px-6 text-center text-sm md:text-base leading-relaxed text-stone-600 dark:text-stone-400">
+    <h2 className="max-w-2xl mx-auto px-6 text-center text-lg md:text-2xl font-bold leading-relaxed text-stone-600 dark:text-stone-400">
       Explore digital marketing insights, SEO strategies, PPC tips, and social
       media trends to grow your business online.
-    </p>
+    </h2>
   </motion.header>
 );
 

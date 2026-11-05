@@ -71,14 +71,14 @@ const ClientsSection = React.forwardRef((props, ref) => {
             </div>
 
             {/* Content */}
-            <div className="relative z-10 py">
+            <div className="relative z-10 ">
                 <motion.h4
                     ref={counterRef}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
                     viewport={{ once: true }}
-                    className="text-center text-lg sm:text-xl md:text-2xl dark:text-black font-bold "
+                    className="text-center text-lg sm:text-xl md:text-4xl dark:text-black font-bold "
                 >
                     Over{" "}
                     <span className="text-primary font-bold">
@@ -88,7 +88,7 @@ const ClientsSection = React.forwardRef((props, ref) => {
                 </motion.h4>
 
                 {/* <div className="w-full overflow-hidden backdrop-blur-sm"> */}
-                <div className="w-full overflow-hidden">
+                <div className="w-full overflow-hidden mt-10">
                     <motion.div
                         animate={{ x: ["0%", "-60%"] }}
                         transition={{
